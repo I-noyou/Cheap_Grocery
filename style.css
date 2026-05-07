@@ -32,6 +32,21 @@ nav a:hover {
     padding: 20px;
 }
 
+.search-container {
+    text-align: center;
+    margin: 15px 0 25px 0;
+}
+
+#search {
+    width: 90%;
+    max-width: 420px;
+    padding: 10px 14px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+
 .product {
     background: white;
     padding: 15px;

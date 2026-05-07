@@ -15,6 +15,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.body.insertBefore(cartDisplay, document.body.firstChild);
 
+    // Search bar filtering
+    const searchInput = document.getElementById("search");
+    if (searchInput) {
+        searchInput.addEventListener("input", (e) => {
+            const query = e.target.value.trim().toLowerCase();
+            const products = document.querySelectorAll(".product");
+            products.forEach((p) => {
+                const titleEl = p.querySelector("h3");
+                const title = titleEl ? titleEl.innerText.toLowerCase() : "";
+                if (title.indexOf(query) !== -1) {
+                    p.style.display = "inline-block";
+                } else {
+                    p.style.display = "none";
+                }
+            });
+        });
+    }
+
     // Add click event to each button
     buttons.forEach((btn) => {
         btn.addEventListener("click", () => {

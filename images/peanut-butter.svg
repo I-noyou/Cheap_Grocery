@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Peanut Butter">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8e7d0"/>
+      <stop offset="100%" stop-color="#d9b48f"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" rx="40" fill="url(#bg)"/>
+  <rect x="210" y="95" width="380" height="380" rx="42" fill="#fffaf4" opacity="0.94"/>
+  <rect x="300" y="175" width="200" height="220" rx="28" fill="#9f5f35"/>
+  <rect x="320" y="150" width="160" height="50" rx="18" fill="#e6c3a5"/>
+  <rect x="325" y="230" width="150" height="55" rx="16" fill="#f2d7b7"/>
+  <text x="400" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="36" font-weight="700" fill="#7b431f">PB</text>
+  <text x="400" y="430" text-anchor="middle" font-family="Arial, sans-serif" font-size="52" font-weight="700" fill="#7b4d2f">Peanut Butter</text>
+</svg>

@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const selectedProductsList = document.getElementById("selected-products-list");
     const emptyCartMessage = document.getElementById("empty-cart-msg");
+    const cartPanel = document.querySelector(".cart-panel");
 
     let currentProduct = null;
 
@@ -108,6 +109,9 @@ document.addEventListener("DOMContentLoaded", () => {
             if (emptyCartMessage) {
                 emptyCartMessage.style.display = "none";
             }
+            if (cartPanel) {
+                cartPanel.classList.remove("is-hidden");
+            }
 
             closeModal();
         });
@@ -144,6 +148,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (emptyCartMessage && selectedProductsList.children.length === 0) {
                 emptyCartMessage.style.display = "block";
+                if (cartPanel) {
+                    cartPanel.classList.add("is-hidden");
+                }
             }
         });
     }

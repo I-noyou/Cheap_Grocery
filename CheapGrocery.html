@@ -22,76 +22,101 @@
 </nav>
 
 <div class="container">
+    <div class="shop-layout">
+        <section class="products-section">
+            <h2>Popular Items</h2>
 
-    <h2>Popular Items</h2>
+            <div class="search-container">
+                <input type="search" id="search" placeholder="Search items..." aria-label="Search items">
+            </div>
 
-    <div class="search-container">
-        <input type="search" id="search" placeholder="Search items..." aria-label="Search items">
+            <div class="products-grid">
+                <div class="product">
+                    <img src="images/Rice.jpg" alt="Rice" loading="lazy">
+                    <h3>Rice</h3>
+                    <p>₹50 / kg</p>
+                    <button class="add-cart">Add to Cart</button>
+                </div>
+
+                <div class="product">
+                    <img src="images/Milk.jpg" alt="Milk" loading="lazy">
+                    <h3>Milk</h3>
+                    <p>₹30 / liter</p>
+                    <button class="add-cart">Add to Cart</button>
+                </div>
+
+                <div class="product">
+                    <img src="images/Vegetables.jpg" alt="Vegetables" loading="lazy">
+                    <h3>Vegetables</h3>
+                    <p>₹20 / pack</p>
+                    <button class="add-cart">Add to Cart</button>
+                </div>
+
+                <div class="product">
+                    <img src="images/Mushroom.jpg" alt="Mushroom" loading="lazy">
+                    <h3>Mushroom</h3>
+                    <p>₹140 / Kg</p>
+                    <button class="add-cart">Add to Cart</button>
+                </div>
+
+                <div class="product">
+                    <img src="images/Sugar.jpg" alt="Sugar" loading="lazy">
+                    <h3>Sugar</h3>
+                    <p>₹40 / kg</p>
+                    <button class="add-cart">Add to Cart</button>
+                </div>
+
+                <div class="product">
+                    <img src="images/Peanut-Butter.jpg" alt="Peanut Butter" loading="lazy">
+                    <h3>Peanut Butter</h3>
+                    <p>₹208 / jar</p>
+                    <button class="add-cart">Add to Cart</button>
+                </div>
+
+                <div class="product">
+                    <img src="images/Cooking Oil.jpg" alt="Cooking Oil" loading="lazy">
+                    <h3>Cooking Oil</h3>
+                    <p>₹120 / liter</p>
+                    <button class="add-cart">Add to Cart</button>
+                </div>
+
+                <div class="product">
+                    <img src="images/Amul Butter.jpg" alt="Amul Butter" loading="lazy">
+                    <h3>Amul Butter</h3>
+                    <p>₹20 / pack</p>
+                    <button class="add-cart">Add to Cart</button>
+                </div>
+
+                <div class="product">
+                    <img src="images/Body Lotion.jpg" alt="Body Lotion" loading="lazy">
+                    <h3>Body Lotion</h3>
+                    <p>₹150 / bottle</p>
+                    <button class="add-cart">Add to Cart</button>
+                </div>
+            </div>
+        </section>
+
+        <aside class="cart-panel" aria-live="polite">
+            <h3>Selected Products</h3>
+            <p id="empty-cart-msg">No products selected yet.</p>
+            <ul id="selected-products-list"></ul>
+        </aside>
     </div>
+</div>
 
-    <div class="product">
-        <img src="images/Rice.jpg" alt="Rice" loading="lazy">
-        <h3>Rice</h3>
-        <p>₹50 / kg</p>
-        <button>Add to Cart</button>
+<div id="cart-modal" class="cart-modal" aria-hidden="true">
+    <div class="cart-modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-product-name">
+        <button id="close-modal" class="close-modal" aria-label="Close">&times;</button>
+        <h3>Add Product</h3>
+        <img id="modal-product-image" src="" alt="Selected product image" loading="lazy">
+        <p id="modal-product-name"></p>
+        <p id="modal-product-price" class="modal-price"></p>
+
+        <label for="modal-quantity">How much quantity do you need?</label>
+        <input type="number" id="modal-quantity" min="1" value="1">
+
+        <button id="add-to-list-btn" class="add-list-btn">Add to List</button>
     </div>
-
-    <div class="product">
-        <img src="images/Milk.jpg" alt="Milk" loading="lazy">
-        <h3>Milk</h3>
-        <p>₹30 / liter</p>
-        <button>Add to Cart</button>
-    </div>
-
-    <div class="product">
-        <img src="images/Vegetables.jpg" alt="Vegetables" loading="lazy">
-        <h3>Vegetables</h3>
-        <p>₹20 / pack</p>
-        <button>Add to Cart</button>
-    </div>
-
-    <div class="product">
-        <img src="images/Mushroom.jpg" alt="Mushroom" loading="lazy">
-        <h3>Mushroom</h3>
-        <p>₹140 / Kg</p>
-        <button>Add to Cart</button>
-    </div>
-
-    <div class="product">
-    <img src="images/Sugar.jpg" alt="Sugar" loading="lazy">
-    <h3>Sugar</h3>
-    <p>₹40 / kg</p>
-    <button class="add-cart">Add to Cart</button>
-    </div>
-
-     <div class="product">
-    <img src="images/Peanut-Butter.jpg" alt="Peanut Butter" loading="lazy">
-    <h3>Peanut Butter</h3>
-    <p>208</p>
-    <button class="add-cart">Add to Cart</button>
-    </div>
-
-    <div class="product">
-    <img src="images/Cooking Oil.jpg" alt="Cooking Oil" loading="lazy">
-    <h3>Cooking Oil</h3>
-    <p>₹120 / liter</p>
-    <button class="add-cart">Add to Cart</button>
-    </div>
-
-    <div class="product">
-    <img src="images/Amul Butter.jpg" alt="Amul Butter" loading="lazy">
-    <h3>Amul Butter</h3>
-    <p>₹20 / liter</p>
-    <button class="add-cart">Add to Cart</button>
-    </div>
-
-    <div class="product">
-    <img src="images/Body Lotion.jpg" alt="Body Lotion" loading="lazy">
-    <h3>Body Lotion</h3>
-    <p>₹150 / liter</p>
-    <button class="add-cart">Add to Cart</button>
-    </div>
-
 </div>
 
 <footer>

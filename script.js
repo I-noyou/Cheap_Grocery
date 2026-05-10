@@ -1,19 +1,19 @@
 // Wait until page loads
 document.addEventListener("DOMContentLoaded", () => {
-
-    // Select all Add to Cart buttons
     const buttons = document.querySelectorAll(".add-cart");
+    const modal = document.getElementById("cart-modal");
+    const closeModalButton = document.getElementById("close-modal");
+    const addToListButton = document.getElementById("add-to-list-btn");
 
-    let cartCount = 0;
+    const modalProductImage = document.getElementById("modal-product-image");
+    const modalProductName = document.getElementById("modal-product-name");
+    const modalProductPrice = document.getElementById("modal-product-price");
+    const modalQuantity = document.getElementById("modal-quantity");
 
-    // Create cart display at top
-    const cartDisplay = document.createElement("h3");
-    cartDisplay.innerText = "🛒 Cart Items: 0";
-    cartDisplay.style.textAlign = "center";
-    cartDisplay.style.background = "#fff";
-    cartDisplay.style.padding = "10px";
+    const selectedProductsList = document.getElementById("selected-products-list");
+    const emptyCartMessage = document.getElementById("empty-cart-msg");
 
-    document.body.insertBefore(cartDisplay, document.body.firstChild);
+    let currentProduct = null;
 
     // Search bar filtering
     const searchInput = document.getElementById("search");
@@ -33,13 +33,95 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Add click event to each button
+    function openModal() {
+        if (!modal) {
+            return;
+        }
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+    }
+
+    function closeModal() {
+        if (!modal) {
+            return;
+        }
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
+    }
+
     buttons.forEach((btn) => {
         btn.addEventListener("click", () => {
-            cartCount++;
-            cartDisplay.innerText = "🛒 Cart Items: " + cartCount;
-            alert("Item added to cart!");
+            const productCard = btn.closest(".product");
+            if (!productCard) {
+                return;
+            }
+
+            const image = productCard.querySelector("img");
+            const name = productCard.querySelector("h3");
+            const price = productCard.querySelector("p");
+
+            currentProduct = {
+                imageSrc: image ? image.getAttribute("src") : "",
+                imageAlt: image ? image.getAttribute("alt") : "Product",
+                name: name ? name.innerText : "Product",
+                price: price ? price.innerText : ""
+            };
+
+            if (modalProductImage) {
+                modalProductImage.src = currentProduct.imageSrc;
+                modalProductImage.alt = currentProduct.imageAlt;
+            }
+
+            if (modalProductName) {
+                modalProductName.innerText = currentProduct.name;
+            }
+
+            if (modalProductPrice) {
+                modalProductPrice.innerText = currentProduct.price;
+            }
+
+            if (modalQuantity) {
+                modalQuantity.value = "1";
+            }
+
+            openModal();
         });
     });
+
+    if (addToListButton) {
+        addToListButton.addEventListener("click", () => {
+            if (!currentProduct || !selectedProductsList || !modalQuantity) {
+                return;
+            }
+
+            const quantity = Math.max(1, parseInt(modalQuantity.value, 10) || 1);
+            const listItem = document.createElement("li");
+            listItem.className = "selected-item";
+
+            listItem.innerHTML = `
+                <img src="${currentProduct.imageSrc}" alt="${currentProduct.imageAlt}">
+                <p class="selected-item-text">${currentProduct.name} x ${quantity}<br><small>${currentProduct.price}</small></p>
+            `;
+
+            selectedProductsList.appendChild(listItem);
+            if (emptyCartMessage) {
+                emptyCartMessage.style.display = "none";
+            }
+
+            closeModal();
+        });
+    }
+
+    if (closeModalButton) {
+        closeModalButton.addEventListener("click", closeModal);
+    }
+
+    if (modal) {
+        modal.addEventListener("click", (event) => {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+    }
 
 });

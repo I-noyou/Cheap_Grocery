@@ -101,6 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
             listItem.innerHTML = `
                 <img src="${currentProduct.imageSrc}" alt="${currentProduct.imageAlt}">
                 <p class="selected-item-text">${currentProduct.name} x ${quantity}<br><small>${currentProduct.price}</small></p>
+                <button class="remove-item-btn" aria-label="Remove item">X</button>
             `;
 
             selectedProductsList.appendChild(listItem);
@@ -120,6 +121,29 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.addEventListener("click", (event) => {
             if (event.target === modal) {
                 closeModal();
+            }
+        });
+    }
+
+    if (selectedProductsList) {
+        selectedProductsList.addEventListener("click", (event) => {
+            const target = event.target;
+            if (!(target instanceof HTMLElement)) {
+                return;
+            }
+
+            const removeButton = target.closest(".remove-item-btn");
+            if (!removeButton) {
+                return;
+            }
+
+            const item = removeButton.closest(".selected-item");
+            if (item) {
+                item.remove();
+            }
+
+            if (emptyCartMessage && selectedProductsList.children.length === 0) {
+                emptyCartMessage.style.display = "block";
             }
         });
     }

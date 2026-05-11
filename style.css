@@ -30,6 +30,8 @@ nav a:hover {
 
 .container {
     padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 .shop-layout {
@@ -40,11 +42,15 @@ nav a:hover {
 
 .products-section {
     flex: 1;
+    width: 100%;
+    min-width: 0;
 }
 
 .products-grid {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    width: 100%;
 }
 
 .search-container {
@@ -53,22 +59,20 @@ nav a:hover {
 }
 
 #search {
-    width: 90%;
-    max-width: 420px;
+    width: 100%;
+    max-width: 500px;
     padding: 10px 14px;
     border: 1px solid #ddd;
     border-radius: 6px;
     font-size: 16px;
     box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    box-sizing: border-box;
 }
 
 .product {
     background: white;
     padding: 15px;
-    margin: 10px;
     border-radius: 8px;
-    display: inline-block;
-    width: 200px;
     text-align: center;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
@@ -259,26 +263,53 @@ footer {
     color: #000;
 }
 
+@media (max-width: 1024px) {
+    .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+}
+
 @media (max-width: 900px) {
     .shop-layout {
         flex-direction: column;
     }
 
     .cart-panel {
-        width: auto;
+        width: 100%;
         position: static;
     }
 
-    .product {
-        width: calc(50% - 20px);
-        box-sizing: border-box;
+    .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     }
 }
 
-@media (max-width: 520px) {
+@media (max-width: 640px) {
+    .container {
+        padding: 15px;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 15px;
+    }
+
     .product {
-        width: 100%;
-        margin-left: 0;
-        margin-right: 0;
+        padding: 12px;
+    }
+
+    .shop-layout {
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    nav a {
+        margin: 5px;
+        font-size: 14px;
     }
 }

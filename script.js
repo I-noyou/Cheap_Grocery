@@ -16,6 +16,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let currentProduct = null;
 
+     function updateTotalAmount() {
+        const items = document.querySelectorAll(".selected-item");
+        let total = 0;
+
+        items.forEach((item) => {
+            const priceText = item.querySelector(".selected-item-text small");
+            if (priceText) {
+                const priceStr = priceText.innerText.trim();
+                const priceMatch = priceStr.match(/₹([\d.]+)/);
+                if (priceMatch) {
+                    const price = parseFloat(priceMatch[1]);
+                    const quantityText = item.querySelector(".selected-item-text").innerText;
+                    const quantityMatch = quantityText.match(/x\s(\d+)/);
+                    const quantity = quantityMatch ? parseInt(quantityMatch[1]) : 1;
+                    total += price * quantity;
+                }
+            }
+        });
+
+        const totalAmountEl = document.getElementById("total-amount");
+        const totalSectionEl = document.getElementById("cart-total-section");
+        if (totalAmountEl) {
+            totalAmountEl.innerText = "₹" + total.toFixed(2);
+        }
+        if (totalSectionEl) {
+            totalSectionEl.style.display = items.length > 0 ? "block" : "none";
+        }
+    }
+    
     // Search bar filtering
     const searchInput = document.getElementById("search");
     if (searchInput) {

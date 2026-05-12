@@ -85,12 +85,27 @@ nav a:hover {
     justify-content: center;
     border-radius: 0 6px 6px 0;
     padding: 0;
+    border: 1px solid #ddd;
+    border-left: none;
 }
 
 .search-btn svg {
     width: 20px;
     height: 20px;
     fill: currentColor;
+}
+
+#search:focus {
+    outline: none;
+}
+
+.search-box:focus-within #search {
+    border-color: #000;
+}
+
+.search-box:focus-within .search-btn {
+    border-color: #000;
+    border-left: none;
 }
 
 .product {

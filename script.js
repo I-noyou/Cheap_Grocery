@@ -44,6 +44,8 @@ document.addEventListener("DOMContentLoaded", () => {
             totalSectionEl.style.display = items.length > 0 ? "block" : "none";
         }
     }
+    // Update total on initial load in case there are pre-filled items
+    updateTotalAmount();
     
     // Search bar filtering
     const searchInput = document.getElementById("search");
@@ -142,6 +144,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 cartPanel.classList.remove("is-hidden");
             }
 
+            // Recalculate total after adding
+            updateTotalAmount();
+
             closeModal();
         });
     }
@@ -173,6 +178,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const item = removeButton.closest(".selected-item");
             if (item) {
                 item.remove();
+                // Recalculate total after removal
+                updateTotalAmount();
             }
 
             if (emptyCartMessage && selectedProductsList.children.length === 0) {

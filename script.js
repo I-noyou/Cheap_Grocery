@@ -15,8 +15,26 @@ document.addEventListener("DOMContentLoaded", () => {
     const cartPanel = document.querySelector(".cart-panel");
 
     let currentProduct = null;
+    let selectedProducts = [];
 
-     function updateTotalAmount() {
+    function saveToStorage() {
+        try {
+            localStorage.setItem('cheap_grocery_selected_products', JSON.stringify(selectedProducts));
+        } catch (e) {
+            console.warn('Could not save to localStorage', e);
+        }
+    }
+
+    function loadFromStorage() {
+        try {
+            const raw = localStorage.getItem('cheap_grocery_selected_products');
+            selectedProducts = raw ? JSON.parse(raw) : [];
+        } catch (e) {
+            selectedProducts = [];
+        }
+    }
+
+    function updateTotalAmount() {
         const items = document.querySelectorAll(".selected-item");
         let total = 0;
 
@@ -44,8 +62,35 @@ document.addEventListener("DOMContentLoaded", () => {
             totalSectionEl.style.display = items.length > 0 ? "block" : "none";
         }
     }
-    // Update total on initial load in case there are pre-filled items
-    updateTotalAmount();
+
+    // Load persisted list from storage and render
+    loadFromStorage();
+    function renderSelectedProducts() {
+        if (!selectedProductsList) return;
+        selectedProductsList.innerHTML = '';
+        if (selectedProducts.length === 0) {
+            if (emptyCartMessage) emptyCartMessage.style.display = 'block';
+            if (cartPanel) cartPanel.classList.add('is-hidden');
+        } else {
+            if (emptyCartMessage) emptyCartMessage.style.display = 'none';
+            if (cartPanel) cartPanel.classList.remove('is-hidden');
+        }
+
+        selectedProducts.forEach((p, idx) => {
+            const li = document.createElement('li');
+            li.className = 'selected-item';
+            li.innerHTML = `
+                <img src="${p.imageSrc}" alt="${p.imageAlt}">
+                <p class="selected-item-text">${p.name} x ${p.quantity}<br><small>₹${p.unitPrice.toFixed(2)}</small></p>
+                <button class="remove-item-btn" data-index="${idx}" aria-label="Remove item">X</button>
+            `;
+            selectedProductsList.appendChild(li);
+        });
+
+        updateTotalAmount();
+    }
+
+    renderSelectedProducts();
     
     // Search bar filtering
     const searchInput = document.getElementById("search");
@@ -122,31 +167,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (addToListButton) {
         addToListButton.addEventListener("click", () => {
-            if (!currentProduct || !selectedProductsList || !modalQuantity) {
+            if (!currentProduct || !modalQuantity) {
                 return;
             }
 
             const quantity = Math.max(1, parseInt(modalQuantity.value, 10) || 1);
-            const listItem = document.createElement("li");
-            listItem.className = "selected-item";
 
-            listItem.innerHTML = `
-                <img src="${currentProduct.imageSrc}" alt="${currentProduct.imageAlt}">
-                <p class="selected-item-text">${currentProduct.name} x ${quantity}<br><small>${currentProduct.price}</small></p>
-                <button class="remove-item-btn" aria-label="Remove item">X</button>
-            `;
+            // parse numeric unit price from currentProduct.price (e.g. "₹50 / kg")
+            const priceMatch = (currentProduct.price || '').match(/₹\s*([\d.]+)/);
+            const unitPrice = priceMatch ? parseFloat(priceMatch[1]) : 0;
 
-            selectedProductsList.appendChild(listItem);
-            if (emptyCartMessage) {
-                emptyCartMessage.style.display = "none";
-            }
-            if (cartPanel) {
-                cartPanel.classList.remove("is-hidden");
-            }
+            selectedProducts.push({
+                imageSrc: currentProduct.imageSrc,
+                imageAlt: currentProduct.imageAlt,
+                name: currentProduct.name,
+                unitPrice: unitPrice,
+                quantity: quantity
+            });
 
-            // Recalculate total after adding
-            updateTotalAmount();
-
+            saveToStorage();
+            renderSelectedProducts();
             closeModal();
         });
     }
@@ -164,29 +204,73 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (selectedProductsList) {
-        selectedProductsList.addEventListener("click", (event) => {
+        selectedProductsList.addEventListener('click', (event) => {
             const target = event.target;
-            if (!(target instanceof HTMLElement)) {
-                return;
-            }
+            if (!(target instanceof HTMLElement)) return;
 
-            const removeButton = target.closest(".remove-item-btn");
-            if (!removeButton) {
-                return;
-            }
+            const removeButton = target.closest('.remove-item-btn');
+            if (!removeButton) return;
 
-            const item = removeButton.closest(".selected-item");
-            if (item) {
-                item.remove();
-                // Recalculate total after removal
-                updateTotalAmount();
+            const idx = parseInt(removeButton.getAttribute('data-index'), 10);
+            if (!Number.isNaN(idx)) {
+                selectedProducts.splice(idx, 1);
+                saveToStorage();
+                renderSelectedProducts();
             }
+        });
+    }
 
-            if (emptyCartMessage && selectedProductsList.children.length === 0) {
-                emptyCartMessage.style.display = "block";
-                if (cartPanel) {
-                    cartPanel.classList.add("is-hidden");
-                }
+    // Cart action buttons: save, download, clear
+    const saveListBtn = document.getElementById('save-list-btn');
+    const downloadCsvBtn = document.getElementById('download-csv-btn');
+    const clearListBtn = document.getElementById('clear-list-btn');
+
+    function downloadCSV() {
+        if (selectedProducts.length === 0) return;
+        const header = ['Name', 'Quantity', 'Unit Price', 'Total'];
+        const rows = selectedProducts.map(p => [p.name, p.quantity, p.unitPrice.toFixed(2), (p.unitPrice * p.quantity).toFixed(2)]);
+        const csvContent = [header].concat(rows).map(r => r.join(',')).join('\n');
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'cheap_grocery_list.csv';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+    }
+
+    function clearList() {
+        selectedProducts = [];
+        saveToStorage();
+        renderSelectedProducts();
+    }
+
+    if (downloadCsvBtn) {
+        downloadCsvBtn.addEventListener('click', downloadCSV);
+    }
+
+    if (clearListBtn) {
+        clearListBtn.addEventListener('click', () => {
+            if (confirm('Clear all selected products from the list?')) {
+                clearList();
+            }
+        });
+    }
+
+    if (saveListBtn) {
+        saveListBtn.addEventListener('click', () => {
+            const name = prompt('Enter a name for this list (optional):', 'My grocery list');
+            try {
+                const savedRaw = localStorage.getItem('cheap_grocery_saved_lists');
+                const saved = savedRaw ? JSON.parse(savedRaw) : {};
+                const key = name ? name : ('List ' + new Date().toISOString());
+                saved[key] = selectedProducts;
+                localStorage.setItem('cheap_grocery_saved_lists', JSON.stringify(saved));
+                alert('List saved locally under "' + key + '"');
+            } catch (e) {
+                alert('Could not save list: ' + e.message);
             }
         });
     }

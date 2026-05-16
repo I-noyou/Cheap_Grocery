@@ -230,6 +230,28 @@ footer {
     padding-top: 12px;
 }
 
+.cart-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.small-btn {
+    background: #ffffff;
+    color: #2ecc71;
+    border: 1px solid #2ecc71;
+    padding: 6px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.small-btn:hover {
+    background: #2ecc71;
+    color: white;
+}
+
 .cart-total hr {
     border: none;
     border-top: 1px solid #e0e0e0;

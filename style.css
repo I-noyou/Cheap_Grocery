@@ -59,6 +59,13 @@ nav a:hover {
     margin: 15px 0 25px 0;
 }
 
+.bulk-list-controls {
+    display: flex;
+    gap: 10px;
+    margin: 0 0 18px 0;
+    flex-wrap: wrap;
+}
+
 .search-box {
     width: 100%;
     max-width: 500px;
@@ -116,6 +123,28 @@ nav a:hover {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
     border: 1px solid transparent;
+    position: relative;
+}
+
+.bulk-select-label {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #dfe6df;
+    border-radius: 6px;
+    padding: 3px 6px;
+    font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.bulk-select-checkbox {
+    width: 14px;
+    height: 14px;
+    accent-color: #2ecc71;
+    cursor: pointer;
 }
 
 .product img {
@@ -373,6 +402,10 @@ footer {
 @media (max-width: 640px) {
     .container {
         padding: 15px;
+    }
+
+    .bulk-list-controls {
+        justify-content: center;
     }
 
     .products-grid {

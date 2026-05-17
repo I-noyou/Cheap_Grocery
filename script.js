@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const selectedProductsList = document.getElementById("selected-products-list");
     const emptyCartMessage = document.getElementById("empty-cart-msg");
     const cartPanel = document.querySelector(".cart-panel");
+    const makeListBtn = document.getElementById("make-list-btn");
+    const clearSelectionBtn = document.getElementById("clear-selection-btn");
 
     let currentProduct = null;
     let selectedProducts = [];
@@ -126,6 +128,61 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.setAttribute("aria-hidden", "true");
     }
 
+    function extractUnitPrice(priceText) {
+        const priceMatch = (priceText || "").match(/₹\s*([\d.]+)/);
+        return priceMatch ? parseFloat(priceMatch[1]) : 0;
+    }
+
+    function addProductToSelection(product, quantity) {
+        const safeQuantity = Math.max(1, parseInt(quantity, 10) || 1);
+        const existing = selectedProducts.find((item) => (
+            item.name === product.name && item.unitPrice === product.unitPrice
+        ));
+
+        if (existing) {
+            existing.quantity += safeQuantity;
+        } else {
+            selectedProducts.push({
+                imageSrc: product.imageSrc,
+                imageAlt: product.imageAlt,
+                name: product.name,
+                unitPrice: product.unitPrice,
+                quantity: safeQuantity
+            });
+        }
+    }
+
+    function addBulkSelectionCheckboxes() {
+        const productCards = document.querySelectorAll(".product");
+        productCards.forEach((card) => {
+            if (card.querySelector(".bulk-select-label")) return;
+
+            const label = document.createElement("label");
+            label.className = "bulk-select-label";
+
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.className = "bulk-select-checkbox";
+            checkbox.setAttribute("aria-label", "Select product for list");
+
+            const text = document.createElement("span");
+            text.innerText = "Select";
+
+            label.appendChild(checkbox);
+            label.appendChild(text);
+            card.appendChild(label);
+        });
+    }
+
+    function clearBulkSelection() {
+        const checkboxes = document.querySelectorAll(".bulk-select-checkbox");
+        checkboxes.forEach((checkbox) => {
+            checkbox.checked = false;
+        });
+    }
+
+    addBulkSelectionCheckboxes();
+
     buttons.forEach((btn) => {
         btn.addEventListener("click", () => {
             const productCard = btn.closest(".product");
@@ -173,17 +230,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const quantity = Math.max(1, parseInt(modalQuantity.value, 10) || 1);
 
-            // parse numeric unit price from currentProduct.price (e.g. "₹50 / kg")
-            const priceMatch = (currentProduct.price || '').match(/₹\s*([\d.]+)/);
-            const unitPrice = priceMatch ? parseFloat(priceMatch[1]) : 0;
-
-            selectedProducts.push({
+            addProductToSelection({
                 imageSrc: currentProduct.imageSrc,
                 imageAlt: currentProduct.imageAlt,
                 name: currentProduct.name,
-                unitPrice: unitPrice,
-                quantity: quantity
-            });
+                unitPrice: extractUnitPrice(currentProduct.price)
+            }, quantity);
 
             saveToStorage();
             renderSelectedProducts();
@@ -273,6 +325,40 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert('Could not save list: ' + e.message);
             }
         });
+    }
+
+    if (makeListBtn) {
+        makeListBtn.addEventListener("click", () => {
+            const selectedCards = document.querySelectorAll(".product .bulk-select-checkbox:checked");
+            if (selectedCards.length === 0) {
+                alert("Please select at least one product first.");
+                return;
+            }
+
+            selectedCards.forEach((checkbox) => {
+                const productCard = checkbox.closest(".product");
+                if (!productCard) return;
+
+                const image = productCard.querySelector("img");
+                const name = productCard.querySelector("h3");
+                const price = productCard.querySelector("p");
+
+                addProductToSelection({
+                    imageSrc: image ? image.getAttribute("src") : "",
+                    imageAlt: image ? image.getAttribute("alt") : "Product",
+                    name: name ? name.innerText : "Product",
+                    unitPrice: extractUnitPrice(price ? price.innerText : "")
+                }, 1);
+            });
+
+            saveToStorage();
+            renderSelectedProducts();
+            clearBulkSelection();
+        });
+    }
+
+    if (clearSelectionBtn) {
+        clearSelectionBtn.addEventListener("click", clearBulkSelection);
     }
 
 });

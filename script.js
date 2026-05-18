@@ -1,5 +1,175 @@
 // Wait until page loads
 document.addEventListener("DOMContentLoaded", () => {
+    const authScreen = document.getElementById("auth-screen");
+    const appShell = document.getElementById("app-shell");
+    const authForm = document.getElementById("auth-form");
+    const signupToggle = document.getElementById("signup-toggle");
+    const loginToggle = document.getElementById("login-toggle");
+    const authSubtitle = document.getElementById("auth-subtitle");
+    const authSubmitBtn = document.getElementById("auth-submit-btn");
+    const authMessage = document.getElementById("auth-message");
+    const authName = document.getElementById("auth-name");
+    const authEmail = document.getElementById("auth-email");
+    const authPassword = document.getElementById("auth-password");
+    const welcomeText = document.getElementById("welcome-text");
+    const logoutBtn = document.getElementById("logout-btn");
+
+    const USER_DATA_KEY = "cheap_grocery_user_data";
+    const SESSION_KEY = "cheap_grocery_is_logged_in";
+
+    let authMode = "signup";
+
+    function getStoredUser() {
+        try {
+            const raw = localStorage.getItem(USER_DATA_KEY);
+            return raw ? JSON.parse(raw) : null;
+        } catch (error) {
+            return null;
+        }
+    }
+
+    function setAuthMessage(message, isError = true) {
+        if (!authMessage) return;
+        authMessage.innerText = message || "";
+        authMessage.style.color = isError ? "#d35400" : "#1f8b4c";
+    }
+
+    function showApp(user) {
+        if (authScreen) authScreen.classList.add("is-hidden");
+        if (appShell) appShell.classList.remove("is-hidden");
+        if (welcomeText) {
+            const safeName = user && user.userName ? user.userName : "User";
+            welcomeText.innerText = `Welcome, ${safeName}!`;
+        }
+    }
+
+    function showAuth() {
+        if (authScreen) authScreen.classList.remove("is-hidden");
+        if (appShell) appShell.classList.add("is-hidden");
+    }
+
+    function applyAuthMode(mode) {
+        authMode = mode;
+        const isSignup = mode === "signup";
+
+        if (signupToggle) {
+            signupToggle.classList.toggle("active", isSignup);
+            signupToggle.setAttribute("aria-selected", isSignup ? "true" : "false");
+        }
+        if (loginToggle) {
+            loginToggle.classList.toggle("active", !isSignup);
+            loginToggle.setAttribute("aria-selected", !isSignup ? "true" : "false");
+        }
+
+        if (authName) {
+            authName.required = isSignup;
+            authName.style.display = isSignup ? "block" : "none";
+            const nameLabel = authName.previousElementSibling;
+            if (nameLabel && nameLabel.tagName === "LABEL") {
+                nameLabel.style.display = isSignup ? "block" : "none";
+            }
+        }
+
+        if (authSubmitBtn) {
+            authSubmitBtn.innerText = isSignup ? "Create Account" : "Login";
+        }
+        if (authSubtitle) {
+            authSubtitle.innerText = isSignup
+                ? "Create your account to compare grocery prices."
+                : "Welcome back. Login to continue comparing grocery prices.";
+        }
+
+        setAuthMessage("");
+    }
+
+    function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function handleAuthSubmit(event) {
+        event.preventDefault();
+
+        const userName = authName ? authName.value.trim() : "";
+        const email = authEmail ? authEmail.value.trim().toLowerCase() : "";
+        const password = authPassword ? authPassword.value.trim() : "";
+
+        if (!email || !password || (authMode === "signup" && !userName)) {
+            setAuthMessage("Please fill in all required fields.");
+            return;
+        }
+
+        if (!isValidEmail(email)) {
+            setAuthMessage("Please enter a valid email address.");
+            return;
+        }
+
+        const savedUser = getStoredUser();
+
+        if (authMode === "signup") {
+            if (savedUser && savedUser.email === email) {
+                setAuthMessage("This email is already registered. Please login.");
+                applyAuthMode("login");
+                if (authEmail) authEmail.value = email;
+                return;
+            }
+
+            const newUser = { userName, email, password };
+            localStorage.setItem(USER_DATA_KEY, JSON.stringify(newUser));
+            localStorage.setItem(SESSION_KEY, "true");
+            setAuthMessage("Account created successfully!", false);
+            showApp(newUser);
+            return;
+        }
+
+        if (!savedUser) {
+            setAuthMessage("No account found. Please sign up first.");
+            applyAuthMode("signup");
+            return;
+        }
+
+        if (savedUser.email !== email || savedUser.password !== password) {
+            setAuthMessage("Invalid email or password.");
+            return;
+        }
+
+        localStorage.setItem(SESSION_KEY, "true");
+        setAuthMessage("Login successful!", false);
+        showApp(savedUser);
+    }
+
+    function initializeAuth() {
+        const storedUser = getStoredUser();
+        const isLoggedIn = localStorage.getItem(SESSION_KEY) === "true";
+
+        if (storedUser && isLoggedIn) {
+            showApp(storedUser);
+            return;
+        }
+
+        showAuth();
+        applyAuthMode(storedUser ? "login" : "signup");
+        if (storedUser && authEmail) {
+            authEmail.value = storedUser.email;
+        }
+    }
+
+    if (signupToggle) signupToggle.addEventListener("click", () => applyAuthMode("signup"));
+    if (loginToggle) loginToggle.addEventListener("click", () => applyAuthMode("login"));
+    if (authForm) authForm.addEventListener("submit", handleAuthSubmit);
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", () => {
+            localStorage.setItem(SESSION_KEY, "false");
+            if (authForm) authForm.reset();
+            showAuth();
+            applyAuthMode("login");
+            const storedUser = getStoredUser();
+            if (storedUser && authEmail) authEmail.value = storedUser.email;
+            setAuthMessage("Logged out successfully.", false);
+        });
+    }
+
+    initializeAuth();
+
     const buttons = document.querySelectorAll(".add-cart");
     const modal = document.getElementById("cart-modal");
     const closeModalButton = document.getElementById("close-modal");

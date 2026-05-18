@@ -8,163 +8,198 @@
 </head>
 
 <body>
+    <section id="auth-screen" class="auth-screen" aria-labelledby="auth-title">
+        <div class="auth-card">
+            <div class="auth-head">
+                <p class="auth-badge">Cheap Grocery</p>
+                <h1 id="auth-title">Welcome to Cheap Grocery</h1>
+                <p id="auth-subtitle">Create your account to compare grocery prices.</p>
+            </div>
+
+            <div class="auth-toggle" role="tablist" aria-label="Authentication mode">
+                <button type="button" id="signup-toggle" class="auth-toggle-btn active" role="tab" aria-selected="true">Sign Up</button>
+                <button type="button" id="login-toggle" class="auth-toggle-btn" role="tab" aria-selected="false">Login</button>
+            </div>
+
+            <form id="auth-form" class="auth-form" novalidate>
+                <label for="auth-name">User Name</label>
+                <input type="text" id="auth-name" name="userName" placeholder="Enter your name" autocomplete="name">
+
+                <label for="auth-email">Email</label>
+                <input type="email" id="auth-email" name="email" placeholder="Enter your email" autocomplete="email" required>
+
+                <label for="auth-password">Password</label>
+                <input type="password" id="auth-password" name="password" placeholder="Enter your password" autocomplete="current-password" required>
+
+                <button type="submit" id="auth-submit-btn">Create Account</button>
+                <p id="auth-message" class="auth-message" aria-live="polite"></p>
+            </form>
+        </div>
+    </section>
+
+    <div id="app-shell" class="app-shell is-hidden">
+        <header>
+            <h1>Cheap Grocery</h1>
+            <p>Best Prices for Everyday Needs</p>
+            <div class="user-session-bar">
+                <p id="welcome-text">Welcome!</p>
+                <button id="logout-btn" type="button" class="logout-btn">Logout</button>
+            </div>
+        </header>
+
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Products</a>
+            <a href="#">Contact</a>
+        </nav>
+
+        <div class="container">
+            <div class="shop-layout">
+                <section class="products-section">
+                    <h2>Popular Items</h2>
+
+                    <div class="search-container">
+                        <div class="search-box">
+                            <input type="search" id="search" placeholder="Search items..." aria-label="Search items">
+                            <button type="button" id="search-btn" class="search-btn" aria-label="Search">
+                                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                    <path d="M10 2a8 8 0 0 1 6.32 12.9l5.39 5.39-1.42 1.42-5.39-5.39A8 8 0 1 1 10 2zm0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bulk-list-controls" aria-label="Bulk list controls">
+                        <button type="button" id="make-list-btn" class="small-btn">Make List (Selected)</button>
+                        <button type="button" id="clear-selection-btn" class="small-btn">Clear Selection</button>
+                    </div>
+
+                    <div class="products-grid">
+                        <div class="product">
+                            <img src="images/Rice.jpg" alt="Rice" loading="lazy">
+                            <h3>Rice</h3>
+                            <p>₹50 / kg</p>
+                            <button class="add-cart">Add to Cart</button>
+                        </div>
+
+                        <div class="product">
+                            <img src="images/Milk.jpg" alt="Milk" loading="lazy">
+                            <h3>Milk</h3>
+                            <p>₹30 / liter</p>
+                            <button class="add-cart">Add to Cart</button>
+                        </div>
+
+                        <div class="product">
+                            <img src="images/Vegetables.jpg" alt="Vegetables" loading="lazy">
+                            <h3>Vegetables</h3>
+                            <p>₹20 / pack</p>
+                            <button class="add-cart">Add to Cart</button>
+                        </div>
+
+                        <div class="product">
+                            <img src="images/Mushroom.jpg" alt="Mushroom" loading="lazy">
+                            <h3>Mushroom</h3>
+                            <p>₹140 / Kg</p>
+                            <button class="add-cart">Add to Cart</button>
+                        </div>
+
+                        <div class="product">
+                            <img src="images/Sugar.jpg" alt="Sugar" loading="lazy">
+                            <h3>Sugar</h3>
+                            <p>₹40 / kg</p>
+                            <button class="add-cart">Add to Cart</button>
+                        </div>
+
+                        <div class="product">
+                            <img src="images/Peanut-Butter.jpg" alt="Peanut Butter" loading="lazy">
+                            <h3>Peanut Butter</h3>
+                            <p>₹208 / jar</p>
+                            <button class="add-cart">Add to Cart</button>
+                        </div>
+
+                        <div class="product">
+                            <img src="images/Cooking Oil.jpg" alt="Cooking Oil" loading="lazy">
+                            <h3>Cooking Oil</h3>
+                            <p>₹120 / liter</p>
+                            <button class="add-cart">Add to Cart</button>
+                        </div>
+
+                        <div class="product">
+                            <img src="images/Amul Butter.jpg" alt="Amul Butter" loading="lazy">
+                            <h3>Amul Butter</h3>
+                            <p>₹20 / pack</p>
+                            <button class="add-cart">Add to Cart</button>
+                        </div>
+
+                        <div class="product">
+                            <img src="images/Body Lotion.jpg" alt="Body Lotion" loading="lazy">
+                            <h3>Body Lotion</h3>
+                            <p>₹150 / bottle</p>
+                            <button class="add-cart">Add to Cart</button>
+                        </div>
+
+                        <div class="product">
+                            <img src="images/Bread.jpg" alt="Bread" loading="lazy">
+                            <h3>Bread</h3>
+                            <p>₹60 / loaf</p>
+                            <button class="add-cart">Add to Cart</button>
+                        </div>
+
+                        <div class="product">
+                            <img src="images/Whole-Wheat-Atta.jpg" alt="Wheat Atta" loading="lazy">
+                            <h3>Wheat Atta</h3>
+                            <p>₹40 / kg</p>
+                            <button class="add-cart">Add to Cart</button>
+                        </div>
+
+                        <div class="product">
+                            <img src="images/download (4).jpg" alt="Detergent Powder" loading="lazy">
+                            <h3>Detergent Powder</h3>
+                            <p>₹95 / pack</p>
+                            <button class="add-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                </section>
+
+                <aside class="cart-panel is-hidden" aria-live="polite">
+                    <h3>Selected Products</h3>
+                    <p id="empty-cart-msg">No products selected yet.</p>
+                    <ul id="selected-products-list"></ul>
+                    <div class="cart-actions">
+                        <button id="save-list-btn" class="small-btn">Save List</button>
+                        <button id="download-csv-btn" class="small-btn">Download CSV</button>
+                        <button id="clear-list-btn" class="small-btn">Clear List</button>
+                    </div>
+                    <div class="cart-total" id="cart-total-section" style="display: none;">
+                        <hr>
+                        <p class="total-label">Total Amount:</p>
+                        <p class="total-amount" id="total-amount">₹0</p>
+                    </div>
+                </aside>
+            </div>
+        </div>
+
+        <div id="cart-modal" class="cart-modal" aria-hidden="true">
+            <div class="cart-modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-product-name">
+                <button id="close-modal" class="close-modal" aria-label="Close">&times;</button>
+                <h3>Add Product</h3>
+                <img id="modal-product-image" src="" alt="Selected product image" loading="lazy">
+                <p id="modal-product-name"></p>
+                <p id="modal-product-price" class="modal-price"></p>
+
+                <label for="modal-quantity">How much quantity do you need?</label>
+                <input type="number" id="modal-quantity" min="1" value="1">
+
+                <button id="add-to-list-btn" class="add-list-btn">Add to List</button>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2026 Cheap Grocery | All Rights Reserved</p>
+        </footer>
+    </div>
+
     <script src="script.js"></script>
-
-<header>
-    <h1>Cheap Grocery</h1>
-    <p>Best Prices for Everyday Needs</p>
-</header>
-
-<nav>
-    <a href="#">Home</a>
-    <a href="#">Products</a>
-    <a href="#">Contact</a>
-</nav>
-
-<div class="container">
-    <div class="shop-layout">
-        <section class="products-section">
-            <h2>Popular Items</h2>
-
-            <div class="search-container">
-                <div class="search-box">
-                    <input type="search" id="search" placeholder="Search items..." aria-label="Search items">
-                    <button type="button" id="search-btn" class="search-btn" aria-label="Search">
-                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                            <path d="M10 2a8 8 0 0 1 6.32 12.9l5.39 5.39-1.42 1.42-5.39-5.39A8 8 0 1 1 10 2zm0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12z"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-
-            <div class="bulk-list-controls" aria-label="Bulk list controls">
-                <button type="button" id="make-list-btn" class="small-btn">Make List (Selected)</button>
-                <button type="button" id="clear-selection-btn" class="small-btn">Clear Selection</button>
-            </div>
-
-            <div class="products-grid">
-                <div class="product">
-                    <img src="images/Rice.jpg" alt="Rice" loading="lazy">
-                    <h3>Rice</h3>
-                    <p>₹50 / kg</p>
-                    <button class="add-cart">Add to Cart</button>
-                </div>
-
-                <div class="product">
-                    <img src="images/Milk.jpg" alt="Milk" loading="lazy">
-                    <h3>Milk</h3>
-                    <p>₹30 / liter</p>
-                    <button class="add-cart">Add to Cart</button>
-                </div>
-
-                <div class="product">
-                    <img src="images/Vegetables.jpg" alt="Vegetables" loading="lazy">
-                    <h3>Vegetables</h3>
-                    <p>₹20 / pack</p>
-                    <button class="add-cart">Add to Cart</button>
-                </div>
-
-                <div class="product">
-                    <img src="images/Mushroom.jpg" alt="Mushroom" loading="lazy">
-                    <h3>Mushroom</h3>
-                    <p>₹140 / Kg</p>
-                    <button class="add-cart">Add to Cart</button>
-                </div>
-
-                <div class="product">
-                    <img src="images/Sugar.jpg" alt="Sugar" loading="lazy">
-                    <h3>Sugar</h3>
-                    <p>₹40 / kg</p>
-                    <button class="add-cart">Add to Cart</button>
-                </div>
-
-                <div class="product">
-                    <img src="images/Peanut-Butter.jpg" alt="Peanut Butter" loading="lazy">
-                    <h3>Peanut Butter</h3>
-                    <p>₹208 / jar</p>
-                    <button class="add-cart">Add to Cart</button>
-                </div>
-
-                <div class="product">
-                    <img src="images/Cooking Oil.jpg" alt="Cooking Oil" loading="lazy">
-                    <h3>Cooking Oil</h3>
-                    <p>₹120 / liter</p>
-                    <button class="add-cart">Add to Cart</button>
-                </div>
-
-                <div class="product">
-                    <img src="images/Amul Butter.jpg" alt="Amul Butter" loading="lazy">
-                    <h3>Amul Butter</h3>
-                    <p>₹20 / pack</p>
-                    <button class="add-cart">Add to Cart</button>
-                </div>
-
-                <div class="product">
-                    <img src="images/Body Lotion.jpg" alt="Body Lotion" loading="lazy">
-                    <h3>Body Lotion</h3>
-                    <p>₹150 / bottle</p>
-                    <button class="add-cart">Add to Cart</button>
-                </div>
-
-                <div class="product">
-                    <img src="images/Bread.jpg" alt="Bread" loading="lazy">
-                    <h3>Bread</h3>
-                    <p>₹60 / loaf</p>
-                    <button class="add-cart">Add to Cart</button>
-                </div>
-
-                <div class="product">
-                    <img src="images/Whole-Wheat-Atta.jpg" alt="Wheat Atta" loading="lazy">
-                    <h3>Wheat Atta</h3>
-                    <p>₹40 / kg</p>
-                    <button class="add-cart">Add to Cart</button>
-                </div>
-
-                <div class="product">
-                    <img src="images/download (4).jpg" alt="Detergent Powder" loading="lazy">
-                    <h3>Detergent Powder</h3>
-                    <p>₹95 / pack</p>
-                    <button class="add-cart">Add to Cart</button>
-                </div>
-            </div>
-        </section>
-
-        <aside class="cart-panel is-hidden" aria-live="polite">
-            <h3>Selected Products</h3>
-            <p id="empty-cart-msg">No products selected yet.</p>
-            <ul id="selected-products-list"></ul>
-            <div class="cart-actions">
-                <button id="save-list-btn" class="small-btn">Save List</button>
-                <button id="download-csv-btn" class="small-btn">Download CSV</button>
-                <button id="clear-list-btn" class="small-btn">Clear List</button>
-            </div>
-            <div class="cart-total" id="cart-total-section" style="display: none;">
-                <hr>
-                <p class="total-label">Total Amount:</p>
-                <p class="total-amount" id="total-amount">₹0</p>
-            </div>
-        </aside>
-    </div>
-</div>
-
-<div id="cart-modal" class="cart-modal" aria-hidden="true">
-    <div class="cart-modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-product-name">
-        <button id="close-modal" class="close-modal" aria-label="Close">&times;</button>
-        <h3>Add Product</h3>
-        <img id="modal-product-image" src="" alt="Selected product image" loading="lazy">
-        <p id="modal-product-name"></p>
-        <p id="modal-product-price" class="modal-price"></p>
-
-        <label for="modal-quantity">How much quantity do you need?</label>
-        <input type="number" id="modal-quantity" min="1" value="1">
-
-        <button id="add-to-list-btn" class="add-list-btn">Add to List</button>
-    </div>
-</div>
-
-<footer>
-    <p>© 2026 Cheap Grocery | All Rights Reserved</p>
-</footer>
 
 </body>
 </html>

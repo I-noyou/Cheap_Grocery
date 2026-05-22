@@ -90,6 +90,38 @@ body {
     font-size: 15px;
 }
 
+.password-field {
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
+}
+
+.password-field input {
+    flex: 1;
+    min-width: 0;
+}
+
+.password-toggle {
+    border: 1px solid #d6e8da;
+    background: #f3fbf5;
+    color: #1f6d3f;
+    border-radius: 8px;
+    padding: 0 14px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.password-toggle:hover {
+    background: #ecf9f0;
+}
+
+.password-toggle:focus {
+    outline: 2px solid rgba(46, 204, 113, 0.24);
+    border-color: #2ecc71;
+}
+
 .auth-form input:focus {
     outline: 2px solid rgba(46, 204, 113, 0.24);
     border-color: #2ecc71;

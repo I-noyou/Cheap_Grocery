@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const authName = document.getElementById("auth-name");
     const authEmail = document.getElementById("auth-email");
     const authPassword = document.getElementById("auth-password");
+    const togglePasswordBtn = document.getElementById("toggle-password");
     const welcomeText = document.getElementById("welcome-text");
     const logoutBtn = document.getElementById("logout-btn");
 
@@ -32,6 +33,15 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!authMessage) return;
         authMessage.innerText = message || "";
         authMessage.style.color = isError ? "#d35400" : "#1f8b4c";
+    }
+
+    function setPasswordVisibility(visible) {
+        if (!authPassword || !togglePasswordBtn) return;
+
+        authPassword.type = visible ? "text" : "password";
+        togglePasswordBtn.innerText = visible ? "Hide" : "Show";
+        togglePasswordBtn.setAttribute("aria-label", visible ? "Hide password" : "Show password");
+        togglePasswordBtn.setAttribute("aria-pressed", visible ? "true" : "false");
     }
 
     function showApp(user) {
@@ -155,11 +165,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (signupToggle) signupToggle.addEventListener("click", () => applyAuthMode("signup"));
     if (loginToggle) loginToggle.addEventListener("click", () => applyAuthMode("login"));
+    if (togglePasswordBtn) {
+        togglePasswordBtn.addEventListener("click", () => {
+            const shouldShow = authPassword ? authPassword.type === "password" : false;
+            setPasswordVisibility(shouldShow);
+        });
+    }
     if (authForm) authForm.addEventListener("submit", handleAuthSubmit);
     if (logoutBtn) {
         logoutBtn.addEventListener("click", () => {
             localStorage.setItem(SESSION_KEY, "false");
             if (authForm) authForm.reset();
+            setPasswordVisibility(false);
             showAuth();
             applyAuthMode("login");
             const storedUser = getStoredUser();
@@ -168,6 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    setPasswordVisibility(false);
     initializeAuth();
 
     const buttons = document.querySelectorAll(".add-cart");

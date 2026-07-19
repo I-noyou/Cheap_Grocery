@@ -366,6 +366,7 @@ footer {
     border: 1px solid #e8e8e8;
     position: sticky;
     top: 16px;
+    margin-top: 148px;
 }
 
 .cart-panel.is-hidden {
@@ -563,6 +564,7 @@ footer {
     .cart-panel {
         width: 100%;
         position: static;
+        margin-top: 0;
     }
 
     .products-grid {

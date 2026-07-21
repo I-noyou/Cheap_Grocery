@@ -521,6 +521,52 @@ footer {
     color: #2d2d2d;
 }
 
+.catalog-variant-steps {
+    margin-top: 8px;
+}
+
+.catalog-variant-steps.is-hidden {
+    display: none;
+}
+
+.variant-step {
+    margin-top: 12px;
+}
+
+.variant-step h4 {
+    margin: 0 0 8px;
+    font-size: 15px;
+    color: #333;
+}
+
+.variant-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.variant-option {
+    border: 1px solid #d2d2d2;
+    background: #fff;
+    color: #333;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.variant-option.is-selected {
+    border-color: #2ecc71;
+    background: #eefaf2;
+    color: #1f8b4c;
+}
+
+.modal-detail {
+    margin: 0 0 6px;
+    font-size: 14px;
+    color: #555;
+    min-height: 1em;
+}
+
 #modal-quantity {
     width: 100%;
     box-sizing: border-box;

@@ -78,7 +78,7 @@
                     </div>
 
                     <div class="products-grid">
-                        <div class="product">
+                        <div class="product" data-catalog-key="rice">
                             <img src="images/Rice.jpg" alt="Rice" loading="lazy">
                             <h3>Rice</h3>
                             <p>₹50 / kg</p>
@@ -399,6 +399,30 @@
                 <img id="modal-product-image" src="" alt="Selected product image" loading="lazy">
                 <p id="modal-product-name"></p>
                 <p id="modal-product-price" class="modal-price"></p>
+
+                <div id="catalog-variant-steps" class="catalog-variant-steps is-hidden">
+                    <section class="variant-step">
+                        <h4>Variety</h4>
+                        <div id="modal-variety-list" class="variant-list"></div>
+                    </section>
+
+                    <section class="variant-step">
+                        <h4>Brand</h4>
+                        <div id="modal-brand-list" class="variant-list"></div>
+                    </section>
+
+                    <section class="variant-step">
+                        <h4>Weight</h4>
+                        <div id="modal-weight-list" class="variant-list"></div>
+                    </section>
+
+                    <section class="variant-step">
+                        <h4>Details</h4>
+                        <p id="modal-selected-variety" class="modal-detail"></p>
+                        <p id="modal-selected-brand" class="modal-detail"></p>
+                        <p id="modal-selected-weight" class="modal-detail"></p>
+                    </section>
+                </div>
 
                 <label for="modal-quantity">How much quantity do you need?</label>
                 <input type="number" id="modal-quantity" min="1" value="1">

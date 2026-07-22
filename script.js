@@ -215,6 +215,51 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentCatalogSelection = null;
     let selectedProducts = [];
 
+    const MILK_PACKAGE_SIZES = [
+        { id: "500ml", label: "500 ml", unitPrice: 32 },
+        { id: "1l", label: "1 L", unitPrice: 64 },
+        { id: "2l", label: "2 L", unitPrice: 126 },
+        { id: "5l", label: "5 L", unitPrice: 310 }
+    ];
+
+    const MILK_BRAND_NAMES = {
+        amul: "Amul",
+        "mother-dairy": "Mother Dairy",
+        nandini: "Nandini",
+        verka: "Verka",
+        heritage: "Heritage",
+        akshayakalpa: "Akshayakalpa",
+        "country-delight": "Country Delight",
+        "organic-india": "Organic India"
+    };
+
+    function createMilkBrand(brandId) {
+        return {
+            id: brandId,
+            name: MILK_BRAND_NAMES[brandId],
+            weights: MILK_PACKAGE_SIZES.map((size) => ({ ...size }))
+        };
+    }
+
+    function createMilkType(typeId, typeName, brandIds) {
+        return {
+            id: typeId,
+            name: typeName,
+            brands: brandIds.map(createMilkBrand)
+        };
+    }
+
+    function getCatalogLabels(catalog) {
+        return Object.assign({
+            varietyTitle: "Variety",
+            brandTitle: "Brand",
+            weightTitle: "Weight",
+            varietyDetail: "Variety",
+            brandDetail: "Brand",
+            weightDetail: "Weight"
+        }, catalog && catalog.labels ? catalog.labels : {});
+    }
+
     const PRODUCT_CATALOG = {
         rice: {
             productName: "Rice",
@@ -255,6 +300,28 @@ document.addEventListener("DOMContentLoaded", () => {
                         }
                     ]
                 }
+            ]
+        },
+        milk: {
+            productName: "Milk",
+            imageSrc: "images/Milk.jpg",
+            imageAlt: "Milk",
+            labels: {
+                varietyTitle: "Milk Type",
+                brandTitle: "Brand",
+                weightTitle: "Package Size",
+                varietyDetail: "Type",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                createMilkType("full-cream", "Full Cream Milk", ["amul", "mother-dairy", "nandini", "verka"]),
+                createMilkType("toned", "Toned Milk", ["amul", "mother-dairy", "nandini", "heritage"]),
+                createMilkType("double-toned", "Double Toned Milk", ["amul", "mother-dairy", "nandini", "heritage"]),
+                createMilkType("skimmed", "Skimmed Milk", ["amul", "mother-dairy", "nandini"]),
+                createMilkType("cow", "Cow Milk", ["amul", "akshayakalpa", "country-delight"]),
+                createMilkType("buffalo", "Buffalo Milk", ["amul", "mother-dairy", "country-delight"]),
+                createMilkType("organic", "Organic Milk", ["akshayakalpa", "country-delight", "organic-india"])
             ]
         }
     };
@@ -298,11 +365,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!currentCatalogSelection) return;
 
         const selection = currentCatalogSelection;
-        const productName = `${selection.catalog.productName}`;
-        const variantName = selection.variety ? selection.variety.name : productName;
-        const brandName = selection.brand ? selection.brand.name : "";
-        const weightLabel = selection.weight ? selection.weight.label : "";
         const unitPrice = selection.weight ? selection.weight.unitPrice : 0;
+        const labels = getCatalogLabels(selection.catalog);
 
         if (modalProductImage) {
             modalProductImage.src = selection.catalog.imageSrc;
@@ -310,7 +374,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (modalProductName) {
-            modalProductName.innerText = variantName;
+            modalProductName.innerText = selection.variety ? selection.variety.name : selection.catalog.productName;
         }
 
         if (modalProductPrice) {
@@ -318,15 +382,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (modalSelectedVariety) {
-            modalSelectedVariety.innerText = selection.variety ? `Variety: ${selection.variety.name}` : "";
+            modalSelectedVariety.innerText = selection.variety ? `${labels.varietyDetail}: ${selection.variety.name}` : "";
         }
 
         if (modalSelectedBrand) {
-            modalSelectedBrand.innerText = selection.brand ? `Brand: ${selection.brand.name}` : "";
+            modalSelectedBrand.innerText = selection.brand ? `${labels.brandDetail}: ${selection.brand.name}` : "";
         }
 
         if (modalSelectedWeight) {
-            modalSelectedWeight.innerText = selection.weight ? `Weight: ${selection.weight.label}` : "";
+            modalSelectedWeight.innerText = selection.weight ? `${labels.weightDetail}: ${selection.weight.label}` : "";
         }
 
         if (modalQuantity) {
@@ -359,6 +423,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const selection = currentCatalogSelection;
         const catalog = selection.catalog;
+        const labels = getCatalogLabels(catalog);
+
+        const stepTitles = catalogVariantSteps.querySelectorAll(".variant-step h4");
+        if (stepTitles[0]) stepTitles[0].innerText = labels.varietyTitle;
+        if (stepTitles[1]) stepTitles[1].innerText = labels.brandTitle;
+        if (stepTitles[2]) stepTitles[2].innerText = labels.weightTitle;
 
         renderVariantOptions(modalVarietyList, catalog.varieties, selection.variety ? selection.variety.id : null, (variety) => {
             currentCatalogSelection.variety = variety;
@@ -498,15 +568,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         selectedProducts.forEach((p, idx) => {
+            const typeLabel = p.type || p.variety || "";
+            const sizeLabel = p.size || p.weight || "";
             const li = document.createElement('li');
             li.className = 'selected-item';
             li.innerHTML = `
                 <img src="${p.imageSrc}" alt="${p.imageAlt}">
                 <p class="selected-item-text">
                     <span>${p.product || p.name}</span><br>
-                    ${p.variety ? `<span>${p.variety}</span><br>` : ''}
+                    ${typeLabel ? `<span>${typeLabel}</span><br>` : ''}
                     ${p.brand ? `<span>${p.brand}</span><br>` : ''}
-                    ${p.weight ? `<span>${p.weight}</span><br>` : ''}
+                    ${sizeLabel ? `<span>${sizeLabel}</span><br>` : ''}
                     <span data-role="quantity" data-quantity="${p.quantity}">Qty: ${p.quantity}</span><br>
                     <small data-role="unit-price" data-price="${p.unitPrice}">₹${p.unitPrice.toFixed(2)}</small>
                 </p>
@@ -561,11 +633,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function addProductToSelection(product, quantity) {
         const safeQuantity = Math.max(1, parseInt(quantity, 10) || 1);
+        const productType = product.type || product.variety || "";
+        const packageSize = product.size || product.weight || "";
         const existing = selectedProducts.find((item) => (
             item.product === product.product &&
-            item.variety === product.variety &&
+            (item.type || item.variety || "") === productType &&
             item.brand === product.brand &&
-            item.weight === product.weight &&
+            (item.size || item.weight || "") === packageSize &&
             item.unitPrice === product.unitPrice
         ));
 
@@ -578,8 +652,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 name: product.product,
                 product: product.product,
                 variety: product.variety,
+                type: product.type || product.variety || "",
                 brand: product.brand,
                 weight: product.weight,
+                size: product.size || product.weight || "",
                 unitPrice: product.unitPrice,
                 quantity: safeQuantity
             });
@@ -651,8 +727,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     imageAlt: selection.catalog.imageAlt,
                     product: selection.catalog.productName,
                     variety: selection.variety ? selection.variety.name : "",
+                    type: selection.variety ? selection.variety.name : "",
                     brand: selection.brand ? selection.brand.name : "",
                     weight: selection.weight ? selection.weight.label : "",
+                    size: selection.weight ? selection.weight.label : "",
                     unitPrice: selection.weight.unitPrice
                 }, quantity);
             } else if (currentProduct) {
@@ -711,12 +789,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function downloadCSV() {
         if (selectedProducts.length === 0) return;
-        const header = ['Product', 'Variety', 'Brand', 'Weight', 'Quantity', 'Unit Price', 'Total'];
+        const header = ['Product', 'Type', 'Brand', 'Size', 'Quantity', 'Unit Price', 'Total'];
         const rows = selectedProducts.map(p => [
             p.product || p.name || '',
-            p.variety || '',
+            p.type || p.variety || '',
             p.brand || '',
-            p.weight || '',
+            p.size || p.weight || '',
             p.quantity,
             p.unitPrice.toFixed(2),
             (p.unitPrice * p.quantity).toFixed(2)

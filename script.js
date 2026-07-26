@@ -233,21 +233,43 @@ document.addEventListener("DOMContentLoaded", () => {
         "organic-india": "Organic India"
     };
 
-    function createMilkBrand(brandId) {
+    function createCatalogBrand(brandId, brandNames, packageSizes) {
         return {
             id: brandId,
-            name: MILK_BRAND_NAMES[brandId],
-            weights: MILK_PACKAGE_SIZES.map((size) => ({ ...size }))
+            name: brandNames[brandId],
+            weights: packageSizes.map((size) => ({ ...size }))
+        };
+    }
+
+    function createCatalogType(typeId, typeName, brandIds, brandNames, packageSizes) {
+        return {
+            id: typeId,
+            name: typeName,
+            brands: brandIds.map((brandId) => createCatalogBrand(brandId, brandNames, packageSizes))
         };
     }
 
     function createMilkType(typeId, typeName, brandIds) {
-        return {
-            id: typeId,
-            name: typeName,
-            brands: brandIds.map(createMilkBrand)
-        };
+        return createCatalogType(typeId, typeName, brandIds, MILK_BRAND_NAMES, MILK_PACKAGE_SIZES);
     }
+
+    const MUSHROOM_PACKAGE_SIZES = [
+        { id: "100g", label: "100 g", unitPrice: 45 },
+        { id: "200g", label: "200 g", unitPrice: 85 },
+        { id: "500g", label: "500 g", unitPrice: 200 },
+        { id: "1kg", label: "1 kg", unitPrice: 380 }
+    ];
+
+    const MUSHROOM_BRAND_NAMES = {
+        "fresh-farm": "FreshFarm",
+        "nature-fresh": "Nature Fresh",
+        "green-basket": "Green Basket",
+        "organic-india": "Organic India",
+        "mushroom-valley": "Mushroom Valley",
+        "eco-fresh": "Eco Fresh",
+        "urban-platter": "Urban Platter",
+        "natures-basket": "Nature's Basket"
+    };
 
     function getCatalogLabels(catalog) {
         return Object.assign({
@@ -323,6 +345,29 @@ document.addEventListener("DOMContentLoaded", () => {
                 createMilkType("buffalo", "Buffalo Milk", ["amul", "mother-dairy", "country-delight"]),
                 createMilkType("organic", "Organic Milk", ["akshayakalpa", "country-delight", "organic-india"])
             ]
+        },
+        mushroom: {
+            productName: "Mushroom",
+            imageSrc: "images/Mushroom.jpg",
+            imageAlt: "Mushroom",
+            modalProductName: "Mushroom",
+            labels: {
+                varietyTitle: "Select Mushroom Type",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Mushroom Type",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                createCatalogType("button", "Button Mushroom", ["fresh-farm", "nature-fresh", "green-basket", "organic-india"], MUSHROOM_BRAND_NAMES, MUSHROOM_PACKAGE_SIZES),
+                createCatalogType("oyster", "Oyster Mushroom", ["fresh-farm", "mushroom-valley", "eco-fresh"], MUSHROOM_BRAND_NAMES, MUSHROOM_PACKAGE_SIZES),
+                createCatalogType("shiitake", "Shiitake Mushroom", ["urban-platter", "natures-basket", "organic-india"], MUSHROOM_BRAND_NAMES, MUSHROOM_PACKAGE_SIZES),
+                createCatalogType("portobello", "Portobello Mushroom", ["fresh-farm", "green-basket"], MUSHROOM_BRAND_NAMES, MUSHROOM_PACKAGE_SIZES),
+                createCatalogType("enoki", "Enoki Mushroom", ["urban-platter", "nature-fresh"], MUSHROOM_BRAND_NAMES, MUSHROOM_PACKAGE_SIZES),
+                createCatalogType("milky", "Milky Mushroom", ["fresh-farm", "organic-india"], MUSHROOM_BRAND_NAMES, MUSHROOM_PACKAGE_SIZES),
+                createCatalogType("dried", "Dried Mushroom", ["urban-platter", "natures-basket", "green-basket"], MUSHROOM_BRAND_NAMES, MUSHROOM_PACKAGE_SIZES)
+            ]
         }
     };
 
@@ -357,8 +402,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function formatCatalogProductName(selection) {
         if (!selection) return "Product";
+        if (selection.catalog.modalProductName) return selection.catalog.modalProductName;
         if (!selection.variety) return selection.catalog.productName;
         return selection.variety.name;
+    }
+
+    function getCatalogProductImage(selection) {
+        const imageSource = selection.weight || selection.brand || selection.variety || selection.catalog;
+        return {
+            src: imageSource.imageSrc || selection.catalog.imageSrc,
+            alt: imageSource.imageAlt || selection.catalog.imageAlt
+        };
     }
 
     function syncCatalogModalDisplay() {
@@ -367,14 +421,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const selection = currentCatalogSelection;
         const unitPrice = selection.weight ? selection.weight.unitPrice : 0;
         const labels = getCatalogLabels(selection.catalog);
+        const image = getCatalogProductImage(selection);
 
         if (modalProductImage) {
-            modalProductImage.src = selection.catalog.imageSrc;
-            modalProductImage.alt = selection.catalog.imageAlt;
+            modalProductImage.src = image.src;
+            modalProductImage.alt = image.alt;
         }
 
         if (modalProductName) {
-            modalProductName.innerText = selection.variety ? selection.variety.name : selection.catalog.productName;
+            modalProductName.innerText = formatCatalogProductName(selection);
         }
 
         if (modalProductPrice) {
@@ -722,9 +777,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (currentCatalogSelection && currentCatalogSelection.weight) {
                 const selection = currentCatalogSelection;
+                const image = getCatalogProductImage(selection);
                 addProductToSelection({
-                    imageSrc: selection.catalog.imageSrc,
-                    imageAlt: selection.catalog.imageAlt,
+                    imageSrc: image.src,
+                    imageAlt: image.alt,
                     product: selection.catalog.productName,
                     variety: selection.variety ? selection.variety.name : "",
                     type: selection.variety ? selection.variety.name : "",

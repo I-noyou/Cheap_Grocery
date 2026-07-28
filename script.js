@@ -271,6 +271,28 @@ document.addEventListener("DOMContentLoaded", () => {
         "natures-basket": "Nature's Basket"
     };
 
+    const COOKING_OIL_BRAND_NAMES = {
+        fortune: "Fortune",
+        saffola: "Saffola",
+        dhara: "Dhara",
+        gemini: "Gemini",
+        patanjali: "Patanjali",
+        engine: "Engine",
+        gulab: "Gulab",
+        nutrela: "Nutrela",
+        ricela: "Ricela",
+        parachute: "Parachute",
+        "max-care": "Max Care",
+        klf: "KLF",
+        borges: "Borges",
+        figaro: "Figaro",
+        "del-monte": "Del Monte"
+    };
+
+    function createCookingOilType(typeId, typeName, brandIds, packageSizes) {
+        return createCatalogType(typeId, typeName, brandIds, COOKING_OIL_BRAND_NAMES, packageSizes);
+    }
+
     function getCatalogLabels(catalog) {
         return Object.assign({
             varietyTitle: "Variety",
@@ -367,6 +389,64 @@ document.addEventListener("DOMContentLoaded", () => {
                 createCatalogType("enoki", "Enoki Mushroom", ["urban-platter", "nature-fresh"], MUSHROOM_BRAND_NAMES, MUSHROOM_PACKAGE_SIZES),
                 createCatalogType("milky", "Milky Mushroom", ["fresh-farm", "organic-india"], MUSHROOM_BRAND_NAMES, MUSHROOM_PACKAGE_SIZES),
                 createCatalogType("dried", "Dried Mushroom", ["urban-platter", "natures-basket", "green-basket"], MUSHROOM_BRAND_NAMES, MUSHROOM_PACKAGE_SIZES)
+            ]
+        },
+        "cooking-oil": {
+            productName: "Cooking Oil",
+            imageSrc: "images/download (4).jpg",
+            imageAlt: "Cooking Oil",
+            modalProductName: "Cooking Oil",
+            labels: {
+                varietyTitle: "Oil Type",
+                brandTitle: "Brand",
+                weightTitle: "Package Size",
+                varietyDetail: "Oil Type",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                createCookingOilType("sunflower", "Sunflower Oil", ["fortune", "saffola", "dhara", "gemini"], [
+                    { id: "500ml", label: "500 ml", unitPrice: 85 },
+                    { id: "1l", label: "1 L", unitPrice: 165 },
+                    { id: "2l", label: "2 L", unitPrice: 320 },
+                    { id: "5l", label: "5 L", unitPrice: 785 }
+                ]),
+                createCookingOilType("mustard", "Mustard Oil", ["fortune", "patanjali", "dhara", "engine"], [
+                    { id: "500ml", label: "500 ml", unitPrice: 90 },
+                    { id: "1l", label: "1 L", unitPrice: 175 },
+                    { id: "2l", label: "2 L", unitPrice: 340 },
+                    { id: "5l", label: "5 L", unitPrice: 835 }
+                ]),
+                createCookingOilType("groundnut", "Groundnut Oil", ["fortune", "gulab", "saffola"], [
+                    { id: "500ml", label: "500 ml", unitPrice: 145 },
+                    { id: "1l", label: "1 L", unitPrice: 280 },
+                    { id: "2l", label: "2 L", unitPrice: 550 },
+                    { id: "5l", label: "5 L", unitPrice: 1350 }
+                ]),
+                createCookingOilType("soybean", "Soybean Oil", ["nutrela", "fortune", "dhara"], [
+                    { id: "500ml", label: "500 ml", unitPrice: 75 },
+                    { id: "1l", label: "1 L", unitPrice: 145 },
+                    { id: "2l", label: "2 L", unitPrice: 280 },
+                    { id: "5l", label: "5 L", unitPrice: 685 }
+                ]),
+                createCookingOilType("rice-bran", "Rice Bran Oil", ["ricela", "fortune", "saffola"], [
+                    { id: "500ml", label: "500 ml", unitPrice: 90 },
+                    { id: "1l", label: "1 L", unitPrice: 175 },
+                    { id: "2l", label: "2 L", unitPrice: 340 },
+                    { id: "5l", label: "5 L", unitPrice: 835 }
+                ]),
+                createCookingOilType("coconut", "Coconut Oil", ["parachute", "max-care", "klf"], [
+                    { id: "500ml", label: "500 ml", unitPrice: 170 },
+                    { id: "1l", label: "1 L", unitPrice: 330 },
+                    { id: "2l", label: "2 L", unitPrice: 640 },
+                    { id: "5l", label: "5 L", unitPrice: 1550 }
+                ]),
+                createCookingOilType("olive", "Olive Oil", ["borges", "figaro", "del-monte"], [
+                    { id: "500ml", label: "500 ml", unitPrice: 350 },
+                    { id: "1l", label: "1 L", unitPrice: 680 },
+                    { id: "2l", label: "2 L", unitPrice: 1320 },
+                    { id: "5l", label: "5 L", unitPrice: 3200 }
+                ])
             ]
         }
     };

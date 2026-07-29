@@ -293,6 +293,67 @@ document.addEventListener("DOMContentLoaded", () => {
         return createCatalogType(typeId, typeName, brandIds, COOKING_OIL_BRAND_NAMES, packageSizes);
     }
 
+    const ATTA_PACKAGE_SIZES = [
+        { id: "1kg", label: "1 kg" },
+        { id: "2kg", label: "2 kg" },
+        { id: "5kg", label: "5 kg" },
+        { id: "10kg", label: "10 kg" },
+        { id: "20kg", label: "20 kg" }
+    ];
+
+    const ATTA_BRAND_NAMES = {
+        aashirvaad: "Aashirvaad",
+        pillsbury: "Pillsbury",
+        patanjali: "Patanjali",
+        fortune: "Fortune",
+        annapurna: "Annapurna",
+        "local-mill": "Local Mill",
+        "organic-india": "Organic India",
+        "24-mantra": "24 Mantra",
+        natureland: "Natureland",
+        "urban-platter": "Urban Platter"
+    };
+
+    const ATTA_TYPE_PRICES = {
+        "whole-wheat": [52, 102, 248, 485, 950],
+        multigrain: [64, 125, 305, 595, 1165],
+        sharbati: [59, 118, 288, 560, 1095],
+        "chakki-fresh": [49, 110, 265, 518, 1015],
+        "organic-wheat": [78, 154, 378, 740, 1450],
+        "gluten-free": [91, 182, 448, 875, 1715],
+        "high-fibre": [68, 134, 328, 640, 1255]
+    };
+
+    const ATTA_BRAND_PRICE_ADJUSTMENTS = {
+        aashirvaad: 0,
+        pillsbury: 3,
+        patanjali: -2,
+        fortune: 2,
+        annapurna: 1,
+        "local-mill": -4,
+        "organic-india": 5,
+        "24-mantra": 7,
+        natureland: 4,
+        "urban-platter": 8
+    };
+
+    function createAttaType(typeId, typeName, brandIds) {
+        const packagePrices = ATTA_TYPE_PRICES[typeId];
+
+        return {
+            id: typeId,
+            name: typeName,
+            brands: brandIds.map((brandId) => ({
+                id: brandId,
+                name: ATTA_BRAND_NAMES[brandId],
+                weights: ATTA_PACKAGE_SIZES.map((size, index) => ({
+                    ...size,
+                    unitPrice: packagePrices[index] + ATTA_BRAND_PRICE_ADJUSTMENTS[brandId]
+                }))
+            }))
+        };
+    }
+
     function getCatalogLabels(catalog) {
         return Object.assign({
             varietyTitle: "Variety",
@@ -366,6 +427,28 @@ document.addEventListener("DOMContentLoaded", () => {
                 createMilkType("cow", "Cow Milk", ["amul", "akshayakalpa", "country-delight"]),
                 createMilkType("buffalo", "Buffalo Milk", ["amul", "mother-dairy", "country-delight"]),
                 createMilkType("organic", "Organic Milk", ["akshayakalpa", "country-delight", "organic-india"])
+            ]
+        },
+        "wheat-atta": {
+            productName: "Wheat Atta",
+            imageSrc: "images/Whole-Wheat-Atta.jpg",
+            imageAlt: "Wheat Atta",
+            labels: {
+                varietyTitle: "Select Atta Type",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Atta Type",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                createAttaType("whole-wheat", "Whole Wheat Atta", ["aashirvaad", "pillsbury", "patanjali", "fortune", "annapurna"]),
+                createAttaType("multigrain", "Multigrain Atta", ["aashirvaad", "pillsbury", "patanjali"]),
+                createAttaType("sharbati", "Sharbati Atta", ["aashirvaad", "fortune", "annapurna"]),
+                createAttaType("chakki-fresh", "Chakki Fresh Atta", ["fortune", "patanjali", "local-mill"]),
+                createAttaType("organic-wheat", "Organic Wheat Atta", ["organic-india", "24-mantra", "natureland"]),
+                createAttaType("gluten-free", "Gluten-Free Atta", ["urban-platter", "natureland", "organic-india"]),
+                createAttaType("high-fibre", "High Fibre Atta", ["aashirvaad", "fortune", "pillsbury"])
             ]
         },
         mushroom: {

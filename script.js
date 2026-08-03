@@ -354,6 +354,14 @@ document.addEventListener("DOMContentLoaded", () => {
         };
     }
 
+    function createBreadBrand(brandId, brandName, packageSizes) {
+        return {
+            id: brandId,
+            name: brandName,
+            weights: packageSizes.map(([id, label, unitPrice]) => ({ id, label, unitPrice }))
+        };
+    }
+
     function getCatalogLabels(catalog) {
         return Object.assign({
             varietyTitle: "Variety",
@@ -403,6 +411,84 @@ document.addEventListener("DOMContentLoaded", () => {
                                 { id: "5kg", label: "5kg", unitPrice: 249 }
                             ]
                         }
+                    ]
+                }
+            ]
+        },
+        bread: {
+            productName: "Bread",
+            imageSrc: "images/Bread.jpg",
+            imageAlt: "Bread",
+            labels: {
+                varietyTitle: "Select Bread Type",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Bread Type",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                {
+                    id: "white-bread",
+                    name: "White Bread",
+                    brands: [
+                        createBreadBrand("britannia", "Britannia", [["200g", "200 g", 25], ["400g", "400 g", 45], ["600g", "600 g", 65]]),
+                        createBreadBrand("harvest-gold", "Harvest Gold", [["200g", "200 g", 28], ["400g", "400 g", 50], ["600g", "600 g", 72], ["800g", "800 g", 94]]),
+                        createBreadBrand("modern", "Modern", [["200g", "200 g", 23], ["400g", "400 g", 42], ["600g", "600 g", 62]]),
+                        createBreadBrand("english-oven", "English Oven", [["400g", "400 g", 48], ["600g", "600 g", 68], ["800g", "800 g", 90]])
+                    ]
+                },
+                {
+                    id: "brown-bread",
+                    name: "Brown Bread",
+                    brands: [
+                        createBreadBrand("britannia", "Britannia", [["200g", "200 g", 28], ["400g", "400 g", 50], ["600g", "600 g", 72]]),
+                        createBreadBrand("harvest-gold", "Harvest Gold", [["400g", "400 g", 54], ["600g", "600 g", 77], ["800g", "800 g", 101]]),
+                        createBreadBrand("english-oven", "English Oven", [["200g", "200 g", 30], ["400g", "400 g", 53], ["600g", "600 g", 76]]),
+                        createBreadBrand("modern", "Modern", [["200g", "200 g", 26], ["400g", "400 g", 47], ["800g", "800 g", 91]])
+                    ]
+                },
+                {
+                    id: "whole-wheat-bread",
+                    name: "Whole Wheat Bread",
+                    brands: [
+                        createBreadBrand("britannia", "Britannia", [["400g", "400 g", 55], ["600g", "600 g", 78], ["800g", "800 g", 102]]),
+                        createBreadBrand("harvest-gold", "Harvest Gold", [["200g", "200 g", 32], ["400g", "400 g", 58], ["600g", "600 g", 83]]),
+                        createBreadBrand("english-oven", "English Oven", [["400g", "400 g", 60], ["600g", "600 g", 85], ["800g", "800 g", 111]])
+                    ]
+                },
+                {
+                    id: "multigrain-bread",
+                    name: "Multigrain Bread",
+                    brands: [
+                        createBreadBrand("britannia", "Britannia", [["400g", "400 g", 62], ["600g", "600 g", 88], ["800g", "800 g", 115]]),
+                        createBreadBrand("harvest-gold", "Harvest Gold", [["200g", "200 g", 36], ["400g", "400 g", 66], ["600g", "600 g", 93]]),
+                        createBreadBrand("english-oven", "English Oven", [["400g", "400 g", 68], ["600g", "600 g", 96], ["800g", "800 g", 125]])
+                    ]
+                },
+                {
+                    id: "milk-bread",
+                    name: "Milk Bread",
+                    brands: [
+                        createBreadBrand("britannia", "Britannia", [["200g", "200 g", 27], ["400g", "400 g", 48], ["600g", "600 g", 69]]),
+                        createBreadBrand("modern", "Modern", [["200g", "200 g", 25], ["400g", "400 g", 45], ["800g", "800 g", 88]])
+                    ]
+                },
+                {
+                    id: "sandwich-bread",
+                    name: "Sandwich Bread",
+                    brands: [
+                        createBreadBrand("britannia", "Britannia", [["400g", "400 g", 58], ["600g", "600 g", 82], ["800g", "800 g", 108]]),
+                        createBreadBrand("harvest-gold", "Harvest Gold", [["400g", "400 g", 63], ["600g", "600 g", 89]]),
+                        createBreadBrand("english-oven", "English Oven", [["200g", "200 g", 34], ["400g", "400 g", 65], ["600g", "600 g", 92]])
+                    ]
+                },
+                {
+                    id: "garlic-bread",
+                    name: "Garlic Bread",
+                    brands: [
+                        createBreadBrand("britannia", "Britannia", [["200g", "200 g", 42], ["400g", "400 g", 76], ["600g", "600 g", 108]]),
+                        createBreadBrand("english-oven", "English Oven", [["200g", "200 g", 46], ["400g", "400 g", 82], ["800g", "800 g", 155]])
                     ]
                 }
             ]

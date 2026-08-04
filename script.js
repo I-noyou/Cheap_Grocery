@@ -415,6 +415,75 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             ]
         },
+        butter: {
+            productName: "Butter",
+            imageSrc: "images/Butter.jpg",
+            imageAlt: "Butter",
+            labels: {
+                varietyTitle: "Select Butter Type",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Butter Type",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                {
+                    id: "salted-butter",
+                    name: "Salted Butter",
+                    brands: [
+                        createBreadBrand("amul", "Amul", [["50g", "50 g", 30], ["100g", "100 g", 60], ["200g", "200 g", 118], ["500g", "500 g", 285]]),
+                        createBreadBrand("britannia", "Britannia", [["50g", "50 g", 32], ["100g", "100 g", 62], ["200g", "200 g", 120], ["500g", "500 g", 290]]),
+                        createBreadBrand("mother-dairy", "Mother Dairy", [["100g", "100 g", 58], ["200g", "200 g", 115], ["500g", "500 g", 280]]),
+                        createBreadBrand("nandini", "Nandini", [["100g", "100 g", 55], ["200g", "200 g", 108], ["500g", "500 g", 265]])
+                    ]
+                },
+                {
+                    id: "unsalted-butter",
+                    name: "Unsalted Butter",
+                    brands: [
+                        createBreadBrand("amul", "Amul", [["100g", "100 g", 65], ["200g", "200 g", 125], ["500g", "500 g", 305]]),
+                        createBreadBrand("britannia", "Britannia", [["100g", "100 g", 67], ["200g", "200 g", 130], ["500g", "500 g", 315]]),
+                        createBreadBrand("president", "President", [["100g", "100 g", 92], ["200g", "200 g", 178], ["500g", "500 g", 430]])
+                    ]
+                },
+                {
+                    id: "table-butter",
+                    name: "Table Butter",
+                    brands: [
+                        createBreadBrand("amul", "Amul", [["50g", "50 g", 28], ["100g", "100 g", 55], ["200g", "200 g", 108], ["500g", "500 g", 260]]),
+                        createBreadBrand("britannia", "Britannia", [["100g", "100 g", 57], ["200g", "200 g", 112], ["500g", "500 g", 270]]),
+                        createBreadBrand("mother-dairy", "Mother Dairy", [["100g", "100 g", 53], ["200g", "200 g", 105], ["500g", "500 g", 255]])
+                    ]
+                },
+                {
+                    id: "white-butter",
+                    name: "White Butter",
+                    brands: [
+                        createBreadBrand("amul", "Amul", [["100g", "100 g", 70], ["200g", "200 g", 135], ["500g", "500 g", 325]]),
+                        createBreadBrand("mother-dairy", "Mother Dairy", [["100g", "100 g", 66], ["200g", "200 g", 128], ["500g", "500 g", 310]]),
+                        createBreadBrand("nandini", "Nandini", [["100g", "100 g", 62], ["200g", "200 g", 120], ["500g", "500 g", 295]])
+                    ]
+                },
+                {
+                    id: "garlic-butter",
+                    name: "Garlic Butter",
+                    brands: [
+                        createBreadBrand("amul", "Amul", [["100g", "100 g", 78], ["200g", "200 g", 150]]),
+                        createBreadBrand("britannia", "Britannia", [["100g", "100 g", 80], ["200g", "200 g", 155]]),
+                        createBreadBrand("dlecta", "D'lecta", [["100g", "100 g", 88], ["200g", "200 g", 170], ["500g", "500 g", 405]])
+                    ]
+                },
+                {
+                    id: "low-fat-butter",
+                    name: "Low-Fat Butter",
+                    brands: [
+                        createBreadBrand("amul", "Amul", [["100g", "100 g", 68], ["200g", "200 g", 132], ["500g", "500 g", 320]]),
+                        createBreadBrand("britannia", "Britannia", [["100g", "100 g", 70], ["200g", "200 g", 138], ["500g", "500 g", 330]])
+                    ]
+                }
+            ]
+        },
         bread: {
             productName: "Bread",
             imageSrc: "images/Bread.jpg",

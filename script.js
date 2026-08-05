@@ -415,6 +415,89 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             ]
         },
+        dal: {
+            productName: "Dal",
+            imageSrc: "images/Dal.jpg",
+            imageAlt: "Dal",
+            labels: {
+                varietyTitle: "Select Dal Type",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Dal Type",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                {
+                    id: "toor-dal",
+                    name: "Toor Dal / Arhar Dal",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", weights: [{ id: "500g", label: "500 g", unitPrice: 92 }, { id: "1kg", label: "1 kg", unitPrice: 180 }, { id: "2kg", label: "2 kg", unitPrice: 355 }, { id: "5kg", label: "5 kg", unitPrice: 870 }] },
+                        { id: "fortune", name: "Fortune", weights: [{ id: "500g", label: "500 g", unitPrice: 86 }, { id: "1kg", label: "1 kg", unitPrice: 169 }, { id: "2kg", label: "2 kg", unitPrice: 334 }, { id: "5kg", label: "5 kg", unitPrice: 815 }] },
+                        { id: "tata-simply-better", name: "Tata Simply Better", weights: [{ id: "500g", label: "500 g", unitPrice: 96 }, { id: "1kg", label: "1 kg", unitPrice: 188 }, { id: "2kg", label: "2 kg", unitPrice: 370 }] },
+                        { id: "patanjali", name: "Patanjali", weights: [{ id: "500g", label: "500 g", unitPrice: 82 }, { id: "1kg", label: "1 kg", unitPrice: 161 }, { id: "5kg", label: "5 kg", unitPrice: 780 }] }
+                    ]
+                },
+                {
+                    id: "moong-dal",
+                    name: "Moong Dal",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", weights: [{ id: "500g", label: "500 g", unitPrice: 78 }, { id: "1kg", label: "1 kg", unitPrice: 152 }, { id: "2kg", label: "2 kg", unitPrice: 300 }, { id: "5kg", label: "5 kg", unitPrice: 735 }] },
+                        { id: "fortune", name: "Fortune", weights: [{ id: "500g", label: "500 g", unitPrice: 72 }, { id: "1kg", label: "1 kg", unitPrice: 142 }, { id: "2kg", label: "2 kg", unitPrice: 280 }, { id: "5kg", label: "5 kg", unitPrice: 685 }] },
+                        { id: "patanjali", name: "Patanjali", weights: [{ id: "500g", label: "500 g", unitPrice: 75 }, { id: "1kg", label: "1 kg", unitPrice: 147 }, { id: "2kg", label: "2 kg", unitPrice: 290 }] },
+                        { id: "organic-tattva", name: "Organic Tattva", weights: [{ id: "500g", label: "500 g", unitPrice: 90 }, { id: "1kg", label: "1 kg", unitPrice: 176 }, { id: "2kg", label: "2 kg", unitPrice: 345 }] }
+                    ]
+                },
+                {
+                    id: "chana-dal",
+                    name: "Chana Dal",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", weights: [{ id: "500g", label: "500 g", unitPrice: 54 }, { id: "1kg", label: "1 kg", unitPrice: 105 }, { id: "2kg", label: "2 kg", unitPrice: 206 }, { id: "5kg", label: "5 kg", unitPrice: 500 }] },
+                        { id: "fortune", name: "Fortune", weights: [{ id: "500g", label: "500 g", unitPrice: 50 }, { id: "1kg", label: "1 kg", unitPrice: 98 }, { id: "2kg", label: "2 kg", unitPrice: 192 }] },
+                        { id: "patanjali", name: "Patanjali", weights: [{ id: "500g", label: "500 g", unitPrice: 48 }, { id: "1kg", label: "1 kg", unitPrice: 94 }, { id: "5kg", label: "5 kg", unitPrice: 455 }] },
+                        { id: "organic-tattva", name: "Organic Tattva", weights: [{ id: "500g", label: "500 g", unitPrice: 67 }, { id: "1kg", label: "1 kg", unitPrice: 130 }, { id: "2kg", label: "2 kg", unitPrice: 255 }] }
+                    ]
+                },
+                {
+                    id: "masoor-dal",
+                    name: "Masoor Dal",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", weights: [{ id: "500g", label: "500 g", unitPrice: 63 }, { id: "1kg", label: "1 kg", unitPrice: 122 }, { id: "2kg", label: "2 kg", unitPrice: 240 }, { id: "5kg", label: "5 kg", unitPrice: 585 }] },
+                        { id: "fortune", name: "Fortune", weights: [{ id: "500g", label: "500 g", unitPrice: 58 }, { id: "1kg", label: "1 kg", unitPrice: 113 }, { id: "2kg", label: "2 kg", unitPrice: 222 }] },
+                        { id: "patanjali", name: "Patanjali", weights: [{ id: "500g", label: "500 g", unitPrice: 56 }, { id: "1kg", label: "1 kg", unitPrice: 110 }, { id: "5kg", label: "5 kg", unitPrice: 530 }] },
+                        { id: "organic-tattva", name: "Organic Tattva", weights: [{ id: "500g", label: "500 g", unitPrice: 76 }, { id: "1kg", label: "1 kg", unitPrice: 148 }, { id: "2kg", label: "2 kg", unitPrice: 290 }] }
+                    ]
+                },
+                {
+                    id: "urad-dal",
+                    name: "Urad Dal",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", weights: [{ id: "500g", label: "500 g", unitPrice: 88 }, { id: "1kg", label: "1 kg", unitPrice: 172 }, { id: "2kg", label: "2 kg", unitPrice: 338 }] },
+                        { id: "fortune", name: "Fortune", weights: [{ id: "500g", label: "500 g", unitPrice: 82 }, { id: "1kg", label: "1 kg", unitPrice: 160 }, { id: "5kg", label: "5 kg", unitPrice: 775 }] },
+                        { id: "patanjali", name: "Patanjali", weights: [{ id: "500g", label: "500 g", unitPrice: 80 }, { id: "1kg", label: "1 kg", unitPrice: 156 }, { id: "2kg", label: "2 kg", unitPrice: 306 }] },
+                        { id: "organic-tattva", name: "Organic Tattva", weights: [{ id: "500g", label: "500 g", unitPrice: 102 }, { id: "1kg", label: "1 kg", unitPrice: 198 }, { id: "2kg", label: "2 kg", unitPrice: 390 }] }
+                    ]
+                },
+                {
+                    id: "moong-dal-chilka",
+                    name: "Moong Dal Chilka",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", weights: [{ id: "500g", label: "500 g", unitPrice: 74 }, { id: "1kg", label: "1 kg", unitPrice: 144 }, { id: "2kg", label: "2 kg", unitPrice: 284 }] },
+                        { id: "fortune", name: "Fortune", weights: [{ id: "500g", label: "500 g", unitPrice: 69 }, { id: "1kg", label: "1 kg", unitPrice: 135 }, { id: "5kg", label: "5 kg", unitPrice: 650 }] },
+                        { id: "patanjali", name: "Patanjali", weights: [{ id: "500g", label: "500 g", unitPrice: 71 }, { id: "1kg", label: "1 kg", unitPrice: 139 }, { id: "2kg", label: "2 kg", unitPrice: 274 }] }
+                    ]
+                },
+                {
+                    id: "urad-dal-chilka",
+                    name: "Urad Dal Chilka",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", weights: [{ id: "500g", label: "500 g", unitPrice: 84 }, { id: "1kg", label: "1 kg", unitPrice: 164 }, { id: "2kg", label: "2 kg", unitPrice: 322 }] },
+                        { id: "fortune", name: "Fortune", weights: [{ id: "500g", label: "500 g", unitPrice: 79 }, { id: "1kg", label: "1 kg", unitPrice: 154 }, { id: "5kg", label: "5 kg", unitPrice: 745 }] },
+                        { id: "patanjali", name: "Patanjali", weights: [{ id: "500g", label: "500 g", unitPrice: 77 }, { id: "1kg", label: "1 kg", unitPrice: 150 }, { id: "2kg", label: "2 kg", unitPrice: 295 }] }
+                    ]
+                }
+            ]
+        },
         butter: {
             productName: "Butter",
             imageSrc: "images/Butter.jpg",

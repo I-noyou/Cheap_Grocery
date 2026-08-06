@@ -567,6 +567,87 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             ]
         },
+        "body-lotion": {
+            productName: "Body Lotion",
+            imageSrc: "images/Body Lotion.jpg",
+            imageAlt: "Body Lotion",
+            labels: {
+                varietyTitle: "Select Lotion Type",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Lotion Type",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                {
+                    id: "daily-moisturizing",
+                    name: "Daily Moisturizing Lotion",
+                    brands: [
+                        createBreadBrand("nivea", "Nivea", [["100ml", "100 ml", 120], ["200ml", "200 ml", 220], ["400ml", "400 ml", 395], ["600ml", "600 ml", 560]]),
+                        createBreadBrand("vaseline", "Vaseline", [["100ml", "100 ml", 110], ["200ml", "200 ml", 205], ["400ml", "400 ml", 375], ["600ml", "600 ml", 535]]),
+                        createBreadBrand("dove", "Dove", [["200ml", "200 ml", 240], ["400ml", "400 ml", 430], ["600ml", "600 ml", 610]]),
+                        createBreadBrand("himalaya", "Himalaya", [["100ml", "100 ml", 95], ["200ml", "200 ml", 175], ["400ml", "400 ml", 325]])
+                    ]
+                },
+                {
+                    id: "deep-moisturizing",
+                    name: "Deep Moisturizing Lotion",
+                    brands: [
+                        createBreadBrand("nivea", "Nivea", [["100ml", "100 ml", 135], ["200ml", "200 ml", 245], ["400ml", "400 ml", 440], ["600ml", "600 ml", 625]]),
+                        createBreadBrand("vaseline", "Vaseline", [["100ml", "100 ml", 125], ["200ml", "200 ml", 230], ["400ml", "400 ml", 415]]),
+                        createBreadBrand("cetaphil", "Cetaphil", [["100ml", "100 ml", 240], ["200ml", "200 ml", 430], ["400ml", "400 ml", 790]]),
+                        createBreadBrand("dove", "Dove", [["200ml", "200 ml", 255], ["400ml", "400 ml", 460], ["600ml", "600 ml", 650]])
+                    ]
+                },
+                {
+                    id: "dry-skin",
+                    name: "Dry Skin Lotion",
+                    brands: [
+                        createBreadBrand("nivea", "Nivea", [["100ml", "100 ml", 140], ["200ml", "200 ml", 255], ["400ml", "400 ml", 455]]),
+                        createBreadBrand("vaseline", "Vaseline", [["100ml", "100 ml", 130], ["200ml", "200 ml", 240], ["400ml", "400 ml", 430], ["600ml", "600 ml", 610]]),
+                        createBreadBrand("cetaphil", "Cetaphil", [["100ml", "100 ml", 250], ["200ml", "200 ml", 450], ["400ml", "400 ml", 820]]),
+                        createBreadBrand("himalaya", "Himalaya", [["100ml", "100 ml", 105], ["200ml", "200 ml", 190], ["400ml", "400 ml", 350]])
+                    ]
+                },
+                {
+                    id: "aloe-vera",
+                    name: "Aloe Vera Lotion",
+                    brands: [
+                        createBreadBrand("vaseline", "Vaseline", [["100ml", "100 ml", 115], ["200ml", "200 ml", 215], ["400ml", "400 ml", 390]]),
+                        createBreadBrand("himalaya", "Himalaya", [["100ml", "100 ml", 100], ["200ml", "200 ml", 185], ["400ml", "400 ml", 340]]),
+                        createBreadBrand("mamaearth", "Mamaearth", [["200ml", "200 ml", 299], ["400ml", "400 ml", 525]])
+                    ]
+                },
+                {
+                    id: "cocoa-butter",
+                    name: "Cocoa Butter Lotion",
+                    brands: [
+                        createBreadBrand("vaseline", "Vaseline", [["100ml", "100 ml", 125], ["200ml", "200 ml", 235], ["400ml", "400 ml", 420], ["600ml", "600 ml", 595]]),
+                        createBreadBrand("nivea", "Nivea", [["200ml", "200 ml", 265], ["400ml", "400 ml", 475], ["600ml", "600 ml", 670]]),
+                        createBreadBrand("palmers", "Palmer's", [["100ml", "100 ml", 275], ["200ml", "200 ml", 495], ["400ml", "400 ml", 890]])
+                    ]
+                },
+                {
+                    id: "body-milk",
+                    name: "Body Milk Lotion",
+                    brands: [
+                        createBreadBrand("nivea", "Nivea", [["100ml", "100 ml", 125], ["200ml", "200 ml", 225], ["400ml", "400 ml", 405], ["600ml", "600 ml", 575]]),
+                        createBreadBrand("dove", "Dove", [["200ml", "200 ml", 245], ["400ml", "400 ml", 440], ["600ml", "600 ml", 625]]),
+                        createBreadBrand("himalaya", "Himalaya", [["100ml", "100 ml", 98], ["200ml", "200 ml", 180], ["400ml", "400 ml", 330]])
+                    ]
+                },
+                {
+                    id: "spf-body",
+                    name: "SPF Body Lotion",
+                    brands: [
+                        createBreadBrand("vaseline", "Vaseline", [["100ml", "100 ml", 160], ["200ml", "200 ml", 295], ["400ml", "400 ml", 535]]),
+                        createBreadBrand("nivea", "Nivea", [["100ml", "100 ml", 175], ["200ml", "200 ml", 320], ["400ml", "400 ml", 575]]),
+                        createBreadBrand("mamaearth", "Mamaearth", [["100ml", "100 ml", 225], ["200ml", "200 ml", 399], ["400ml", "400 ml", 710]])
+                    ]
+                }
+            ]
+        },
         bread: {
             productName: "Bread",
             imageSrc: "images/Bread.jpg",

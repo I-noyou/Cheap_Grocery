@@ -567,6 +567,79 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             ]
         },
+        salt: {
+            productName: "Salt",
+            imageSrc: "images/Salt.jpg",
+            imageAlt: "Salt",
+            labels: {
+                varietyTitle: "Select Salt Type",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Salt Type",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                {
+                    id: "iodized-salt",
+                    name: "Iodized Salt",
+                    brands: [
+                        createBreadBrand("tata-salt", "Tata Salt", [["500g", "500 g", 15], ["1kg", "1 kg", 28], ["2kg", "2 kg", 55], ["5kg", "5 kg", 135]]),
+                        createBreadBrand("aashirvaad", "Aashirvaad", [["500g", "500 g", 13], ["1kg", "1 kg", 25], ["2kg", "2 kg", 49], ["5kg", "5 kg", 120]]),
+                        createBreadBrand("patanjali", "Patanjali", [["500g", "500 g", 12], ["1kg", "1 kg", 23], ["2kg", "2 kg", 45]]),
+                        createBreadBrand("annapurna", "Annapurna", [["500g", "500 g", 14], ["1kg", "1 kg", 26], ["2kg", "2 kg", 51], ["5kg", "5 kg", 125]])
+                    ]
+                },
+                {
+                    id: "rock-salt",
+                    name: "Rock Salt / Sendha Namak",
+                    brands: [
+                        createBreadBrand("tata-salt", "Tata Salt", [["500g", "500 g", 30], ["1kg", "1 kg", 58], ["2kg", "2 kg", 112]]),
+                        createBreadBrand("aashirvaad", "Aashirvaad", [["500g", "500 g", 28], ["1kg", "1 kg", 54], ["2kg", "2 kg", 105]]),
+                        createBreadBrand("patanjali", "Patanjali", [["500g", "500 g", 26], ["1kg", "1 kg", 50], ["2kg", "2 kg", 98]]),
+                        createBreadBrand("catch", "Catch", [["200g", "200 g", 22], ["500g", "500 g", 48], ["1kg", "1 kg", 92]])
+                    ]
+                },
+                {
+                    id: "black-salt",
+                    name: "Black Salt / Kala Namak",
+                    brands: [
+                        createBreadBrand("tata-salt", "Tata Salt", [["200g", "200 g", 18], ["500g", "500 g", 40], ["1kg", "1 kg", 76]]),
+                        createBreadBrand("catch", "Catch", [["200g", "200 g", 24], ["500g", "500 g", 52], ["1kg", "1 kg", 98]]),
+                        createBreadBrand("patanjali", "Patanjali", [["200g", "200 g", 16], ["500g", "500 g", 36], ["1kg", "1 kg", 68]]),
+                        createBreadBrand("everest", "Everest", [["200g", "200 g", 21], ["500g", "500 g", 46], ["1kg", "1 kg", 88]])
+                    ]
+                },
+                {
+                    id: "sea-salt",
+                    name: "Sea Salt",
+                    brands: [
+                        createBreadBrand("tata-salt", "Tata Salt", [["500g", "500 g", 42], ["1kg", "1 kg", 80]]),
+                        createBreadBrand("urban-platter", "Urban Platter", [["200g", "200 g", 70], ["500g", "500 g", 155], ["1kg", "1 kg", 290]]),
+                        createBreadBrand("keya", "Keya", [["200g", "200 g", 60], ["500g", "500 g", 135]])
+                    ]
+                },
+                {
+                    id: "pink-himalayan-salt",
+                    name: "Pink Himalayan Salt",
+                    brands: [
+                        createBreadBrand("tata-salt", "Tata Salt", [["200g", "200 g", 55], ["500g", "500 g", 125], ["1kg", "1 kg", 235]]),
+                        createBreadBrand("urban-platter", "Urban Platter", [["200g", "200 g", 95], ["500g", "500 g", 210], ["1kg", "1 kg", 390]]),
+                        createBreadBrand("himalayan-natives", "Himalayan Natives", [["200g", "200 g", 75], ["500g", "500 g", 170], ["1kg", "1 kg", 320]]),
+                        createBreadBrand("keya", "Keya", [["200g", "200 g", 68], ["500g", "500 g", 150]])
+                    ]
+                },
+                {
+                    id: "low-sodium-salt",
+                    name: "Low Sodium Salt",
+                    brands: [
+                        createBreadBrand("tata-salt-lite", "Tata Salt Lite", [["500g", "500 g", 58], ["1kg", "1 kg", 110]]),
+                        createBreadBrand("saffola", "Saffola", [["500g", "500 g", 65], ["1kg", "1 kg", 125]]),
+                        createBreadBrand("lo-foods", "Lo! Foods", [["200g", "200 g", 48], ["500g", "500 g", 105]])
+                    ]
+                }
+            ]
+        },
         "body-lotion": {
             productName: "Body Lotion",
             imageSrc: "images/Body Lotion.jpg",

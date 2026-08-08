@@ -866,6 +866,99 @@ document.addEventListener("DOMContentLoaded", () => {
                 createCatalogType("dried", "Dried Mushroom", ["urban-platter", "natures-basket", "green-basket"], MUSHROOM_BRAND_NAMES, MUSHROOM_PACKAGE_SIZES)
             ]
         },
+        tea: {
+            productName: "Chai Paati",
+            imageSrc: "images/Chai-patti.jpg",
+            imageAlt: "Chai Paati",
+            labels: {
+                varietyTitle: "Select Tea Type",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Tea Type",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                {
+                    id: "regular-tea",
+                    name: "Regular Tea",
+                    brands: [
+                        { id: "tata-tea", name: "Tata Tea", weights: [{ id: "100g", label: "100 g", unitPrice: 55 }, { id: "250g", label: "250 g", unitPrice: 130 }, { id: "500g", label: "500 g", unitPrice: 250 }, { id: "1kg", label: "1 kg", unitPrice: 485 }] },
+                        { id: "brooke-bond", name: "Brooke Bond", weights: [{ id: "100g", label: "100 g", unitPrice: 50 }, { id: "250g", label: "250 g", unitPrice: 118 }, { id: "500g", label: "500 g", unitPrice: 225 }, { id: "1kg", label: "1 kg", unitPrice: 440 }] },
+                        { id: "wagh-bakri", name: "Wagh Bakri", weights: [{ id: "100g", label: "100 g", unitPrice: 58 }, { id: "250g", label: "250 g", unitPrice: 140 }, { id: "500g", label: "500 g", unitPrice: 270 }, { id: "1kg", label: "1 kg", unitPrice: 520 }] },
+                        { id: "red-label", name: "Red Label", weights: [{ id: "100g", label: "100 g", unitPrice: 54 }, { id: "250g", label: "250 g", unitPrice: 128 }, { id: "500g", label: "500 g", unitPrice: 245 }] }
+                    ]
+                },
+                {
+                    id: "premium-tea",
+                    name: "Premium Tea",
+                    brands: [
+                        { id: "tata-tea-gold", name: "Tata Tea Gold", weights: [{ id: "100g", label: "100 g", unitPrice: 72 }, { id: "250g", label: "250 g", unitPrice: 175 }, { id: "500g", label: "500 g", unitPrice: 340 }, { id: "1kg", label: "1 kg", unitPrice: 660 }] },
+                        { id: "wagh-bakri", name: "Wagh Bakri", weights: [{ id: "100g", label: "100 g", unitPrice: 68 }, { id: "250g", label: "250 g", unitPrice: 165 }, { id: "500g", label: "500 g", unitPrice: 320 }] },
+                        { id: "society-tea", name: "Society Tea", weights: [{ id: "100g", label: "100 g", unitPrice: 75 }, { id: "250g", label: "250 g", unitPrice: 180 }, { id: "500g", label: "500 g", unitPrice: 350 }, { id: "1kg", label: "1 kg", unitPrice: 680 }] },
+                        { id: "taj-mahal", name: "Taj Mahal", weights: [{ id: "100g", label: "100 g", unitPrice: 82 }, { id: "250g", label: "250 g", unitPrice: 200 }, { id: "500g", label: "500 g", unitPrice: 390 }] }
+                    ]
+                },
+                {
+                    id: "strong-tea",
+                    name: "Strong Tea",
+                    brands: [
+                        { id: "brooke-bond", name: "Brooke Bond", weights: [{ id: "100g", label: "100 g", unitPrice: 56 }, { id: "250g", label: "250 g", unitPrice: 135 }, { id: "500g", label: "500 g", unitPrice: 260 }, { id: "1kg", label: "1 kg", unitPrice: 505 }] },
+                        { id: "red-label", name: "Red Label", weights: [{ id: "100g", label: "100 g", unitPrice: 60 }, { id: "250g", label: "250 g", unitPrice: 145 }, { id: "500g", label: "500 g", unitPrice: 280 }, { id: "1kg", label: "1 kg", unitPrice: 545 }] },
+                        { id: "tata-tea", name: "Tata Tea", weights: [{ id: "100g", label: "100 g", unitPrice: 58 }, { id: "250g", label: "250 g", unitPrice: 140 }, { id: "500g", label: "500 g", unitPrice: 270 }] },
+                        { id: "wagh-bakri", name: "Wagh Bakri", weights: [{ id: "100g", label: "100 g", unitPrice: 63 }, { id: "250g", label: "250 g", unitPrice: 152 }, { id: "500g", label: "500 g", unitPrice: 295 }] }
+                    ]
+                },
+                {
+                    id: "masala-chai",
+                    name: "Masala Chai",
+                    brands: [
+                        { id: "tata-tea", name: "Tata Tea", weights: [{ id: "100g", label: "100 g", unitPrice: 65 }, { id: "250g", label: "250 g", unitPrice: 155 }, { id: "500g", label: "500 g", unitPrice: 300 }] },
+                        { id: "brooke-bond", name: "Brooke Bond", weights: [{ id: "100g", label: "100 g", unitPrice: 62 }, { id: "250g", label: "250 g", unitPrice: 150 }, { id: "500g", label: "500 g", unitPrice: 290 }] },
+                        { id: "wagh-bakri", name: "Wagh Bakri", weights: [{ id: "100g", label: "100 g", unitPrice: 70 }, { id: "250g", label: "250 g", unitPrice: 170 }, { id: "500g", label: "500 g", unitPrice: 330 }] },
+                        { id: "society-tea", name: "Society Tea", weights: [{ id: "100g", label: "100 g", unitPrice: 68 }, { id: "250g", label: "250 g", unitPrice: 165 }, { id: "500g", label: "500 g", unitPrice: 320 }] }
+                    ]
+                },
+                {
+                    id: "green-tea",
+                    name: "Green Tea",
+                    brands: [
+                        { id: "tata-tea", name: "Tata Tea", weights: [{ id: "50g", label: "50 g", unitPrice: 85 }, { id: "100g", label: "100 g", unitPrice: 160 }, { id: "250g", label: "250 g", unitPrice: 370 }] },
+                        { id: "lipton", name: "Lipton", weights: [{ id: "50g", label: "50 g", unitPrice: 90 }, { id: "100g", label: "100 g", unitPrice: 170 }, { id: "250g", label: "250 g", unitPrice: 390 }] },
+                        { id: "organic-india", name: "Organic India", weights: [{ id: "50g", label: "50 g", unitPrice: 110 }, { id: "100g", label: "100 g", unitPrice: 210 }, { id: "250g", label: "250 g", unitPrice: 490 }] },
+                        { id: "tetley", name: "Tetley", weights: [{ id: "50g", label: "50 g", unitPrice: 95 }, { id: "100g", label: "100 g", unitPrice: 180 }] }
+                    ]
+                },
+                {
+                    id: "ginger-tea",
+                    name: "Ginger Tea",
+                    brands: [
+                        { id: "tata-tea", name: "Tata Tea", weights: [{ id: "100g", label: "100 g", unitPrice: 68 }, { id: "250g", label: "250 g", unitPrice: 165 }, { id: "500g", label: "500 g", unitPrice: 320 }] },
+                        { id: "brooke-bond", name: "Brooke Bond", weights: [{ id: "100g", label: "100 g", unitPrice: 65 }, { id: "250g", label: "250 g", unitPrice: 158 }, { id: "500g", label: "500 g", unitPrice: 305 }] },
+                        { id: "wagh-bakri", name: "Wagh Bakri", weights: [{ id: "100g", label: "100 g", unitPrice: 72 }, { id: "250g", label: "250 g", unitPrice: 175 }, { id: "500g", label: "500 g", unitPrice: 340 }] }
+                    ]
+                },
+                {
+                    id: "cardamom-tea",
+                    name: "Cardamom Tea",
+                    brands: [
+                        { id: "tata-tea", name: "Tata Tea", weights: [{ id: "100g", label: "100 g", unitPrice: 70 }, { id: "250g", label: "250 g", unitPrice: 170 }, { id: "500g", label: "500 g", unitPrice: 330 }] },
+                        { id: "brooke-bond", name: "Brooke Bond", weights: [{ id: "100g", label: "100 g", unitPrice: 67 }, { id: "250g", label: "250 g", unitPrice: 162 }, { id: "500g", label: "500 g", unitPrice: 315 }] },
+                        { id: "wagh-bakri", name: "Wagh Bakri", weights: [{ id: "100g", label: "100 g", unitPrice: 75 }, { id: "250g", label: "250 g", unitPrice: 182 }, { id: "500g", label: "500 g", unitPrice: 355 }] }
+                    ]
+                },
+                {
+                    id: "black-tea",
+                    name: "Black Tea",
+                    brands: [
+                        { id: "tata-tea", name: "Tata Tea", weights: [{ id: "100g", label: "100 g", unitPrice: 52 }, { id: "250g", label: "250 g", unitPrice: 125 }, { id: "500g", label: "500 g", unitPrice: 240 }, { id: "1kg", label: "1 kg", unitPrice: 465 }] },
+                        { id: "lipton", name: "Lipton", weights: [{ id: "50g", label: "50 g", unitPrice: 48 }, { id: "100g", label: "100 g", unitPrice: 92 }, { id: "250g", label: "250 g", unitPrice: 220 }] },
+                        { id: "tetley", name: "Tetley", weights: [{ id: "50g", label: "50 g", unitPrice: 55 }, { id: "100g", label: "100 g", unitPrice: 105 }, { id: "250g", label: "250 g", unitPrice: 250 }] },
+                        { id: "wagh-bakri", name: "Wagh Bakri", weights: [{ id: "100g", label: "100 g", unitPrice: 57 }, { id: "250g", label: "250 g", unitPrice: 138 }, { id: "500g", label: "500 g", unitPrice: 265 }] }
+                    ]
+                }
+            ]
+        },
         "cooking-oil": {
             productName: "Cooking Oil",
             imageSrc: "images/download (4).jpg",

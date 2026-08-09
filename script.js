@@ -190,6 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const buttons = document.querySelectorAll(".add-cart");
     const modal = document.getElementById("cart-modal");
+    const modalContent = modal ? modal.querySelector(".cart-modal-content") : null;
     const closeModalButton = document.getElementById("close-modal");
     const addToListButton = document.getElementById("add-to-list-btn");
 
@@ -1319,6 +1320,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         modal.classList.add("open");
         modal.setAttribute("aria-hidden", "false");
+        document.documentElement.classList.add("modal-open");
+        document.body.classList.add("modal-open");
+        if (modalContent) {
+            modalContent.focus({ preventScroll: true });
+        }
     }
 
     function closeModal() {
@@ -1327,6 +1333,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         modal.classList.remove("open");
         modal.setAttribute("aria-hidden", "true");
+        document.documentElement.classList.remove("modal-open");
+        document.body.classList.remove("modal-open");
     }
 
     function extractUnitPrice(priceText) {

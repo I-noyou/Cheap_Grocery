@@ -960,6 +960,93 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             ]
         },
+        toothpaste: {
+            productName: "Toothpaste",
+            imageSrc: "images/Toothpaste.jpg",
+            imageAlt: "Toothpaste",
+            labels: {
+                varietyTitle: "Select Toothpaste Type",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Toothpaste Type",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                {
+                    id: "cavity-protection",
+                    name: "Cavity Protection",
+                    brands: [
+                        { id: "colgate", name: "Colgate", imageSrc: "images/Toothpaste.jpg", imageAlt: "Colgate Toothpaste", weights: [{ id: "50g", label: "50 g", unitPrice: 35 }, { id: "100g", label: "100 g", unitPrice: 70 }, { id: "150g", label: "150 g", unitPrice: 100 }, { id: "200g", label: "200 g", unitPrice: 125 }] },
+                        { id: "pepsodent", name: "Pepsodent", imageSrc: "images/Toothpaste.jpg", imageAlt: "Pepsodent Toothpaste", weights: [{ id: "50g", label: "50 g", unitPrice: 32 }, { id: "100g", label: "100 g", unitPrice: 62 }, { id: "150g", label: "150 g", unitPrice: 90 }, { id: "200g", label: "200 g", unitPrice: 115 }] },
+                        { id: "closeup", name: "Closeup", imageSrc: "images/Toothpaste.jpg", imageAlt: "Closeup Toothpaste", weights: [{ id: "50g", label: "50 g", unitPrice: 34 }, { id: "100g", label: "100 g", unitPrice: 66 }, { id: "150g", label: "150 g", unitPrice: 96 }] }
+                    ]
+                },
+                {
+                    id: "whitening",
+                    name: "Whitening",
+                    brands: [
+                        { id: "colgate", name: "Colgate", imageSrc: "images/Toothpaste.jpg", imageAlt: "Colgate Toothpaste", weights: [{ id: "50g", label: "50 g", unitPrice: 40 }, { id: "100g", label: "100 g", unitPrice: 76 }, { id: "150g", label: "150 g", unitPrice: 110 }] },
+                        { id: "closeup", name: "Closeup", imageSrc: "images/Toothpaste.jpg", imageAlt: "Closeup Toothpaste", weights: [{ id: "50g", label: "50 g", unitPrice: 38 }, { id: "100g", label: "100 g", unitPrice: 72 }, { id: "150g", label: "150 g", unitPrice: 105 }, { id: "200g", label: "200 g", unitPrice: 135 }] },
+                        { id: "sensodyne", name: "Sensodyne", imageSrc: "images/Toothpaste.jpg", imageAlt: "Sensodyne Toothpaste", weights: [{ id: "50g", label: "50 g", unitPrice: 95 }, { id: "100g", label: "100 g", unitPrice: 180 }, { id: "150g", label: "150 g", unitPrice: 250 }] }
+                    ]
+                },
+                {
+                    id: "sensitive-teeth",
+                    name: "Sensitive Teeth",
+                    brands: [
+                        { id: "sensodyne", name: "Sensodyne", imageSrc: "images/Toothpaste.jpg", imageAlt: "Sensodyne Toothpaste", weights: [{ id: "50g", label: "50 g", unitPrice: 85 }, { id: "100g", label: "100 g", unitPrice: 160 }, { id: "150g", label: "150 g", unitPrice: 225 }] },
+                        { id: "colgate", name: "Colgate", imageSrc: "images/Toothpaste.jpg", imageAlt: "Colgate Toothpaste", weights: [{ id: "50g", label: "50 g", unitPrice: 72 }, { id: "100g", label: "100 g", unitPrice: 138 }, { id: "150g", label: "150 g", unitPrice: 198 }, { id: "200g", label: "200 g", unitPrice: 258 }] },
+                        { id: "oral-b", name: "Oral-B", imageSrc: "images/Toothpaste.jpg", imageAlt: "Oral-B Toothpaste", weights: [{ id: "50g", label: "50 g", unitPrice: 78 }, { id: "100g", label: "100 g", unitPrice: 148 }, { id: "150g", label: "150 g", unitPrice: 212 }] }
+                    ]
+                },
+                {
+                    id: "gum-care",
+                    name: "Gum Care",
+                    brands: [
+                        { id: "colgate", name: "Colgate", imageSrc: "images/Toothpaste.jpg", imageAlt: "Colgate Toothpaste", weights: [{ id: "50g", label: "50 g", unitPrice: 62 }, { id: "100g", label: "100 g", unitPrice: 118 }, { id: "150g", label: "150 g", unitPrice: 168 }, { id: "200g", label: "200 g", unitPrice: 220 }] },
+                        { id: "parodontax", name: "Parodontax", imageSrc: "images/Toothpaste.jpg", imageAlt: "Parodontax Toothpaste", weights: [{ id: "50g", label: "50 g", unitPrice: 110 }, { id: "100g", label: "100 g", unitPrice: 210 }, { id: "150g", label: "150 g", unitPrice: 300 }] },
+                        { id: "oral-b", name: "Oral-B", imageSrc: "images/Toothpaste.jpg", imageAlt: "Oral-B Toothpaste", weights: [{ id: "50g", label: "50 g", unitPrice: 70 }, { id: "100g", label: "100 g", unitPrice: 134 }, { id: "200g", label: "200 g", unitPrice: 248 }] }
+                    ]
+                },
+                {
+                    id: "herbal-toothpaste",
+                    name: "Herbal Toothpaste",
+                    brands: [
+                        { id: "patanjali", name: "Patanjali", imageSrc: "images/Toothpaste.jpg", imageAlt: "Patanjali Toothpaste", weights: [{ id: "50g", label: "50 g", unitPrice: 30 }, { id: "100g", label: "100 g", unitPrice: 56 }, { id: "150g", label: "150 g", unitPrice: 80 }, { id: "200g", label: "200 g", unitPrice: 104 }] },
+                        { id: "himalaya", name: "Himalaya", imageSrc: "images/Toothpaste.jpg", imageAlt: "Himalaya Toothpaste", weights: [{ id: "50g", label: "50 g", unitPrice: 36 }, { id: "100g", label: "100 g", unitPrice: 68 }, { id: "150g", label: "150 g", unitPrice: 98 }] },
+                        { id: "dabur", name: "Dabur", imageSrc: "images/Toothpaste.jpg", imageAlt: "Dabur Toothpaste", weights: [{ id: "100g", label: "100 g", unitPrice: 60 }, { id: "150g", label: "150 g", unitPrice: 86 }, { id: "200g", label: "200 g", unitPrice: 112 }] }
+                    ]
+                },
+                {
+                    id: "complete-care",
+                    name: "Complete Care",
+                    brands: [
+                        { id: "colgate", name: "Colgate", imageSrc: "images/Toothpaste.jpg", imageAlt: "Colgate Toothpaste", weights: [{ id: "50g", label: "50 g", unitPrice: 48 }, { id: "100g", label: "100 g", unitPrice: 92 }, { id: "150g", label: "150 g", unitPrice: 132 }, { id: "200g", label: "200 g", unitPrice: 170 }] },
+                        { id: "pepsodent", name: "Pepsodent", imageSrc: "images/Toothpaste.jpg", imageAlt: "Pepsodent Toothpaste", weights: [{ id: "50g", label: "50 g", unitPrice: 44 }, { id: "100g", label: "100 g", unitPrice: 84 }, { id: "150g", label: "150 g", unitPrice: 120 }] },
+                        { id: "oral-b", name: "Oral-B", imageSrc: "images/Toothpaste.jpg", imageAlt: "Oral-B Toothpaste", weights: [{ id: "50g", label: "50 g", unitPrice: 55 }, { id: "100g", label: "100 g", unitPrice: 104 }, { id: "200g", label: "200 g", unitPrice: 192 }] }
+                    ]
+                },
+                {
+                    id: "kids-toothpaste",
+                    name: "Kids Toothpaste",
+                    brands: [
+                        { id: "colgate", name: "Colgate", imageSrc: "images/Toothpaste.jpg", imageAlt: "Colgate Toothpaste", weights: [{ id: "50g", label: "50 g", unitPrice: 45 }, { id: "100g", label: "100 g", unitPrice: 84 }, { id: "150g", label: "150 g", unitPrice: 120 }] },
+                        { id: "himalaya", name: "Himalaya", imageSrc: "images/Toothpaste.jpg", imageAlt: "Himalaya Toothpaste", weights: [{ id: "50g", label: "50 g", unitPrice: 42 }, { id: "100g", label: "100 g", unitPrice: 78 }, { id: "200g", label: "200 g", unitPrice: 146 }] },
+                        { id: "chicco", name: "Chicco", imageSrc: "images/Toothpaste.jpg", imageAlt: "Chicco Toothpaste", weights: [{ id: "50g", label: "50 g", unitPrice: 125 }, { id: "100g", label: "100 g", unitPrice: 235 }] }
+                    ]
+                },
+                {
+                    id: "fresh-breath",
+                    name: "Fresh Breath",
+                    brands: [
+                        { id: "closeup", name: "Closeup", imageSrc: "images/Toothpaste.jpg", imageAlt: "Closeup Toothpaste", weights: [{ id: "50g", label: "50 g", unitPrice: 34 }, { id: "100g", label: "100 g", unitPrice: 64 }, { id: "150g", label: "150 g", unitPrice: 92 }, { id: "200g", label: "200 g", unitPrice: 118 }] },
+                        { id: "colgate", name: "Colgate", imageSrc: "images/Toothpaste.jpg", imageAlt: "Colgate Toothpaste", weights: [{ id: "50g", label: "50 g", unitPrice: 38 }, { id: "100g", label: "100 g", unitPrice: 72 }, { id: "150g", label: "150 g", unitPrice: 104 }] },
+                        { id: "pepsodent", name: "Pepsodent", imageSrc: "images/Toothpaste.jpg", imageAlt: "Pepsodent Toothpaste", weights: [{ id: "50g", label: "50 g", unitPrice: 33 }, { id: "100g", label: "100 g", unitPrice: 63 }, { id: "200g", label: "200 g", unitPrice: 116 }] }
+                    ]
+                }
+            ]
+        },
         "cooking-oil": {
             productName: "Cooking Oil",
             imageSrc: "images/download (4).jpg",

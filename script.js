@@ -1047,6 +1047,79 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             ]
         },
+        haldi: {
+            productName: "Haldi",
+            label: "Haldi",
+            imageSrc: "images/Haldi.webp",
+            imageAlt: "Haldi",
+            labels: {
+                varietyTitle: "Select Haldi Type",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Haldi Type",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                {
+                    id: "turmeric-powder",
+                    name: "Turmeric Powder",
+                    brands: [
+                        { id: "everest", name: "Everest", imageSrc: "images/Haldi.webp", imageAlt: "Everest Haldi", weights: [{ id: "50g", label: "50 g", unitPrice: 28 }, { id: "100g", label: "100 g", unitPrice: 48 }, { id: "200g", label: "200 g", unitPrice: 88 }, { id: "500g", label: "500 g", unitPrice: 205 }, { id: "1kg", label: "1 kg", unitPrice: 390 }] },
+                        { id: "mdh", name: "MDH", imageSrc: "images/Haldi.webp", imageAlt: "MDH Haldi", weights: [{ id: "50g", label: "50 g", unitPrice: 27 }, { id: "100g", label: "100 g", unitPrice: 46 }, { id: "200g", label: "200 g", unitPrice: 86 }, { id: "500g", label: "500 g", unitPrice: 200 }] },
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Haldi.webp", imageAlt: "Tata Sampann Haldi", weights: [{ id: "100g", label: "100 g", unitPrice: 55 }, { id: "200g", label: "200 g", unitPrice: 105 }, { id: "500g", label: "500 g", unitPrice: 245 }, { id: "1kg", label: "1 kg", unitPrice: 470 }] },
+                        { id: "catch", name: "Catch", imageSrc: "images/Haldi.webp", imageAlt: "Catch Haldi", weights: [{ id: "50g", label: "50 g", unitPrice: 30 }, { id: "100g", label: "100 g", unitPrice: 52 }, { id: "200g", label: "200 g", unitPrice: 95 }, { id: "500g", label: "500 g", unitPrice: 220 }, { id: "1kg", label: "1 kg", unitPrice: 420 }] },
+                        { id: "aashirvaad", name: "Aashirvaad", imageSrc: "images/Haldi.webp", imageAlt: "Aashirvaad Haldi", weights: [{ id: "100g", label: "100 g", unitPrice: 50 }, { id: "200g", label: "200 g", unitPrice: 96 }, { id: "500g", label: "500 g", unitPrice: 225 }, { id: "1kg", label: "1 kg", unitPrice: 430 }] }
+                    ]
+                },
+                {
+                    id: "organic-turmeric-powder",
+                    name: "Organic Turmeric Powder",
+                    brands: [
+                        { id: "organic-india", name: "Organic India", imageSrc: "images/Haldi.webp", imageAlt: "Organic India Haldi", weights: [{ id: "100g", label: "100 g", unitPrice: 75 }, { id: "200g", label: "200 g", unitPrice: 140 }, { id: "500g", label: "500 g", unitPrice: 325 }, { id: "1kg", label: "1 kg", unitPrice: 620 }] },
+                        { id: "24-mantra", name: "24 Mantra", imageSrc: "images/Haldi.webp", imageAlt: "24 Mantra Haldi", weights: [{ id: "100g", label: "100 g", unitPrice: 70 }, { id: "200g", label: "200 g", unitPrice: 132 }, { id: "500g", label: "500 g", unitPrice: 310 }] },
+                        { id: "natureland", name: "Natureland", imageSrc: "images/Haldi.webp", imageAlt: "Natureland Haldi", weights: [{ id: "100g", label: "100 g", unitPrice: 68 }, { id: "200g", label: "200 g", unitPrice: 128 }, { id: "500g", label: "500 g", unitPrice: 300 }, { id: "1kg", label: "1 kg", unitPrice: 575 }] },
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Haldi.webp", imageAlt: "Tata Sampann Organic Haldi", weights: [{ id: "100g", label: "100 g", unitPrice: 65 }, { id: "200g", label: "200 g", unitPrice: 122 }, { id: "500g", label: "500 g", unitPrice: 285 }] }
+                    ]
+                },
+                {
+                    id: "lakadong-turmeric-powder",
+                    name: "Lakadong Turmeric Powder",
+                    brands: [
+                        { id: "organic-india", name: "Organic India", imageSrc: "images/Haldi.webp", imageAlt: "Organic India Lakadong Haldi", weights: [{ id: "100g", label: "100 g", unitPrice: 135 }, { id: "200g", label: "200 g", unitPrice: 255 }, { id: "500g", label: "500 g", unitPrice: 610 }] },
+                        { id: "natureland", name: "Natureland", imageSrc: "images/Haldi.webp", imageAlt: "Natureland Lakadong Haldi", weights: [{ id: "100g", label: "100 g", unitPrice: 125 }, { id: "200g", label: "200 g", unitPrice: 238 }, { id: "500g", label: "500 g", unitPrice: 570 }, { id: "1kg", label: "1 kg", unitPrice: 1100 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Haldi.webp", imageAlt: "Urban Platter Lakadong Haldi", weights: [{ id: "100g", label: "100 g", unitPrice: 145 }, { id: "200g", label: "200 g", unitPrice: 275 }, { id: "500g", label: "500 g", unitPrice: 655 }] }
+                    ]
+                },
+                {
+                    id: "high-curcumin-turmeric-powder",
+                    name: "Turmeric Powder with High Curcumin",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Haldi.webp", imageAlt: "Tata Sampann High Curcumin Haldi", weights: [{ id: "100g", label: "100 g", unitPrice: 90 }, { id: "200g", label: "200 g", unitPrice: 170 }, { id: "500g", label: "500 g", unitPrice: 405 }] },
+                        { id: "organic-india", name: "Organic India", imageSrc: "images/Haldi.webp", imageAlt: "Organic India High Curcumin Haldi", weights: [{ id: "100g", label: "100 g", unitPrice: 105 }, { id: "200g", label: "200 g", unitPrice: 198 }, { id: "500g", label: "500 g", unitPrice: 475 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Haldi.webp", imageAlt: "Urban Platter High Curcumin Haldi", weights: [{ id: "100g", label: "100 g", unitPrice: 110 }, { id: "200g", label: "200 g", unitPrice: 210 }, { id: "500g", label: "500 g", unitPrice: 500 }, { id: "1kg", label: "1 kg", unitPrice: 960 }] }
+                    ]
+                },
+                {
+                    id: "raw-turmeric",
+                    name: "Raw Turmeric",
+                    brands: [
+                        { id: "local-fresh", name: "Local / Fresh", imageSrc: "images/Haldi.webp", imageAlt: "Fresh Raw Haldi", weights: [{ id: "100g", label: "100 g", unitPrice: 16 }, { id: "250g", label: "250 g", unitPrice: 35 }, { id: "500g", label: "500 g", unitPrice: 65 }, { id: "1kg", label: "1 kg", unitPrice: 120 }] },
+                        { id: "organic-india", name: "Organic India", imageSrc: "images/Haldi.webp", imageAlt: "Organic India Raw Haldi", weights: [{ id: "250g", label: "250 g", unitPrice: 55 }, { id: "500g", label: "500 g", unitPrice: 105 }, { id: "1kg", label: "1 kg", unitPrice: 200 }] },
+                        { id: "natureland", name: "Natureland", imageSrc: "images/Haldi.webp", imageAlt: "Natureland Raw Haldi", weights: [{ id: "100g", label: "100 g", unitPrice: 22 }, { id: "250g", label: "250 g", unitPrice: 48 }, { id: "500g", label: "500 g", unitPrice: 92 }] }
+                    ]
+                },
+                {
+                    id: "whole-dried-turmeric",
+                    name: "Turmeric Whole / Dried Turmeric",
+                    brands: [
+                        { id: "everest", name: "Everest", imageSrc: "images/Haldi.webp", imageAlt: "Everest Whole Haldi", weights: [{ id: "100g", label: "100 g", unitPrice: 42 }, { id: "250g", label: "250 g", unitPrice: 95 }, { id: "500g", label: "500 g", unitPrice: 180 }, { id: "1kg", label: "1 kg", unitPrice: 345 }] },
+                        { id: "catch", name: "Catch", imageSrc: "images/Haldi.webp", imageAlt: "Catch Whole Haldi", weights: [{ id: "100g", label: "100 g", unitPrice: 46 }, { id: "250g", label: "250 g", unitPrice: 105 }, { id: "500g", label: "500 g", unitPrice: 198 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Haldi.webp", imageAlt: "Urban Platter Whole Haldi", weights: [{ id: "100g", label: "100 g", unitPrice: 58 }, { id: "250g", label: "250 g", unitPrice: 132 }, { id: "500g", label: "500 g", unitPrice: 250 }, { id: "1kg", label: "1 kg", unitPrice: 480 }] }
+                    ]
+                }
+            ]
+        },
         "cooking-oil": {
             productName: "Cooking Oil",
             imageSrc: "images/download (4).jpg",

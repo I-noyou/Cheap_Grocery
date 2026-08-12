@@ -1120,6 +1120,70 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             ]
         },
+        jira: {
+            productName: "Jira",
+            imageSrc: "images/Jira.jpg",
+            imageAlt: "Jira",
+            labels: {
+                varietyTitle: "Select Jira Type",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Jira Type",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                {
+                    id: "jira-whole",
+                    name: "Jira Whole",
+                    brands: [
+                        { id: "catch", name: "Catch", imageSrc: "images/Jira.jpg", imageAlt: "Catch Jira Whole", weights: [{ id: "50g", label: "50 g", unitPrice: 28 }, { id: "100g", label: "100 g", unitPrice: 52 }, { id: "200g", label: "200 g", unitPrice: 98 }, { id: "500g", label: "500 g", unitPrice: 230 }, { id: "1kg", label: "1 kg", unitPrice: 440 }] },
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Jira.jpg", imageAlt: "Tata Sampann Jira Whole", weights: [{ id: "50g", label: "50 g", unitPrice: 30 }, { id: "100g", label: "100 g", unitPrice: 56 }, { id: "200g", label: "200 g", unitPrice: 105 }, { id: "500g", label: "500 g", unitPrice: 245 }, { id: "1kg", label: "1 kg", unitPrice: 470 }] },
+                        { id: "everest", name: "Everest", imageSrc: "images/Jira.jpg", imageAlt: "Everest Jira Whole", weights: [{ id: "50g", label: "50 g", unitPrice: 27 }, { id: "100g", label: "100 g", unitPrice: 50 }, { id: "200g", label: "200 g", unitPrice: 94 }, { id: "500g", label: "500 g", unitPrice: 220 }] },
+                        { id: "mdh", name: "MDH", imageSrc: "images/Jira.jpg", imageAlt: "MDH Jira Whole", weights: [{ id: "50g", label: "50 g", unitPrice: 26 }, { id: "100g", label: "100 g", unitPrice: 49 }, { id: "200g", label: "200 g", unitPrice: 92 }, { id: "500g", label: "500 g", unitPrice: 215 }] },
+                        { id: "aashirvaad", name: "Aashirvaad", imageSrc: "images/Jira.jpg", imageAlt: "Aashirvaad Jira Whole", weights: [{ id: "100g", label: "100 g", unitPrice: 54 }, { id: "200g", label: "200 g", unitPrice: 102 }, { id: "500g", label: "500 g", unitPrice: 238 }, { id: "1kg", label: "1 kg", unitPrice: 455 }] }
+                    ]
+                },
+                {
+                    id: "jira-powder",
+                    name: "Jira Powder",
+                    brands: [
+                        { id: "everest", name: "Everest", imageSrc: "images/Jira.jpg", imageAlt: "Everest Jira Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 25 }, { id: "100g", label: "100 g", unitPrice: 48 }, { id: "200g", label: "200 g", unitPrice: 90 }, { id: "500g", label: "500 g", unitPrice: 210 }, { id: "1kg", label: "1 kg", unitPrice: 400 }] },
+                        { id: "catch", name: "Catch", imageSrc: "images/Jira.jpg", imageAlt: "Catch Jira Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 27 }, { id: "100g", label: "100 g", unitPrice: 51 }, { id: "200g", label: "200 g", unitPrice: 96 }, { id: "500g", label: "500 g", unitPrice: 225 }] },
+                        { id: "mdh", name: "MDH", imageSrc: "images/Jira.jpg", imageAlt: "MDH Jira Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 24 }, { id: "100g", label: "100 g", unitPrice: 46 }, { id: "200g", label: "200 g", unitPrice: 87 }, { id: "500g", label: "500 g", unitPrice: 205 }] },
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Jira.jpg", imageAlt: "Tata Sampann Jira Powder", weights: [{ id: "100g", label: "100 g", unitPrice: 53 }, { id: "200g", label: "200 g", unitPrice: 100 }, { id: "500g", label: "500 g", unitPrice: 235 }, { id: "1kg", label: "1 kg", unitPrice: 450 }] }
+                    ]
+                },
+                {
+                    id: "roasted-jira",
+                    name: "Roasted Jira",
+                    brands: [
+                        { id: "catch", name: "Catch", imageSrc: "images/Jira.jpg", imageAlt: "Catch Roasted Jira", weights: [{ id: "50g", label: "50 g", unitPrice: 35 }, { id: "100g", label: "100 g", unitPrice: 66 }, { id: "200g", label: "200 g", unitPrice: 125 }] },
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Jira.jpg", imageAlt: "Tata Sampann Roasted Jira", weights: [{ id: "100g", label: "100 g", unitPrice: 70 }, { id: "200g", label: "200 g", unitPrice: 132 }, { id: "500g", label: "500 g", unitPrice: 310 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Jira.jpg", imageAlt: "Urban Platter Roasted Jira", weights: [{ id: "50g", label: "50 g", unitPrice: 48 }, { id: "100g", label: "100 g", unitPrice: 90 }, { id: "200g", label: "200 g", unitPrice: 170 }, { id: "500g", label: "500 g", unitPrice: 395 }] }
+                    ]
+                },
+                {
+                    id: "organic-jira",
+                    name: "Organic Jira",
+                    brands: [
+                        { id: "organic-india", name: "Organic India", imageSrc: "images/Jira.jpg", imageAlt: "Organic India Jira", weights: [{ id: "100g", label: "100 g", unitPrice: 75 }, { id: "200g", label: "200 g", unitPrice: 140 }, { id: "500g", label: "500 g", unitPrice: 325 }, { id: "1kg", label: "1 kg", unitPrice: 620 }] },
+                        { id: "24-mantra", name: "24 Mantra", imageSrc: "images/Jira.jpg", imageAlt: "24 Mantra Jira", weights: [{ id: "100g", label: "100 g", unitPrice: 72 }, { id: "200g", label: "200 g", unitPrice: 135 }, { id: "500g", label: "500 g", unitPrice: 315 }] },
+                        { id: "natureland", name: "Natureland", imageSrc: "images/Jira.jpg", imageAlt: "Natureland Jira", weights: [{ id: "100g", label: "100 g", unitPrice: 70 }, { id: "200g", label: "200 g", unitPrice: 130 }, { id: "500g", label: "500 g", unitPrice: 305 }, { id: "1kg", label: "1 kg", unitPrice: 585 }] },
+                        { id: "organic-tattva", name: "Organic Tattva", imageSrc: "images/Jira.jpg", imageAlt: "Organic Tattva Jira", weights: [{ id: "100g", label: "100 g", unitPrice: 74 }, { id: "200g", label: "200 g", unitPrice: 138 }, { id: "500g", label: "500 g", unitPrice: 320 }] }
+                    ]
+                },
+                {
+                    id: "black-jira",
+                    name: "Black Jira",
+                    brands: [
+                        { id: "catch", name: "Catch", imageSrc: "images/Jira.jpg", imageAlt: "Catch Black Jira", weights: [{ id: "50g", label: "50 g", unitPrice: 42 }, { id: "100g", label: "100 g", unitPrice: 80 }, { id: "200g", label: "200 g", unitPrice: 152 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Jira.jpg", imageAlt: "Urban Platter Black Jira", weights: [{ id: "50g", label: "50 g", unitPrice: 58 }, { id: "100g", label: "100 g", unitPrice: 108 }, { id: "200g", label: "200 g", unitPrice: 205 }, { id: "500g", label: "500 g", unitPrice: 480 }] },
+                        { id: "natureland", name: "Natureland", imageSrc: "images/Jira.jpg", imageAlt: "Natureland Black Jira", weights: [{ id: "50g", label: "50 g", unitPrice: 52 }, { id: "100g", label: "100 g", unitPrice: 98 }, { id: "200g", label: "200 g", unitPrice: 185 }, { id: "500g", label: "500 g", unitPrice: 435 }] }
+                    ]
+                }
+            ]
+        },
         "cooking-oil": {
             productName: "Cooking Oil",
             imageSrc: "images/download (4).jpg",

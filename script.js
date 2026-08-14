@@ -1120,6 +1120,82 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             ]
         },
+        mirchi: {
+            productName: "Mirchi Powder",
+            label: "Mirchi Powder",
+            imageSrc: "images/Mirchi powder.jpg",
+            imageAlt: "Mirchi Powder",
+            labels: {
+                varietyTitle: "Select Mirchi Type",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Mirchi Type",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                {
+                    id: "regular-red-chilli",
+                    name: "Regular Red Chilli Powder",
+                    brands: [
+                        { id: "everest", name: "Everest", imageSrc: "images/Mirchi powder.jpg", imageAlt: "Everest Mirchi Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 25 }, { id: "100g", label: "100 g", unitPrice: 45 }, { id: "200g", label: "200 g", unitPrice: 85 }, { id: "500g", label: "500 g", unitPrice: 200 }, { id: "1kg", label: "1 kg", unitPrice: 380 }] },
+                        { id: "mdh", name: "MDH", imageSrc: "images/Mirchi powder.jpg", imageAlt: "MDH Mirchi Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 28 }, { id: "100g", label: "100 g", unitPrice: 50 }, { id: "200g", label: "200 g", unitPrice: 95 }, { id: "500g", label: "500 g", unitPrice: 225 }, { id: "1kg", label: "1 kg", unitPrice: 430 }] },
+                        { id: "catch", name: "Catch", imageSrc: "images/Mirchi powder.jpg", imageAlt: "Catch Mirchi Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 27 }, { id: "100g", label: "100 g", unitPrice: 48 }, { id: "200g", label: "200 g", unitPrice: 92 }, { id: "500g", label: "500 g", unitPrice: 215 }, { id: "1kg", label: "1 kg", unitPrice: 410 }] },
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Mirchi powder.jpg", imageAlt: "Tata Sampann Mirchi Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 29 }, { id: "100g", label: "100 g", unitPrice: 52 }, { id: "200g", label: "200 g", unitPrice: 98 }, { id: "500g", label: "500 g", unitPrice: 230 }, { id: "1kg", label: "1 kg", unitPrice: 440 }] },
+                        { id: "aashirvaad", name: "Aashirvaad", imageSrc: "images/Mirchi powder.jpg", imageAlt: "Aashirvaad Mirchi Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 31 }, { id: "100g", label: "100 g", unitPrice: 54 }, { id: "200g", label: "200 g", unitPrice: 101 }, { id: "500g", label: "500 g", unitPrice: 240 }, { id: "1kg", label: "1 kg", unitPrice: 460 }] }
+                    ]
+                },
+                {
+                    id: "kashmiri-chilli",
+                    name: "Kashmiri Chilli Powder",
+                    brands: [
+                        { id: "everest", name: "Everest", imageSrc: "images/Mirchi powder.jpg", imageAlt: "Everest Kashmiri Mirchi Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 30 }, { id: "100g", label: "100 g", unitPrice: 55 }, { id: "200g", label: "200 g", unitPrice: 105 }, { id: "500g", label: "500 g", unitPrice: 250 }, { id: "1kg", label: "1 kg", unitPrice: 480 }] },
+                        { id: "catch", name: "Catch", imageSrc: "images/Mirchi powder.jpg", imageAlt: "Catch Kashmiri Mirchi Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 32 }, { id: "100g", label: "100 g", unitPrice: 60 }, { id: "200g", label: "200 g", unitPrice: 112 }, { id: "500g", label: "500 g", unitPrice: 265 }, { id: "1kg", label: "1 kg", unitPrice: 500 }] },
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Mirchi powder.jpg", imageAlt: "Tata Sampann Kashmiri Mirchi Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 34 }, { id: "100g", label: "100 g", unitPrice: 62 }, { id: "200g", label: "200 g", unitPrice: 118 }, { id: "500g", label: "500 g", unitPrice: 275 }, { id: "1kg", label: "1 kg", unitPrice: 520 }] },
+                        { id: "organic-india", name: "Organic India", imageSrc: "images/Mirchi powder.jpg", imageAlt: "Organic India Kashmiri Mirchi Powder", weights: [{ id: "100g", label: "100 g", unitPrice: 72 }, { id: "200g", label: "200 g", unitPrice: 138 }, { id: "500g", label: "500 g", unitPrice: 320 }, { id: "1kg", label: "1 kg", unitPrice: 610 }] }
+                    ]
+                },
+                {
+                    id: "extra-hot-chilli",
+                    name: "Extra Hot Chilli Powder",
+                    brands: [
+                        { id: "everest", name: "Everest", imageSrc: "images/Mirchi powder.jpg", imageAlt: "Everest Extra Hot Mirchi Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 35 }, { id: "100g", label: "100 g", unitPrice: 68 }, { id: "200g", label: "200 g", unitPrice: 128 }, { id: "500g", label: "500 g", unitPrice: 290 }, { id: "1kg", label: "1 kg", unitPrice: 560 }] },
+                        { id: "mdh", name: "MDH", imageSrc: "images/Mirchi powder.jpg", imageAlt: "MDH Extra Hot Mirchi Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 28 }, { id: "100g", label: "100 g", unitPrice: 52 }, { id: "200g", label: "200 g", unitPrice: 98 }, { id: "500g", label: "500 g", unitPrice: 235 }, { id: "1kg", label: "1 kg", unitPrice: 450 }] },
+                        { id: "catch", name: "Catch", imageSrc: "images/Mirchi powder.jpg", imageAlt: "Catch Extra Hot Mirchi Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 33 }, { id: "100g", label: "100 g", unitPrice: 62 }, { id: "200g", label: "200 g", unitPrice: 118 }, { id: "500g", label: "500 g", unitPrice: 280 }, { id: "1kg", label: "1 kg", unitPrice: 535 }] },
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Mirchi powder.jpg", imageAlt: "Tata Sampann Extra Hot Mirchi Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 36 }, { id: "100g", label: "100 g", unitPrice: 66 }, { id: "200g", label: "200 g", unitPrice: 124 }, { id: "500g", label: "500 g", unitPrice: 295 }, { id: "1kg", label: "1 kg", unitPrice: 570 }] }
+                    ]
+                },
+                {
+                    id: "byadgi-chilli",
+                    name: "Byadgi Chilli Powder",
+                    brands: [
+                        { id: "everest", name: "Everest", imageSrc: "images/Mirchi powder.jpg", imageAlt: "Everest Byadgi Mirchi Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 32 }, { id: "100g", label: "100 g", unitPrice: 60 }, { id: "200g", label: "200 g", unitPrice: 112 }, { id: "500g", label: "500 g", unitPrice: 270 }, { id: "1kg", label: "1 kg", unitPrice: 520 }] },
+                        { id: "catch", name: "Catch", imageSrc: "images/Mirchi powder.jpg", imageAlt: "Catch Byadgi Mirchi Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 34 }, { id: "100g", label: "100 g", unitPrice: 64 }, { id: "200g", label: "200 g", unitPrice: 120 }, { id: "500g", label: "500 g", unitPrice: 285 }, { id: "1kg", label: "1 kg", unitPrice: 545 }] },
+                        { id: "organic-tattva", name: "Organic Tattva", imageSrc: "images/Mirchi powder.jpg", imageAlt: "Organic Tattva Byadgi Mirchi Powder", weights: [{ id: "100g", label: "100 g", unitPrice: 78 }, { id: "200g", label: "200 g", unitPrice: 148 }, { id: "500g", label: "500 g", unitPrice: 340 }, { id: "1kg", label: "1 kg", unitPrice: 650 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Mirchi powder.jpg", imageAlt: "Urban Platter Byadgi Mirchi Powder", weights: [{ id: "100g", label: "100 g", unitPrice: 85 }, { id: "200g", label: "200 g", unitPrice: 160 }, { id: "500g", label: "500 g", unitPrice: 360 }, { id: "1kg", label: "1 kg", unitPrice: 690 }] }
+                    ]
+                },
+                {
+                    id: "organic-chilli",
+                    name: "Organic Chilli Powder",
+                    brands: [
+                        { id: "organic-india", name: "Organic India", imageSrc: "images/Mirchi powder.jpg", imageAlt: "Organic India Mirchi Powder", weights: [{ id: "100g", label: "100 g", unitPrice: 75 }, { id: "200g", label: "200 g", unitPrice: 140 }, { id: "500g", label: "500 g", unitPrice: 325 }, { id: "1kg", label: "1 kg", unitPrice: 620 }] },
+                        { id: "24-mantra", name: "24 Mantra", imageSrc: "images/Mirchi powder.jpg", imageAlt: "24 Mantra Mirchi Powder", weights: [{ id: "100g", label: "100 g", unitPrice: 72 }, { id: "200g", label: "200 g", unitPrice: 135 }, { id: "500g", label: "500 g", unitPrice: 315 }, { id: "1kg", label: "1 kg", unitPrice: 600 }] },
+                        { id: "natureland", name: "Natureland", imageSrc: "images/Mirchi powder.jpg", imageAlt: "Natureland Mirchi Powder", weights: [{ id: "100g", label: "100 g", unitPrice: 70 }, { id: "200g", label: "200 g", unitPrice: 132 }, { id: "500g", label: "500 g", unitPrice: 310 }, { id: "1kg", label: "1 kg", unitPrice: 590 }] },
+                        { id: "organic-tattva", name: "Organic Tattva", imageSrc: "images/Mirchi powder.jpg", imageAlt: "Organic Tattva Mirchi Powder", weights: [{ id: "100g", label: "100 g", unitPrice: 74 }, { id: "200g", label: "200 g", unitPrice: 138 }, { id: "500g", label: "500 g", unitPrice: 320 }, { id: "1kg", label: "1 kg", unitPrice: 610 }] }
+                    ]
+                },
+                {
+                    id: "high-colour-chilli",
+                    name: "Chilli Powder with High Colour",
+                    brands: [
+                        { id: "everest", name: "Everest", imageSrc: "images/Mirchi powder.jpg", imageAlt: "Everest High Colour Mirchi Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 33 }, { id: "100g", label: "100 g", unitPrice: 62 }, { id: "200g", label: "200 g", unitPrice: 118 }, { id: "500g", label: "500 g", unitPrice: 280 }, { id: "1kg", label: "1 kg", unitPrice: 540 }] },
+                        { id: "catch", name: "Catch", imageSrc: "images/Mirchi powder.jpg", imageAlt: "Catch High Colour Mirchi Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 35 }, { id: "100g", label: "100 g", unitPrice: 66 }, { id: "200g", label: "200 g", unitPrice: 124 }, { id: "500g", label: "500 g", unitPrice: 295 }, { id: "1kg", label: "1 kg", unitPrice: 565 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Mirchi powder.jpg", imageAlt: "Urban Platter High Colour Mirchi Powder", weights: [{ id: "100g", label: "100 g", unitPrice: 88 }, { id: "200g", label: "200 g", unitPrice: 168 }, { id: "500g", label: "500 g", unitPrice: 390 }, { id: "1kg", label: "1 kg", unitPrice: 740 }] }
+                    ]
+                }
+            ]
+        },
         jira: {
             productName: "Jira",
             imageSrc: "images/Jira.jpg",

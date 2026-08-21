@@ -1317,6 +1317,85 @@ document.addEventListener("DOMContentLoaded", () => {
                     { id: "5l", label: "5 L", unitPrice: 3200 }
                 ])
             ]
+        },
+        detergent: {
+            productName: "Detergent",
+            imageSrc: "images/Detergent.jpg",
+            imageAlt: "Detergent",
+            labels: {
+                varietyTitle: "Select Detergent Type",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Detergent Type",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                {
+                    id: "detergent-powder",
+                    name: "Detergent Powder",
+                    brands: [
+                        { id: "surf-excel", name: "Surf Excel", imageSrc: "images/Detergent.jpg", imageAlt: "Surf Excel Detergent", weights: [{ id: "500g", label: "500 g", unitPrice: 75 }, { id: "1kg", label: "1 kg", unitPrice: 145 }, { id: "2kg", label: "2 kg", unitPrice: 280 }, { id: "4kg", label: "4 kg", unitPrice: 540 }, { id: "5kg", label: "5 kg", unitPrice: 665 }] },
+                        { id: "ariel", name: "Ariel", imageSrc: "images/Detergent.jpg", imageAlt: "Ariel Detergent", weights: [{ id: "500g", label: "500 g", unitPrice: 82 }, { id: "1kg", label: "1 kg", unitPrice: 158 }, { id: "2kg", label: "2 kg", unitPrice: 305 }, { id: "4kg", label: "4 kg", unitPrice: 590 }, { id: "5kg", label: "5 kg", unitPrice: 725 }] },
+                        { id: "tide", name: "Tide", imageSrc: "images/Detergent.jpg", imageAlt: "Tide Detergent", weights: [{ id: "500g", label: "500 g", unitPrice: 55 }, { id: "1kg", label: "1 kg", unitPrice: 105 }, { id: "2kg", label: "2 kg", unitPrice: 205 }, { id: "4kg", label: "4 kg", unitPrice: 395 }, { id: "5kg", label: "5 kg", unitPrice: 485 }] },
+                        { id: "ghadi", name: "Ghadi", imageSrc: "images/Detergent.jpg", imageAlt: "Ghadi Detergent", weights: [{ id: "500g", label: "500 g", unitPrice: 48 }, { id: "1kg", label: "1 kg", unitPrice: 92 }, { id: "2kg", label: "2 kg", unitPrice: 178 }, { id: "4kg", label: "4 kg", unitPrice: 345 }, { id: "5kg", label: "5 kg", unitPrice: 425 }] },
+                        { id: "rin", name: "Rin", imageSrc: "images/Detergent.jpg", imageAlt: "Rin Detergent", weights: [{ id: "500g", label: "500 g", unitPrice: 52 }, { id: "1kg", label: "1 kg", unitPrice: 100 }, { id: "2kg", label: "2 kg", unitPrice: 195 }, { id: "4kg", label: "4 kg", unitPrice: 375 }, { id: "5kg", label: "5 kg", unitPrice: 460 }] }
+                    ]
+                },
+                {
+                    id: "detergent-bar",
+                    name: "Detergent Bar",
+                    brands: [
+                        { id: "rin", name: "Rin", imageSrc: "images/Detergent.jpg", imageAlt: "Rin Detergent Bar", weights: [{ id: "100g", label: "100 g", unitPrice: 12 }, { id: "200g", label: "200 g", unitPrice: 22 }, { id: "250g", label: "250 g", unitPrice: 28 }] },
+                        { id: "tide", name: "Tide", imageSrc: "images/Detergent.jpg", imageAlt: "Tide Detergent Bar", weights: [{ id: "100g", label: "100 g", unitPrice: 10 }, { id: "200g", label: "200 g", unitPrice: 19 }, { id: "250g", label: "250 g", unitPrice: 24 }] },
+                        { id: "ghadi", name: "Ghadi", imageSrc: "images/Detergent.jpg", imageAlt: "Ghadi Detergent Bar", weights: [{ id: "100g", label: "100 g", unitPrice: 9 }, { id: "200g", label: "200 g", unitPrice: 17 }, { id: "250g", label: "250 g", unitPrice: 22 }] },
+                        { id: "wheel", name: "Wheel", imageSrc: "images/Detergent.jpg", imageAlt: "Wheel Detergent Bar", weights: [{ id: "100g", label: "100 g", unitPrice: 8 }, { id: "200g", label: "200 g", unitPrice: 15 }, { id: "250g", label: "250 g", unitPrice: 20 }] }
+                    ]
+                },
+                {
+                    id: "liquid-detergent",
+                    name: "Liquid Detergent",
+                    brands: [
+                        { id: "surf-excel", name: "Surf Excel", imageSrc: "images/Detergent.jpg", imageAlt: "Surf Excel Liquid Detergent", weights: [{ id: "500ml", label: "500 ml", unitPrice: 110 }, { id: "1l", label: "1 L", unitPrice: 210 }, { id: "2l", label: "2 L", unitPrice: 400 }, { id: "3l", label: "3 L", unitPrice: 580 }] },
+                        { id: "ariel", name: "Ariel", imageSrc: "images/Detergent.jpg", imageAlt: "Ariel Liquid Detergent", weights: [{ id: "500ml", label: "500 ml", unitPrice: 120 }, { id: "1l", label: "1 L", unitPrice: 230 }, { id: "2l", label: "2 L", unitPrice: 440 }, { id: "3l", label: "3 L", unitPrice: 640 }] },
+                        { id: "tide", name: "Tide", imageSrc: "images/Detergent.jpg", imageAlt: "Tide Liquid Detergent", weights: [{ id: "500ml", label: "500 ml", unitPrice: 95 }, { id: "1l", label: "1 L", unitPrice: 185 }, { id: "2l", label: "2 L", unitPrice: 350 }, { id: "3l", label: "3 L", unitPrice: 510 }] }
+                    ]
+                },
+                {
+                    id: "front-load-detergent",
+                    name: "Front Load Detergent",
+                    brands: [
+                        { id: "surf-excel", name: "Surf Excel", imageSrc: "images/Detergent.jpg", imageAlt: "Surf Excel Front Load Detergent", weights: [{ id: "1kg", label: "1 kg", unitPrice: 180 }, { id: "2kg", label: "2 kg", unitPrice: 350 }, { id: "4kg", label: "4 kg", unitPrice: 680 }] },
+                        { id: "ariel", name: "Ariel", imageSrc: "images/Detergent.jpg", imageAlt: "Ariel Front Load Detergent", weights: [{ id: "1kg", label: "1 kg", unitPrice: 195 }, { id: "2kg", label: "2 kg", unitPrice: 380 }, { id: "4kg", label: "4 kg", unitPrice: 740 }] },
+                        { id: "bosch", name: "Bosch", imageSrc: "images/Detergent.jpg", imageAlt: "Bosch Front Load Detergent", weights: [{ id: "1kg", label: "1 kg", unitPrice: 220 }, { id: "2kg", label: "2 kg", unitPrice: 425 }, { id: "4kg", label: "4 kg", unitPrice: 825 }] }
+                    ]
+                },
+                {
+                    id: "top-load-detergent",
+                    name: "Top Load Detergent",
+                    brands: [
+                        { id: "surf-excel", name: "Surf Excel", imageSrc: "images/Detergent.jpg", imageAlt: "Surf Excel Top Load Detergent", weights: [{ id: "500g", label: "500 g", unitPrice: 78 }, { id: "1kg", label: "1 kg", unitPrice: 150 }, { id: "2kg", label: "2 kg", unitPrice: 290 }] },
+                        { id: "ariel", name: "Ariel", imageSrc: "images/Detergent.jpg", imageAlt: "Ariel Top Load Detergent", weights: [{ id: "500g", label: "500 g", unitPrice: 85 }, { id: "1kg", label: "1 kg", unitPrice: 165 }, { id: "2kg", label: "2 kg", unitPrice: 320 }] },
+                        { id: "tide", name: "Tide", imageSrc: "images/Detergent.jpg", imageAlt: "Tide Top Load Detergent", weights: [{ id: "500g", label: "500 g", unitPrice: 58 }, { id: "1kg", label: "1 kg", unitPrice: 110 }, { id: "2kg", label: "2 kg", unitPrice: 215 }] }
+                    ]
+                },
+                {
+                    id: "colour-care-detergent",
+                    name: "Colour Care Detergent",
+                    brands: [
+                        { id: "surf-excel", name: "Surf Excel", imageSrc: "images/Detergent.jpg", imageAlt: "Surf Excel Colour Care Detergent", weights: [{ id: "500g", label: "500 g", unitPrice: 90 }, { id: "1kg", label: "1 kg", unitPrice: 175 }, { id: "2kg", label: "2 kg", unitPrice: 340 }] },
+                        { id: "ariel", name: "Ariel", imageSrc: "images/Detergent.jpg", imageAlt: "Ariel Colour Care Detergent", weights: [{ id: "500g", label: "500 g", unitPrice: 98 }, { id: "1kg", label: "1 kg", unitPrice: 190 }, { id: "2kg", label: "2 kg", unitPrice: 370 }] }
+                    ]
+                },
+                {
+                    id: "sensitive-skin-detergent",
+                    name: "Sensitive Skin Detergent",
+                    brands: [
+                        { id: "surf-excel", name: "Surf Excel", imageSrc: "images/Detergent.jpg", imageAlt: "Surf Excel Sensitive Skin Detergent", weights: [{ id: "500g", label: "500 g", unitPrice: 95 }, { id: "1kg", label: "1 kg", unitPrice: 185 }, { id: "2kg", label: "2 kg", unitPrice: 360 }] },
+                        { id: "ariel", name: "Ariel", imageSrc: "images/Detergent.jpg", imageAlt: "Ariel Sensitive Skin Detergent", weights: [{ id: "500g", label: "500 g", unitPrice: 105 }, { id: "1kg", label: "1 kg", unitPrice: 205 }, { id: "2kg", label: "2 kg", unitPrice: 395 }] }
+                    ]
+                }
+            ]
         }
     };
 

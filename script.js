@@ -1318,6 +1318,87 @@ document.addEventListener("DOMContentLoaded", () => {
                 ])
             ]
         },
+        sugar: {
+            productName: "Sugar",
+            imageSrc: "images/Sugar.jpg",
+            imageAlt: "Sugar",
+            labels: {
+                varietyTitle: "Select Sugar Type",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Sugar Type",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                {
+                    id: "regular-white-sugar",
+                    name: "Regular White Sugar",
+                    brands: [
+                        { id: "madhur", name: "Madhur", imageSrc: "images/Sugar.jpg", imageAlt: "Madhur Sugar", weights: [{ id: "500g", label: "500 g", unitPrice: 28 }, { id: "1kg", label: "1 kg", unitPrice: 54 }, { id: "2kg", label: "2 kg", unitPrice: 106 }, { id: "5kg", label: "5 kg", unitPrice: 260 }] },
+                        { id: "trust", name: "Trust", imageSrc: "images/Sugar.jpg", imageAlt: "Trust Sugar", weights: [{ id: "500g", label: "500 g", unitPrice: 26 }, { id: "1kg", label: "1 kg", unitPrice: 50 }, { id: "2kg", label: "2 kg", unitPrice: 98 }, { id: "5kg", label: "5 kg", unitPrice: 240 }] },
+                        { id: "dhampure", name: "Dhampure", imageSrc: "images/Sugar.jpg", imageAlt: "Dhampure Sugar", weights: [{ id: "500g", label: "500 g", unitPrice: 32 }, { id: "1kg", label: "1 kg", unitPrice: 62 }, { id: "2kg", label: "2 kg", unitPrice: 120 }, { id: "5kg", label: "5 kg", unitPrice: 295 }] },
+                        { id: "local-brand", name: "Local Brand", imageSrc: "images/Sugar.jpg", imageAlt: "Local Brand Sugar", weights: [{ id: "500g", label: "500 g", unitPrice: 24 }, { id: "1kg", label: "1 kg", unitPrice: 47 }, { id: "2kg", label: "2 kg", unitPrice: 92 }] }
+                    ]
+                },
+                {
+                    id: "brown-sugar",
+                    name: "Brown Sugar",
+                    brands: [
+                        { id: "madhur", name: "Madhur", imageSrc: "images/Sugar.jpg", imageAlt: "Madhur Brown Sugar", weights: [{ id: "500g", label: "500 g", unitPrice: 70 }, { id: "1kg", label: "1 kg", unitPrice: 135 }, { id: "2kg", label: "2 kg", unitPrice: 265 }] },
+                        { id: "dhampure", name: "Dhampure", imageSrc: "images/Sugar.jpg", imageAlt: "Dhampure Brown Sugar", weights: [{ id: "500g", label: "500 g", unitPrice: 75 }, { id: "1kg", label: "1 kg", unitPrice: 145 }, { id: "2kg", label: "2 kg", unitPrice: 285 }] },
+                        { id: "organic-india", name: "Organic India", imageSrc: "images/Sugar.jpg", imageAlt: "Organic India Brown Sugar", weights: [{ id: "500g", label: "500 g", unitPrice: 82 }, { id: "1kg", label: "1 kg", unitPrice: 158 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Sugar.jpg", imageAlt: "Urban Platter Brown Sugar", weights: [{ id: "500g", label: "500 g", unitPrice: 88 }, { id: "1kg", label: "1 kg", unitPrice: 170 }, { id: "2kg", label: "2 kg", unitPrice: 330 }] }
+                    ]
+                },
+                {
+                    id: "organic-sugar",
+                    name: "Organic Sugar",
+                    brands: [
+                        { id: "24-mantra", name: "24 Mantra", imageSrc: "images/Sugar.jpg", imageAlt: "24 Mantra Organic Sugar", weights: [{ id: "500g", label: "500 g", unitPrice: 85 }, { id: "1kg", label: "1 kg", unitPrice: 165 }, { id: "2kg", label: "2 kg", unitPrice: 320 }] },
+                        { id: "organic-india", name: "Organic India", imageSrc: "images/Sugar.jpg", imageAlt: "Organic India Organic Sugar", weights: [{ id: "500g", label: "500 g", unitPrice: 90 }, { id: "1kg", label: "1 kg", unitPrice: 175 }] },
+                        { id: "natureland", name: "Natureland", imageSrc: "images/Sugar.jpg", imageAlt: "Natureland Organic Sugar", weights: [{ id: "500g", label: "500 g", unitPrice: 78 }, { id: "1kg", label: "1 kg", unitPrice: 150 }, { id: "2kg", label: "2 kg", unitPrice: 290 }] },
+                        { id: "organic-tattva", name: "Organic Tattva", imageSrc: "images/Sugar.jpg", imageAlt: "Organic Tattva Organic Sugar", weights: [{ id: "500g", label: "500 g", unitPrice: 88 }, { id: "1kg", label: "1 kg", unitPrice: 170 }] }
+                    ]
+                },
+                {
+                    id: "sugar-cubes",
+                    name: "Sugar Cubes",
+                    brands: [
+                        { id: "madhur", name: "Madhur", imageSrc: "images/Sugar.jpg", imageAlt: "Madhur Sugar Cubes", weights: [{ id: "250g", label: "250 g", unitPrice: 35 }, { id: "500g", label: "500 g", unitPrice: 65 }, { id: "1kg", label: "1 kg", unitPrice: 125 }] },
+                        { id: "dhampure", name: "Dhampure", imageSrc: "images/Sugar.jpg", imageAlt: "Dhampure Sugar Cubes", weights: [{ id: "250g", label: "250 g", unitPrice: 38 }, { id: "500g", label: "500 g", unitPrice: 70 }] },
+                        { id: "trust", name: "Trust", imageSrc: "images/Sugar.jpg", imageAlt: "Trust Sugar Cubes", weights: [{ id: "250g", label: "250 g", unitPrice: 33 }, { id: "500g", label: "500 g", unitPrice: 62 }, { id: "1kg", label: "1 kg", unitPrice: 120 }] }
+                    ]
+                },
+                {
+                    id: "powdered-sugar",
+                    name: "Powdered Sugar",
+                    brands: [
+                        { id: "madhur", name: "Madhur", imageSrc: "images/Sugar.jpg", imageAlt: "Madhur Powdered Sugar", weights: [{ id: "500g", label: "500 g", unitPrice: 34 }, { id: "1kg", label: "1 kg", unitPrice: 65 }, { id: "2kg", label: "2 kg", unitPrice: 126 }] },
+                        { id: "dhampure", name: "Dhampure", imageSrc: "images/Sugar.jpg", imageAlt: "Dhampure Powdered Sugar", weights: [{ id: "500g", label: "500 g", unitPrice: 38 }, { id: "1kg", label: "1 kg", unitPrice: 72 }] },
+                        { id: "local-brand", name: "Local Brand", imageSrc: "images/Sugar.jpg", imageAlt: "Local Brand Powdered Sugar", weights: [{ id: "500g", label: "500 g", unitPrice: 30 }, { id: "1kg", label: "1 kg", unitPrice: 58 }] }
+                    ]
+                },
+                {
+                    id: "raw-sugar",
+                    name: "Raw Sugar",
+                    brands: [
+                        { id: "dhampure", name: "Dhampure", imageSrc: "images/Sugar.jpg", imageAlt: "Dhampure Raw Sugar", weights: [{ id: "500g", label: "500 g", unitPrice: 45 }, { id: "1kg", label: "1 kg", unitPrice: 88 }, { id: "2kg", label: "2 kg", unitPrice: 170 }] },
+                        { id: "organic-india", name: "Organic India", imageSrc: "images/Sugar.jpg", imageAlt: "Organic India Raw Sugar", weights: [{ id: "500g", label: "500 g", unitPrice: 55 }, { id: "1kg", label: "1 kg", unitPrice: 105 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Sugar.jpg", imageAlt: "Urban Platter Raw Sugar", weights: [{ id: "500g", label: "500 g", unitPrice: 60 }, { id: "1kg", label: "1 kg", unitPrice: 115 }, { id: "2kg", label: "2 kg", unitPrice: 220 }] }
+                    ]
+                },
+                {
+                    id: "low-gi-sugar",
+                    name: "Low GI Sugar",
+                    brands: [
+                        { id: "dhampure", name: "Dhampure", imageSrc: "images/Sugar.jpg", imageAlt: "Dhampure Low GI Sugar", weights: [{ id: "500g", label: "500 g", unitPrice: 95 }, { id: "1kg", label: "1 kg", unitPrice: 185 }, { id: "2kg", label: "2 kg", unitPrice: 360 }] },
+                        { id: "sugar-watchers", name: "Sugar Watchers", imageSrc: "images/Sugar.jpg", imageAlt: "Sugar Watchers Low GI Sugar", weights: [{ id: "500g", label: "500 g", unitPrice: 110 }, { id: "1kg", label: "1 kg", unitPrice: 215 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Sugar.jpg", imageAlt: "Urban Platter Low GI Sugar", weights: [{ id: "500g", label: "500 g", unitPrice: 105 }, { id: "1kg", label: "1 kg", unitPrice: 205 }, { id: "2kg", label: "2 kg", unitPrice: 395 }] }
+                    ]
+                }
+            ]
+        },
         detergent: {
             productName: "Detergent",
             imageSrc: "images/Detergent.jpg",

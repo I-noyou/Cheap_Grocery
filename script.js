@@ -1477,6 +1477,92 @@ document.addEventListener("DOMContentLoaded", () => {
                     ]
                 }
             ]
+        },
+        ghee: {
+            productName: "Ghee",
+            imageSrc: "images/Ghee.webp",
+            imageAlt: "Ghee",
+            labels: {
+                varietyTitle: "Select Ghee Type",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Ghee Type",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                {
+                    id: "cow-ghee",
+                    name: "Cow Ghee",
+                    brands: [
+                        { id: "amul", name: "Amul", imageSrc: "images/Ghee.webp", imageAlt: "Amul Cow Ghee", weights: [{ id: "200ml", label: "200 ml", unitPrice: 130 }, { id: "500ml", label: "500 ml", unitPrice: 310 }, { id: "1l", label: "1 L", unitPrice: 600 }, { id: "2l", label: "2 L", unitPrice: 1180 }] },
+                        { id: "mother-dairy", name: "Mother Dairy", imageSrc: "images/Ghee.webp", imageAlt: "Mother Dairy Cow Ghee", weights: [{ id: "200ml", label: "200 ml", unitPrice: 125 }, { id: "500ml", label: "500 ml", unitPrice: 295 }, { id: "1l", label: "1 L", unitPrice: 575 }, { id: "2l", label: "2 L", unitPrice: 1130 }] },
+                        { id: "patanjali", name: "Patanjali", imageSrc: "images/Ghee.webp", imageAlt: "Patanjali Cow Ghee", weights: [{ id: "200ml", label: "200 ml", unitPrice: 120 }, { id: "500ml", label: "500 ml", unitPrice: 285 }, { id: "1l", label: "1 L", unitPrice: 550 }, { id: "2l", label: "2 L", unitPrice: 1080 }] },
+                        { id: "nandini", name: "Nandini", imageSrc: "images/Ghee.webp", imageAlt: "Nandini Cow Ghee", weights: [{ id: "200ml", label: "200 ml", unitPrice: 128 }, { id: "500ml", label: "500 ml", unitPrice: 305 }, { id: "1l", label: "1 L", unitPrice: 590 }, { id: "2l", label: "2 L", unitPrice: 1160 }] },
+                        { id: "gowardhan", name: "Gowardhan", imageSrc: "images/Ghee.webp", imageAlt: "Gowardhan Cow Ghee", weights: [{ id: "200ml", label: "200 ml", unitPrice: 140 }, { id: "500ml", label: "500 ml", unitPrice: 325 }, { id: "1l", label: "1 L", unitPrice: 630 }] }
+                    ]
+                },
+                {
+                    id: "buffalo-ghee",
+                    name: "Buffalo Ghee",
+                    brands: [
+                        { id: "amul", name: "Amul", imageSrc: "images/Ghee.webp", imageAlt: "Amul Buffalo Ghee", weights: [{ id: "500ml", label: "500 ml", unitPrice: 330 }, { id: "1l", label: "1 L", unitPrice: 640 }, { id: "2l", label: "2 L", unitPrice: 1260 }] },
+                        { id: "mother-dairy", name: "Mother Dairy", imageSrc: "images/Ghee.webp", imageAlt: "Mother Dairy Buffalo Ghee", weights: [{ id: "200ml", label: "200 ml", unitPrice: 135 }, { id: "500ml", label: "500 ml", unitPrice: 315 }, { id: "1l", label: "1 L", unitPrice: 610 }] },
+                        { id: "gowardhan", name: "Gowardhan", imageSrc: "images/Ghee.webp", imageAlt: "Gowardhan Buffalo Ghee", weights: [{ id: "500ml", label: "500 ml", unitPrice: 345 }, { id: "1l", label: "1 L", unitPrice: 670 }, { id: "2l", label: "2 L", unitPrice: 1320 }] },
+                        { id: "nandini", name: "Nandini", imageSrc: "images/Ghee.webp", imageAlt: "Nandini Buffalo Ghee", weights: [{ id: "500ml", label: "500 ml", unitPrice: 325 }, { id: "1l", label: "1 L", unitPrice: 630 }] }
+                    ]
+                },
+                {
+                    id: "desi-ghee",
+                    name: "Desi Ghee",
+                    brands: [
+                        { id: "amul", name: "Amul", imageSrc: "images/Ghee.webp", imageAlt: "Amul Desi Ghee", weights: [{ id: "200ml", label: "200 ml", unitPrice: 135 }, { id: "500ml", label: "500 ml", unitPrice: 320 }, { id: "1l", label: "1 L", unitPrice: 625 }, { id: "2l", label: "2 L", unitPrice: 1230 }] },
+                        { id: "patanjali", name: "Patanjali", imageSrc: "images/Ghee.webp", imageAlt: "Patanjali Desi Ghee", weights: [{ id: "200ml", label: "200 ml", unitPrice: 125 }, { id: "500ml", label: "500 ml", unitPrice: 295 }, { id: "1l", label: "1 L", unitPrice: 570 }] },
+                        { id: "mother-dairy", name: "Mother Dairy", imageSrc: "images/Ghee.webp", imageAlt: "Mother Dairy Desi Ghee", weights: [{ id: "200ml", label: "200 ml", unitPrice: 130 }, { id: "500ml", label: "500 ml", unitPrice: 305 }, { id: "1l", label: "1 L", unitPrice: 595 }] },
+                        { id: "gowardhan", name: "Gowardhan", imageSrc: "images/Ghee.webp", imageAlt: "Gowardhan Desi Ghee", weights: [{ id: "200ml", label: "200 ml", unitPrice: 135 }, { id: "500ml", label: "500 ml", unitPrice: 320 }, { id: "1l", label: "1 L", unitPrice: 620 }, { id: "2l", label: "2 L", unitPrice: 1220 }] },
+                        { id: "aashirvaad", name: "Aashirvaad", imageSrc: "images/Ghee.webp", imageAlt: "Aashirvaad Desi Ghee", weights: [{ id: "200ml", label: "200 ml", unitPrice: 132 }, { id: "500ml", label: "500 ml", unitPrice: 315 }, { id: "1l", label: "1 L", unitPrice: 610 }] }
+                    ]
+                },
+                {
+                    id: "organic-ghee",
+                    name: "Organic Ghee",
+                    brands: [
+                        { id: "organic-india", name: "Organic India", imageSrc: "images/Ghee.webp", imageAlt: "Organic India Ghee", weights: [{ id: "250ml", label: "250 ml", unitPrice: 350 }, { id: "500ml", label: "500 ml", unitPrice: 680 }, { id: "1l", label: "1 L", unitPrice: 1320 }] },
+                        { id: "24-mantra", name: "24 Mantra", imageSrc: "images/Ghee.webp", imageAlt: "24 Mantra Ghee", weights: [{ id: "250ml", label: "250 ml", unitPrice: 340 }, { id: "500ml", label: "500 ml", unitPrice: 660 }, { id: "1l", label: "1 L", unitPrice: 1280 }] },
+                        { id: "organic-tattva", name: "Organic Tattva", imageSrc: "images/Ghee.webp", imageAlt: "Organic Tattva Ghee", weights: [{ id: "250ml", label: "250 ml", unitPrice: 330 }, { id: "500ml", label: "500 ml", unitPrice: 640 }, { id: "1l", label: "1 L", unitPrice: 1240 }] },
+                        { id: "natureland", name: "Natureland", imageSrc: "images/Ghee.webp", imageAlt: "Natureland Ghee", weights: [{ id: "250ml", label: "250 ml", unitPrice: 320 }, { id: "500ml", label: "500 ml", unitPrice: 625 }, { id: "1l", label: "1 L", unitPrice: 1200 }] }
+                    ]
+                },
+                {
+                    id: "a2-cow-ghee",
+                    name: "A2 Cow Ghee",
+                    brands: [
+                        { id: "patanjali", name: "Patanjali", imageSrc: "images/Ghee.webp", imageAlt: "Patanjali A2 Cow Ghee", weights: [{ id: "250ml", label: "250 ml", unitPrice: 390 }, { id: "500ml", label: "500 ml", unitPrice: 740 }, { id: "1l", label: "1 L", unitPrice: 1450 }] },
+                        { id: "kapiva", name: "Kapiva", imageSrc: "images/Ghee.webp", imageAlt: "Kapiva A2 Cow Ghee", weights: [{ id: "250ml", label: "250 ml", unitPrice: 450 }, { id: "500ml", label: "500 ml", unitPrice: 850 }, { id: "1l", label: "1 L", unitPrice: 1650 }] },
+                        { id: "two-brothers", name: "Two Brothers", imageSrc: "images/Ghee.webp", imageAlt: "Two Brothers A2 Cow Ghee", weights: [{ id: "250ml", label: "250 ml", unitPrice: 480 }, { id: "500ml", label: "500 ml", unitPrice: 920 }, { id: "1l", label: "1 L", unitPrice: 1780 }] },
+                        { id: "anveshan", name: "Anveshan", imageSrc: "images/Ghee.webp", imageAlt: "Anveshan A2 Cow Ghee", weights: [{ id: "250ml", label: "250 ml", unitPrice: 440 }, { id: "500ml", label: "500 ml", unitPrice: 830 }, { id: "1l", label: "1 L", unitPrice: 1600 }] }
+                    ]
+                },
+                {
+                    id: "bilona-ghee",
+                    name: "Bilona Ghee",
+                    brands: [
+                        { id: "two-brothers", name: "Two Brothers", imageSrc: "images/Ghee.webp", imageAlt: "Two Brothers Bilona Ghee", weights: [{ id: "250ml", label: "250 ml", unitPrice: 550 }, { id: "500ml", label: "500 ml", unitPrice: 1050 }, { id: "1l", label: "1 L", unitPrice: 2050 }] },
+                        { id: "anveshan", name: "Anveshan", imageSrc: "images/Ghee.webp", imageAlt: "Anveshan Bilona Ghee", weights: [{ id: "250ml", label: "250 ml", unitPrice: 500 }, { id: "500ml", label: "500 ml", unitPrice: 950 }, { id: "1l", label: "1 L", unitPrice: 1850 }] },
+                        { id: "kapiva", name: "Kapiva", imageSrc: "images/Ghee.webp", imageAlt: "Kapiva Bilona Ghee", weights: [{ id: "250ml", label: "250 ml", unitPrice: 475 }, { id: "500ml", label: "500 ml", unitPrice: 900 }, { id: "1l", label: "1 L", unitPrice: 1750 }] },
+                        { id: "girorganic", name: "GirOrganic", imageSrc: "images/Ghee.webp", imageAlt: "GirOrganic Bilona Ghee", weights: [{ id: "250ml", label: "250 ml", unitPrice: 525 }, { id: "500ml", label: "500 ml", unitPrice: 1000 }] }
+                    ]
+                },
+                {
+                    id: "plant-based-ghee",
+                    name: "Plant-Based Ghee",
+                    brands: [
+                        { id: "gooddot", name: "GoodDot", imageSrc: "images/Ghee.webp", imageAlt: "GoodDot Plant-Based Ghee", weights: [{ id: "200ml", label: "200 ml", unitPrice: 180 }, { id: "500ml", label: "500 ml", unitPrice: 420 }, { id: "1l", label: "1 L", unitPrice: 780 }] },
+                        { id: "vezlay", name: "Vezlay", imageSrc: "images/Ghee.webp", imageAlt: "Vezlay Plant-Based Ghee", weights: [{ id: "200ml", label: "200 ml", unitPrice: 170 }, { id: "500ml", label: "500 ml", unitPrice: 395 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Ghee.webp", imageAlt: "Urban Platter Plant-Based Ghee", weights: [{ id: "200ml", label: "200 ml", unitPrice: 210 }, { id: "500ml", label: "500 ml", unitPrice: 460 }, { id: "1l", label: "1 L", unitPrice: 880 }] }
+                    ]
+                }
+            ]
         }
     };
 

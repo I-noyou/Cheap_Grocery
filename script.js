@@ -1563,6 +1563,115 @@ document.addEventListener("DOMContentLoaded", () => {
                     ]
                 }
             ]
+        },
+        chocolate: {
+            productName: "Chocolate",
+            imageSrc: "images/Chocolate.jpg",
+            imageAlt: "Chocolate",
+            labels: {
+                varietyTitle: "Select Chocolate Type",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Chocolate Type",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                {
+                    id: "milk-chocolate",
+                    name: "Milk Chocolate",
+                    brands: [
+                        { id: "cadbury", name: "Cadbury", imageSrc: "images/Chocolate.jpg", imageAlt: "Cadbury Milk Chocolate", weights: [{ id: "20g", label: "20 g", unitPrice: 20 }, { id: "40g", label: "40 g", unitPrice: 40 }, { id: "80g", label: "80 g", unitPrice: 80 }, { id: "150g", label: "150 g", unitPrice: 145 }, { id: "200g", label: "200 g", unitPrice: 190 }] },
+                        { id: "nestle", name: "Nestlé", imageSrc: "images/Chocolate.jpg", imageAlt: "Nestlé Milk Chocolate", weights: [{ id: "20g", label: "20 g", unitPrice: 20 }, { id: "40g", label: "40 g", unitPrice: 38 }, { id: "80g", label: "80 g", unitPrice: 75 }, { id: "150g", label: "150 g", unitPrice: 135 }, { id: "200g", label: "200 g", unitPrice: 180 }] },
+                        { id: "amul", name: "Amul", imageSrc: "images/Chocolate.jpg", imageAlt: "Amul Milk Chocolate", weights: [{ id: "20g", label: "20 g", unitPrice: 25 }, { id: "40g", label: "40 g", unitPrice: 48 }, { id: "80g", label: "80 g", unitPrice: 90 }, { id: "150g", label: "150 g", unitPrice: 165 }, { id: "200g", label: "200 g", unitPrice: 215 }] },
+                        { id: "hersheys", name: "Hershey's", imageSrc: "images/Chocolate.jpg", imageAlt: "Hershey's Milk Chocolate", weights: [{ id: "40g", label: "40 g", unitPrice: 45 }, { id: "80g", label: "80 g", unitPrice: 88 }, { id: "150g", label: "150 g", unitPrice: 155 }, { id: "200g", label: "200 g", unitPrice: 205 }] }
+                    ]
+                },
+                {
+                    id: "dark-chocolate",
+                    name: "Dark Chocolate",
+                    brands: [
+                        { id: "cadbury", name: "Cadbury", imageSrc: "images/Chocolate.jpg", imageAlt: "Cadbury Dark Chocolate", weights: [{ id: "40g", label: "40 g", unitPrice: 45 }, { id: "80g", label: "80 g", unitPrice: 85 }, { id: "150g", label: "150 g", unitPrice: 155 }, { id: "200g", label: "200 g", unitPrice: 205 }] },
+                        { id: "amul", name: "Amul", imageSrc: "images/Chocolate.jpg", imageAlt: "Amul Dark Chocolate", weights: [{ id: "40g", label: "40 g", unitPrice: 50 }, { id: "80g", label: "80 g", unitPrice: 95 }, { id: "150g", label: "150 g", unitPrice: 175 }, { id: "200g", label: "200 g", unitPrice: 230 }] },
+                        { id: "hersheys", name: "Hershey's", imageSrc: "images/Chocolate.jpg", imageAlt: "Hershey's Dark Chocolate", weights: [{ id: "40g", label: "40 g", unitPrice: 48 }, { id: "80g", label: "80 g", unitPrice: 92 }, { id: "150g", label: "150 g", unitPrice: 168 }, { id: "200g", label: "200 g", unitPrice: 220 }] },
+                        { id: "lindt", name: "Lindt", imageSrc: "images/Chocolate.jpg", imageAlt: "Lindt Dark Chocolate", weights: [{ id: "50g", label: "50 g", unitPrice: 110 }, { id: "100g", label: "100 g", unitPrice: 210 }, { id: "150g", label: "150 g", unitPrice: 305 }, { id: "200g", label: "200 g", unitPrice: 405 }] }
+                    ]
+                },
+                {
+                    id: "white-chocolate",
+                    name: "White Chocolate",
+                    brands: [
+                        { id: "nestle", name: "Nestlé", imageSrc: "images/Chocolate.jpg", imageAlt: "Nestlé White Chocolate", weights: [{ id: "40g", label: "40 g", unitPrice: 42 }, { id: "80g", label: "80 g", unitPrice: 80 }, { id: "150g", label: "150 g", unitPrice: 145 }, { id: "200g", label: "200 g", unitPrice: 190 }] },
+                        { id: "amul", name: "Amul", imageSrc: "images/Chocolate.jpg", imageAlt: "Amul White Chocolate", weights: [{ id: "40g", label: "40 g", unitPrice: 48 }, { id: "80g", label: "80 g", unitPrice: 90 }, { id: "150g", label: "150 g", unitPrice: 160 }, { id: "200g", label: "200 g", unitPrice: 210 }] },
+                        { id: "hersheys", name: "Hershey's", imageSrc: "images/Chocolate.jpg", imageAlt: "Hershey's White Chocolate", weights: [{ id: "40g", label: "40 g", unitPrice: 50 }, { id: "80g", label: "80 g", unitPrice: 95 }, { id: "150g", label: "150 g", unitPrice: 170 }, { id: "200g", label: "200 g", unitPrice: 225 }] }
+                    ]
+                },
+                {
+                    id: "almond-chocolate",
+                    name: "Almond Chocolate",
+                    brands: [
+                        { id: "cadbury", name: "Cadbury", imageSrc: "images/Chocolate.jpg", imageAlt: "Cadbury Almond Chocolate", weights: [{ id: "40g", label: "40 g", unitPrice: 52 }, { id: "80g", label: "80 g", unitPrice: 98 }, { id: "150g", label: "150 g", unitPrice: 178 }, { id: "200g", label: "200 g", unitPrice: 235 }] },
+                        { id: "amul", name: "Amul", imageSrc: "images/Chocolate.jpg", imageAlt: "Amul Almond Chocolate", weights: [{ id: "40g", label: "40 g", unitPrice: 55 }, { id: "80g", label: "80 g", unitPrice: 105 }, { id: "150g", label: "150 g", unitPrice: 190 }, { id: "200g", label: "200 g", unitPrice: 250 }] },
+                        { id: "hersheys", name: "Hershey's", imageSrc: "images/Chocolate.jpg", imageAlt: "Hershey's Almond Chocolate", weights: [{ id: "40g", label: "40 g", unitPrice: 58 }, { id: "80g", label: "80 g", unitPrice: 110 }, { id: "150g", label: "150 g", unitPrice: 200 }, { id: "200g", label: "200 g", unitPrice: 265 }] }
+                    ]
+                },
+                {
+                    id: "hazelnut-chocolate",
+                    name: "Hazelnut Chocolate",
+                    brands: [
+                        { id: "cadbury", name: "Cadbury", imageSrc: "images/Chocolate.jpg", imageAlt: "Cadbury Hazelnut Chocolate", weights: [{ id: "40g", label: "40 g", unitPrice: 54 }, { id: "80g", label: "80 g", unitPrice: 102 }, { id: "150g", label: "150 g", unitPrice: 185 }, { id: "200g", label: "200 g", unitPrice: 245 }] },
+                        { id: "nestle", name: "Nestlé", imageSrc: "images/Chocolate.jpg", imageAlt: "Nestlé Hazelnut Chocolate", weights: [{ id: "40g", label: "40 g", unitPrice: 56 }, { id: "80g", label: "80 g", unitPrice: 106 }, { id: "150g", label: "150 g", unitPrice: 192 }, { id: "200g", label: "200 g", unitPrice: 255 }] },
+                        { id: "lindt", name: "Lindt", imageSrc: "images/Chocolate.jpg", imageAlt: "Lindt Hazelnut Chocolate", weights: [{ id: "50g", label: "50 g", unitPrice: 130 }, { id: "100g", label: "100 g", unitPrice: 250 }, { id: "150g", label: "150 g", unitPrice: 360 }, { id: "200g", label: "200 g", unitPrice: 480 }] },
+                        { id: "hersheys", name: "Hershey's", imageSrc: "images/Chocolate.jpg", imageAlt: "Hershey's Hazelnut Chocolate", weights: [{ id: "40g", label: "40 g", unitPrice: 55 }, { id: "80g", label: "80 g", unitPrice: 105 }, { id: "100g", label: "100 g", unitPrice: 135 }, { id: "150g", label: "150 g", unitPrice: 190 }] }
+                    ]
+                },
+                {
+                    id: "caramel-chocolate",
+                    name: "Caramel Chocolate",
+                    brands: [
+                        { id: "cadbury", name: "Cadbury", imageSrc: "images/Chocolate.jpg", imageAlt: "Cadbury Caramel Chocolate", weights: [{ id: "40g", label: "40 g", unitPrice: 50 }, { id: "80g", label: "80 g", unitPrice: 95 }, { id: "150g", label: "150 g", unitPrice: 172 }, { id: "200g", label: "200 g", unitPrice: 228 }] },
+                        { id: "nestle", name: "Nestlé", imageSrc: "images/Chocolate.jpg", imageAlt: "Nestlé Caramel Chocolate", weights: [{ id: "40g", label: "40 g", unitPrice: 52 }, { id: "80g", label: "80 g", unitPrice: 98 }, { id: "150g", label: "150 g", unitPrice: 178 }, { id: "200g", label: "200 g", unitPrice: 235 }] },
+                        { id: "hersheys", name: "Hershey's", imageSrc: "images/Chocolate.jpg", imageAlt: "Hershey's Caramel Chocolate", weights: [{ id: "40g", label: "40 g", unitPrice: 56 }, { id: "80g", label: "80 g", unitPrice: 106 }, { id: "150g", label: "150 g", unitPrice: 192 }, { id: "200g", label: "200 g", unitPrice: 255 }] }
+                    ]
+                },
+                {
+                    id: "fruit-nut-chocolate",
+                    name: "Fruit & Nut Chocolate",
+                    brands: [
+                        { id: "cadbury", name: "Cadbury", imageSrc: "images/Chocolate.jpg", imageAlt: "Cadbury Fruit & Nut Chocolate", weights: [{ id: "40g", label: "40 g", unitPrice: 53 }, { id: "80g", label: "80 g", unitPrice: 100 }, { id: "150g", label: "150 g", unitPrice: 180 }, { id: "200g", label: "200 g", unitPrice: 240 }] },
+                        { id: "amul", name: "Amul", imageSrc: "images/Chocolate.jpg", imageAlt: "Amul Fruit & Nut Chocolate", weights: [{ id: "40g", label: "40 g", unitPrice: 58 }, { id: "80g", label: "80 g", unitPrice: 110 }, { id: "150g", label: "150 g", unitPrice: 198 }, { id: "200g", label: "200 g", unitPrice: 260 }] },
+                        { id: "nestle", name: "Nestlé", imageSrc: "images/Chocolate.jpg", imageAlt: "Nestlé Fruit & Nut Chocolate", weights: [{ id: "40g", label: "40 g", unitPrice: 55 }, { id: "80g", label: "80 g", unitPrice: 104 }, { id: "150g", label: "150 g", unitPrice: 188 }, { id: "200g", label: "200 g", unitPrice: 250 }] }
+                    ]
+                },
+                {
+                    id: "chocolate-bar",
+                    name: "Chocolate Bar",
+                    brands: [
+                        { id: "cadbury", name: "Cadbury", imageSrc: "images/Chocolate.jpg", imageAlt: "Cadbury Chocolate Bar", weights: [{ id: "40g", label: "40 g", unitPrice: 48 }, { id: "80g", label: "80 g", unitPrice: 92 }, { id: "150g", label: "150 g", unitPrice: 168 }, { id: "200g", label: "200 g", unitPrice: 220 }] },
+                        { id: "nestle", name: "Nestlé", imageSrc: "images/Chocolate.jpg", imageAlt: "Nestlé Chocolate Bar", weights: [{ id: "40g", label: "40 g", unitPrice: 50 }, { id: "80g", label: "80 g", unitPrice: 95 }, { id: "150g", label: "150 g", unitPrice: 172 }, { id: "200g", label: "200 g", unitPrice: 228 }] },
+                        { id: "amul", name: "Amul", imageSrc: "images/Chocolate.jpg", imageAlt: "Amul Chocolate Bar", weights: [{ id: "40g", label: "40 g", unitPrice: 52 }, { id: "80g", label: "80 g", unitPrice: 98 }, { id: "150g", label: "150 g", unitPrice: 178 }, { id: "200g", label: "200 g", unitPrice: 235 }] },
+                        { id: "hersheys", name: "Hershey's", imageSrc: "images/Chocolate.jpg", imageAlt: "Hershey's Chocolate Bar", weights: [{ id: "40g", label: "40 g", unitPrice: 55 }, { id: "80g", label: "80 g", unitPrice: 105 }, { id: "150g", label: "150 g", unitPrice: 190 }, { id: "200g", label: "200 g", unitPrice: 250 }] }
+                    ]
+                },
+                {
+                    id: "premium-dark-chocolate",
+                    name: "Premium Dark Chocolate",
+                    brands: [
+                        { id: "lindt", name: "Lindt", imageSrc: "images/Chocolate.jpg", imageAlt: "Lindt Premium Dark Chocolate", weights: [{ id: "50g", label: "50 g", unitPrice: 220 }, { id: "100g", label: "100 g", unitPrice: 400 }, { id: "150g", label: "150 g", unitPrice: 560 }, { id: "200g", label: "200 g", unitPrice: 720 }] },
+                        { id: "hersheys", name: "Hershey's", imageSrc: "images/Chocolate.jpg", imageAlt: "Hershey's Premium Dark Chocolate", weights: [{ id: "40g", label: "40 g", unitPrice: 68 }, { id: "80g", label: "80 g", unitPrice: 128 }, { id: "150g", label: "150 g", unitPrice: 230 }, { id: "200g", label: "200 g", unitPrice: 305 }] },
+                        { id: "amul", name: "Amul", imageSrc: "images/Chocolate.jpg", imageAlt: "Amul Premium Dark Chocolate", weights: [{ id: "50g", label: "50 g", unitPrice: 75 }, { id: "100g", label: "100 g", unitPrice: 145 }, { id: "150g", label: "150 g", unitPrice: 210 }, { id: "200g", label: "200 g", unitPrice: 280 }] }
+                    ]
+                },
+                {
+                    id: "kids-chocolate",
+                    name: "Kids Chocolate",
+                    brands: [
+                        { id: "cadbury", name: "Cadbury", imageSrc: "images/Chocolate.jpg", imageAlt: "Cadbury Kids Chocolate", weights: [{ id: "20g", label: "20 g", unitPrice: 18 }, { id: "40g", label: "40 g", unitPrice: 35 }, { id: "80g", label: "80 g", unitPrice: 68 }, { id: "150g", label: "150 g", unitPrice: 125 }] },
+                        { id: "nestle", name: "Nestlé", imageSrc: "images/Chocolate.jpg", imageAlt: "Nestlé Kids Chocolate", weights: [{ id: "20g", label: "20 g", unitPrice: 18 }, { id: "40g", label: "40 g", unitPrice: 35 }, { id: "80g", label: "80 g", unitPrice: 68 }, { id: "150g", label: "150 g", unitPrice: 128 }] },
+                        { id: "kinder", name: "Kinder", imageSrc: "images/Chocolate.jpg", imageAlt: "Kinder Kids Chocolate", weights: [{ id: "20g", label: "20 g", unitPrice: 32 }, { id: "40g", label: "40 g", unitPrice: 62 }, { id: "80g", label: "80 g", unitPrice: 120 }, { id: "150g", label: "150 g", unitPrice: 210 }] }
+                    ]
+                }
+            ]
         }
     };
 

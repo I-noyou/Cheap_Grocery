@@ -1555,6 +1555,101 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             ]
         },
+        peanutButter: {
+            productName: "Peanut Butter",
+            imageSrc: "images/Peanut-Butter.jpg",
+            imageAlt: "Peanut Butter",
+            labels: {
+                varietyTitle: "Select Peanut Butter Type",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Peanut Butter Type",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                {
+                    id: "creamy-peanut-butter",
+                    name: "Creamy Peanut Butter",
+                    brands: [
+                        { id: "pintola", name: "Pintola", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "Pintola Creamy Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 110 }, { id: "340g", label: "340 g", unitPrice: 175 }, { id: "400g", label: "400 g", unitPrice: 205 }, { id: "500g", label: "500 g", unitPrice: 250 }, { id: "750g", label: "750 g", unitPrice: 355 }, { id: "1kg", label: "1 kg", unitPrice: 450 }] },
+                        { id: "myfitness", name: "MyFitness", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "MyFitness Creamy Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 120 }, { id: "340g", label: "340 g", unitPrice: 190 }, { id: "400g", label: "400 g", unitPrice: 220 }, { id: "500g", label: "500 g", unitPrice: 265 }, { id: "750g", label: "750 g", unitPrice: 375 }, { id: "1kg", label: "1 kg", unitPrice: 475 }] },
+                        { id: "alpino", name: "Alpino", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "Alpino Creamy Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 105 }, { id: "340g", label: "340 g", unitPrice: 165 }, { id: "400g", label: "400 g", unitPrice: 195 }, { id: "500g", label: "500 g", unitPrice: 235 }, { id: "750g", label: "750 g", unitPrice: 340 }, { id: "1kg", label: "1 kg", unitPrice: 430 }] },
+                        { id: "sundrop", name: "Sundrop", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "Sundrop Creamy Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 115 }, { id: "340g", label: "340 g", unitPrice: 180 }, { id: "400g", label: "400 g", unitPrice: 210 }, { id: "500g", label: "500 g", unitPrice: 255 }] },
+                        { id: "muscleblaze", name: "MuscleBlaze", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "MuscleBlaze Creamy Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 135 }, { id: "400g", label: "400 g", unitPrice: 255 }, { id: "500g", label: "500 g", unitPrice: 305 }, { id: "1kg", label: "1 kg", unitPrice: 575 }] }
+                    ]
+                },
+                {
+                    id: "crunchy-peanut-butter",
+                    name: "Crunchy Peanut Butter",
+                    brands: [
+                        { id: "pintola", name: "Pintola", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "Pintola Crunchy Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 115 }, { id: "340g", label: "340 g", unitPrice: 180 }, { id: "400g", label: "400 g", unitPrice: 210 }, { id: "500g", label: "500 g", unitPrice: 255 }, { id: "750g", label: "750 g", unitPrice: 365 }, { id: "1kg", label: "1 kg", unitPrice: 465 }] },
+                        { id: "myfitness", name: "MyFitness", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "MyFitness Crunchy Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 125 }, { id: "340g", label: "340 g", unitPrice: 195 }, { id: "400g", label: "400 g", unitPrice: 225 }, { id: "500g", label: "500 g", unitPrice: 275 }, { id: "1kg", label: "1 kg", unitPrice: 490 }] },
+                        { id: "alpino", name: "Alpino", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "Alpino Crunchy Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 110 }, { id: "340g", label: "340 g", unitPrice: 170 }, { id: "400g", label: "400 g", unitPrice: 200 }, { id: "500g", label: "500 g", unitPrice: 245 }] },
+                        { id: "sundrop", name: "Sundrop", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "Sundrop Crunchy Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 120 }, { id: "400g", label: "400 g", unitPrice: 215 }, { id: "500g", label: "500 g", unitPrice: 260 }] }
+                    ]
+                },
+                {
+                    id: "natural-peanut-butter",
+                    name: "Natural Peanut Butter",
+                    brands: [
+                        { id: "pintola", name: "Pintola", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "Pintola Natural Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 130 }, { id: "400g", label: "400 g", unitPrice: 245 }, { id: "500g", label: "500 g", unitPrice: 295 }, { id: "1kg", label: "1 kg", unitPrice: 555 }] },
+                        { id: "myfitness", name: "MyFitness", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "MyFitness Natural Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 135 }, { id: "400g", label: "400 g", unitPrice: 255 }, { id: "500g", label: "500 g", unitPrice: 305 }, { id: "1kg", label: "1 kg", unitPrice: 575 }] },
+                        { id: "alpino", name: "Alpino", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "Alpino Natural Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 125 }, { id: "400g", label: "400 g", unitPrice: 235 }, { id: "500g", label: "500 g", unitPrice: 280 }, { id: "1kg", label: "1 kg", unitPrice: 520 }] },
+                        { id: "yoga-bar", name: "Yoga Bar", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "Yoga Bar Natural Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 125 }, { id: "400g", label: "400 g", unitPrice: 235 }, { id: "500g", label: "500 g", unitPrice: 280 }, { id: "1kg", label: "1 kg", unitPrice: 520 }] }
+                    ]
+                },
+                {
+                    id: "organic-peanut-butter",
+                    name: "Organic Peanut Butter",
+                    brands: [
+                        { id: "pintola", name: "Pintola", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "Pintola Organic Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 145 }, { id: "400g", label: "400 g", unitPrice: 275 }, { id: "500g", label: "500 g", unitPrice: 325 }, { id: "1kg", label: "1 kg", unitPrice: 610 }] },
+                        { id: "alpino", name: "Alpino", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "Alpino Organic Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 140 }, { id: "400g", label: "400 g", unitPrice: 265 }, { id: "500g", label: "500 g", unitPrice: 315 }, { id: "1kg", label: "1 kg", unitPrice: 590 }] },
+                        { id: "24-mantra", name: "24 Mantra", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "24 Mantra Organic Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 155 }, { id: "400g", label: "400 g", unitPrice: 295 }, { id: "500g", label: "500 g", unitPrice: 350 }, { id: "1kg", label: "1 kg", unitPrice: 660 }] },
+                        { id: "organic-tattva", name: "Organic Tattva", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "Organic Tattva Organic Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 150 }, { id: "400g", label: "400 g", unitPrice: 285 }, { id: "500g", label: "500 g", unitPrice: 340 }, { id: "1kg", label: "1 kg", unitPrice: 640 }] }
+                    ]
+                },
+                {
+                    id: "unsweetened-peanut-butter",
+                    name: "Unsweetened Peanut Butter",
+                    brands: [
+                        { id: "pintola", name: "Pintola", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "Pintola Unsweetened Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 135 }, { id: "400g", label: "400 g", unitPrice: 255 }, { id: "500g", label: "500 g", unitPrice: 305 }, { id: "1kg", label: "1 kg", unitPrice: 575 }] },
+                        { id: "myfitness", name: "MyFitness", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "MyFitness Unsweetened Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 140 }, { id: "400g", label: "400 g", unitPrice: 265 }, { id: "500g", label: "500 g", unitPrice: 315 }, { id: "1kg", label: "1 kg", unitPrice: 595 }] },
+                        { id: "alpino", name: "Alpino", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "Alpino Unsweetened Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 130 }, { id: "400g", label: "400 g", unitPrice: 245 }, { id: "500g", label: "500 g", unitPrice: 295 }, { id: "1kg", label: "1 kg", unitPrice: 555 }] },
+                        { id: "yoga-bar", name: "Yoga Bar", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "Yoga Bar Unsweetened Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 135 }, { id: "400g", label: "400 g", unitPrice: 255 }, { id: "500g", label: "500 g", unitPrice: 305 }, { id: "1kg", label: "1 kg", unitPrice: 575 }] }
+                    ]
+                },
+                {
+                    id: "chocolate-peanut-butter",
+                    name: "Chocolate Peanut Butter",
+                    brands: [
+                        { id: "pintola", name: "Pintola", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "Pintola Chocolate Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 135 }, { id: "400g", label: "400 g", unitPrice: 255 }, { id: "500g", label: "500 g", unitPrice: 305 }, { id: "1kg", label: "1 kg", unitPrice: 575 }] },
+                        { id: "alpino", name: "Alpino", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "Alpino Chocolate Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 120 }, { id: "340g", label: "340 g", unitPrice: 190 }, { id: "400g", label: "400 g", unitPrice: 225 }, { id: "500g", label: "500 g", unitPrice: 270 }, { id: "1kg", label: "1 kg", unitPrice: 510 }] },
+                        { id: "myfitness", name: "MyFitness", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "MyFitness Chocolate Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 140 }, { id: "400g", label: "400 g", unitPrice: 265 }, { id: "500g", label: "500 g", unitPrice: 315 }, { id: "1kg", label: "1 kg", unitPrice: 595 }] },
+                        { id: "hersheys", name: "Hershey's", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "Hershey's Chocolate Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 150 }, { id: "340g", label: "340 g", unitPrice: 225 }, { id: "400g", label: "400 g", unitPrice: 265 }, { id: "500g", label: "500 g", unitPrice: 320 }] }
+                    ]
+                },
+                {
+                    id: "honey-peanut-butter",
+                    name: "Honey Peanut Butter",
+                    brands: [
+                        { id: "pintola", name: "Pintola", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "Pintola Honey Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 140 }, { id: "400g", label: "400 g", unitPrice: 265 }, { id: "500g", label: "500 g", unitPrice: 315 }, { id: "1kg", label: "1 kg", unitPrice: 595 }] },
+                        { id: "alpino", name: "Alpino", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "Alpino Honey Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 130 }, { id: "400g", label: "400 g", unitPrice: 245 }, { id: "500g", label: "500 g", unitPrice: 295 }, { id: "1kg", label: "1 kg", unitPrice: 555 }] },
+                        { id: "myfitness", name: "MyFitness", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "MyFitness Honey Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 145 }, { id: "400g", label: "400 g", unitPrice: 275 }, { id: "500g", label: "500 g", unitPrice: 325 }, { id: "1kg", label: "1 kg", unitPrice: 615 }] }
+                    ]
+                },
+                {
+                    id: "high-protein-peanut-butter",
+                    name: "High Protein Peanut Butter",
+                    brands: [
+                        { id: "pintola", name: "Pintola", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "Pintola High Protein Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 145 }, { id: "400g", label: "400 g", unitPrice: 275 }, { id: "500g", label: "500 g", unitPrice: 325 }, { id: "1kg", label: "1 kg", unitPrice: 615 }] },
+                        { id: "myfitness", name: "MyFitness", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "MyFitness High Protein Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 150 }, { id: "400g", label: "400 g", unitPrice: 285 }, { id: "500g", label: "500 g", unitPrice: 340 }, { id: "1kg", label: "1 kg", unitPrice: 640 }] },
+                        { id: "muscleblaze", name: "MuscleBlaze", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "MuscleBlaze High Protein Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 150 }, { id: "400g", label: "400 g", unitPrice: 285 }, { id: "500g", label: "500 g", unitPrice: 340 }, { id: "1kg", label: "1 kg", unitPrice: 640 }] },
+                        { id: "alpino", name: "Alpino", imageSrc: "images/Peanut-Butter.jpg", imageAlt: "Alpino High Protein Peanut Butter", weights: [{ id: "200g", label: "200 g", unitPrice: 140 }, { id: "400g", label: "400 g", unitPrice: 265 }, { id: "500g", label: "500 g", unitPrice: 315 }, { id: "1kg", label: "1 kg", unitPrice: 595 }] }
+                    ]
+                }
+            ]
+        },
         chocolate: {
             productName: "Chocolate",
             imageSrc: "images/Chocolate.jpg",

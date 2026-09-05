@@ -929,6 +929,99 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             ]
         },
+        soap: {
+            productName: "Soap",
+            imageSrc: "images/Body Lotion.jpg",
+            imageAlt: "Soap",
+            labels: {
+                varietyTitle: "Select Soap Type",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Soap Type",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                {
+                    id: "bath-soap",
+                    name: "Bath Soap",
+                    brands: [
+                        { id: "lux", name: "Lux", imageSrc: "images/Body Lotion.jpg", imageAlt: "Lux Bath Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 28 }, { id: "100g", label: "100 g", unitPrice: 38 }, { id: "125g", label: "125 g", unitPrice: 45 }, { id: "150g", label: "150 g", unitPrice: 52 }] },
+                        { id: "dove", name: "Dove", imageSrc: "images/Body Lotion.jpg", imageAlt: "Dove Bath Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 35 }, { id: "100g", label: "100 g", unitPrice: 48 }, { id: "125g", label: "125 g", unitPrice: 58 }, { id: "150g", label: "150 g", unitPrice: 68 }, { id: "4x100g", label: "4 × 100 g", unitPrice: 185 }, { id: "4x125g", label: "4 × 125 g", unitPrice: 225 }] },
+                        { id: "pears", name: "Pears", imageSrc: "images/Body Lotion.jpg", imageAlt: "Pears Bath Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 30 }, { id: "100g", label: "100 g", unitPrice: 42 }, { id: "125g", label: "125 g", unitPrice: 50 }, { id: "150g", label: "150 g", unitPrice: 58 }] },
+                        { id: "cinthol", name: "Cinthol", imageSrc: "images/Body Lotion.jpg", imageAlt: "Cinthol Bath Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 29 }, { id: "100g", label: "100 g", unitPrice: 39 }, { id: "125g", label: "125 g", unitPrice: 47 }, { id: "150g", label: "150 g", unitPrice: 55 }] },
+                        { id: "santoor", name: "Santoor", imageSrc: "images/Body Lotion.jpg", imageAlt: "Santoor Bath Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 27 }, { id: "100g", label: "100 g", unitPrice: 36 }, { id: "125g", label: "125 g", unitPrice: 44 }, { id: "150g", label: "150 g", unitPrice: 51 }] }
+                    ]
+                },
+                {
+                    id: "beauty-soap",
+                    name: "Beauty Soap",
+                    brands: [
+                        { id: "dove", name: "Dove", imageSrc: "images/Body Lotion.jpg", imageAlt: "Dove Beauty Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 35 }, { id: "100g", label: "100 g", unitPrice: 48 }, { id: "125g", label: "125 g", unitPrice: 58 }, { id: "150g", label: "150 g", unitPrice: 68 }] },
+                        { id: "lux", name: "Lux", imageSrc: "images/Body Lotion.jpg", imageAlt: "Lux Beauty Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 28 }, { id: "100g", label: "100 g", unitPrice: 38 }, { id: "125g", label: "125 g", unitPrice: 45 }] },
+                        { id: "pears", name: "Pears", imageSrc: "images/Body Lotion.jpg", imageAlt: "Pears Beauty Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 30 }, { id: "100g", label: "100 g", unitPrice: 42 }, { id: "125g", label: "125 g", unitPrice: 50 }] },
+                        { id: "fiama", name: "Fiama", imageSrc: "images/Body Lotion.jpg", imageAlt: "Fiama Beauty Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 38 }, { id: "100g", label: "100 g", unitPrice: 52 }, { id: "125g", label: "125 g", unitPrice: 62 }, { id: "150g", label: "150 g", unitPrice: 72 }, { id: "4x100g", label: "4 × 100 g", unitPrice: 200 }, { id: "4x125g", label: "4 × 125 g", unitPrice: 245 }] }
+                    ]
+                },
+                {
+                    id: "herbal-soap",
+                    name: "Herbal Soap",
+                    brands: [
+                        { id: "medimix", name: "Medimix", imageSrc: "images/Body Lotion.jpg", imageAlt: "Medimix Herbal Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 30 }, { id: "100g", label: "100 g", unitPrice: 42 }, { id: "125g", label: "125 g", unitPrice: 50 }, { id: "150g", label: "150 g", unitPrice: 58 }] },
+                        { id: "himalaya", name: "Himalaya", imageSrc: "images/Body Lotion.jpg", imageAlt: "Himalaya Herbal Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 35 }, { id: "100g", label: "100 g", unitPrice: 48 }, { id: "125g", label: "125 g", unitPrice: 58 }, { id: "150g", label: "150 g", unitPrice: 68 }] },
+                        { id: "patanjali", name: "Patanjali", imageSrc: "images/Body Lotion.jpg", imageAlt: "Patanjali Herbal Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 28 }, { id: "100g", label: "100 g", unitPrice: 40 }, { id: "125g", label: "125 g", unitPrice: 48 }] },
+                        { id: "khadi", name: "Khadi", imageSrc: "images/Body Lotion.jpg", imageAlt: "Khadi Herbal Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 45 }, { id: "100g", label: "100 g", unitPrice: 60 }, { id: "125g", label: "125 g", unitPrice: 72 }] }
+                    ]
+                },
+                {
+                    id: "moisturizing-soap",
+                    name: "Moisturizing Soap",
+                    brands: [
+                        { id: "dove", name: "Dove", imageSrc: "images/Body Lotion.jpg", imageAlt: "Dove Moisturizing Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 35 }, { id: "100g", label: "100 g", unitPrice: 48 }, { id: "125g", label: "125 g", unitPrice: 58 }, { id: "150g", label: "150 g", unitPrice: 68 }] },
+                        { id: "pears", name: "Pears", imageSrc: "images/Body Lotion.jpg", imageAlt: "Pears Moisturizing Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 30 }, { id: "100g", label: "100 g", unitPrice: 42 }, { id: "125g", label: "125 g", unitPrice: 50 }] },
+                        { id: "nivea", name: "Nivea", imageSrc: "images/Body Lotion.jpg", imageAlt: "Nivea Moisturizing Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 40 }, { id: "100g", label: "100 g", unitPrice: 55 }, { id: "150g", label: "150 g", unitPrice: 78 }] },
+                        { id: "fiama", name: "Fiama", imageSrc: "images/Body Lotion.jpg", imageAlt: "Fiama Moisturizing Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 38 }, { id: "100g", label: "100 g", unitPrice: 52 }, { id: "125g", label: "125 g", unitPrice: 62 }, { id: "150g", label: "150 g", unitPrice: 72 }] }
+                    ]
+                },
+                {
+                    id: "antibacterial-soap",
+                    name: "Antibacterial Soap",
+                    brands: [
+                        { id: "dettol", name: "Dettol", imageSrc: "images/Body Lotion.jpg", imageAlt: "Dettol Antibacterial Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 28 }, { id: "100g", label: "100 g", unitPrice: 38 }, { id: "125g", label: "125 g", unitPrice: 46 }, { id: "150g", label: "150 g", unitPrice: 55 }] },
+                        { id: "lifebuoy", name: "Lifebuoy", imageSrc: "images/Body Lotion.jpg", imageAlt: "Lifebuoy Antibacterial Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 24 }, { id: "100g", label: "100 g", unitPrice: 32 }, { id: "125g", label: "125 g", unitPrice: 40 }, { id: "150g", label: "150 g", unitPrice: 48 }] },
+                        { id: "savlon", name: "Savlon", imageSrc: "images/Body Lotion.jpg", imageAlt: "Savlon Antibacterial Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 26 }, { id: "100g", label: "100 g", unitPrice: 36 }, { id: "125g", label: "125 g", unitPrice: 44 }] }
+                    ]
+                },
+                {
+                    id: "fragrance-soap",
+                    name: "Fragrance Soap",
+                    brands: [
+                        { id: "lux", name: "Lux", imageSrc: "images/Body Lotion.jpg", imageAlt: "Lux Fragrance Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 28 }, { id: "100g", label: "100 g", unitPrice: 38 }, { id: "125g", label: "125 g", unitPrice: 45 }] },
+                        { id: "fiama", name: "Fiama", imageSrc: "images/Body Lotion.jpg", imageAlt: "Fiama Fragrance Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 38 }, { id: "100g", label: "100 g", unitPrice: 52 }, { id: "125g", label: "125 g", unitPrice: 62 }, { id: "150g", label: "150 g", unitPrice: 72 }] },
+                        { id: "cinthol", name: "Cinthol", imageSrc: "images/Body Lotion.jpg", imageAlt: "Cinthol Fragrance Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 29 }, { id: "100g", label: "100 g", unitPrice: 39 }, { id: "150g", label: "150 g", unitPrice: 55 }] },
+                        { id: "engage", name: "Engage", imageSrc: "images/Body Lotion.jpg", imageAlt: "Engage Fragrance Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 45 }, { id: "100g", label: "100 g", unitPrice: 65 }, { id: "150g", label: "150 g", unitPrice: 90 }] }
+                    ]
+                },
+                {
+                    id: "medicated-soap",
+                    name: "Medicated Soap",
+                    brands: [
+                        { id: "medimix", name: "Medimix", imageSrc: "images/Body Lotion.jpg", imageAlt: "Medimix Medicated Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 30 }, { id: "100g", label: "100 g", unitPrice: 42 }, { id: "125g", label: "125 g", unitPrice: 50 }] },
+                        { id: "dettol", name: "Dettol", imageSrc: "images/Body Lotion.jpg", imageAlt: "Dettol Medicated Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 28 }, { id: "100g", label: "100 g", unitPrice: 38 }, { id: "125g", label: "125 g", unitPrice: 46 }] },
+                        { id: "himalaya", name: "Himalaya", imageSrc: "images/Body Lotion.jpg", imageAlt: "Himalaya Medicated Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 35 }, { id: "100g", label: "100 g", unitPrice: 48 }, { id: "125g", label: "125 g", unitPrice: 58 }] }
+                    ]
+                },
+                {
+                    id: "baby-soap",
+                    name: "Baby Soap",
+                    brands: [
+                        { id: "johnsons", name: "Johnson's", imageSrc: "images/Body Lotion.jpg", imageAlt: "Johnson's Baby Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 40 }, { id: "100g", label: "100 g", unitPrice: 55 }, { id: "125g", label: "125 g", unitPrice: 65 }, { id: "150g", label: "150 g", unitPrice: 75 }] },
+                        { id: "himalaya", name: "Himalaya", imageSrc: "images/Body Lotion.jpg", imageAlt: "Himalaya Baby Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 35 }, { id: "100g", label: "100 g", unitPrice: 48 }, { id: "125g", label: "125 g", unitPrice: 58 }] },
+                        { id: "mamaearth", name: "Mamaearth", imageSrc: "images/Body Lotion.jpg", imageAlt: "Mamaearth Baby Soap", weights: [{ id: "75g", label: "75 g", unitPrice: 55 }, { id: "100g", label: "100 g", unitPrice: 75 }, { id: "125g", label: "125 g", unitPrice: 90 }] }
+                    ]
+                }
+            ]
+        },
         mushroom: {
             productName: "Mushroom",
             imageSrc: "images/Mushroom.jpg",

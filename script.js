@@ -844,6 +844,91 @@ document.addEventListener("DOMContentLoaded", () => {
                 createAttaType("high-fibre", "High Fibre Atta", ["aashirvaad", "fortune", "pillsbury"])
             ]
         },
+        wheat: {
+            productName: "Wheat",
+            imageSrc: "images/Wheat.jpg",
+            imageAlt: "Wheat",
+            labels: {
+                varietyTitle: "Select Wheat Type",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Wheat Type",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                {
+                    id: "whole-wheat",
+                    name: "Whole Wheat",
+                    brands: [
+                        { id: "aashirvaad", name: "Aashirvaad", imageSrc: "images/Wheat.jpg", imageAlt: "Aashirvaad Whole Wheat", weights: [{ id: "1kg", label: "1 kg", unitPrice: 65 }, { id: "2kg", label: "2 kg", unitPrice: 125 }, { id: "5kg", label: "5 kg", unitPrice: 300 }, { id: "10kg", label: "10 kg", unitPrice: 575 }] },
+                        { id: "fortune", name: "Fortune", imageSrc: "images/Wheat.jpg", imageAlt: "Fortune Whole Wheat", weights: [{ id: "1kg", label: "1 kg", unitPrice: 60 }, { id: "2kg", label: "2 kg", unitPrice: 115 }, { id: "5kg", label: "5 kg", unitPrice: 275 }, { id: "10kg", label: "10 kg", unitPrice: 525 }] },
+                        { id: "nature-fresh", name: "Nature Fresh", imageSrc: "images/Wheat.jpg", imageAlt: "Nature Fresh Whole Wheat", weights: [{ id: "1kg", label: "1 kg", unitPrice: 63 }, { id: "2kg", label: "2 kg", unitPrice: 120 }, { id: "5kg", label: "5 kg", unitPrice: 290 }] },
+                        { id: "pillsbury", name: "Pillsbury", imageSrc: "images/Wheat.jpg", imageAlt: "Pillsbury Whole Wheat", weights: [{ id: "1kg", label: "1 kg", unitPrice: 62 }, { id: "2kg", label: "2 kg", unitPrice: 120 }, { id: "5kg", label: "5 kg", unitPrice: 285 }, { id: "10kg", label: "10 kg", unitPrice: 550 }] },
+                        { id: "annapurna", name: "Annapurna", imageSrc: "images/Wheat.jpg", imageAlt: "Annapurna Whole Wheat", weights: [{ id: "500g", label: "500 g", unitPrice: 32 }, { id: "1kg", label: "1 kg", unitPrice: 61 }, { id: "2kg", label: "2 kg", unitPrice: 118 }] }
+                    ]
+                },
+                {
+                    id: "sharbati-wheat",
+                    name: "Sharbati Wheat",
+                    brands: [
+                        { id: "aashirvaad", name: "Aashirvaad", imageSrc: "images/Wheat.jpg", imageAlt: "Aashirvaad Sharbati Wheat", weights: [{ id: "1kg", label: "1 kg", unitPrice: 70 }, { id: "2kg", label: "2 kg", unitPrice: 135 }, { id: "5kg", label: "5 kg", unitPrice: 325 }, { id: "10kg", label: "10 kg", unitPrice: 625 }] },
+                        { id: "fortune", name: "Fortune", imageSrc: "images/Wheat.jpg", imageAlt: "Fortune Sharbati Wheat", weights: [{ id: "500g", label: "500 g", unitPrice: 34 }, { id: "1kg", label: "1 kg", unitPrice: 67 }, { id: "2kg", label: "2 kg", unitPrice: 130 }, { id: "5kg", label: "5 kg", unitPrice: 310 }] },
+                        { id: "organic-tattva", name: "Organic Tattva", imageSrc: "images/Wheat.jpg", imageAlt: "Organic Tattva Sharbati Wheat", weights: [{ id: "1kg", label: "1 kg", unitPrice: 78 }, { id: "2kg", label: "2 kg", unitPrice: 150 }, { id: "5kg", label: "5 kg", unitPrice: 360 }] },
+                        { id: "natureland", name: "Natureland", imageSrc: "images/Wheat.jpg", imageAlt: "Natureland Sharbati Wheat", weights: [{ id: "1kg", label: "1 kg", unitPrice: 75 }, { id: "2kg", label: "2 kg", unitPrice: 145 }, { id: "5kg", label: "5 kg", unitPrice: 345 }] }
+                    ]
+                },
+                {
+                    id: "lokwan-wheat",
+                    name: "Lokwan Wheat",
+                    brands: [
+                        { id: "aashirvaad", name: "Aashirvaad", imageSrc: "images/Wheat.jpg", imageAlt: "Aashirvaad Lokwan Wheat", weights: [{ id: "1kg", label: "1 kg", unitPrice: 72 }, { id: "2kg", label: "2 kg", unitPrice: 140 }, { id: "5kg", label: "5 kg", unitPrice: 335 }] },
+                        { id: "fortune", name: "Fortune", imageSrc: "images/Wheat.jpg", imageAlt: "Fortune Lokwan Wheat", weights: [{ id: "1kg", label: "1 kg", unitPrice: 68 }, { id: "2kg", label: "2 kg", unitPrice: 130 }, { id: "5kg", label: "5 kg", unitPrice: 315 }, { id: "10kg", label: "10 kg", unitPrice: 600 }] },
+                        { id: "nature-fresh", name: "Nature Fresh", imageSrc: "images/Wheat.jpg", imageAlt: "Nature Fresh Lokwan Wheat", weights: [{ id: "1kg", label: "1 kg", unitPrice: 70 }, { id: "2kg", label: "2 kg", unitPrice: 135 }, { id: "5kg", label: "5 kg", unitPrice: 325 }] },
+                        { id: "organic-tattva", name: "Organic Tattva", imageSrc: "images/Wheat.jpg", imageAlt: "Organic Tattva Lokwan Wheat", weights: [{ id: "1kg", label: "1 kg", unitPrice: 82 }, { id: "2kg", label: "2 kg", unitPrice: 158 }, { id: "5kg", label: "5 kg", unitPrice: 380 }] }
+                    ]
+                },
+                {
+                    id: "basmati-wheat",
+                    name: "Basmati Wheat",
+                    brands: [
+                        { id: "india-gate", name: "India Gate", imageSrc: "images/Wheat.jpg", imageAlt: "India Gate Basmati Wheat", weights: [{ id: "1kg", label: "1 kg", unitPrice: 75 }, { id: "2kg", label: "2 kg", unitPrice: 145 }, { id: "5kg", label: "5 kg", unitPrice: 350 }] },
+                        { id: "daawat", name: "Daawat", imageSrc: "images/Wheat.jpg", imageAlt: "Daawat Basmati Wheat", weights: [{ id: "1kg", label: "1 kg", unitPrice: 73 }, { id: "2kg", label: "2 kg", unitPrice: 140 }, { id: "5kg", label: "5 kg", unitPrice: 335 }] },
+                        { id: "fortune", name: "Fortune", imageSrc: "images/Wheat.jpg", imageAlt: "Fortune Basmati Wheat", weights: [{ id: "1kg", label: "1 kg", unitPrice: 70 }, { id: "2kg", label: "2 kg", unitPrice: 135 }, { id: "5kg", label: "5 kg", unitPrice: 325 }] },
+                        { id: "nature-fresh", name: "Nature Fresh", imageSrc: "images/Wheat.jpg", imageAlt: "Nature Fresh Basmati Wheat", weights: [{ id: "1kg", label: "1 kg", unitPrice: 72 }, { id: "2kg", label: "2 kg", unitPrice: 140 }, { id: "5kg", label: "5 kg", unitPrice: 335 }] }
+                    ]
+                },
+                {
+                    id: "organic-wheat",
+                    name: "Organic Wheat",
+                    brands: [
+                        { id: "24-mantra", name: "24 Mantra", imageSrc: "images/Wheat.jpg", imageAlt: "24 Mantra Organic Wheat", weights: [{ id: "1kg", label: "1 kg", unitPrice: 95 }, { id: "2kg", label: "2 kg", unitPrice: 185 }, { id: "5kg", label: "5 kg", unitPrice: 450 }, { id: "10kg", label: "10 kg", unitPrice: 850 }] },
+                        { id: "organic-india", name: "Organic India", imageSrc: "images/Wheat.jpg", imageAlt: "Organic India Organic Wheat", weights: [{ id: "500g", label: "500 g", unitPrice: 50 }, { id: "1kg", label: "1 kg", unitPrice: 98 }, { id: "2kg", label: "2 kg", unitPrice: 190 }, { id: "5kg", label: "5 kg", unitPrice: 465 }] },
+                        { id: "organic-tattva", name: "Organic Tattva", imageSrc: "images/Wheat.jpg", imageAlt: "Organic Tattva Organic Wheat", weights: [{ id: "1kg", label: "1 kg", unitPrice: 100 }, { id: "2kg", label: "2 kg", unitPrice: 195 }, { id: "5kg", label: "5 kg", unitPrice: 475 }, { id: "10kg", label: "10 kg", unitPrice: 900 }] },
+                        { id: "natureland", name: "Natureland", imageSrc: "images/Wheat.jpg", imageAlt: "Natureland Organic Wheat", weights: [{ id: "1kg", label: "1 kg", unitPrice: 92 }, { id: "2kg", label: "2 kg", unitPrice: 180 }, { id: "5kg", label: "5 kg", unitPrice: 435 }] }
+                    ]
+                },
+                {
+                    id: "multigrain-wheat",
+                    name: "Multigrain Wheat",
+                    brands: [
+                        { id: "aashirvaad", name: "Aashirvaad", imageSrc: "images/Wheat.jpg", imageAlt: "Aashirvaad Multigrain Wheat", weights: [{ id: "1kg", label: "1 kg", unitPrice: 85 }, { id: "2kg", label: "2 kg", unitPrice: 165 }, { id: "5kg", label: "5 kg", unitPrice: 395 }, { id: "10kg", label: "10 kg", unitPrice: 750 }] },
+                        { id: "pillsbury", name: "Pillsbury", imageSrc: "images/Wheat.jpg", imageAlt: "Pillsbury Multigrain Wheat", weights: [{ id: "1kg", label: "1 kg", unitPrice: 82 }, { id: "2kg", label: "2 kg", unitPrice: 158 }, { id: "5kg", label: "5 kg", unitPrice: 380 }] },
+                        { id: "fortune", name: "Fortune", imageSrc: "images/Wheat.jpg", imageAlt: "Fortune Multigrain Wheat", weights: [{ id: "1kg", label: "1 kg", unitPrice: 80 }, { id: "2kg", label: "2 kg", unitPrice: 155 }, { id: "5kg", label: "5 kg", unitPrice: 370 }] },
+                        { id: "nature-fresh", name: "Nature Fresh", imageSrc: "images/Wheat.jpg", imageAlt: "Nature Fresh Multigrain Wheat", weights: [{ id: "1kg", label: "1 kg", unitPrice: 83 }, { id: "2kg", label: "2 kg", unitPrice: 160 }, { id: "5kg", label: "5 kg", unitPrice: 385 }] }
+                    ]
+                },
+                {
+                    id: "high-fibre-wheat",
+                    name: "High Fibre Wheat",
+                    brands: [
+                        { id: "aashirvaad", name: "Aashirvaad", imageSrc: "images/Wheat.jpg", imageAlt: "Aashirvaad High Fibre Wheat", weights: [{ id: "1kg", label: "1 kg", unitPrice: 82 }, { id: "2kg", label: "2 kg", unitPrice: 158 }, { id: "5kg", label: "5 kg", unitPrice: 380 }] },
+                        { id: "pillsbury", name: "Pillsbury", imageSrc: "images/Wheat.jpg", imageAlt: "Pillsbury High Fibre Wheat", weights: [{ id: "1kg", label: "1 kg", unitPrice: 80 }, { id: "2kg", label: "2 kg", unitPrice: 155 }, { id: "5kg", label: "5 kg", unitPrice: 375 }, { id: "10kg", label: "10 kg", unitPrice: 720 }] },
+                        { id: "fortune", name: "Fortune", imageSrc: "images/Wheat.jpg", imageAlt: "Fortune High Fibre Wheat", weights: [{ id: "1kg", label: "1 kg", unitPrice: 78 }, { id: "2kg", label: "2 kg", unitPrice: 150 }, { id: "5kg", label: "5 kg", unitPrice: 360 }] }
+                    ]
+                }
+            ]
+        },
         mushroom: {
             productName: "Mushroom",
             imageSrc: "images/Mushroom.jpg",

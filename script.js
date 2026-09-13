@@ -1936,6 +1936,86 @@ document.addEventListener("DOMContentLoaded", () => {
                     ]
                 }
             ]
+        },
+        til: {
+            productName: "Til",
+            imageSrc: "images/Til.avif",
+            imageAlt: "Til",
+            labels: {
+                varietyTitle: "Select Til Type",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Til Type",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                {
+                    id: "white-til",
+                    name: "White Til",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Til.avif", imageAlt: "Tata Sampann White Til", weights: [{ id: "100g", label: "100 g", unitPrice: 45 }, { id: "200g", label: "200 g", unitPrice: 85 }, { id: "500g", label: "500 g", unitPrice: 195 }, { id: "1kg", label: "1 kg", unitPrice: 365 }] },
+                        { id: "natureland", name: "Natureland", imageSrc: "images/Til.avif", imageAlt: "Natureland White Til", weights: [{ id: "100g", label: "100 g", unitPrice: 40 }, { id: "200g", label: "200 g", unitPrice: 75 }, { id: "500g", label: "500 g", unitPrice: 175 }, { id: "1kg", label: "1 kg", unitPrice: 330 }] },
+                        { id: "organic-tattva", name: "Organic Tattva", imageSrc: "images/Til.avif", imageAlt: "Organic Tattva White Til", weights: [{ id: "100g", label: "100 g", unitPrice: 48 }, { id: "200g", label: "200 g", unitPrice: 92 }, { id: "250g", label: "250 g", unitPrice: 112 }, { id: "500g", label: "500 g", unitPrice: 215 }, { id: "1kg", label: "1 kg", unitPrice: 400 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Til.avif", imageAlt: "Urban Platter White Til", weights: [{ id: "100g", label: "100 g", unitPrice: 48 }, { id: "200g", label: "200 g", unitPrice: 90 }, { id: "500g", label: "500 g", unitPrice: 210 }, { id: "1kg", label: "1 kg", unitPrice: 390 }] }
+                    ]
+                },
+                {
+                    id: "black-til",
+                    name: "Black Til",
+                    brands: [
+                        { id: "natureland", name: "Natureland", imageSrc: "images/Til.avif", imageAlt: "Natureland Black Til", weights: [{ id: "100g", label: "100 g", unitPrice: 55 }, { id: "200g", label: "200 g", unitPrice: 105 }, { id: "500g", label: "500 g", unitPrice: 245 }, { id: "1kg", label: "1 kg", unitPrice: 460 }] },
+                        { id: "organic-tattva", name: "Organic Tattva", imageSrc: "images/Til.avif", imageAlt: "Organic Tattva Black Til", weights: [{ id: "100g", label: "100 g", unitPrice: 58 }, { id: "200g", label: "200 g", unitPrice: 110 }, { id: "500g", label: "500 g", unitPrice: 255 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Til.avif", imageAlt: "Urban Platter Black Til", weights: [{ id: "100g", label: "100 g", unitPrice: 62 }, { id: "250g", label: "250 g", unitPrice: 145 }, { id: "500g", label: "500 g", unitPrice: 275 }, { id: "1kg", label: "1 kg", unitPrice: 520 }] }
+                    ]
+                },
+                {
+                    id: "brown-til",
+                    name: "Brown Til",
+                    brands: [
+                        { id: "natureland", name: "Natureland", imageSrc: "images/Til.avif", imageAlt: "Natureland Brown Til", weights: [{ id: "100g", label: "100 g", unitPrice: 42 }, { id: "200g", label: "200 g", unitPrice: 80 }, { id: "500g", label: "500 g", unitPrice: 185 }] },
+                        { id: "organic-tattva", name: "Organic Tattva", imageSrc: "images/Til.avif", imageAlt: "Organic Tattva Brown Til", weights: [{ id: "100g", label: "100 g", unitPrice: 45 }, { id: "200g", label: "200 g", unitPrice: 85 }, { id: "500g", label: "500 g", unitPrice: 195 }, { id: "1kg", label: "1 kg", unitPrice: 370 }] },
+                        { id: "local-brand", name: "Local Brand", imageSrc: "images/Til.avif", imageAlt: "Local Brand Brown Til", weights: [{ id: "100g", label: "100 g", unitPrice: 35 }, { id: "250g", label: "250 g", unitPrice: 78 }, { id: "500g", label: "500 g", unitPrice: 145 }, { id: "1kg", label: "1 kg", unitPrice: 275 }] }
+                    ]
+                },
+                {
+                    id: "hulled-til",
+                    name: "Hulled Til",
+                    brands: [
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Til.avif", imageAlt: "Urban Platter Hulled Til", weights: [{ id: "100g", label: "100 g", unitPrice: 50 }, { id: "200g", label: "200 g", unitPrice: 95 }, { id: "500g", label: "500 g", unitPrice: 220 }, { id: "1kg", label: "1 kg", unitPrice: 410 }] },
+                        { id: "natureland", name: "Natureland", imageSrc: "images/Til.avif", imageAlt: "Natureland Hulled Til", weights: [{ id: "100g", label: "100 g", unitPrice: 46 }, { id: "250g", label: "250 g", unitPrice: 108 }, { id: "500g", label: "500 g", unitPrice: 205 }] },
+                        { id: "organic-tattva", name: "Organic Tattva", imageSrc: "images/Til.avif", imageAlt: "Organic Tattva Hulled Til", weights: [{ id: "100g", label: "100 g", unitPrice: 52 }, { id: "200g", label: "200 g", unitPrice: 99 }, { id: "500g", label: "500 g", unitPrice: 230 }, { id: "1kg", label: "1 kg", unitPrice: 430 }] }
+                    ]
+                },
+                {
+                    id: "unhulled-til",
+                    name: "Unhulled Til",
+                    brands: [
+                        { id: "natureland", name: "Natureland", imageSrc: "images/Til.avif", imageAlt: "Natureland Unhulled Til", weights: [{ id: "100g", label: "100 g", unitPrice: 38 }, { id: "200g", label: "200 g", unitPrice: 72 }, { id: "500g", label: "500 g", unitPrice: 165 }, { id: "1kg", label: "1 kg", unitPrice: 310 }] },
+                        { id: "organic-tattva", name: "Organic Tattva", imageSrc: "images/Til.avif", imageAlt: "Organic Tattva Unhulled Til", weights: [{ id: "100g", label: "100 g", unitPrice: 44 }, { id: "250g", label: "250 g", unitPrice: 102 }, { id: "500g", label: "500 g", unitPrice: 190 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Til.avif", imageAlt: "Urban Platter Unhulled Til", weights: [{ id: "100g", label: "100 g", unitPrice: 48 }, { id: "200g", label: "200 g", unitPrice: 92 }, { id: "500g", label: "500 g", unitPrice: 215 }] }
+                    ]
+                },
+                {
+                    id: "organic-til",
+                    name: "Organic Til",
+                    brands: [
+                        { id: "organic-tattva", name: "Organic Tattva", imageSrc: "images/Til.avif", imageAlt: "Organic Tattva Organic Til", weights: [{ id: "100g", label: "100 g", unitPrice: 60 }, { id: "200g", label: "200 g", unitPrice: 115 }, { id: "500g", label: "500 g", unitPrice: 270 }, { id: "1kg", label: "1 kg", unitPrice: 510 }] },
+                        { id: "natureland", name: "Natureland", imageSrc: "images/Til.avif", imageAlt: "Natureland Organic Til", weights: [{ id: "100g", label: "100 g", unitPrice: 55 }, { id: "250g", label: "250 g", unitPrice: 130 }, { id: "500g", label: "500 g", unitPrice: 250 }] },
+                        { id: "24-mantra", name: "24 Mantra", imageSrc: "images/Til.avif", imageAlt: "24 Mantra Organic Til", weights: [{ id: "100g", label: "100 g", unitPrice: 62 }, { id: "200g", label: "200 g", unitPrice: 120 }, { id: "500g", label: "500 g", unitPrice: 280 }, { id: "1kg", label: "1 kg", unitPrice: 530 }] },
+                        { id: "organic-india", name: "Organic India", imageSrc: "images/Til.avif", imageAlt: "Organic India Organic Til", weights: [{ id: "100g", label: "100 g", unitPrice: 65 }, { id: "250g", label: "250 g", unitPrice: 155 }, { id: "500g", label: "500 g", unitPrice: 295 }] }
+                    ]
+                },
+                {
+                    id: "roasted-til",
+                    name: "Roasted Til",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Til.avif", imageAlt: "Tata Sampann Roasted Til", weights: [{ id: "100g", label: "100 g", unitPrice: 55 }, { id: "200g", label: "200 g", unitPrice: 105 }, { id: "500g", label: "500 g", unitPrice: 245 }, { id: "1kg", label: "1 kg", unitPrice: 460 }] },
+                        { id: "natureland", name: "Natureland", imageSrc: "images/Til.avif", imageAlt: "Natureland Roasted Til", weights: [{ id: "100g", label: "100 g", unitPrice: 50 }, { id: "250g", label: "250 g", unitPrice: 118 }, { id: "500g", label: "500 g", unitPrice: 225 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Til.avif", imageAlt: "Urban Platter Roasted Til", weights: [{ id: "100g", label: "100 g", unitPrice: 58 }, { id: "200g", label: "200 g", unitPrice: 110 }, { id: "500g", label: "500 g", unitPrice: 255 }, { id: "1kg", label: "1 kg", unitPrice: 480 }] }
+                    ]
+                }
+            ]
         }
     };
 
@@ -2063,8 +2143,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const brands = selection.variety ? selection.variety.brands : [];
         renderVariantOptions(modalBrandList, brands, selection.brand ? selection.brand.id : null, (brand) => {
+            const selectedWeightId = currentCatalogSelection.weight ? currentCatalogSelection.weight.id : null;
             currentCatalogSelection.brand = brand;
-            currentCatalogSelection.weight = brand.weights[0] || null;
+            currentCatalogSelection.weight = brand.weights.find((weight) => weight.id === selectedWeightId) || brand.weights[0] || null;
             renderCatalogVariantSteps();
             syncCatalogModalDisplay();
         });

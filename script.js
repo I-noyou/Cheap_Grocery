@@ -1937,6 +1937,85 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             ]
         },
+        soyaBadi: {
+            productName: "Soya Badi",
+            imageSrc: "images/Soya badi.jpg",
+            imageAlt: "Soya Badi",
+            labels: {
+                varietyTitle: "Select Soya Badi Type",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Soya Badi Type",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                {
+                    id: "regular-soya-badi",
+                    name: "Regular Soya Badi",
+                    brands: [
+                        { id: "nutrela", name: "Nutrela", imageSrc: "images/Soya badi.jpg", imageAlt: "Nutrela Regular Soya Badi", weights: [{ id: "100g", label: "100 g", unitPrice: 45 }, { id: "200g", label: "200 g", unitPrice: 82 }, { id: "250g", label: "250 g", unitPrice: 98 }, { id: "500g", label: "500 g", unitPrice: 185 }, { id: "1kg", label: "1 kg", unitPrice: 350 }, { id: "2kg", label: "2 kg", unitPrice: 675 }] },
+                        { id: "fortune", name: "Fortune", imageSrc: "images/Soya badi.jpg", imageAlt: "Fortune Regular Soya Badi", weights: [{ id: "100g", label: "100 g", unitPrice: 42 }, { id: "200g", label: "200 g", unitPrice: 78 }, { id: "250g", label: "250 g", unitPrice: 92 }, { id: "500g", label: "500 g", unitPrice: 175 }, { id: "1kg", label: "1 kg", unitPrice: 330 }, { id: "2kg", label: "2 kg", unitPrice: 640 }] },
+                        { id: "patanjali", name: "Patanjali", imageSrc: "images/Soya badi.jpg", imageAlt: "Patanjali Regular Soya Badi", weights: [{ id: "100g", label: "100 g", unitPrice: 40 }, { id: "200g", label: "200 g", unitPrice: 75 }, { id: "250g", label: "250 g", unitPrice: 90 }, { id: "500g", label: "500 g", unitPrice: 170 }, { id: "1kg", label: "1 kg", unitPrice: 320 }, { id: "2kg", label: "2 kg", unitPrice: 620 }] },
+                        { id: "organic-tattva", name: "Organic Tattva", imageSrc: "images/Soya badi.jpg", imageAlt: "Organic Tattva Regular Soya Badi", weights: [{ id: "100g", label: "100 g", unitPrice: 55 }, { id: "200g", label: "200 g", unitPrice: 105 }, { id: "500g", label: "500 g", unitPrice: 235 }, { id: "1kg", label: "1 kg", unitPrice: 450 }] }
+                    ]
+                },
+                {
+                    id: "mini-soya-chunks",
+                    name: "Mini Soya Chunks",
+                    brands: [
+                        { id: "nutrela", name: "Nutrela", imageSrc: "images/Soya badi.jpg", imageAlt: "Nutrela Mini Soya Chunks", weights: [{ id: "100g", label: "100 g", unitPrice: 48 }, { id: "200g", label: "200 g", unitPrice: 88 }, { id: "250g", label: "250 g", unitPrice: 105 }, { id: "500g", label: "500 g", unitPrice: 195 }, { id: "1kg", label: "1 kg", unitPrice: 370 }] },
+                        { id: "fortune", name: "Fortune", imageSrc: "images/Soya badi.jpg", imageAlt: "Fortune Mini Soya Chunks", weights: [{ id: "100g", label: "100 g", unitPrice: 45 }, { id: "200g", label: "200 g", unitPrice: 82 }, { id: "500g", label: "500 g", unitPrice: 180 }, { id: "1kg", label: "1 kg", unitPrice: 340 }] },
+                        { id: "patanjali", name: "Patanjali", imageSrc: "images/Soya badi.jpg", imageAlt: "Patanjali Mini Soya Chunks", weights: [{ id: "100g", label: "100 g", unitPrice: 43 }, { id: "200g", label: "200 g", unitPrice: 80 }, { id: "250g", label: "250 g", unitPrice: 98 }, { id: "500g", label: "500 g", unitPrice: 185 }, { id: "1kg", label: "1 kg", unitPrice: 350 }] }
+                    ]
+                },
+                {
+                    id: "soya-granules",
+                    name: "Soya Granules",
+                    brands: [
+                        { id: "nutrela", name: "Nutrela", imageSrc: "images/Soya badi.jpg", imageAlt: "Nutrela Soya Granules", weights: [{ id: "100g", label: "100 g", unitPrice: 48 }, { id: "200g", label: "200 g", unitPrice: 88 }, { id: "500g", label: "500 g", unitPrice: 195 }, { id: "1kg", label: "1 kg", unitPrice: 370 }] },
+                        { id: "fortune", name: "Fortune", imageSrc: "images/Soya badi.jpg", imageAlt: "Fortune Soya Granules", weights: [{ id: "100g", label: "100 g", unitPrice: 45 }, { id: "200g", label: "200 g", unitPrice: 82 }, { id: "250g", label: "250 g", unitPrice: 98 }, { id: "500g", label: "500 g", unitPrice: 185 }, { id: "1kg", label: "1 kg", unitPrice: 350 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Soya badi.jpg", imageAlt: "Urban Platter Soya Granules", weights: [{ id: "100g", label: "100 g", unitPrice: 55 }, { id: "200g", label: "200 g", unitPrice: 105 }, { id: "500g", label: "500 g", unitPrice: 235 }, { id: "1kg", label: "1 kg", unitPrice: 450 }] }
+                    ]
+                },
+                {
+                    id: "soya-nuggets",
+                    name: "Soya Nuggets",
+                    brands: [
+                        { id: "nutrela", name: "Nutrela", imageSrc: "images/Soya badi.jpg", imageAlt: "Nutrela Soya Nuggets", weights: [{ id: "100g", label: "100 g", unitPrice: 48 }, { id: "200g", label: "200 g", unitPrice: 88 }, { id: "500g", label: "500 g", unitPrice: 195 }, { id: "1kg", label: "1 kg", unitPrice: 370 }] },
+                        { id: "fortune", name: "Fortune", imageSrc: "images/Soya badi.jpg", imageAlt: "Fortune Soya Nuggets", weights: [{ id: "100g", label: "100 g", unitPrice: 45 }, { id: "200g", label: "200 g", unitPrice: 82 }, { id: "500g", label: "500 g", unitPrice: 185 }, { id: "1kg", label: "1 kg", unitPrice: 350 }] },
+                        { id: "patanjali", name: "Patanjali", imageSrc: "images/Soya badi.jpg", imageAlt: "Patanjali Soya Nuggets", weights: [{ id: "100g", label: "100 g", unitPrice: 42 }, { id: "200g", label: "200 g", unitPrice: 78 }, { id: "250g", label: "250 g", unitPrice: 95 }, { id: "500g", label: "500 g", unitPrice: 178 }, { id: "1kg", label: "1 kg", unitPrice: 340 }] }
+                    ]
+                },
+                {
+                    id: "high-protein-soya-chunks",
+                    name: "High Protein Soya Chunks",
+                    brands: [
+                        { id: "nutrela", name: "Nutrela", imageSrc: "images/Soya badi.jpg", imageAlt: "Nutrela High Protein Soya Chunks", weights: [{ id: "100g", label: "100 g", unitPrice: 55 }, { id: "200g", label: "200 g", unitPrice: 105 }, { id: "250g", label: "250 g", unitPrice: 125 }, { id: "500g", label: "500 g", unitPrice: 235 }, { id: "1kg", label: "1 kg", unitPrice: 450 }] },
+                        { id: "fortune", name: "Fortune", imageSrc: "images/Soya badi.jpg", imageAlt: "Fortune High Protein Soya Chunks", weights: [{ id: "100g", label: "100 g", unitPrice: 52 }, { id: "200g", label: "200 g", unitPrice: 98 }, { id: "500g", label: "500 g", unitPrice: 220 }, { id: "1kg", label: "1 kg", unitPrice: 420 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Soya badi.jpg", imageAlt: "Urban Platter High Protein Soya Chunks", weights: [{ id: "100g", label: "100 g", unitPrice: 60 }, { id: "200g", label: "200 g", unitPrice: 115 }, { id: "500g", label: "500 g", unitPrice: 260 }, { id: "1kg", label: "1 kg", unitPrice: 500 }] }
+                    ]
+                },
+                {
+                    id: "organic-soya-chunks",
+                    name: "Organic Soya Chunks",
+                    brands: [
+                        { id: "organic-tattva", name: "Organic Tattva", imageSrc: "images/Soya badi.jpg", imageAlt: "Organic Tattva Organic Soya Chunks", weights: [{ id: "100g", label: "100 g", unitPrice: 60 }, { id: "200g", label: "200 g", unitPrice: 115 }, { id: "250g", label: "250 g", unitPrice: 140 }, { id: "500g", label: "500 g", unitPrice: 260 }, { id: "1kg", label: "1 kg", unitPrice: 500 }] },
+                        { id: "24-mantra", name: "24 Mantra", imageSrc: "images/Soya badi.jpg", imageAlt: "24 Mantra Organic Soya Chunks", weights: [{ id: "100g", label: "100 g", unitPrice: 65 }, { id: "200g", label: "200 g", unitPrice: 125 }, { id: "500g", label: "500 g", unitPrice: 280 }, { id: "1kg", label: "1 kg", unitPrice: 540 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Soya badi.jpg", imageAlt: "Urban Platter Organic Soya Chunks", weights: [{ id: "100g", label: "100 g", unitPrice: 62 }, { id: "200g", label: "200 g", unitPrice: 120 }, { id: "500g", label: "500 g", unitPrice: 275 }, { id: "1kg", label: "1 kg", unitPrice: 525 }] }
+                    ]
+                },
+                {
+                    id: "soya-mini-nuggets",
+                    name: "Soya Mini Nuggets",
+                    brands: [
+                        { id: "nutrela", name: "Nutrela", imageSrc: "images/Soya badi.jpg", imageAlt: "Nutrela Soya Mini Nuggets", weights: [{ id: "100g", label: "100 g", unitPrice: 52 }, { id: "200g", label: "200 g", unitPrice: 98 }, { id: "500g", label: "500 g", unitPrice: 220 }, { id: "1kg", label: "1 kg", unitPrice: 420 }] },
+                        { id: "fortune", name: "Fortune", imageSrc: "images/Soya badi.jpg", imageAlt: "Fortune Soya Mini Nuggets", weights: [{ id: "100g", label: "100 g", unitPrice: 50 }, { id: "200g", label: "200 g", unitPrice: 95 }, { id: "500g", label: "500 g", unitPrice: 210 }, { id: "1kg", label: "1 kg", unitPrice: 400 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Soya badi.jpg", imageAlt: "Urban Platter Soya Mini Nuggets", weights: [{ id: "100g", label: "100 g", unitPrice: 55 }, { id: "200g", label: "200 g", unitPrice: 105 }, { id: "250g", label: "250 g", unitPrice: 125 }, { id: "500g", label: "500 g", unitPrice: 235 }, { id: "1kg", label: "1 kg", unitPrice: 450 }] }
+                    ]
+                }
+            ]
+        },
         til: {
             productName: "Til",
             imageSrc: "images/Til.avif",

@@ -2016,6 +2016,81 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             ]
         },
+        elaichi: {
+            productName: "Elaichi",
+            imageSrc: "images/Elaichi.jpg",
+            imageAlt: "Elaichi",
+            labels: {
+                varietyTitle: "Select Elaichi Type",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Elaichi Type",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                {
+                    id: "green-elaichi",
+                    name: "Green Elaichi",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", weights: [{ id: "10g", label: "10 g", unitPrice: 55 }, { id: "20g", label: "20 g", unitPrice: 105 }, { id: "25g", label: "25 g", unitPrice: 130 }, { id: "50g", label: "50 g", unitPrice: 250 }, { id: "100g", label: "100 g", unitPrice: 480 }, { id: "200g", label: "200 g", unitPrice: 920 }] },
+                        { id: "catch", name: "Catch", weights: [{ id: "10g", label: "10 g", unitPrice: 50 }, { id: "20g", label: "20 g", unitPrice: 95 }, { id: "25g", label: "25 g", unitPrice: 118 }, { id: "50g", label: "50 g", unitPrice: 225 }, { id: "100g", label: "100 g", unitPrice: 430 }, { id: "200g", label: "200 g", unitPrice: 820 }] },
+                        { id: "everest", name: "Everest", weights: [{ id: "10g", label: "10 g", unitPrice: 52 }, { id: "20g", label: "20 g", unitPrice: 98 }, { id: "25g", label: "25 g", unitPrice: 122 }, { id: "50g", label: "50 g", unitPrice: 235 }, { id: "100g", label: "100 g", unitPrice: 445 }, { id: "200g", label: "200 g", unitPrice: 850 }] },
+                        { id: "natureland", name: "Natureland", weights: [{ id: "10g", label: "10 g", unitPrice: 48 }, { id: "20g", label: "20 g", unitPrice: 90 }, { id: "25g", label: "25 g", unitPrice: 112 }, { id: "50g", label: "50 g", unitPrice: 215 }, { id: "100g", label: "100 g", unitPrice: 410 }, { id: "200g", label: "200 g", unitPrice: 780 }] },
+                        { id: "urban-platter", name: "Urban Platter", weights: [{ id: "10g", label: "10 g", unitPrice: 46 }, { id: "20g", label: "20 g", unitPrice: 88 }, { id: "25g", label: "25 g", unitPrice: 110 }, { id: "50g", label: "50 g", unitPrice: 210 }, { id: "100g", label: "100 g", unitPrice: 400 }, { id: "200g", label: "200 g", unitPrice: 760 }] }
+                    ]
+                },
+                {
+                    id: "small-green-elaichi",
+                    name: "Small Green Elaichi",
+                    brands: [
+                        { id: "catch", name: "Catch", weights: [{ id: "10g", label: "10 g", unitPrice: 48 }, { id: "20g", label: "20 g", unitPrice: 92 }, { id: "25g", label: "25 g", unitPrice: 115 }, { id: "50g", label: "50 g", unitPrice: 220 }, { id: "100g", label: "100 g", unitPrice: 420 }] },
+                        { id: "tata-sampann", name: "Tata Sampann", weights: [{ id: "10g", label: "10 g", unitPrice: 52 }, { id: "20g", label: "20 g", unitPrice: 98 }, { id: "25g", label: "25 g", unitPrice: 120 }, { id: "50g", label: "50 g", unitPrice: 230 }, { id: "100g", label: "100 g", unitPrice: 440 }] },
+                        { id: "natureland", name: "Natureland", weights: [{ id: "10g", label: "10 g", unitPrice: 45 }, { id: "20g", label: "20 g", unitPrice: 86 }, { id: "25g", label: "25 g", unitPrice: 108 }, { id: "50g", label: "50 g", unitPrice: 205 }, { id: "100g", label: "100 g", unitPrice: 390 }] },
+                        { id: "urban-platter", name: "Urban Platter", weights: [{ id: "10g", label: "10 g", unitPrice: 43 }, { id: "20g", label: "20 g", unitPrice: 82 }, { id: "25g", label: "25 g", unitPrice: 102 }, { id: "50g", label: "50 g", unitPrice: 195 }, { id: "100g", label: "100 g", unitPrice: 375 }] }
+                    ]
+                },
+                {
+                    id: "premium-green-elaichi",
+                    name: "Premium Green Elaichi",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", weights: [{ id: "10g", label: "10 g", unitPrice: 65 }, { id: "20g", label: "20 g", unitPrice: 125 }, { id: "25g", label: "25 g", unitPrice: 155 }, { id: "50g", label: "50 g", unitPrice: 295 }, { id: "100g", label: "100 g", unitPrice: 570 }, { id: "200g", label: "200 g", unitPrice: 1080 }] },
+                        { id: "urban-platter", name: "Urban Platter", weights: [{ id: "10g", label: "10 g", unitPrice: 60 }, { id: "20g", label: "20 g", unitPrice: 118 }, { id: "25g", label: "25 g", unitPrice: 148 }, { id: "50g", label: "50 g", unitPrice: 285 }, { id: "100g", label: "100 g", unitPrice: 550 }, { id: "200g", label: "200 g", unitPrice: 1035 }] },
+                        { id: "natureland", name: "Natureland", weights: [{ id: "10g", label: "10 g", unitPrice: 58 }, { id: "20g", label: "20 g", unitPrice: 112 }, { id: "25g", label: "25 g", unitPrice: 140 }, { id: "50g", label: "50 g", unitPrice: 270 }, { id: "100g", label: "100 g", unitPrice: 520 }, { id: "200g", label: "200 g", unitPrice: 990 }] }
+                    ]
+                },
+                {
+                    id: "organic-elaichi",
+                    name: "Organic Elaichi",
+                    brands: [
+                        { id: "organic-tattva", name: "Organic Tattva", weights: [{ id: "10g", label: "10 g", unitPrice: 70 }, { id: "20g", label: "20 g", unitPrice: 135 }, { id: "25g", label: "25 g", unitPrice: 165 }, { id: "50g", label: "50 g", unitPrice: 320 }, { id: "100g", label: "100 g", unitPrice: 620 }, { id: "200g", label: "200 g", unitPrice: 1180 }] },
+                        { id: "24-mantra", name: "24 Mantra", weights: [{ id: "10g", label: "10 g", unitPrice: 68 }, { id: "20g", label: "20 g", unitPrice: 128 }, { id: "25g", label: "25 g", unitPrice: 158 }, { id: "50g", label: "50 g", unitPrice: 305 }, { id: "100g", label: "100 g", unitPrice: 590 }, { id: "200g", label: "200 g", unitPrice: 1120 }] },
+                        { id: "natureland", name: "Natureland", weights: [{ id: "10g", label: "10 g", unitPrice: 66 }, { id: "20g", label: "20 g", unitPrice: 124 }, { id: "25g", label: "25 g", unitPrice: 150 }, { id: "50g", label: "50 g", unitPrice: 290 }, { id: "100g", label: "100 g", unitPrice: 560 }, { id: "200g", label: "200 g", unitPrice: 1060 }] },
+                        { id: "organic-india", name: "Organic India", weights: [{ id: "10g", label: "10 g", unitPrice: 72 }, { id: "20g", label: "20 g", unitPrice: 138 }, { id: "25g", label: "25 g", unitPrice: 170 }, { id: "50g", label: "50 g", unitPrice: 330 }, { id: "100g", label: "100 g", unitPrice: 640 }, { id: "200g", label: "200 g", unitPrice: 1215 }] }
+                    ]
+                },
+                {
+                    id: "black-elaichi",
+                    name: "Black Elaichi",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", weights: [{ id: "10g", label: "10 g", unitPrice: 40 }, { id: "20g", label: "20 g", unitPrice: 75 }, { id: "25g", label: "25 g", unitPrice: 92 }, { id: "50g", label: "50 g", unitPrice: 175 }, { id: "100g", label: "100 g", unitPrice: 335 }, { id: "200g", label: "200 g", unitPrice: 640 }] },
+                        { id: "catch", name: "Catch", weights: [{ id: "10g", label: "10 g", unitPrice: 38 }, { id: "20g", label: "20 g", unitPrice: 72 }, { id: "25g", label: "25 g", unitPrice: 90 }, { id: "50g", label: "50 g", unitPrice: 170 }, { id: "100g", label: "100 g", unitPrice: 325 }, { id: "200g", label: "200 g", unitPrice: 620 }] },
+                        { id: "natureland", name: "Natureland", weights: [{ id: "10g", label: "10 g", unitPrice: 36 }, { id: "20g", label: "20 g", unitPrice: 70 }, { id: "25g", label: "25 g", unitPrice: 88 }, { id: "50g", label: "50 g", unitPrice: 165 }, { id: "100g", label: "100 g", unitPrice: 310 }, { id: "200g", label: "200 g", unitPrice: 600 }] },
+                        { id: "urban-platter", name: "Urban Platter", weights: [{ id: "10g", label: "10 g", unitPrice: 42 }, { id: "20g", label: "20 g", unitPrice: 78 }, { id: "25g", label: "25 g", unitPrice: 96 }, { id: "50g", label: "50 g", unitPrice: 180 }, { id: "100g", label: "100 g", unitPrice: 345 }, { id: "200g", label: "200 g", unitPrice: 660 }] }
+                    ]
+                },
+                {
+                    id: "elaichi-powder",
+                    name: "Elaichi Powder",
+                    brands: [
+                        { id: "everest", name: "Everest", weights: [{ id: "10g", label: "10 g", unitPrice: 35 }, { id: "20g", label: "20 g", unitPrice: 65 }, { id: "25g", label: "25 g", unitPrice: 78 }, { id: "50g", label: "50 g", unitPrice: 145 }, { id: "100g", label: "100 g", unitPrice: 275 }, { id: "200g", label: "200 g", unitPrice: 520 }] },
+                        { id: "catch", name: "Catch", weights: [{ id: "10g", label: "10 g", unitPrice: 33 }, { id: "20g", label: "20 g", unitPrice: 62 }, { id: "25g", label: "25 g", unitPrice: 75 }, { id: "50g", label: "50 g", unitPrice: 138 }, { id: "100g", label: "100 g", unitPrice: 260 }, { id: "200g", label: "200 g", unitPrice: 490 }] },
+                        { id: "tata-sampann", name: "Tata Sampann", weights: [{ id: "10g", label: "10 g", unitPrice: 38 }, { id: "20g", label: "20 g", unitPrice: 68 }, { id: "25g", label: "25 g", unitPrice: 82 }, { id: "50g", label: "50 g", unitPrice: 150 }, { id: "100g", label: "100 g", unitPrice: 285 }, { id: "200g", label: "200 g", unitPrice: 540 }] },
+                        { id: "urban-platter", name: "Urban Platter", weights: [{ id: "10g", label: "10 g", unitPrice: 36 }, { id: "20g", label: "20 g", unitPrice: 66 }, { id: "25g", label: "25 g", unitPrice: 80 }, { id: "50g", label: "50 g", unitPrice: 148 }, { id: "100g", label: "100 g", unitPrice: 280 }, { id: "200g", label: "200 g", unitPrice: 530 }] }
+                    ]
+                }
+            ]
+        },
         til: {
             productName: "Til",
             imageSrc: "images/Til.avif",

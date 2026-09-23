@@ -1733,6 +1733,102 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             ]
         },
+        peanut: {
+            productName: "Peanut",
+            imageSrc: "images/Peanut.jpg",
+            imageAlt: "Peanut",
+            labels: {
+                varietyTitle: "Select Peanut Type",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Peanut Type",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                {
+                    id: "raw-peanut",
+                    name: "Raw Peanut",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Peanut.jpg", imageAlt: "Tata Sampann Raw Peanut", weights: [{ id: "100g", label: "100 g", unitPrice: 35 }, { id: "200g", label: "200 g", unitPrice: 65 }, { id: "250g", label: "250 g", unitPrice: 78 }, { id: "500g", label: "500 g", unitPrice: 145 }, { id: "1kg", label: "1 kg", unitPrice: 275 }, { id: "2kg", label: "2 kg", unitPrice: 525 }] },
+                        { id: "fortune", name: "Fortune", imageSrc: "images/Peanut.jpg", imageAlt: "Fortune Raw Peanut", weights: [{ id: "100g", label: "100 g", unitPrice: 32 }, { id: "200g", label: "200 g", unitPrice: 60 }, { id: "250g", label: "250 g", unitPrice: 72 }, { id: "500g", label: "500 g", unitPrice: 135 }, { id: "1kg", label: "1 kg", unitPrice: 255 }, { id: "2kg", label: "2 kg", unitPrice: 490 }] },
+                        { id: "natureland", name: "Natureland", imageSrc: "images/Peanut.jpg", imageAlt: "Natureland Raw Peanut", weights: [{ id: "100g", label: "100 g", unitPrice: 38 }, { id: "200g", label: "200 g", unitPrice: 72 }, { id: "250g", label: "250 g", unitPrice: 85 }, { id: "500g", label: "500 g", unitPrice: 160 }, { id: "1kg", label: "1 kg", unitPrice: 305 }, { id: "2kg", label: "2 kg", unitPrice: 580 }] },
+                        { id: "organic-tattva", name: "Organic Tattva", imageSrc: "images/Peanut.jpg", imageAlt: "Organic Tattva Raw Peanut", weights: [{ id: "100g", label: "100 g", unitPrice: 40 }, { id: "200g", label: "200 g", unitPrice: 75 }, { id: "250g", label: "250 g", unitPrice: 90 }, { id: "500g", label: "500 g", unitPrice: 170 }, { id: "1kg", label: "1 kg", unitPrice: 325 }, { id: "2kg", label: "2 kg", unitPrice: 610 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Peanut.jpg", imageAlt: "Urban Platter Raw Peanut", weights: [{ id: "100g", label: "100 g", unitPrice: 42 }, { id: "200g", label: "200 g", unitPrice: 78 }, { id: "250g", label: "250 g", unitPrice: 92 }, { id: "500g", label: "500 g", unitPrice: 175 }, { id: "1kg", label: "1 kg", unitPrice: 335 }, { id: "2kg", label: "2 kg", unitPrice: 640 }] }
+                    ]
+                },
+                {
+                    id: "roasted-peanut",
+                    name: "Roasted Peanut",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Peanut.jpg", imageAlt: "Tata Sampann Roasted Peanut", weights: [{ id: "100g", label: "100 g", unitPrice: 45 }, { id: "200g", label: "200 g", unitPrice: 85 }, { id: "250g", label: "250 g", unitPrice: 100 }, { id: "500g", label: "500 g", unitPrice: 190 }, { id: "1kg", label: "1 kg", unitPrice: 360 }, { id: "2kg", label: "2 kg", unitPrice: 690 }] },
+                        { id: "haldirams", name: "Haldiram's", imageSrc: "images/Peanut.jpg", imageAlt: "Haldiram's Roasted Peanut", weights: [{ id: "100g", label: "100 g", unitPrice: 46 }, { id: "200g", label: "200 g", unitPrice: 88 }, { id: "250g", label: "250 g", unitPrice: 105 }, { id: "500g", label: "500 g", unitPrice: 198 }, { id: "1kg", label: "1 kg", unitPrice: 375 }, { id: "2kg", label: "2 kg", unitPrice: 720 }] },
+                        { id: "nutraj", name: "Nutraj", imageSrc: "images/Peanut.jpg", imageAlt: "Nutraj Roasted Peanut", weights: [{ id: "100g", label: "100 g", unitPrice: 48 }, { id: "200g", label: "200 g", unitPrice: 90 }, { id: "250g", label: "250 g", unitPrice: 108 }, { id: "500g", label: "500 g", unitPrice: 205 }, { id: "1kg", label: "1 kg", unitPrice: 390 }, { id: "2kg", label: "2 kg", unitPrice: 750 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Peanut.jpg", imageAlt: "Urban Platter Roasted Peanut", weights: [{ id: "100g", label: "100 g", unitPrice: 52 }, { id: "200g", label: "200 g", unitPrice: 96 }, { id: "250g", label: "250 g", unitPrice: 112 }, { id: "500g", label: "500 g", unitPrice: 210 }, { id: "1kg", label: "1 kg", unitPrice: 400 }] },
+                        { id: "farmley", name: "Farmley", imageSrc: "images/Peanut.jpg", imageAlt: "Farmley Roasted Peanut", weights: [{ id: "100g", label: "100 g", unitPrice: 50 }, { id: "200g", label: "200 g", unitPrice: 94 }, { id: "250g", label: "250 g", unitPrice: 110 }, { id: "500g", label: "500 g", unitPrice: 205 }, { id: "1kg", label: "1 kg", unitPrice: 395 }, { id: "2kg", label: "2 kg", unitPrice: 760 }] }
+                    ]
+                },
+                {
+                    id: "salted-peanut",
+                    name: "Salted Peanut",
+                    brands: [
+                        { id: "haldirams", name: "Haldiram's", imageSrc: "images/Peanut.jpg", imageAlt: "Haldiram's Salted Peanut", weights: [{ id: "100g", label: "100 g", unitPrice: 50 }, { id: "200g", label: "200 g", unitPrice: 95 }, { id: "250g", label: "250 g", unitPrice: 115 }, { id: "500g", label: "500 g", unitPrice: 220 }, { id: "1kg", label: "1 kg", unitPrice: 420 }] },
+                        { id: "nutraj", name: "Nutraj", imageSrc: "images/Peanut.jpg", imageAlt: "Nutraj Salted Peanut", weights: [{ id: "100g", label: "100 g", unitPrice: 52 }, { id: "200g", label: "200 g", unitPrice: 98 }, { id: "250g", label: "250 g", unitPrice: 118 }, { id: "500g", label: "500 g", unitPrice: 225 }, { id: "1kg", label: "1 kg", unitPrice: 430 }] },
+                        { id: "farmley", name: "Farmley", imageSrc: "images/Peanut.jpg", imageAlt: "Farmley Salted Peanut", weights: [{ id: "100g", label: "100 g", unitPrice: 49 }, { id: "200g", label: "200 g", unitPrice: 92 }, { id: "250g", label: "250 g", unitPrice: 110 }, { id: "500g", label: "500 g", unitPrice: 215 }, { id: "1kg", label: "1 kg", unitPrice: 410 }] },
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Peanut.jpg", imageAlt: "Tata Sampann Salted Peanut", weights: [{ id: "100g", label: "100 g", unitPrice: 48 }, { id: "200g", label: "200 g", unitPrice: 90 }, { id: "250g", label: "250 g", unitPrice: 108 }, { id: "500g", label: "500 g", unitPrice: 210 }, { id: "1kg", label: "1 kg", unitPrice: 400 }] }
+                    ]
+                },
+                {
+                    id: "unsalted-peanut",
+                    name: "Unsalted Peanut",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Peanut.jpg", imageAlt: "Tata Sampann Unsalted Peanut", weights: [{ id: "100g", label: "100 g", unitPrice: 44 }, { id: "200g", label: "200 g", unitPrice: 82 }, { id: "250g", label: "250 g", unitPrice: 98 }, { id: "500g", label: "500 g", unitPrice: 185 }, { id: "1kg", label: "1 kg", unitPrice: 350 }] },
+                        { id: "nutraj", name: "Nutraj", imageSrc: "images/Peanut.jpg", imageAlt: "Nutraj Unsalted Peanut", weights: [{ id: "100g", label: "100 g", unitPrice: 47 }, { id: "200g", label: "200 g", unitPrice: 88 }, { id: "250g", label: "250 g", unitPrice: 104 }, { id: "500g", label: "500 g", unitPrice: 195 }, { id: "1kg", label: "1 kg", unitPrice: 370 }] },
+                        { id: "farmley", name: "Farmley", imageSrc: "images/Peanut.jpg", imageAlt: "Farmley Unsalted Peanut", weights: [{ id: "100g", label: "100 g", unitPrice: 45 }, { id: "200g", label: "200 g", unitPrice: 85 }, { id: "250g", label: "250 g", unitPrice: 100 }, { id: "500g", label: "500 g", unitPrice: 190 }, { id: "1kg", label: "1 kg", unitPrice: 365 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Peanut.jpg", imageAlt: "Urban Platter Unsalted Peanut", weights: [{ id: "100g", label: "100 g", unitPrice: 46 }, { id: "200g", label: "200 g", unitPrice: 86 }, { id: "250g", label: "250 g", unitPrice: 102 }, { id: "500g", label: "500 g", unitPrice: 192 }, { id: "1kg", label: "1 kg", unitPrice: 360 }] }
+                    ]
+                },
+                {
+                    id: "organic-peanut",
+                    name: "Organic Peanut",
+                    brands: [
+                        { id: "organic-tattva", name: "Organic Tattva", imageSrc: "images/Peanut.jpg", imageAlt: "Organic Tattva Organic Peanut", weights: [{ id: "100g", label: "100 g", unitPrice: 55 }, { id: "200g", label: "200 g", unitPrice: 105 }, { id: "250g", label: "250 g", unitPrice: 125 }, { id: "500g", label: "500 g", unitPrice: 240 }, { id: "1kg", label: "1 kg", unitPrice: 460 }, { id: "2kg", label: "2 kg", unitPrice: 880 }] },
+                        { id: "24-mantra", name: "24 Mantra", imageSrc: "images/Peanut.jpg", imageAlt: "24 Mantra Organic Peanut", weights: [{ id: "100g", label: "100 g", unitPrice: 53 }, { id: "200g", label: "200 g", unitPrice: 102 }, { id: "250g", label: "250 g", unitPrice: 120 }, { id: "500g", label: "500 g", unitPrice: 235 }, { id: "1kg", label: "1 kg", unitPrice: 445 }, { id: "2kg", label: "2 kg", unitPrice: 845 }] },
+                        { id: "natureland", name: "Natureland", imageSrc: "images/Peanut.jpg", imageAlt: "Natureland Organic Peanut", weights: [{ id: "100g", label: "100 g", unitPrice: 58 }, { id: "200g", label: "200 g", unitPrice: 110 }, { id: "250g", label: "250 g", unitPrice: 130 }, { id: "500g", label: "500 g", unitPrice: 245 }, { id: "1kg", label: "1 kg", unitPrice: 470 }] },
+                        { id: "organic-india", name: "Organic India", imageSrc: "images/Peanut.jpg", imageAlt: "Organic India Organic Peanut", weights: [{ id: "100g", label: "100 g", unitPrice: 60 }, { id: "200g", label: "200 g", unitPrice: 115 }, { id: "250g", label: "250 g", unitPrice: 138 }, { id: "500g", label: "500 g", unitPrice: 250 }, { id: "1kg", label: "1 kg", unitPrice: 480 }] }
+                    ]
+                },
+                {
+                    id: "peanut-with-skin",
+                    name: "Peanut With Skin",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Peanut.jpg", imageAlt: "Tata Sampann Peanut With Skin", weights: [{ id: "100g", label: "100 g", unitPrice: 38 }, { id: "200g", label: "200 g", unitPrice: 72 }, { id: "250g", label: "250 g", unitPrice: 85 }, { id: "500g", label: "500 g", unitPrice: 160 }, { id: "1kg", label: "1 kg", unitPrice: 305 }] },
+                        { id: "nutraj", name: "Nutraj", imageSrc: "images/Peanut.jpg", imageAlt: "Nutraj Peanut With Skin", weights: [{ id: "100g", label: "100 g", unitPrice: 42 }, { id: "200g", label: "200 g", unitPrice: 78 }, { id: "250g", label: "250 g", unitPrice: 90 }, { id: "500g", label: "500 g", unitPrice: 170 }, { id: "1kg", label: "1 kg", unitPrice: 325 }] },
+                        { id: "farmley", name: "Farmley", imageSrc: "images/Peanut.jpg", imageAlt: "Farmley Peanut With Skin", weights: [{ id: "100g", label: "100 g", unitPrice: 39 }, { id: "200g", label: "200 g", unitPrice: 74 }, { id: "250g", label: "250 g", unitPrice: 88 }, { id: "500g", label: "500 g", unitPrice: 165 }, { id: "1kg", label: "1 kg", unitPrice: 315 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Peanut.jpg", imageAlt: "Urban Platter Peanut With Skin", weights: [{ id: "100g", label: "100 g", unitPrice: 41 }, { id: "200g", label: "200 g", unitPrice: 76 }, { id: "250g", label: "250 g", unitPrice: 89 }, { id: "500g", label: "500 g", unitPrice: 168 }, { id: "1kg", label: "1 kg", unitPrice: 318 }] }
+                    ]
+                },
+                {
+                    id: "blanched-peanut",
+                    name: "Blanched Peanut",
+                    brands: [
+                        { id: "nutraj", name: "Nutraj", imageSrc: "images/Peanut.jpg", imageAlt: "Nutraj Blanched Peanut", weights: [{ id: "100g", label: "100 g", unitPrice: 50 }, { id: "200g", label: "200 g", unitPrice: 95 }, { id: "250g", label: "250 g", unitPrice: 115 }, { id: "500g", label: "500 g", unitPrice: 220 }, { id: "1kg", label: "1 kg", unitPrice: 420 }] },
+                        { id: "farmley", name: "Farmley", imageSrc: "images/Peanut.jpg", imageAlt: "Farmley Blanched Peanut", weights: [{ id: "100g", label: "100 g", unitPrice: 48 }, { id: "200g", label: "200 g", unitPrice: 90 }, { id: "250g", label: "250 g", unitPrice: 108 }, { id: "500g", label: "500 g", unitPrice: 210 }, { id: "1kg", label: "1 kg", unitPrice: 402 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Peanut.jpg", imageAlt: "Urban Platter Blanched Peanut", weights: [{ id: "100g", label: "100 g", unitPrice: 51 }, { id: "200g", label: "200 g", unitPrice: 96 }, { id: "250g", label: "250 g", unitPrice: 116 }, { id: "500g", label: "500 g", unitPrice: 222 }, { id: "1kg", label: "1 kg", unitPrice: 425 }] }
+                    ]
+                },
+                {
+                    id: "roasted-salted-peanut",
+                    name: "Roasted & Salted Peanut",
+                    brands: [
+                        { id: "haldirams", name: "Haldiram's", imageSrc: "images/Peanut.jpg", imageAlt: "Haldiram's Roasted & Salted Peanut", weights: [{ id: "100g", label: "100 g", unitPrice: 52 }, { id: "200g", label: "200 g", unitPrice: 98 }, { id: "250g", label: "250 g", unitPrice: 118 }, { id: "500g", label: "500 g", unitPrice: 225 }, { id: "1kg", label: "1 kg", unitPrice: 430 }] },
+                        { id: "nutraj", name: "Nutraj", imageSrc: "images/Peanut.jpg", imageAlt: "Nutraj Roasted & Salted Peanut", weights: [{ id: "100g", label: "100 g", unitPrice: 55 }, { id: "200g", label: "200 g", unitPrice: 103 }, { id: "250g", label: "250 g", unitPrice: 122 }, { id: "500g", label: "500 g", unitPrice: 230 }, { id: "1kg", label: "1 kg", unitPrice: 440 }] },
+                        { id: "farmley", name: "Farmley", imageSrc: "images/Peanut.jpg", imageAlt: "Farmley Roasted & Salted Peanut", weights: [{ id: "100g", label: "100 g", unitPrice: 52 }, { id: "200g", label: "200 g", unitPrice: 98 }, { id: "250g", label: "250 g", unitPrice: 118 }, { id: "500g", label: "500 g", unitPrice: 225 }, { id: "1kg", label: "1 kg", unitPrice: 430 }] },
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Peanut.jpg", imageAlt: "Tata Sampann Roasted & Salted Peanut", weights: [{ id: "100g", label: "100 g", unitPrice: 50 }, { id: "200g", label: "200 g", unitPrice: 95 }, { id: "250g", label: "250 g", unitPrice: 113 }, { id: "500g", label: "500 g", unitPrice: 220 }, { id: "1kg", label: "1 kg", unitPrice: 420 }] }
+                    ]
+                }
+            ]
+        },
         peanutButter: {
             productName: "Peanut Butter",
             imageSrc: "images/Peanut-Butter.jpg",

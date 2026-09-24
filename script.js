@@ -2187,6 +2187,98 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             ]
         },
+        chiura: {
+            productName: "Chiura",
+            imageSrc: "images/Chiura.webp",
+            imageAlt: "Chiura",
+            labels: {
+                varietyTitle: "Select Chiura Type",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Chiura Type",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                {
+                    id: "thin-chiura",
+                    name: "Thin Chiura",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Chiura.webp", imageAlt: "Tata Sampann Thin Chiura", weights: [{ id: "200g", label: "200 g", unitPrice: 35 }, { id: "500g", label: "500 g", unitPrice: 75 }, { id: "1kg", label: "1 kg", unitPrice: 140 }, { id: "2kg", label: "2 kg", unitPrice: 270 }, { id: "5kg", label: "5 kg", unitPrice: 650 }] },
+                        { id: "fortune", name: "Fortune", imageSrc: "images/Chiura.webp", imageAlt: "Fortune Thin Chiura", weights: [{ id: "200g", label: "200 g", unitPrice: 32 }, { id: "500g", label: "500 g", unitPrice: 68 }, { id: "1kg", label: "1 kg", unitPrice: 125 }, { id: "2kg", label: "2 kg", unitPrice: 240 }, { id: "5kg", label: "5 kg", unitPrice: 575 }] },
+                        { id: "natureland", name: "Natureland", imageSrc: "images/Chiura.webp", imageAlt: "Natureland Thin Chiura", weights: [{ id: "200g", label: "200 g", unitPrice: 38 }, { id: "500g", label: "500 g", unitPrice: 82 }, { id: "1kg", label: "1 kg", unitPrice: 155 }, { id: "2kg", label: "2 kg", unitPrice: 300 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Chiura.webp", imageAlt: "Urban Platter Thin Chiura", weights: [{ id: "200g", label: "200 g", unitPrice: 42 }, { id: "500g", label: "500 g", unitPrice: 90 }, { id: "1kg", label: "1 kg", unitPrice: 170 }, { id: "2kg", label: "2 kg", unitPrice: 330 }, { id: "5kg", label: "5 kg", unitPrice: 795 }] }
+                    ]
+                },
+                {
+                    id: "medium-chiura",
+                    name: "Medium Chiura",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Chiura.webp", imageAlt: "Tata Sampann Medium Chiura", weights: [{ id: "200g", label: "200 g", unitPrice: 38 }, { id: "500g", label: "500 g", unitPrice: 80 }, { id: "1kg", label: "1 kg", unitPrice: 150 }, { id: "2kg", label: "2 kg", unitPrice: 290 }, { id: "5kg", label: "5 kg", unitPrice: 700 }] },
+                        { id: "fortune", name: "Fortune", imageSrc: "images/Chiura.webp", imageAlt: "Fortune Medium Chiura", weights: [{ id: "200g", label: "200 g", unitPrice: 35 }, { id: "500g", label: "500 g", unitPrice: 72 }, { id: "1kg", label: "1 kg", unitPrice: 135 }, { id: "2kg", label: "2 kg", unitPrice: 260 }, { id: "5kg", label: "5 kg", unitPrice: 625 }] },
+                        { id: "natureland", name: "Natureland", imageSrc: "images/Chiura.webp", imageAlt: "Natureland Medium Chiura", weights: [{ id: "200g", label: "200 g", unitPrice: 40 }, { id: "500g", label: "500 g", unitPrice: 85 }, { id: "1kg", label: "1 kg", unitPrice: 160 }, { id: "2kg", label: "2 kg", unitPrice: 310 }] },
+                        { id: "organic-tattva", name: "Organic Tattva", imageSrc: "images/Chiura.webp", imageAlt: "Organic Tattva Medium Chiura", weights: [{ id: "200g", label: "200 g", unitPrice: 45 }, { id: "500g", label: "500 g", unitPrice: 95 }, { id: "1kg", label: "1 kg", unitPrice: 180 }, { id: "2kg", label: "2 kg", unitPrice: 350 }, { id: "5kg", label: "5 kg", unitPrice: 840 }] }
+                    ]
+                },
+                {
+                    id: "thick-chiura",
+                    name: "Thick Chiura",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Chiura.webp", imageAlt: "Tata Sampann Thick Chiura", weights: [{ id: "200g", label: "200 g", unitPrice: 42 }, { id: "500g", label: "500 g", unitPrice: 88 }, { id: "1kg", label: "1 kg", unitPrice: 165 }, { id: "2kg", label: "2 kg", unitPrice: 315 }, { id: "5kg", label: "5 kg", unitPrice: 760 }] },
+                        { id: "fortune", name: "Fortune", imageSrc: "images/Chiura.webp", imageAlt: "Fortune Thick Chiura", weights: [{ id: "200g", label: "200 g", unitPrice: 38 }, { id: "500g", label: "500 g", unitPrice: 80 }, { id: "1kg", label: "1 kg", unitPrice: 150 }, { id: "2kg", label: "2 kg", unitPrice: 290 }, { id: "5kg", label: "5 kg", unitPrice: 700 }] },
+                        { id: "natureland", name: "Natureland", imageSrc: "images/Chiura.webp", imageAlt: "Natureland Thick Chiura", weights: [{ id: "200g", label: "200 g", unitPrice: 40 }, { id: "500g", label: "500 g", unitPrice: 85 }, { id: "1kg", label: "1 kg", unitPrice: 160 }, { id: "2kg", label: "2 kg", unitPrice: 305 }, { id: "5kg", label: "5 kg", unitPrice: 735 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Chiura.webp", imageAlt: "Urban Platter Thick Chiura", weights: [{ id: "200g", label: "200 g", unitPrice: 45 }, { id: "500g", label: "500 g", unitPrice: 95 }, { id: "1kg", label: "1 kg", unitPrice: 180 }, { id: "2kg", label: "2 kg", unitPrice: 345 }, { id: "5kg", label: "5 kg", unitPrice: 825 }] }
+                    ]
+                },
+                {
+                    id: "white-chiura",
+                    name: "White Chiura",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Chiura.webp", imageAlt: "Tata Sampann White Chiura", weights: [{ id: "200g", label: "200 g", unitPrice: 36 }, { id: "500g", label: "500 g", unitPrice: 78 }, { id: "1kg", label: "1 kg", unitPrice: 145 }, { id: "2kg", label: "2 kg", unitPrice: 280 }, { id: "5kg", label: "5 kg", unitPrice: 675 }] },
+                        { id: "fortune", name: "Fortune", imageSrc: "images/Chiura.webp", imageAlt: "Fortune White Chiura", weights: [{ id: "200g", label: "200 g", unitPrice: 33 }, { id: "500g", label: "500 g", unitPrice: 70 }, { id: "1kg", label: "1 kg", unitPrice: 130 }, { id: "2kg", label: "2 kg", unitPrice: 250 }] },
+                        { id: "natureland", name: "Natureland", imageSrc: "images/Chiura.webp", imageAlt: "Natureland White Chiura", weights: [{ id: "200g", label: "200 g", unitPrice: 38 }, { id: "500g", label: "500 g", unitPrice: 82 }, { id: "1kg", label: "1 kg", unitPrice: 155 }, { id: "2kg", label: "2 kg", unitPrice: 300 }, { id: "5kg", label: "5 kg", unitPrice: 720 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Chiura.webp", imageAlt: "Urban Platter White Chiura", weights: [{ id: "200g", label: "200 g", unitPrice: 42 }, { id: "500g", label: "500 g", unitPrice: 90 }, { id: "1kg", label: "1 kg", unitPrice: 170 }, { id: "2kg", label: "2 kg", unitPrice: 330 }, { id: "5kg", label: "5 kg", unitPrice: 795 }] }
+                    ]
+                },
+                {
+                    id: "red-chiura",
+                    name: "Red Chiura",
+                    brands: [
+                        { id: "natureland", name: "Natureland", imageSrc: "images/Chiura.webp", imageAlt: "Natureland Red Chiura", weights: [{ id: "200g", label: "200 g", unitPrice: 45 }, { id: "500g", label: "500 g", unitPrice: 95 }, { id: "1kg", label: "1 kg", unitPrice: 180 }, { id: "2kg", label: "2 kg", unitPrice: 345 }, { id: "5kg", label: "5 kg", unitPrice: 825 }] },
+                        { id: "organic-tattva", name: "Organic Tattva", imageSrc: "images/Chiura.webp", imageAlt: "Organic Tattva Red Chiura", weights: [{ id: "200g", label: "200 g", unitPrice: 50 }, { id: "500g", label: "500 g", unitPrice: 105 }, { id: "1kg", label: "1 kg", unitPrice: 200 }, { id: "2kg", label: "2 kg", unitPrice: 385 }, { id: "5kg", label: "5 kg", unitPrice: 925 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Chiura.webp", imageAlt: "Urban Platter Red Chiura", weights: [{ id: "200g", label: "200 g", unitPrice: 55 }, { id: "500g", label: "500 g", unitPrice: 115 }, { id: "1kg", label: "1 kg", unitPrice: 220 }, { id: "2kg", label: "2 kg", unitPrice: 420 }, { id: "5kg", label: "5 kg", unitPrice: 1000 }] }
+                    ]
+                },
+                {
+                    id: "brown-rice-chiura",
+                    name: "Brown Rice Chiura",
+                    brands: [
+                        { id: "natureland", name: "Natureland", imageSrc: "images/Chiura.webp", imageAlt: "Natureland Brown Rice Chiura", weights: [{ id: "200g", label: "200 g", unitPrice: 48 }, { id: "500g", label: "500 g", unitPrice: 100 }, { id: "1kg", label: "1 kg", unitPrice: 190 }, { id: "2kg", label: "2 kg", unitPrice: 365 }, { id: "5kg", label: "5 kg", unitPrice: 875 }] },
+                        { id: "organic-tattva", name: "Organic Tattva", imageSrc: "images/Chiura.webp", imageAlt: "Organic Tattva Brown Rice Chiura", weights: [{ id: "200g", label: "200 g", unitPrice: 50 }, { id: "500g", label: "500 g", unitPrice: 105 }, { id: "1kg", label: "1 kg", unitPrice: 200 }, { id: "2kg", label: "2 kg", unitPrice: 385 }, { id: "5kg", label: "5 kg", unitPrice: 925 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Chiura.webp", imageAlt: "Urban Platter Brown Rice Chiura", weights: [{ id: "200g", label: "200 g", unitPrice: 58 }, { id: "500g", label: "500 g", unitPrice: 120 }, { id: "1kg", label: "1 kg", unitPrice: 230 }, { id: "2kg", label: "2 kg", unitPrice: 440 }, { id: "5kg", label: "5 kg", unitPrice: 1050 }] }
+                    ]
+                },
+                {
+                    id: "organic-chiura",
+                    name: "Organic Chiura",
+                    brands: [
+                        { id: "organic-tattva", name: "Organic Tattva", imageSrc: "images/Chiura.webp", imageAlt: "Organic Tattva Organic Chiura", weights: [{ id: "200g", label: "200 g", unitPrice: 55 }, { id: "500g", label: "500 g", unitPrice: 115 }, { id: "1kg", label: "1 kg", unitPrice: 220 }, { id: "2kg", label: "2 kg", unitPrice: 420 }, { id: "5kg", label: "5 kg", unitPrice: 1000 }] },
+                        { id: "24-mantra", name: "24 Mantra", imageSrc: "images/Chiura.webp", imageAlt: "24 Mantra Organic Chiura", weights: [{ id: "200g", label: "200 g", unitPrice: 58 }, { id: "500g", label: "500 g", unitPrice: 120 }, { id: "1kg", label: "1 kg", unitPrice: 230 }, { id: "2kg", label: "2 kg", unitPrice: 440 }, { id: "5kg", label: "5 kg", unitPrice: 1050 }] },
+                        { id: "natureland", name: "Natureland", imageSrc: "images/Chiura.webp", imageAlt: "Natureland Organic Chiura", weights: [{ id: "200g", label: "200 g", unitPrice: 56 }, { id: "500g", label: "500 g", unitPrice: 115 }, { id: "1kg", label: "1 kg", unitPrice: 220 }, { id: "2kg", label: "2 kg", unitPrice: 420 }, { id: "5kg", label: "5 kg", unitPrice: 1000 }] },
+                        { id: "organic-india", name: "Organic India", imageSrc: "images/Chiura.webp", imageAlt: "Organic India Organic Chiura", weights: [{ id: "200g", label: "200 g", unitPrice: 62 }, { id: "500g", label: "500 g", unitPrice: 130 }, { id: "1kg", label: "1 kg", unitPrice: 250 }, { id: "2kg", label: "2 kg", unitPrice: 480 }, { id: "5kg", label: "5 kg", unitPrice: 1150 }] }
+                    ]
+                },
+                {
+                    id: "roasted-chiura",
+                    name: "Roasted Chiura",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Chiura.webp", imageAlt: "Tata Sampann Roasted Chiura", weights: [{ id: "200g", label: "200 g", unitPrice: 45 }, { id: "500g", label: "500 g", unitPrice: 95 }, { id: "1kg", label: "1 kg", unitPrice: 180 }, { id: "2kg", label: "2 kg", unitPrice: 345 }, { id: "5kg", label: "5 kg", unitPrice: 825 }] },
+                        { id: "fortune", name: "Fortune", imageSrc: "images/Chiura.webp", imageAlt: "Fortune Roasted Chiura", weights: [{ id: "200g", label: "200 g", unitPrice: 42 }, { id: "500g", label: "500 g", unitPrice: 88 }, { id: "1kg", label: "1 kg", unitPrice: 165 }, { id: "2kg", label: "2 kg", unitPrice: 315 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Chiura.webp", imageAlt: "Urban Platter Roasted Chiura", weights: [{ id: "200g", label: "200 g", unitPrice: 52 }, { id: "500g", label: "500 g", unitPrice: 110 }, { id: "1kg", label: "1 kg", unitPrice: 210 }, { id: "2kg", label: "2 kg", unitPrice: 400 }, { id: "5kg", label: "5 kg", unitPrice: 960 }] }
+                    ]
+                }
+            ]
+        },
         til: {
             productName: "Til",
             imageSrc: "images/Til.avif",

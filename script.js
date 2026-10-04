@@ -1365,6 +1365,99 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             ]
         },
+        kaliMirchPowder: {
+            productName: "Kali Mirch Powder (Black Pepper Powder)",
+            imageSrc: "images/Kali mirch powder.jpg",
+            imageAlt: "Kali Mirch Powder (Black Pepper Powder)",
+            labels: {
+                varietyTitle: "Select Black Pepper Powder Variety",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Variety",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                {
+                    id: "regular-black-pepper-powder",
+                    name: "Regular Black Pepper Powder",
+                    brands: [
+                        { id: "everest", name: "Everest", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "Everest Regular Black Pepper Powder", weights: [{ id: "20g", label: "20 g", unitPrice: 24 }, { id: "50g", label: "50 g", unitPrice: 52 }, { id: "100g", label: "100 g", unitPrice: 98 }, { id: "200g", label: "200 g", unitPrice: 185 }, { id: "500g", label: "500 g", unitPrice: 445 }] },
+                        { id: "catch", name: "Catch", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "Catch Regular Black Pepper Powder", weights: [{ id: "20g", label: "20 g", unitPrice: 22 }, { id: "50g", label: "50 g", unitPrice: 48 }, { id: "100g", label: "100 g", unitPrice: 90 }, { id: "200g", label: "200 g", unitPrice: 170 }, { id: "500g", label: "500 g", unitPrice: 410 }, { id: "1kg", label: "1 kg", unitPrice: 790 }] },
+                        { id: "mdh", name: "MDH", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "MDH Regular Black Pepper Powder", weights: [{ id: "25g", label: "25 g", unitPrice: 25 }, { id: "50g", label: "50 g", unitPrice: 50 }, { id: "100g", label: "100 g", unitPrice: 94 }, { id: "200g", label: "200 g", unitPrice: 178 }, { id: "500g", label: "500 g", unitPrice: 425 }] },
+                        { id: "local-brand", name: "Local Brand", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "Local Brand Regular Black Pepper Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 38 }, { id: "100g", label: "100 g", unitPrice: 72 }, { id: "200g", label: "200 g", unitPrice: 135 }, { id: "500g", label: "500 g", unitPrice: 320 }, { id: "1kg", label: "1 kg", unitPrice: 610 }] }
+                    ]
+                },
+                {
+                    id: "fine-ground-black-pepper",
+                    name: "Fine Ground Black Pepper",
+                    brands: [
+                        { id: "everest", name: "Everest", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "Everest Fine Ground Black Pepper", weights: [{ id: "20g", label: "20 g", unitPrice: 26 }, { id: "50g", label: "50 g", unitPrice: 56 }, { id: "100g", label: "100 g", unitPrice: 105 }, { id: "200g", label: "200 g", unitPrice: 198 }, { id: "500g", label: "500 g", unitPrice: 475 }] },
+                        { id: "catch", name: "Catch", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "Catch Fine Ground Black Pepper", weights: [{ id: "25g", label: "25 g", unitPrice: 26 }, { id: "50g", label: "50 g", unitPrice: 54 }, { id: "100g", label: "100 g", unitPrice: 102 }, { id: "200g", label: "200 g", unitPrice: 192 }, { id: "500g", label: "500 g", unitPrice: 460 }] },
+                        { id: "keya", name: "Keya", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "Keya Fine Ground Black Pepper", weights: [{ id: "50g", label: "50 g", unitPrice: 65 }, { id: "100g", label: "100 g", unitPrice: 125 }, { id: "200g", label: "200 g", unitPrice: 238 }, { id: "500g", label: "500 g", unitPrice: 570 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "Urban Platter Fine Ground Black Pepper", weights: [{ id: "50g", label: "50 g", unitPrice: 72 }, { id: "100g", label: "100 g", unitPrice: 138 }, { id: "200g", label: "200 g", unitPrice: 265 }, { id: "500g", label: "500 g", unitPrice: 635 }] }
+                    ]
+                },
+                {
+                    id: "coarse-ground-black-pepper",
+                    name: "Coarse Ground Black Pepper",
+                    brands: [
+                        { id: "catch", name: "Catch", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "Catch Coarse Ground Black Pepper", weights: [{ id: "25g", label: "25 g", unitPrice: 28 }, { id: "50g", label: "50 g", unitPrice: 58 }, { id: "100g", label: "100 g", unitPrice: 110 }, { id: "200g", label: "200 g", unitPrice: 208 }] },
+                        { id: "keya", name: "Keya", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "Keya Coarse Ground Black Pepper", weights: [{ id: "50g", label: "50 g", unitPrice: 68 }, { id: "100g", label: "100 g", unitPrice: 132 }, { id: "200g", label: "200 g", unitPrice: 250 }, { id: "500g", label: "500 g", unitPrice: 600 }] },
+                        { id: "sprig", name: "Sprig", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "Sprig Coarse Ground Black Pepper", weights: [{ id: "50g", label: "50 g", unitPrice: 78 }, { id: "100g", label: "100 g", unitPrice: 150 }, { id: "200g", label: "200 g", unitPrice: 285 }] },
+                        { id: "local-brand", name: "Local Brand", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "Local Brand Coarse Ground Black Pepper", weights: [{ id: "50g", label: "50 g", unitPrice: 42 }, { id: "100g", label: "100 g", unitPrice: 80 }, { id: "200g", label: "200 g", unitPrice: 150 }, { id: "500g", label: "500 g", unitPrice: 355 }] }
+                    ]
+                },
+                {
+                    id: "premium-black-pepper-powder",
+                    name: "Premium Black Pepper Powder",
+                    brands: [
+                        { id: "everest", name: "Everest", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "Everest Premium Black Pepper Powder", weights: [{ id: "20g", label: "20 g", unitPrice: 28 }, { id: "50g", label: "50 g", unitPrice: 62 }, { id: "100g", label: "100 g", unitPrice: 118 }, { id: "200g", label: "200 g", unitPrice: 225 }, { id: "500g", label: "500 g", unitPrice: 540 }] },
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "Tata Sampann Premium Black Pepper Powder", weights: [{ id: "25g", label: "25 g", unitPrice: 34 }, { id: "50g", label: "50 g", unitPrice: 70 }, { id: "100g", label: "100 g", unitPrice: 135 }, { id: "200g", label: "200 g", unitPrice: 255 }, { id: "500g", label: "500 g", unitPrice: 610 }] },
+                        { id: "keya", name: "Keya", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "Keya Premium Black Pepper Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 75 }, { id: "100g", label: "100 g", unitPrice: 145 }, { id: "200g", label: "200 g", unitPrice: 275 }, { id: "500g", label: "500 g", unitPrice: 660 }] },
+                        { id: "sprig", name: "Sprig", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "Sprig Premium Black Pepper Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 82 }, { id: "100g", label: "100 g", unitPrice: 158 }, { id: "200g", label: "200 g", unitPrice: 300 }] }
+                    ]
+                },
+                {
+                    id: "organic-black-pepper-powder",
+                    name: "Organic Black Pepper Powder",
+                    brands: [
+                        { id: "organic-india", name: "Organic India", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "Organic India Black Pepper Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 78 }, { id: "100g", label: "100 g", unitPrice: 150 }, { id: "200g", label: "200 g", unitPrice: 285 }, { id: "500g", label: "500 g", unitPrice: 680 }] },
+                        { id: "24-mantra-organic", name: "24 Mantra Organic", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "24 Mantra Organic Black Pepper Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 74 }, { id: "100g", label: "100 g", unitPrice: 142 }, { id: "200g", label: "200 g", unitPrice: 270 }, { id: "500g", label: "500 g", unitPrice: 645 }] },
+                        { id: "natureland-organics", name: "Natureland Organics", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "Natureland Organics Black Pepper Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 70 }, { id: "100g", label: "100 g", unitPrice: 135 }, { id: "200g", label: "200 g", unitPrice: 255 }, { id: "500g", label: "500 g", unitPrice: 610 }, { id: "1kg", label: "1 kg", unitPrice: 1170 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "Urban Platter Organic Black Pepper Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 88 }, { id: "100g", label: "100 g", unitPrice: 170 }, { id: "200g", label: "200 g", unitPrice: 325 }, { id: "500g", label: "500 g", unitPrice: 780 }] }
+                    ]
+                },
+                {
+                    id: "malabar-black-pepper-powder",
+                    name: "Malabar Black Pepper Powder",
+                    brands: [
+                        { id: "everest", name: "Everest", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "Everest Malabar Black Pepper Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 60 }, { id: "100g", label: "100 g", unitPrice: 115 }, { id: "200g", label: "200 g", unitPrice: 220 }, { id: "500g", label: "500 g", unitPrice: 525 }] },
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "Tata Sampann Malabar Black Pepper Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 68 }, { id: "100g", label: "100 g", unitPrice: 130 }, { id: "200g", label: "200 g", unitPrice: 248 }, { id: "500g", label: "500 g", unitPrice: 595 }] },
+                        { id: "sprig", name: "Sprig", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "Sprig Malabar Black Pepper Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 80 }, { id: "100g", label: "100 g", unitPrice: 155 }, { id: "200g", label: "200 g", unitPrice: 295 }] }
+                    ]
+                },
+                {
+                    id: "tellicherry-black-pepper-powder",
+                    name: "Tellicherry Black Pepper Powder",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "Tata Sampann Tellicherry Black Pepper Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 72 }, { id: "100g", label: "100 g", unitPrice: 138 }, { id: "200g", label: "200 g", unitPrice: 265 }, { id: "500g", label: "500 g", unitPrice: 635 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "Urban Platter Tellicherry Black Pepper Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 92 }, { id: "100g", label: "100 g", unitPrice: 178 }, { id: "200g", label: "200 g", unitPrice: 340 }, { id: "500g", label: "500 g", unitPrice: 815 }] },
+                        { id: "sprig", name: "Sprig", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "Sprig Tellicherry Black Pepper Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 88 }, { id: "100g", label: "100 g", unitPrice: 170 }, { id: "200g", label: "200 g", unitPrice: 325 }] }
+                    ]
+                },
+                {
+                    id: "freshly-ground-black-pepper",
+                    name: "Freshly Ground Black Pepper",
+                    brands: [
+                        { id: "keya", name: "Keya", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "Keya Freshly Ground Black Pepper", weights: [{ id: "50g", label: "50 g", unitPrice: 70 }, { id: "100g", label: "100 g", unitPrice: 135 }, { id: "200g", label: "200 g", unitPrice: 255 }, { id: "500g", label: "500 g", unitPrice: 610 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "Urban Platter Freshly Ground Black Pepper", weights: [{ id: "50g", label: "50 g", unitPrice: 78 }, { id: "100g", label: "100 g", unitPrice: 150 }, { id: "200g", label: "200 g", unitPrice: 285 }, { id: "500g", label: "500 g", unitPrice: 680 }] },
+                        { id: "sprig", name: "Sprig", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "Sprig Freshly Ground Black Pepper", weights: [{ id: "50g", label: "50 g", unitPrice: 85 }, { id: "100g", label: "100 g", unitPrice: 165 }, { id: "200g", label: "200 g", unitPrice: 315 }] },
+                        { id: "local-brand", name: "Local Brand", imageSrc: "images/Kali mirch powder.jpg", imageAlt: "Local Brand Freshly Ground Black Pepper", weights: [{ id: "50g", label: "50 g", unitPrice: 45 }, { id: "100g", label: "100 g", unitPrice: 85 }, { id: "200g", label: "200 g", unitPrice: 160 }, { id: "500g", label: "500 g", unitPrice: 380 }] }
+                    ]
+                }
+            ]
+        },
         jira: {
             productName: "Jira",
             imageSrc: "images/Jira.jpg",

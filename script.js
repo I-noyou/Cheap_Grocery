@@ -2279,6 +2279,100 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             ]
         },
+        saunf: {
+            productName: "Saunf (Fennel Seeds)",
+            imageSrc: "images/Somp.webp",
+            imageAlt: "Saunf (Fennel Seeds)",
+            labels: {
+                varietyTitle: "Select Saunf Variety",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Variety",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                {
+                    id: "regular-saunf",
+                    name: "Regular Saunf",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Somp.webp", imageAlt: "Tata Sampann Regular Saunf", weights: [{ id: "50g", label: "50 g", unitPrice: 32 }, { id: "100g", label: "100 g", unitPrice: 58 }, { id: "200g", label: "200 g", unitPrice: 108 }, { id: "500g", label: "500 g", unitPrice: 255 }, { id: "1kg", label: "1 kg", unitPrice: 490 }] },
+                        { id: "catch", name: "Catch", imageSrc: "images/Somp.webp", imageAlt: "Catch Regular Saunf", weights: [{ id: "50g", label: "50 g", unitPrice: 30 }, { id: "100g", label: "100 g", unitPrice: 55 }, { id: "200g", label: "200 g", unitPrice: 102 }, { id: "500g", label: "500 g", unitPrice: 240 }] },
+                        { id: "everest", name: "Everest", imageSrc: "images/Somp.webp", imageAlt: "Everest Regular Saunf", weights: [{ id: "50g", label: "50 g", unitPrice: 28 }, { id: "100g", label: "100 g", unitPrice: 52 }, { id: "200g", label: "200 g", unitPrice: 98 }, { id: "500g", label: "500 g", unitPrice: 230 }] },
+                        { id: "local-brand", name: "Local Brand", imageSrc: "images/Somp.webp", imageAlt: "Local Brand Regular Saunf", weights: [{ id: "100g", label: "100 g", unitPrice: 42 }, { id: "250g", label: "250 g", unitPrice: 95 }, { id: "500g", label: "500 g", unitPrice: 175 }, { id: "1kg", label: "1 kg", unitPrice: 330 }] }
+                    ]
+                },
+                {
+                    id: "green-saunf",
+                    name: "Green Saunf",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Somp.webp", imageAlt: "Tata Sampann Green Saunf", weights: [{ id: "50g", label: "50 g", unitPrice: 38 }, { id: "100g", label: "100 g", unitPrice: 72 }, { id: "200g", label: "200 g", unitPrice: 135 }, { id: "500g", label: "500 g", unitPrice: 320 }] },
+                        { id: "catch", name: "Catch", imageSrc: "images/Somp.webp", imageAlt: "Catch Green Saunf", weights: [{ id: "50g", label: "50 g", unitPrice: 35 }, { id: "100g", label: "100 g", unitPrice: 66 }, { id: "200g", label: "200 g", unitPrice: 125 }, { id: "500g", label: "500 g", unitPrice: 295 }] },
+                        { id: "badshah", name: "Badshah", imageSrc: "images/Somp.webp", imageAlt: "Badshah Green Saunf", weights: [{ id: "100g", label: "100 g", unitPrice: 62 }, { id: "200g", label: "200 g", unitPrice: 118 }, { id: "500g", label: "500 g", unitPrice: 275 }] },
+                        { id: "local-brand", name: "Local Brand", imageSrc: "images/Somp.webp", imageAlt: "Local Brand Green Saunf", weights: [{ id: "100g", label: "100 g", unitPrice: 48 }, { id: "250g", label: "250 g", unitPrice: 112 }, { id: "500g", label: "500 g", unitPrice: 205 }] }
+                    ]
+                },
+                {
+                    id: "premium-saunf",
+                    name: "Premium Saunf",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Somp.webp", imageAlt: "Tata Sampann Premium Saunf", weights: [{ id: "100g", label: "100 g", unitPrice: 78 }, { id: "200g", label: "200 g", unitPrice: 148 }, { id: "500g", label: "500 g", unitPrice: 345 }, { id: "1kg", label: "1 kg", unitPrice: 665 }] },
+                        { id: "catch", name: "Catch", imageSrc: "images/Somp.webp", imageAlt: "Catch Premium Saunf", weights: [{ id: "100g", label: "100 g", unitPrice: 72 }, { id: "200g", label: "200 g", unitPrice: 138 }, { id: "500g", label: "500 g", unitPrice: 320 }] },
+                        { id: "badshah", name: "Badshah", imageSrc: "images/Somp.webp", imageAlt: "Badshah Premium Saunf", weights: [{ id: "100g", label: "100 g", unitPrice: 70 }, { id: "200g", label: "200 g", unitPrice: 132 }, { id: "500g", label: "500 g", unitPrice: 310 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Somp.webp", imageAlt: "Urban Platter Premium Saunf", weights: [{ id: "100g", label: "100 g", unitPrice: 92 }, { id: "200g", label: "200 g", unitPrice: 175 }, { id: "500g", label: "500 g", unitPrice: 410 }] }
+                    ]
+                },
+                {
+                    id: "bold-saunf",
+                    name: "Bold Saunf",
+                    brands: [
+                        { id: "catch", name: "Catch", imageSrc: "images/Somp.webp", imageAlt: "Catch Bold Saunf", weights: [{ id: "50g", label: "50 g", unitPrice: 34 }, { id: "100g", label: "100 g", unitPrice: 64 }, { id: "200g", label: "200 g", unitPrice: 120 }, { id: "500g", label: "500 g", unitPrice: 285 }] },
+                        { id: "everest", name: "Everest", imageSrc: "images/Somp.webp", imageAlt: "Everest Bold Saunf", weights: [{ id: "50g", label: "50 g", unitPrice: 32 }, { id: "100g", label: "100 g", unitPrice: 60 }, { id: "200g", label: "200 g", unitPrice: 112 }, { id: "500g", label: "500 g", unitPrice: 265 }] },
+                        { id: "local-brand", name: "Local Brand", imageSrc: "images/Somp.webp", imageAlt: "Local Brand Bold Saunf", weights: [{ id: "100g", label: "100 g", unitPrice: 46 }, { id: "250g", label: "250 g", unitPrice: 108 }, { id: "500g", label: "500 g", unitPrice: 198 }, { id: "1kg", label: "1 kg", unitPrice: 375 }] }
+                    ]
+                },
+                {
+                    id: "roasted-saunf",
+                    name: "Roasted Saunf",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Somp.webp", imageAlt: "Tata Sampann Roasted Saunf", weights: [{ id: "100g", label: "100 g", unitPrice: 65 }, { id: "200g", label: "200 g", unitPrice: 122 }, { id: "500g", label: "500 g", unitPrice: 285 }] },
+                        { id: "catch", name: "Catch", imageSrc: "images/Somp.webp", imageAlt: "Catch Roasted Saunf", weights: [{ id: "50g", label: "50 g", unitPrice: 34 }, { id: "100g", label: "100 g", unitPrice: 62 }, { id: "200g", label: "200 g", unitPrice: 115 }, { id: "500g", label: "500 g", unitPrice: 270 }] },
+                        { id: "everest", name: "Everest", imageSrc: "images/Somp.webp", imageAlt: "Everest Roasted Saunf", weights: [{ id: "50g", label: "50 g", unitPrice: 31 }, { id: "100g", label: "100 g", unitPrice: 58 }, { id: "200g", label: "200 g", unitPrice: 108 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Somp.webp", imageAlt: "Urban Platter Roasted Saunf", weights: [{ id: "100g", label: "100 g", unitPrice: 85 }, { id: "200g", label: "200 g", unitPrice: 162 }, { id: "500g", label: "500 g", unitPrice: 380 }] }
+                    ]
+                },
+                {
+                    id: "sweetened-saunf",
+                    name: "Sweetened Saunf",
+                    brands: [
+                        { id: "catch", name: "Catch", imageSrc: "images/Somp.webp", imageAlt: "Catch Sweetened Saunf", weights: [{ id: "50g", label: "50 g", unitPrice: 42 }, { id: "100g", label: "100 g", unitPrice: 78 }, { id: "200g", label: "200 g", unitPrice: 148 }, { id: "500g", label: "500 g", unitPrice: 345 }] },
+                        { id: "badshah", name: "Badshah", imageSrc: "images/Somp.webp", imageAlt: "Badshah Sweetened Saunf", weights: [{ id: "50g", label: "50 g", unitPrice: 45 }, { id: "100g", label: "100 g", unitPrice: 84 }, { id: "200g", label: "200 g", unitPrice: 158 }, { id: "500g", label: "500 g", unitPrice: 370 }] },
+                        { id: "patanjali", name: "Patanjali", imageSrc: "images/Somp.webp", imageAlt: "Patanjali Sweetened Saunf", weights: [{ id: "100g", label: "100 g", unitPrice: 55 }, { id: "200g", label: "200 g", unitPrice: 105 }, { id: "500g", label: "500 g", unitPrice: 245 }] },
+                        { id: "local-brand", name: "Local Brand", imageSrc: "images/Somp.webp", imageAlt: "Local Brand Sweetened Saunf", weights: [{ id: "100g", label: "100 g", unitPrice: 38 }, { id: "250g", label: "250 g", unitPrice: 88 }, { id: "500g", label: "500 g", unitPrice: 165 }] }
+                    ]
+                },
+                {
+                    id: "organic-saunf",
+                    name: "Organic Saunf",
+                    brands: [
+                        { id: "organic-india", name: "Organic India", imageSrc: "images/Somp.webp", imageAlt: "Organic India Organic Saunf", weights: [{ id: "100g", label: "100 g", unitPrice: 88 }, { id: "200g", label: "200 g", unitPrice: 168 }, { id: "500g", label: "500 g", unitPrice: 395 }, { id: "1kg", label: "1 kg", unitPrice: 760 }] },
+                        { id: "24-mantra-organic", name: "24 Mantra Organic", imageSrc: "images/Somp.webp", imageAlt: "24 Mantra Organic Saunf", weights: [{ id: "100g", label: "100 g", unitPrice: 82 }, { id: "200g", label: "200 g", unitPrice: 155 }, { id: "500g", label: "500 g", unitPrice: 365 }] },
+                        { id: "natureland-organics", name: "Natureland Organics", imageSrc: "images/Somp.webp", imageAlt: "Natureland Organics Saunf", weights: [{ id: "100g", label: "100 g", unitPrice: 78 }, { id: "200g", label: "200 g", unitPrice: 148 }, { id: "500g", label: "500 g", unitPrice: 345 }, { id: "1kg", label: "1 kg", unitPrice: 665 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Somp.webp", imageAlt: "Urban Platter Organic Saunf", weights: [{ id: "100g", label: "100 g", unitPrice: 95 }, { id: "200g", label: "200 g", unitPrice: 182 }, { id: "500g", label: "500 g", unitPrice: 425 }] }
+                    ]
+                },
+                {
+                    id: "mouth-freshener-saunf",
+                    name: "Mouth Freshener Saunf",
+                    brands: [
+                        { id: "catch", name: "Catch", imageSrc: "images/Somp.webp", imageAlt: "Catch Mouth Freshener Saunf", weights: [{ id: "50g", label: "50 g", unitPrice: 45 }, { id: "100g", label: "100 g", unitPrice: 85 }, { id: "200g", label: "200 g", unitPrice: 160 }] },
+                        { id: "badshah", name: "Badshah", imageSrc: "images/Somp.webp", imageAlt: "Badshah Mouth Freshener Saunf", weights: [{ id: "50g", label: "50 g", unitPrice: 48 }, { id: "100g", label: "100 g", unitPrice: 90 }, { id: "200g", label: "200 g", unitPrice: 170 }, { id: "500g", label: "500 g", unitPrice: 395 }] },
+                        { id: "patanjali", name: "Patanjali", imageSrc: "images/Somp.webp", imageAlt: "Patanjali Mouth Freshener Saunf", weights: [{ id: "100g", label: "100 g", unitPrice: 62 }, { id: "200g", label: "200 g", unitPrice: 118 }, { id: "500g", label: "500 g", unitPrice: 275 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Somp.webp", imageAlt: "Urban Platter Mouth Freshener Saunf", weights: [{ id: "100g", label: "100 g", unitPrice: 98 }, { id: "200g", label: "200 g", unitPrice: 188 }, { id: "500g", label: "500 g", unitPrice: 440 }] }
+                    ]
+                }
+            ]
+        },
         til: {
             productName: "Til",
             imageSrc: "images/Til.avif",

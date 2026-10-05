@@ -1834,6 +1834,85 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             ]
         },
+        sodaPowder: {
+            productName: "Soda Powder (Baking Soda / Cooking Soda)",
+            imageSrc: "images/Soda Powder.jpg",
+            imageAlt: "Soda Powder (Baking Soda / Cooking Soda)",
+            labels: {
+                varietyTitle: "Select Soda Powder Variety",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Variety",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                {
+                    id: "regular-baking-soda",
+                    name: "Regular Baking Soda",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Soda Powder.jpg", imageAlt: "Tata Sampann Regular Baking Soda", weights: [{ id: "25g", label: "25 g", unitPrice: 18 }, { id: "50g", label: "50 g", unitPrice: 32 }, { id: "100g", label: "100 g", unitPrice: 58 }, { id: "200g", label: "200 g", unitPrice: 108 }, { id: "500g", label: "500 g", unitPrice: 250 }] },
+                        { id: "weikfield", name: "Weikfield", imageSrc: "images/Soda Powder.jpg", imageAlt: "Weikfield Regular Baking Soda", weights: [{ id: "25g", label: "25 g", unitPrice: 16 }, { id: "50g", label: "50 g", unitPrice: 28 }, { id: "100g", label: "100 g", unitPrice: 52 }, { id: "200g", label: "200 g", unitPrice: 98 }, { id: "500g", label: "500 g", unitPrice: 230 }, { id: "1kg", label: "1 kg", unitPrice: 440 }] },
+                        { id: "blue-bird", name: "Blue Bird", imageSrc: "images/Soda Powder.jpg", imageAlt: "Blue Bird Regular Baking Soda", weights: [{ id: "25g", label: "25 g", unitPrice: 15 }, { id: "50g", label: "50 g", unitPrice: 27 }, { id: "100g", label: "100 g", unitPrice: 50 }, { id: "200g", label: "200 g", unitPrice: 95 }, { id: "500g", label: "500 g", unitPrice: 220 }] },
+                        { id: "local-brand", name: "Local Brand", imageSrc: "images/Soda Powder.jpg", imageAlt: "Local Brand Regular Baking Soda", weights: [{ id: "25g", label: "25 g", unitPrice: 10 }, { id: "50g", label: "50 g", unitPrice: 18 }, { id: "100g", label: "100 g", unitPrice: 32 }, { id: "200g", label: "200 g", unitPrice: 60 }, { id: "500g", label: "500 g", unitPrice: 140 }, { id: "1kg", label: "1 kg", unitPrice: 265 }] }
+                    ]
+                },
+                {
+                    id: "food-grade-baking-soda",
+                    name: "Food Grade Baking Soda",
+                    brands: [
+                        { id: "weikfield", name: "Weikfield", imageSrc: "images/Soda Powder.jpg", imageAlt: "Weikfield Food Grade Baking Soda", weights: [{ id: "25g", label: "25 g", unitPrice: 18 }, { id: "50g", label: "50 g", unitPrice: 34 }, { id: "100g", label: "100 g", unitPrice: 64 }, { id: "200g", label: "200 g", unitPrice: 120 }, { id: "500g", label: "500 g", unitPrice: 285 }] },
+                        { id: "urban-platter-food-grade", name: "Urban Platter Food Grade", imageSrc: "images/Soda Powder.jpg", imageAlt: "Urban Platter Food Grade Baking Soda", weights: [{ id: "50g", label: "50 g", unitPrice: 42 }, { id: "100g", label: "100 g", unitPrice: 80 }, { id: "200g", label: "200 g", unitPrice: 155 }, { id: "500g", label: "500 g", unitPrice: 370 }, { id: "1kg", label: "1 kg", unitPrice: 710 }] },
+                        { id: "dr-oetker", name: "Dr. Oetker", imageSrc: "images/Soda Powder.jpg", imageAlt: "Dr. Oetker Food Grade Baking Soda", weights: [{ id: "25g", label: "25 g", unitPrice: 20 }, { id: "50g", label: "50 g", unitPrice: 38 }, { id: "100g", label: "100 g", unitPrice: 72 }, { id: "200g", label: "200 g", unitPrice: 135 }] }
+                    ]
+                },
+                {
+                    id: "cooking-soda",
+                    name: "Cooking Soda",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Soda Powder.jpg", imageAlt: "Tata Sampann Cooking Soda", weights: [{ id: "25g", label: "25 g", unitPrice: 19 }, { id: "50g", label: "50 g", unitPrice: 35 }, { id: "100g", label: "100 g", unitPrice: 65 }, { id: "200g", label: "200 g", unitPrice: 122 }] },
+                        { id: "blue-bird", name: "Blue Bird", imageSrc: "images/Soda Powder.jpg", imageAlt: "Blue Bird Cooking Soda", weights: [{ id: "25g", label: "25 g", unitPrice: 16 }, { id: "50g", label: "50 g", unitPrice: 29 }, { id: "100g", label: "100 g", unitPrice: 54 }, { id: "200g", label: "200 g", unitPrice: 102 }, { id: "500g", label: "500 g", unitPrice: 240 }] },
+                        { id: "local-brand", name: "Local Brand", imageSrc: "images/Soda Powder.jpg", imageAlt: "Local Brand Cooking Soda", weights: [{ id: "25g", label: "25 g", unitPrice: 11 }, { id: "50g", label: "50 g", unitPrice: 20 }, { id: "100g", label: "100 g", unitPrice: 36 }, { id: "200g", label: "200 g", unitPrice: 68 }, { id: "500g", label: "500 g", unitPrice: 155 }] }
+                    ]
+                },
+                {
+                    id: "pure-baking-soda",
+                    name: "Pure Baking Soda",
+                    brands: [
+                        { id: "bob-red-mill", name: "Bob's Red Mill", imageSrc: "images/Soda Powder.jpg", imageAlt: "Bob's Red Mill Pure Baking Soda", weights: [{ id: "100g", label: "100 g", unitPrice: 125 }, { id: "200g", label: "200 g", unitPrice: 235 }, { id: "500g", label: "500 g", unitPrice: 560 }, { id: "1kg", label: "1 kg", unitPrice: 1080 }] },
+                        { id: "urban-platter-food-grade", name: "Urban Platter Food Grade", imageSrc: "images/Soda Powder.jpg", imageAlt: "Urban Platter Food Grade Pure Baking Soda", weights: [{ id: "50g", label: "50 g", unitPrice: 45 }, { id: "100g", label: "100 g", unitPrice: 86 }, { id: "200g", label: "200 g", unitPrice: 165 }, { id: "500g", label: "500 g", unitPrice: 395 }] },
+                        { id: "dr-oetker", name: "Dr. Oetker", imageSrc: "images/Soda Powder.jpg", imageAlt: "Dr. Oetker Pure Baking Soda", weights: [{ id: "50g", label: "50 g", unitPrice: 40 }, { id: "100g", label: "100 g", unitPrice: 76 }, { id: "200g", label: "200 g", unitPrice: 145 }, { id: "500g", label: "500 g", unitPrice: 345 }] }
+                    ]
+                },
+                {
+                    id: "premium-baking-soda",
+                    name: "Premium Baking Soda",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Soda Powder.jpg", imageAlt: "Tata Sampann Premium Baking Soda", weights: [{ id: "25g", label: "25 g", unitPrice: 22 }, { id: "50g", label: "50 g", unitPrice: 40 }, { id: "100g", label: "100 g", unitPrice: 75 }, { id: "200g", label: "200 g", unitPrice: 142 }, { id: "500g", label: "500 g", unitPrice: 340 }] },
+                        { id: "weikfield", name: "Weikfield", imageSrc: "images/Soda Powder.jpg", imageAlt: "Weikfield Premium Baking Soda", weights: [{ id: "25g", label: "25 g", unitPrice: 20 }, { id: "50g", label: "50 g", unitPrice: 37 }, { id: "100g", label: "100 g", unitPrice: 70 }, { id: "200g", label: "200 g", unitPrice: 132 }, { id: "500g", label: "500 g", unitPrice: 315 }] },
+                        { id: "urban-platter-food-grade", name: "Urban Platter Food Grade", imageSrc: "images/Soda Powder.jpg", imageAlt: "Urban Platter Food Grade Premium Baking Soda", weights: [{ id: "50g", label: "50 g", unitPrice: 48 }, { id: "100g", label: "100 g", unitPrice: 92 }, { id: "200g", label: "200 g", unitPrice: 175 }, { id: "500g", label: "500 g", unitPrice: 420 }] }
+                    ]
+                },
+                {
+                    id: "organic-baking-soda",
+                    name: "Organic Baking Soda",
+                    brands: [
+                        { id: "bob-red-mill", name: "Bob's Red Mill", imageSrc: "images/Soda Powder.jpg", imageAlt: "Bob's Red Mill Organic Baking Soda", weights: [{ id: "100g", label: "100 g", unitPrice: 135 }, { id: "200g", label: "200 g", unitPrice: 255 }, { id: "500g", label: "500 g", unitPrice: 610 }] },
+                        { id: "urban-platter-food-grade", name: "Urban Platter Food Grade", imageSrc: "images/Soda Powder.jpg", imageAlt: "Urban Platter Food Grade Organic Baking Soda", weights: [{ id: "50g", label: "50 g", unitPrice: 52 }, { id: "100g", label: "100 g", unitPrice: 100 }, { id: "200g", label: "200 g", unitPrice: 190 }, { id: "500g", label: "500 g", unitPrice: 455 }] },
+                        { id: "local-brand", name: "Local Brand", imageSrc: "images/Soda Powder.jpg", imageAlt: "Local Brand Organic Baking Soda", weights: [{ id: "50g", label: "50 g", unitPrice: 30 }, { id: "100g", label: "100 g", unitPrice: 58 }, { id: "200g", label: "200 g", unitPrice: 110 }, { id: "500g", label: "500 g", unitPrice: 265 }] }
+                    ]
+                },
+                {
+                    id: "aluminum-free-baking-soda",
+                    name: "Aluminum-Free Baking Soda",
+                    brands: [
+                        { id: "bob-red-mill", name: "Bob's Red Mill", imageSrc: "images/Soda Powder.jpg", imageAlt: "Bob's Red Mill Aluminum-Free Baking Soda", weights: [{ id: "100g", label: "100 g", unitPrice: 145 }, { id: "200g", label: "200 g", unitPrice: 275 }, { id: "500g", label: "500 g", unitPrice: 660 }, { id: "1kg", label: "1 kg", unitPrice: 1270 }] },
+                        { id: "urban-platter-food-grade", name: "Urban Platter Food Grade", imageSrc: "images/Soda Powder.jpg", imageAlt: "Urban Platter Food Grade Aluminum-Free Baking Soda", weights: [{ id: "50g", label: "50 g", unitPrice: 55 }, { id: "100g", label: "100 g", unitPrice: 105 }, { id: "200g", label: "200 g", unitPrice: 200 }, { id: "500g", label: "500 g", unitPrice: 480 }] },
+                        { id: "dr-oetker", name: "Dr. Oetker", imageSrc: "images/Soda Powder.jpg", imageAlt: "Dr. Oetker Aluminum-Free Baking Soda", weights: [{ id: "50g", label: "50 g", unitPrice: 45 }, { id: "100g", label: "100 g", unitPrice: 86 }, { id: "200g", label: "200 g", unitPrice: 165 }, { id: "500g", label: "500 g", unitPrice: 395 }] }
+                    ]
+                }
+            ]
+        },
         detergent: {
             productName: "Detergent",
             imageSrc: "images/Detergent.jpg",

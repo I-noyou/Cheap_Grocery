@@ -2532,6 +2532,95 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             ]
         },
+        sabudana: {
+            productName: "Sabudana (Tapioca Pearls)",
+            imageSrc: "images/Sabudana.webp",
+            imageAlt: "Sabudana (Tapioca Pearls)",
+            labels: {
+                varietyTitle: "Select Sabudana Variety",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Variety",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                {
+                    id: "regular-sabudana",
+                    name: "Regular Sabudana",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Sabudana.webp", imageAlt: "Tata Sampann Regular Sabudana", weights: [{ id: "200g", label: "200 g", unitPrice: 32 }, { id: "500g", label: "500 g", unitPrice: 72 }, { id: "1kg", label: "1 kg", unitPrice: 138 }, { id: "2kg", label: "2 kg", unitPrice: 265 }, { id: "5kg", label: "5 kg", unitPrice: 640 }] },
+                        { id: "fortune", name: "Fortune", imageSrc: "images/Sabudana.webp", imageAlt: "Fortune Regular Sabudana", weights: [{ id: "200g", label: "200 g", unitPrice: 29 }, { id: "500g", label: "500 g", unitPrice: 66 }, { id: "1kg", label: "1 kg", unitPrice: 125 }, { id: "2kg", label: "2 kg", unitPrice: 240 }, { id: "5kg", label: "5 kg", unitPrice: 575 }] },
+                        { id: "rajdhani", name: "Rajdhani", imageSrc: "images/Sabudana.webp", imageAlt: "Rajdhani Regular Sabudana", weights: [{ id: "200g", label: "200 g", unitPrice: 30 }, { id: "500g", label: "500 g", unitPrice: 68 }, { id: "1kg", label: "1 kg", unitPrice: 130 }, { id: "2kg", label: "2 kg", unitPrice: 250 }] },
+                        { id: "local-brand", name: "Local Brand", imageSrc: "images/Sabudana.webp", imageAlt: "Local Brand Regular Sabudana", weights: [{ id: "200g", label: "200 g", unitPrice: 24 }, { id: "500g", label: "500 g", unitPrice: 54 }, { id: "1kg", label: "1 kg", unitPrice: 102 }, { id: "2kg", label: "2 kg", unitPrice: 195 }, { id: "5kg", label: "5 kg", unitPrice: 465 }] }
+                    ]
+                },
+                {
+                    id: "small-sabudana",
+                    name: "Small Sabudana",
+                    brands: [
+                        { id: "fortune", name: "Fortune", imageSrc: "images/Sabudana.webp", imageAlt: "Fortune Small Sabudana", weights: [{ id: "200g", label: "200 g", unitPrice: 31 }, { id: "500g", label: "500 g", unitPrice: 70 }, { id: "1kg", label: "1 kg", unitPrice: 135 }, { id: "2kg", label: "2 kg", unitPrice: 258 }] },
+                        { id: "rajdhani", name: "Rajdhani", imageSrc: "images/Sabudana.webp", imageAlt: "Rajdhani Small Sabudana", weights: [{ id: "200g", label: "200 g", unitPrice: 33 }, { id: "500g", label: "500 g", unitPrice: 75 }, { id: "1kg", label: "1 kg", unitPrice: 145 }, { id: "2kg", label: "2 kg", unitPrice: 278 }, { id: "5kg", label: "5 kg", unitPrice: 670 }] },
+                        { id: "patanjali", name: "Patanjali", imageSrc: "images/Sabudana.webp", imageAlt: "Patanjali Small Sabudana", weights: [{ id: "200g", label: "200 g", unitPrice: 35 }, { id: "500g", label: "500 g", unitPrice: 80 }, { id: "1kg", label: "1 kg", unitPrice: 155 }, { id: "2kg", label: "2 kg", unitPrice: 298 }] }
+                    ]
+                },
+                {
+                    id: "large-sabudana",
+                    name: "Large Sabudana",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Sabudana.webp", imageAlt: "Tata Sampann Large Sabudana", weights: [{ id: "200g", label: "200 g", unitPrice: 36 }, { id: "500g", label: "500 g", unitPrice: 82 }, { id: "1kg", label: "1 kg", unitPrice: 158 }, { id: "2kg", label: "2 kg", unitPrice: 305 }] },
+                        { id: "rajdhani", name: "Rajdhani", imageSrc: "images/Sabudana.webp", imageAlt: "Rajdhani Large Sabudana", weights: [{ id: "200g", label: "200 g", unitPrice: 34 }, { id: "500g", label: "500 g", unitPrice: 77 }, { id: "1kg", label: "1 kg", unitPrice: 148 }, { id: "2kg", label: "2 kg", unitPrice: 285 }, { id: "5kg", label: "5 kg", unitPrice: 685 }] },
+                        { id: "local-brand", name: "Local Brand", imageSrc: "images/Sabudana.webp", imageAlt: "Local Brand Large Sabudana", weights: [{ id: "200g", label: "200 g", unitPrice: 27 }, { id: "500g", label: "500 g", unitPrice: 62 }, { id: "1kg", label: "1 kg", unitPrice: 118 }, { id: "2kg", label: "2 kg", unitPrice: 225 }] }
+                    ]
+                },
+                {
+                    id: "premium-sabudana",
+                    name: "Premium Sabudana",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Sabudana.webp", imageAlt: "Tata Sampann Premium Sabudana", weights: [{ id: "200g", label: "200 g", unitPrice: 40 }, { id: "500g", label: "500 g", unitPrice: 92 }, { id: "1kg", label: "1 kg", unitPrice: 178 }, { id: "2kg", label: "2 kg", unitPrice: 345 }, { id: "5kg", label: "5 kg", unitPrice: 830 }] },
+                        { id: "fortune", name: "Fortune", imageSrc: "images/Sabudana.webp", imageAlt: "Fortune Premium Sabudana", weights: [{ id: "200g", label: "200 g", unitPrice: 37 }, { id: "500g", label: "500 g", unitPrice: 85 }, { id: "1kg", label: "1 kg", unitPrice: 165 }, { id: "2kg", label: "2 kg", unitPrice: 318 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Sabudana.webp", imageAlt: "Urban Platter Premium Sabudana", weights: [{ id: "200g", label: "200 g", unitPrice: 48 }, { id: "500g", label: "500 g", unitPrice: 112 }, { id: "1kg", label: "1 kg", unitPrice: 215 }, { id: "2kg", label: "2 kg", unitPrice: 415 }] }
+                    ]
+                },
+                {
+                    id: "nylon-sabudana",
+                    name: "Nylon Sabudana",
+                    brands: [
+                        { id: "fortune", name: "Fortune", imageSrc: "images/Sabudana.webp", imageAlt: "Fortune Nylon Sabudana", weights: [{ id: "200g", label: "200 g", unitPrice: 34 }, { id: "500g", label: "500 g", unitPrice: 78 }, { id: "1kg", label: "1 kg", unitPrice: 150 }, { id: "2kg", label: "2 kg", unitPrice: 288 }] },
+                        { id: "rajdhani", name: "Rajdhani", imageSrc: "images/Sabudana.webp", imageAlt: "Rajdhani Nylon Sabudana", weights: [{ id: "200g", label: "200 g", unitPrice: 36 }, { id: "500g", label: "500 g", unitPrice: 82 }, { id: "1kg", label: "1 kg", unitPrice: 158 }, { id: "2kg", label: "2 kg", unitPrice: 305 }, { id: "5kg", label: "5 kg", unitPrice: 735 }] },
+                        { id: "local-brand", name: "Local Brand", imageSrc: "images/Sabudana.webp", imageAlt: "Local Brand Nylon Sabudana", weights: [{ id: "200g", label: "200 g", unitPrice: 28 }, { id: "500g", label: "500 g", unitPrice: 64 }, { id: "1kg", label: "1 kg", unitPrice: 122 }, { id: "2kg", label: "2 kg", unitPrice: 235 }] }
+                    ]
+                },
+                {
+                    id: "organic-sabudana",
+                    name: "Organic Sabudana",
+                    brands: [
+                        { id: "organic-tattva", name: "Organic Tattva", imageSrc: "images/Sabudana.webp", imageAlt: "Organic Tattva Organic Sabudana", weights: [{ id: "200g", label: "200 g", unitPrice: 48 }, { id: "500g", label: "500 g", unitPrice: 112 }, { id: "1kg", label: "1 kg", unitPrice: 215 }, { id: "2kg", label: "2 kg", unitPrice: 415 }] },
+                        { id: "24-mantra-organic", name: "24 Mantra Organic", imageSrc: "images/Sabudana.webp", imageAlt: "24 Mantra Organic Sabudana", weights: [{ id: "200g", label: "200 g", unitPrice: 52 }, { id: "500g", label: "500 g", unitPrice: 122 }, { id: "1kg", label: "1 kg", unitPrice: 235 }, { id: "2kg", label: "2 kg", unitPrice: 455 }, { id: "5kg", label: "5 kg", unitPrice: 1090 }] },
+                        { id: "natureland-organics", name: "Natureland Organics", imageSrc: "images/Sabudana.webp", imageAlt: "Natureland Organics Sabudana", weights: [{ id: "200g", label: "200 g", unitPrice: 50 }, { id: "500g", label: "500 g", unitPrice: 118 }, { id: "1kg", label: "1 kg", unitPrice: 225 }, { id: "2kg", label: "2 kg", unitPrice: 435 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Sabudana.webp", imageAlt: "Urban Platter Organic Sabudana", weights: [{ id: "200g", label: "200 g", unitPrice: 58 }, { id: "500g", label: "500 g", unitPrice: 138 }, { id: "1kg", label: "1 kg", unitPrice: 265 }, { id: "2kg", label: "2 kg", unitPrice: 510 }] }
+                    ]
+                },
+                {
+                    id: "roasted-sabudana",
+                    name: "Roasted Sabudana",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Sabudana.webp", imageAlt: "Tata Sampann Roasted Sabudana", weights: [{ id: "200g", label: "200 g", unitPrice: 42 }, { id: "500g", label: "500 g", unitPrice: 98 }, { id: "1kg", label: "1 kg", unitPrice: 188 }, { id: "2kg", label: "2 kg", unitPrice: 365 }] },
+                        { id: "patanjali", name: "Patanjali", imageSrc: "images/Sabudana.webp", imageAlt: "Patanjali Roasted Sabudana", weights: [{ id: "200g", label: "200 g", unitPrice: 39 }, { id: "500g", label: "500 g", unitPrice: 90 }, { id: "1kg", label: "1 kg", unitPrice: 175 }, { id: "2kg", label: "2 kg", unitPrice: 338 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Sabudana.webp", imageAlt: "Urban Platter Roasted Sabudana", weights: [{ id: "200g", label: "200 g", unitPrice: 52 }, { id: "500g", label: "500 g", unitPrice: 125 }, { id: "1kg", label: "1 kg", unitPrice: 240 }, { id: "2kg", label: "2 kg", unitPrice: 465 }] }
+                    ]
+                },
+                {
+                    id: "fasting-grade-sabudana",
+                    name: "Fasting-Grade Sabudana",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Sabudana.webp", imageAlt: "Tata Sampann Fasting-Grade Sabudana", weights: [{ id: "200g", label: "200 g", unitPrice: 38 }, { id: "500g", label: "500 g", unitPrice: 88 }, { id: "1kg", label: "1 kg", unitPrice: 170 }, { id: "2kg", label: "2 kg", unitPrice: 328 }, { id: "5kg", label: "5 kg", unitPrice: 790 }] },
+                        { id: "patanjali", name: "Patanjali", imageSrc: "images/Sabudana.webp", imageAlt: "Patanjali Fasting-Grade Sabudana", weights: [{ id: "200g", label: "200 g", unitPrice: 35 }, { id: "500g", label: "500 g", unitPrice: 80 }, { id: "1kg", label: "1 kg", unitPrice: 155 }, { id: "2kg", label: "2 kg", unitPrice: 298 }] },
+                        { id: "local-brand", name: "Local Brand", imageSrc: "images/Sabudana.webp", imageAlt: "Local Brand Fasting-Grade Sabudana", weights: [{ id: "200g", label: "200 g", unitPrice: 27 }, { id: "500g", label: "500 g", unitPrice: 62 }, { id: "1kg", label: "1 kg", unitPrice: 118 }, { id: "2kg", label: "2 kg", unitPrice: 225 }, { id: "5kg", label: "5 kg", unitPrice: 540 }] }
+                    ]
+                }
+            ]
+        },
         chiura: {
             productName: "Chiura",
             imageSrc: "images/Chiura.webp",

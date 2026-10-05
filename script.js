@@ -1225,6 +1225,97 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             ]
         },
+        dhaniyaPowder: {
+            productName: "Dhaniya Powder (Coriander Powder)",
+            imageSrc: "images/Dhaniya Powder.webp",
+            imageAlt: "Dhaniya Powder (Coriander Powder)",
+            labels: {
+                varietyTitle: "Select Dhaniya Powder Variety",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Variety",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                {
+                    id: "regular-dhaniya-powder",
+                    name: "Regular Dhaniya Powder",
+                    brands: [
+                        { id: "everest", name: "Everest", imageSrc: "images/Dhaniya Powder.webp", imageAlt: "Everest Regular Dhaniya Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 22 }, { id: "100g", label: "100 g", unitPrice: 40 }, { id: "200g", label: "200 g", unitPrice: 75 }, { id: "500g", label: "500 g", unitPrice: 180 }, { id: "1kg", label: "1 kg", unitPrice: 345 }] },
+                        { id: "mdh", name: "MDH", imageSrc: "images/Dhaniya Powder.webp", imageAlt: "MDH Regular Dhaniya Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 24 }, { id: "100g", label: "100 g", unitPrice: 44 }, { id: "200g", label: "200 g", unitPrice: 82 }, { id: "500g", label: "500 g", unitPrice: 195 }] },
+                        { id: "catch", name: "Catch", imageSrc: "images/Dhaniya Powder.webp", imageAlt: "Catch Regular Dhaniya Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 23 }, { id: "100g", label: "100 g", unitPrice: 42 }, { id: "200g", label: "200 g", unitPrice: 80 }, { id: "500g", label: "500 g", unitPrice: 190 }, { id: "1kg", label: "1 kg", unitPrice: 365 }] },
+                        { id: "local-brand", name: "Local Brand", imageSrc: "images/Dhaniya Powder.webp", imageAlt: "Local Brand Regular Dhaniya Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 16 }, { id: "100g", label: "100 g", unitPrice: 30 }, { id: "200g", label: "200 g", unitPrice: 56 }, { id: "500g", label: "500 g", unitPrice: 135 }, { id: "1kg", label: "1 kg", unitPrice: 255 }] }
+                    ]
+                },
+                {
+                    id: "premium-dhaniya-powder",
+                    name: "Premium Dhaniya Powder",
+                    brands: [
+                        { id: "everest", name: "Everest", imageSrc: "images/Dhaniya Powder.webp", imageAlt: "Everest Premium Dhaniya Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 27 }, { id: "100g", label: "100 g", unitPrice: 50 }, { id: "200g", label: "200 g", unitPrice: 95 }, { id: "500g", label: "500 g", unitPrice: 225 }, { id: "1kg", label: "1 kg", unitPrice: 430 }] },
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Dhaniya Powder.webp", imageAlt: "Tata Sampann Premium Dhaniya Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 30 }, { id: "100g", label: "100 g", unitPrice: 56 }, { id: "200g", label: "200 g", unitPrice: 105 }, { id: "500g", label: "500 g", unitPrice: 250 }] },
+                        { id: "aashirvaad", name: "Aashirvaad", imageSrc: "images/Dhaniya Powder.webp", imageAlt: "Aashirvaad Premium Dhaniya Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 29 }, { id: "100g", label: "100 g", unitPrice: 54 }, { id: "200g", label: "200 g", unitPrice: 102 }, { id: "500g", label: "500 g", unitPrice: 240 }, { id: "1kg", label: "1 kg", unitPrice: 460 }] },
+                        { id: "catch", name: "Catch", imageSrc: "images/Dhaniya Powder.webp", imageAlt: "Catch Premium Dhaniya Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 28 }, { id: "100g", label: "100 g", unitPrice: 52 }, { id: "200g", label: "200 g", unitPrice: 98 }, { id: "500g", label: "500 g", unitPrice: 235 }] }
+                    ]
+                },
+                {
+                    id: "fine-ground-dhaniya-powder",
+                    name: "Fine Ground Dhaniya Powder",
+                    brands: [
+                        { id: "mdh", name: "MDH", imageSrc: "images/Dhaniya Powder.webp", imageAlt: "MDH Fine Ground Dhaniya Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 26 }, { id: "100g", label: "100 g", unitPrice: 48 }, { id: "200g", label: "200 g", unitPrice: 90 }, { id: "500g", label: "500 g", unitPrice: 215 }] },
+                        { id: "catch", name: "Catch", imageSrc: "images/Dhaniya Powder.webp", imageAlt: "Catch Fine Ground Dhaniya Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 25 }, { id: "100g", label: "100 g", unitPrice: 46 }, { id: "200g", label: "200 g", unitPrice: 88 }, { id: "500g", label: "500 g", unitPrice: 210 }, { id: "1kg", label: "1 kg", unitPrice: 400 }] },
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Dhaniya Powder.webp", imageAlt: "Tata Sampann Fine Ground Dhaniya Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 29 }, { id: "100g", label: "100 g", unitPrice: 54 }, { id: "200g", label: "200 g", unitPrice: 102 }, { id: "500g", label: "500 g", unitPrice: 245 }] }
+                    ]
+                },
+                {
+                    id: "roasted-dhaniya-powder",
+                    name: "Roasted Dhaniya Powder",
+                    brands: [
+                        { id: "everest", name: "Everest", imageSrc: "images/Dhaniya Powder.webp", imageAlt: "Everest Roasted Dhaniya Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 30 }, { id: "100g", label: "100 g", unitPrice: 56 }, { id: "200g", label: "200 g", unitPrice: 108 }, { id: "500g", label: "500 g", unitPrice: 255 }] },
+                        { id: "mdh", name: "MDH", imageSrc: "images/Dhaniya Powder.webp", imageAlt: "MDH Roasted Dhaniya Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 28 }, { id: "100g", label: "100 g", unitPrice: 52 }, { id: "200g", label: "200 g", unitPrice: 98 }, { id: "500g", label: "500 g", unitPrice: 235 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Dhaniya Powder.webp", imageAlt: "Urban Platter Roasted Dhaniya Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 42 }, { id: "100g", label: "100 g", unitPrice: 80 }, { id: "200g", label: "200 g", unitPrice: 155 }, { id: "500g", label: "500 g", unitPrice: 370 }] }
+                    ]
+                },
+                {
+                    id: "organic-dhaniya-powder",
+                    name: "Organic Dhaniya Powder",
+                    brands: [
+                        { id: "organic-india", name: "Organic India", imageSrc: "images/Dhaniya Powder.webp", imageAlt: "Organic India Dhaniya Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 38 }, { id: "100g", label: "100 g", unitPrice: 72 }, { id: "200g", label: "200 g", unitPrice: 138 }, { id: "500g", label: "500 g", unitPrice: 330 }, { id: "1kg", label: "1 kg", unitPrice: 635 }] },
+                        { id: "24-mantra-organic", name: "24 Mantra Organic", imageSrc: "images/Dhaniya Powder.webp", imageAlt: "24 Mantra Organic Dhaniya Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 36 }, { id: "100g", label: "100 g", unitPrice: 68 }, { id: "200g", label: "200 g", unitPrice: 130 }, { id: "500g", label: "500 g", unitPrice: 310 }] },
+                        { id: "natureland-organics", name: "Natureland Organics", imageSrc: "images/Dhaniya Powder.webp", imageAlt: "Natureland Organics Dhaniya Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 34 }, { id: "100g", label: "100 g", unitPrice: 65 }, { id: "200g", label: "200 g", unitPrice: 122 }, { id: "500g", label: "500 g", unitPrice: 295 }, { id: "1kg", label: "1 kg", unitPrice: 565 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Dhaniya Powder.webp", imageAlt: "Urban Platter Organic Dhaniya Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 45 }, { id: "100g", label: "100 g", unitPrice: 86 }, { id: "200g", label: "200 g", unitPrice: 165 }, { id: "500g", label: "500 g", unitPrice: 395 }] }
+                    ]
+                },
+                {
+                    id: "fresh-ground-dhaniya-powder",
+                    name: "Fresh Ground Dhaniya Powder",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Dhaniya Powder.webp", imageAlt: "Tata Sampann Fresh Ground Dhaniya Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 32 }, { id: "100g", label: "100 g", unitPrice: 60 }, { id: "200g", label: "200 g", unitPrice: 115 }, { id: "500g", label: "500 g", unitPrice: 275 }] },
+                        { id: "patanjali", name: "Patanjali", imageSrc: "images/Dhaniya Powder.webp", imageAlt: "Patanjali Fresh Ground Dhaniya Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 28 }, { id: "100g", label: "100 g", unitPrice: 52 }, { id: "200g", label: "200 g", unitPrice: 98 }, { id: "500g", label: "500 g", unitPrice: 235 }] },
+                        { id: "local-brand", name: "Local Brand", imageSrc: "images/Dhaniya Powder.webp", imageAlt: "Local Brand Fresh Ground Dhaniya Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 20 }, { id: "100g", label: "100 g", unitPrice: 38 }, { id: "200g", label: "200 g", unitPrice: 72 }, { id: "500g", label: "500 g", unitPrice: 170 }, { id: "1kg", label: "1 kg", unitPrice: 325 }] }
+                    ]
+                },
+                {
+                    id: "high-aroma-dhaniya-powder",
+                    name: "High Aroma Dhaniya Powder",
+                    brands: [
+                        { id: "everest", name: "Everest", imageSrc: "images/Dhaniya Powder.webp", imageAlt: "Everest High Aroma Dhaniya Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 31 }, { id: "100g", label: "100 g", unitPrice: 58 }, { id: "200g", label: "200 g", unitPrice: 112 }, { id: "500g", label: "500 g", unitPrice: 270 }, { id: "1kg", label: "1 kg", unitPrice: 520 }] },
+                        { id: "aashirvaad", name: "Aashirvaad", imageSrc: "images/Dhaniya Powder.webp", imageAlt: "Aashirvaad High Aroma Dhaniya Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 33 }, { id: "100g", label: "100 g", unitPrice: 62 }, { id: "200g", label: "200 g", unitPrice: 120 }, { id: "500g", label: "500 g", unitPrice: 285 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Dhaniya Powder.webp", imageAlt: "Urban Platter High Aroma Dhaniya Powder", weights: [{ id: "50g", label: "50 g", unitPrice: 46 }, { id: "100g", label: "100 g", unitPrice: 88 }, { id: "200g", label: "200 g", unitPrice: 170 }, { id: "500g", label: "500 g", unitPrice: 410 }] }
+                    ]
+                },
+                {
+                    id: "cooking-dhaniya-powder",
+                    name: "Coriander Powder for Cooking",
+                    brands: [
+                        { id: "everest", name: "Everest", imageSrc: "images/Dhaniya Powder.webp", imageAlt: "Everest Coriander Powder for Cooking", weights: [{ id: "50g", label: "50 g", unitPrice: 21 }, { id: "100g", label: "100 g", unitPrice: 39 }, { id: "200g", label: "200 g", unitPrice: 74 }, { id: "500g", label: "500 g", unitPrice: 175 }, { id: "1kg", label: "1 kg", unitPrice: 335 }] },
+                        { id: "catch", name: "Catch", imageSrc: "images/Dhaniya Powder.webp", imageAlt: "Catch Coriander Powder for Cooking", weights: [{ id: "50g", label: "50 g", unitPrice: 22 }, { id: "100g", label: "100 g", unitPrice: 41 }, { id: "200g", label: "200 g", unitPrice: 78 }, { id: "500g", label: "500 g", unitPrice: 185 }] },
+                        { id: "patanjali", name: "Patanjali", imageSrc: "images/Dhaniya Powder.webp", imageAlt: "Patanjali Coriander Powder for Cooking", weights: [{ id: "50g", label: "50 g", unitPrice: 20 }, { id: "100g", label: "100 g", unitPrice: 37 }, { id: "200g", label: "200 g", unitPrice: 70 }, { id: "500g", label: "500 g", unitPrice: 165 }, { id: "1kg", label: "1 kg", unitPrice: 315 }] },
+                        { id: "local-brand", name: "Local Brand", imageSrc: "images/Dhaniya Powder.webp", imageAlt: "Local Brand Coriander Powder for Cooking", weights: [{ id: "50g", label: "50 g", unitPrice: 15 }, { id: "100g", label: "100 g", unitPrice: 28 }, { id: "200g", label: "200 g", unitPrice: 52 }, { id: "500g", label: "500 g", unitPrice: 125 }, { id: "1kg", label: "1 kg", unitPrice: 240 }] }
+                    ]
+                }
+            ]
+        },
         maida: {
             productName: "Maida (Refined Wheat Flour)",
             imageSrc: "images/Maida.jpg",

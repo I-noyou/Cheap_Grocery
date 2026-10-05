@@ -1225,6 +1225,88 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             ]
         },
+        maida: {
+            productName: "Maida (Refined Wheat Flour)",
+            imageSrc: "images/Maida.jpg",
+            imageAlt: "Maida (Refined Wheat Flour)",
+            labels: {
+                varietyTitle: "Select Maida Variety",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Variety",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                {
+                    id: "regular-maida",
+                    name: "Regular Maida",
+                    brands: [
+                        { id: "pillsbury", name: "Pillsbury", imageSrc: "images/Maida.jpg", imageAlt: "Pillsbury Regular Maida", weights: [{ id: "500g", label: "500 g", unitPrice: 32 }, { id: "1kg", label: "1 kg", unitPrice: 58 }, { id: "2kg", label: "2 kg", unitPrice: 112 }, { id: "5kg", label: "5 kg", unitPrice: 270 }, { id: "10kg", label: "10 kg", unitPrice: 520 }] },
+                        { id: "fortune", name: "Fortune", imageSrc: "images/Maida.jpg", imageAlt: "Fortune Regular Maida", weights: [{ id: "500g", label: "500 g", unitPrice: 30 }, { id: "1kg", label: "1 kg", unitPrice: 55 }, { id: "2kg", label: "2 kg", unitPrice: 106 }, { id: "5kg", label: "5 kg", unitPrice: 255 }, { id: "10kg", label: "10 kg", unitPrice: 490 }] },
+                        { id: "annapurna", name: "Annapurna", imageSrc: "images/Maida.jpg", imageAlt: "Annapurna Regular Maida", weights: [{ id: "500g", label: "500 g", unitPrice: 29 }, { id: "1kg", label: "1 kg", unitPrice: 53 }, { id: "2kg", label: "2 kg", unitPrice: 102 }, { id: "5kg", label: "5 kg", unitPrice: 245 }] },
+                        { id: "local-brand", name: "Local Brand", imageSrc: "images/Maida.jpg", imageAlt: "Local Brand Regular Maida", weights: [{ id: "500g", label: "500 g", unitPrice: 25 }, { id: "1kg", label: "1 kg", unitPrice: 46 }, { id: "2kg", label: "2 kg", unitPrice: 88 }, { id: "5kg", label: "5 kg", unitPrice: 210 }, { id: "10kg", label: "10 kg", unitPrice: 400 }, { id: "20kg", label: "20 kg", unitPrice: 760 }] }
+                    ]
+                },
+                {
+                    id: "fine-maida",
+                    name: "Fine Maida",
+                    brands: [
+                        { id: "pillsbury", name: "Pillsbury", imageSrc: "images/Maida.jpg", imageAlt: "Pillsbury Fine Maida", weights: [{ id: "500g", label: "500 g", unitPrice: 35 }, { id: "1kg", label: "1 kg", unitPrice: 64 }, { id: "2kg", label: "2 kg", unitPrice: 124 }, { id: "5kg", label: "5 kg", unitPrice: 300 }] },
+                        { id: "fortune", name: "Fortune", imageSrc: "images/Maida.jpg", imageAlt: "Fortune Fine Maida", weights: [{ id: "500g", label: "500 g", unitPrice: 33 }, { id: "1kg", label: "1 kg", unitPrice: 60 }, { id: "2kg", label: "2 kg", unitPrice: 116 }, { id: "5kg", label: "5 kg", unitPrice: 280 }, { id: "10kg", label: "10 kg", unitPrice: 540 }] },
+                        { id: "nature-fresh", name: "Nature Fresh", imageSrc: "images/Maida.jpg", imageAlt: "Nature Fresh Fine Maida", weights: [{ id: "500g", label: "500 g", unitPrice: 34 }, { id: "1kg", label: "1 kg", unitPrice: 62 }, { id: "2kg", label: "2 kg", unitPrice: 120 }, { id: "5kg", label: "5 kg", unitPrice: 290 }] }
+                    ]
+                },
+                {
+                    id: "premium-maida",
+                    name: "Premium Maida",
+                    brands: [
+                        { id: "pillsbury", name: "Pillsbury", imageSrc: "images/Maida.jpg", imageAlt: "Pillsbury Premium Maida", weights: [{ id: "500g", label: "500 g", unitPrice: 40 }, { id: "1kg", label: "1 kg", unitPrice: 75 }, { id: "2kg", label: "2 kg", unitPrice: 145 }, { id: "5kg", label: "5 kg", unitPrice: 350 }, { id: "10kg", label: "10 kg", unitPrice: 675 }] },
+                        { id: "aashirvaad", name: "Aashirvaad", imageSrc: "images/Maida.jpg", imageAlt: "Aashirvaad Premium Maida", weights: [{ id: "500g", label: "500 g", unitPrice: 42 }, { id: "1kg", label: "1 kg", unitPrice: 78 }, { id: "2kg", label: "2 kg", unitPrice: 150 }, { id: "5kg", label: "5 kg", unitPrice: 365 }] },
+                        { id: "annapurna", name: "Annapurna", imageSrc: "images/Maida.jpg", imageAlt: "Annapurna Premium Maida", weights: [{ id: "500g", label: "500 g", unitPrice: 37 }, { id: "1kg", label: "1 kg", unitPrice: 70 }, { id: "2kg", label: "2 kg", unitPrice: 135 }, { id: "5kg", label: "5 kg", unitPrice: 325 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Maida.jpg", imageAlt: "Urban Platter Premium Maida", weights: [{ id: "500g", label: "500 g", unitPrice: 55 }, { id: "1kg", label: "1 kg", unitPrice: 105 }, { id: "2kg", label: "2 kg", unitPrice: 200 }, { id: "5kg", label: "5 kg", unitPrice: 480 }] }
+                    ]
+                },
+                {
+                    id: "super-fine-maida",
+                    name: "Super Fine Maida",
+                    brands: [
+                        { id: "fortune", name: "Fortune", imageSrc: "images/Maida.jpg", imageAlt: "Fortune Super Fine Maida", weights: [{ id: "500g", label: "500 g", unitPrice: 38 }, { id: "1kg", label: "1 kg", unitPrice: 72 }, { id: "2kg", label: "2 kg", unitPrice: 138 }, { id: "5kg", label: "5 kg", unitPrice: 335 }] },
+                        { id: "nature-fresh", name: "Nature Fresh", imageSrc: "images/Maida.jpg", imageAlt: "Nature Fresh Super Fine Maida", weights: [{ id: "500g", label: "500 g", unitPrice: 40 }, { id: "1kg", label: "1 kg", unitPrice: 76 }, { id: "2kg", label: "2 kg", unitPrice: 146 }, { id: "5kg", label: "5 kg", unitPrice: 350 }, { id: "10kg", label: "10 kg", unitPrice: 680 }] },
+                        { id: "local-brand", name: "Local Brand", imageSrc: "images/Maida.jpg", imageAlt: "Local Brand Super Fine Maida", weights: [{ id: "500g", label: "500 g", unitPrice: 31 }, { id: "1kg", label: "1 kg", unitPrice: 58 }, { id: "2kg", label: "2 kg", unitPrice: 110 }, { id: "5kg", label: "5 kg", unitPrice: 265 }, { id: "10kg", label: "10 kg", unitPrice: 510 }] }
+                    ]
+                },
+                {
+                    id: "organic-maida",
+                    name: "Organic Maida",
+                    brands: [
+                        { id: "organic-tattva", name: "Organic Tattva", imageSrc: "images/Maida.jpg", imageAlt: "Organic Tattva Organic Maida", weights: [{ id: "500g", label: "500 g", unitPrice: 58 }, { id: "1kg", label: "1 kg", unitPrice: 110 }, { id: "2kg", label: "2 kg", unitPrice: 210 }, { id: "5kg", label: "5 kg", unitPrice: 505 }] },
+                        { id: "24-mantra-organic", name: "24 Mantra Organic", imageSrc: "images/Maida.jpg", imageAlt: "24 Mantra Organic Maida", weights: [{ id: "500g", label: "500 g", unitPrice: 62 }, { id: "1kg", label: "1 kg", unitPrice: 118 }, { id: "2kg", label: "2 kg", unitPrice: 225 }, { id: "5kg", label: "5 kg", unitPrice: 540 }, { id: "10kg", label: "10 kg", unitPrice: 1040 }] },
+                        { id: "natureland-organics", name: "Natureland Organics", imageSrc: "images/Maida.jpg", imageAlt: "Natureland Organics Maida", weights: [{ id: "500g", label: "500 g", unitPrice: 60 }, { id: "1kg", label: "1 kg", unitPrice: 115 }, { id: "2kg", label: "2 kg", unitPrice: 220 }, { id: "5kg", label: "5 kg", unitPrice: 525 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Maida.jpg", imageAlt: "Urban Platter Organic Maida", weights: [{ id: "500g", label: "500 g", unitPrice: 70 }, { id: "1kg", label: "1 kg", unitPrice: 135 }, { id: "2kg", label: "2 kg", unitPrice: 260 }, { id: "5kg", label: "5 kg", unitPrice: 625 }] }
+                    ]
+                },
+                {
+                    id: "bakery-maida",
+                    name: "Bakery Maida",
+                    brands: [
+                        { id: "pillsbury", name: "Pillsbury", imageSrc: "images/Maida.jpg", imageAlt: "Pillsbury Bakery Maida", weights: [{ id: "1kg", label: "1 kg", unitPrice: 62 }, { id: "2kg", label: "2 kg", unitPrice: 120 }, { id: "5kg", label: "5 kg", unitPrice: 290 }, { id: "10kg", label: "10 kg", unitPrice: 560 }, { id: "20kg", label: "20 kg", unitPrice: 1080 }] },
+                        { id: "sharbati", name: "Sharbati", imageSrc: "images/Maida.jpg", imageAlt: "Sharbati Bakery Maida", weights: [{ id: "1kg", label: "1 kg", unitPrice: 58 }, { id: "2kg", label: "2 kg", unitPrice: 112 }, { id: "5kg", label: "5 kg", unitPrice: 270 }, { id: "10kg", label: "10 kg", unitPrice: 520 }] },
+                        { id: "local-brand", name: "Local Brand", imageSrc: "images/Maida.jpg", imageAlt: "Local Brand Bakery Maida", weights: [{ id: "1kg", label: "1 kg", unitPrice: 48 }, { id: "2kg", label: "2 kg", unitPrice: 92 }, { id: "5kg", label: "5 kg", unitPrice: 220 }, { id: "10kg", label: "10 kg", unitPrice: 420 }, { id: "20kg", label: "20 kg", unitPrice: 800 }] }
+                    ]
+                },
+                {
+                    id: "multipurpose-maida",
+                    name: "Multipurpose Maida",
+                    brands: [
+                        { id: "fortune", name: "Fortune", imageSrc: "images/Maida.jpg", imageAlt: "Fortune Multipurpose Maida", weights: [{ id: "500g", label: "500 g", unitPrice: 34 }, { id: "1kg", label: "1 kg", unitPrice: 65 }, { id: "2kg", label: "2 kg", unitPrice: 125 }, { id: "5kg", label: "5 kg", unitPrice: 300 }, { id: "10kg", label: "10 kg", unitPrice: 580 }] },
+                        { id: "aashirvaad", name: "Aashirvaad", imageSrc: "images/Maida.jpg", imageAlt: "Aashirvaad Multipurpose Maida", weights: [{ id: "500g", label: "500 g", unitPrice: 37 }, { id: "1kg", label: "1 kg", unitPrice: 70 }, { id: "2kg", label: "2 kg", unitPrice: 135 }, { id: "5kg", label: "5 kg", unitPrice: 325 }] },
+                        { id: "nature-fresh", name: "Nature Fresh", imageSrc: "images/Maida.jpg", imageAlt: "Nature Fresh Multipurpose Maida", weights: [{ id: "500g", label: "500 g", unitPrice: 36 }, { id: "1kg", label: "1 kg", unitPrice: 68 }, { id: "2kg", label: "2 kg", unitPrice: 130 }, { id: "5kg", label: "5 kg", unitPrice: 315 }] },
+                        { id: "local-brand", name: "Local Brand", imageSrc: "images/Maida.jpg", imageAlt: "Local Brand Multipurpose Maida", weights: [{ id: "500g", label: "500 g", unitPrice: 28 }, { id: "1kg", label: "1 kg", unitPrice: 52 }, { id: "2kg", label: "2 kg", unitPrice: 100 }, { id: "5kg", label: "5 kg", unitPrice: 240 }, { id: "10kg", label: "10 kg", unitPrice: 460 }] }
+                    ]
+                }
+            ]
+        },
         haldi: {
             productName: "Haldi Powder",
             label: "Haldi Powder",

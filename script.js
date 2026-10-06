@@ -1316,6 +1316,93 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             ]
         },
+        khadiDhaniya: {
+            productName: "Khadi Dhaniya (Whole Coriander Seeds)",
+            imageSrc: "images/Khadi Dhaniya.jpg",
+            imageAlt: "Khadi Dhaniya (Whole Coriander Seeds)",
+            labels: {
+                varietyTitle: "Select Coriander Seeds Variety",
+                brandTitle: "Select Brand",
+                weightTitle: "Select Package Size",
+                varietyDetail: "Variety",
+                brandDetail: "Brand",
+                weightDetail: "Package Size"
+            },
+            varieties: [
+                {
+                    id: "regular-coriander-seeds",
+                    name: "Regular Coriander Seeds",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Khadi Dhaniya.jpg", imageAlt: "Tata Sampann Regular Coriander Seeds", weights: [{ id: "50g", label: "50 g", unitPrice: 18 }, { id: "100g", label: "100 g", unitPrice: 34 }, { id: "200g", label: "200 g", unitPrice: 64 }, { id: "250g", label: "250 g", unitPrice: 78 }, { id: "500g", label: "500 g", unitPrice: 148 }, { id: "1kg", label: "1 kg", unitPrice: 285 }, { id: "2kg", label: "2 kg", unitPrice: 545 }] },
+                        { id: "catch", name: "Catch", imageSrc: "images/Khadi Dhaniya.jpg", imageAlt: "Catch Regular Coriander Seeds", weights: [{ id: "50g", label: "50 g", unitPrice: 20 }, { id: "100g", label: "100 g", unitPrice: 38 }, { id: "200g", label: "200 g", unitPrice: 72 }, { id: "250g", label: "250 g", unitPrice: 88 }, { id: "500g", label: "500 g", unitPrice: 168 }, { id: "1kg", label: "1 kg", unitPrice: 325 }] },
+                        { id: "local-brand", name: "Local Brand", imageSrc: "images/Khadi Dhaniya.jpg", imageAlt: "Local Brand Regular Coriander Seeds", weights: [{ id: "50g", label: "50 g", unitPrice: 13 }, { id: "100g", label: "100 g", unitPrice: 24 }, { id: "200g", label: "200 g", unitPrice: 45 }, { id: "250g", label: "250 g", unitPrice: 54 }, { id: "500g", label: "500 g", unitPrice: 102 }, { id: "1kg", label: "1 kg", unitPrice: 195 }, { id: "2kg", label: "2 kg", unitPrice: 375 }] }
+                    ]
+                },
+                {
+                    id: "premium-coriander-seeds",
+                    name: "Premium Coriander Seeds",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Khadi Dhaniya.jpg", imageAlt: "Tata Sampann Premium Coriander Seeds", weights: [{ id: "50g", label: "50 g", unitPrice: 22 }, { id: "100g", label: "100 g", unitPrice: 42 }, { id: "200g", label: "200 g", unitPrice: 80 }, { id: "250g", label: "250 g", unitPrice: 98 }, { id: "500g", label: "500 g", unitPrice: 188 }, { id: "1kg", label: "1 kg", unitPrice: 365 }, { id: "2kg", label: "2 kg", unitPrice: 700 }] },
+                        { id: "everest", name: "Everest", imageSrc: "images/Khadi Dhaniya.jpg", imageAlt: "Everest Premium Coriander Seeds", weights: [{ id: "50g", label: "50 g", unitPrice: 24 }, { id: "100g", label: "100 g", unitPrice: 46 }, { id: "200g", label: "200 g", unitPrice: 88 }, { id: "250g", label: "250 g", unitPrice: 108 }, { id: "500g", label: "500 g", unitPrice: 208 }, { id: "1kg", label: "1 kg", unitPrice: 400 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Khadi Dhaniya.jpg", imageAlt: "Urban Platter Premium Coriander Seeds", weights: [{ id: "50g", label: "50 g", unitPrice: 30 }, { id: "100g", label: "100 g", unitPrice: 58 }, { id: "200g", label: "200 g", unitPrice: 112 }, { id: "250g", label: "250 g", unitPrice: 138 }, { id: "500g", label: "500 g", unitPrice: 265 }, { id: "1kg", label: "1 kg", unitPrice: 510 }] }
+                    ]
+                },
+                {
+                    id: "bold-coriander-seeds",
+                    name: "Bold Coriander Seeds",
+                    brands: [
+                        { id: "catch", name: "Catch", imageSrc: "images/Khadi Dhaniya.jpg", imageAlt: "Catch Bold Coriander Seeds", weights: [{ id: "50g", label: "50 g", unitPrice: 23 }, { id: "100g", label: "100 g", unitPrice: 44 }, { id: "200g", label: "200 g", unitPrice: 84 }, { id: "250g", label: "250 g", unitPrice: 102 }, { id: "500g", label: "500 g", unitPrice: 195 }, { id: "1kg", label: "1 kg", unitPrice: 375 }] },
+                        { id: "everest", name: "Everest", imageSrc: "images/Khadi Dhaniya.jpg", imageAlt: "Everest Bold Coriander Seeds", weights: [{ id: "50g", label: "50 g", unitPrice: 25 }, { id: "100g", label: "100 g", unitPrice: 48 }, { id: "200g", label: "200 g", unitPrice: 92 }, { id: "250g", label: "250 g", unitPrice: 112 }, { id: "500g", label: "500 g", unitPrice: 215 }, { id: "1kg", label: "1 kg", unitPrice: 415 }, { id: "2kg", label: "2 kg", unitPrice: 800 }] },
+                        { id: "mdh", name: "MDH", imageSrc: "images/Khadi Dhaniya.jpg", imageAlt: "MDH Bold Coriander Seeds", weights: [{ id: "50g", label: "50 g", unitPrice: 24 }, { id: "100g", label: "100 g", unitPrice: 46 }, { id: "200g", label: "200 g", unitPrice: 88 }, { id: "250g", label: "250 g", unitPrice: 108 }, { id: "500g", label: "500 g", unitPrice: 205 }, { id: "1kg", label: "1 kg", unitPrice: 395 }] }
+                    ]
+                },
+                {
+                    id: "small-coriander-seeds",
+                    name: "Small Coriander Seeds",
+                    brands: [
+                        { id: "aashirvaad", name: "Aashirvaad", imageSrc: "images/Khadi Dhaniya.jpg", imageAlt: "Aashirvaad Small Coriander Seeds", weights: [{ id: "50g", label: "50 g", unitPrice: 19 }, { id: "100g", label: "100 g", unitPrice: 36 }, { id: "200g", label: "200 g", unitPrice: 68 }, { id: "250g", label: "250 g", unitPrice: 82 }, { id: "500g", label: "500 g", unitPrice: 158 }, { id: "1kg", label: "1 kg", unitPrice: 305 }] },
+                        { id: "patanjali", name: "Patanjali", imageSrc: "images/Khadi Dhaniya.jpg", imageAlt: "Patanjali Small Coriander Seeds", weights: [{ id: "50g", label: "50 g", unitPrice: 17 }, { id: "100g", label: "100 g", unitPrice: 32 }, { id: "200g", label: "200 g", unitPrice: 60 }, { id: "250g", label: "250 g", unitPrice: 72 }, { id: "500g", label: "500 g", unitPrice: 138 }, { id: "1kg", label: "1 kg", unitPrice: 265 }, { id: "2kg", label: "2 kg", unitPrice: 510 }] },
+                        { id: "local-brand", name: "Local Brand", imageSrc: "images/Khadi Dhaniya.jpg", imageAlt: "Local Brand Small Coriander Seeds", weights: [{ id: "50g", label: "50 g", unitPrice: 12 }, { id: "100g", label: "100 g", unitPrice: 22 }, { id: "200g", label: "200 g", unitPrice: 42 }, { id: "250g", label: "250 g", unitPrice: 50 }, { id: "500g", label: "500 g", unitPrice: 94 }, { id: "1kg", label: "1 kg", unitPrice: 180 }] }
+                    ]
+                },
+                {
+                    id: "green-coriander-seeds",
+                    name: "Green Coriander Seeds",
+                    brands: [
+                        { id: "organic-india", name: "Organic India", imageSrc: "images/Khadi Dhaniya.jpg", imageAlt: "Organic India Green Coriander Seeds", weights: [{ id: "50g", label: "50 g", unitPrice: 28 }, { id: "100g", label: "100 g", unitPrice: 54 }, { id: "200g", label: "200 g", unitPrice: 104 }, { id: "250g", label: "250 g", unitPrice: 128 }, { id: "500g", label: "500 g", unitPrice: 248 }, { id: "1kg", label: "1 kg", unitPrice: 480 }] },
+                        { id: "urban-platter", name: "Urban Platter", imageSrc: "images/Khadi Dhaniya.jpg", imageAlt: "Urban Platter Green Coriander Seeds", weights: [{ id: "50g", label: "50 g", unitPrice: 30 }, { id: "100g", label: "100 g", unitPrice: 58 }, { id: "200g", label: "200 g", unitPrice: 112 }, { id: "250g", label: "250 g", unitPrice: 138 }, { id: "500g", label: "500 g", unitPrice: 268 }, { id: "1kg", label: "1 kg", unitPrice: 520 }] },
+                        { id: "natureland-organics", name: "Natureland Organics", imageSrc: "images/Khadi Dhaniya.jpg", imageAlt: "Natureland Organics Green Coriander Seeds", weights: [{ id: "50g", label: "50 g", unitPrice: 27 }, { id: "100g", label: "100 g", unitPrice: 52 }, { id: "200g", label: "200 g", unitPrice: 100 }, { id: "250g", label: "250 g", unitPrice: 122 }, { id: "500g", label: "500 g", unitPrice: 235 }, { id: "1kg", label: "1 kg", unitPrice: 455 }, { id: "2kg", label: "2 kg", unitPrice: 875 }] }
+                    ]
+                },
+                {
+                    id: "organic-coriander-seeds",
+                    name: "Organic Coriander Seeds",
+                    brands: [
+                        { id: "organic-india", name: "Organic India", imageSrc: "images/Khadi Dhaniya.jpg", imageAlt: "Organic India Organic Coriander Seeds", weights: [{ id: "50g", label: "50 g", unitPrice: 29 }, { id: "100g", label: "100 g", unitPrice: 56 }, { id: "200g", label: "200 g", unitPrice: 108 }, { id: "250g", label: "250 g", unitPrice: 132 }, { id: "500g", label: "500 g", unitPrice: 255 }, { id: "1kg", label: "1 kg", unitPrice: 495 }, { id: "2kg", label: "2 kg", unitPrice: 950 }] },
+                        { id: "24-mantra-organic", name: "24 Mantra Organic", imageSrc: "images/Khadi Dhaniya.jpg", imageAlt: "24 Mantra Organic Coriander Seeds", weights: [{ id: "50g", label: "50 g", unitPrice: 27 }, { id: "100g", label: "100 g", unitPrice: 52 }, { id: "200g", label: "200 g", unitPrice: 100 }, { id: "250g", label: "250 g", unitPrice: 122 }, { id: "500g", label: "500 g", unitPrice: 235 }, { id: "1kg", label: "1 kg", unitPrice: 455 }] },
+                        { id: "natureland-organics", name: "Natureland Organics", imageSrc: "images/Khadi Dhaniya.jpg", imageAlt: "Natureland Organics Organic Coriander Seeds", weights: [{ id: "50g", label: "50 g", unitPrice: 26 }, { id: "100g", label: "100 g", unitPrice: 50 }, { id: "200g", label: "200 g", unitPrice: 96 }, { id: "250g", label: "250 g", unitPrice: 118 }, { id: "500g", label: "500 g", unitPrice: 228 }, { id: "1kg", label: "1 kg", unitPrice: 440 }] }
+                    ]
+                },
+                {
+                    id: "roasted-coriander-seeds",
+                    name: "Roasted Coriander Seeds",
+                    brands: [
+                        { id: "tata-sampann", name: "Tata Sampann", imageSrc: "images/Khadi Dhaniya.jpg", imageAlt: "Tata Sampann Roasted Coriander Seeds", weights: [{ id: "50g", label: "50 g", unitPrice: 21 }, { id: "100g", label: "100 g", unitPrice: 40 }, { id: "200g", label: "200 g", unitPrice: 76 }, { id: "250g", label: "250 g", unitPrice: 92 }, { id: "500g", label: "500 g", unitPrice: 178 }, { id: "1kg", label: "1 kg", unitPrice: 345 }] },
+                        { id: "catch", name: "Catch", imageSrc: "images/Khadi Dhaniya.jpg", imageAlt: "Catch Roasted Coriander Seeds", weights: [{ id: "50g", label: "50 g", unitPrice: 23 }, { id: "100g", label: "100 g", unitPrice: 44 }, { id: "200g", label: "200 g", unitPrice: 84 }, { id: "250g", label: "250 g", unitPrice: 102 }, { id: "500g", label: "500 g", unitPrice: 198 }, { id: "1kg", label: "1 kg", unitPrice: 380 }] },
+                        { id: "mdh", name: "MDH", imageSrc: "images/Khadi Dhaniya.jpg", imageAlt: "MDH Roasted Coriander Seeds", weights: [{ id: "50g", label: "50 g", unitPrice: 22 }, { id: "100g", label: "100 g", unitPrice: 42 }, { id: "200g", label: "200 g", unitPrice: 80 }, { id: "250g", label: "250 g", unitPrice: 98 }, { id: "500g", label: "500 g", unitPrice: 188 }, { id: "1kg", label: "1 kg", unitPrice: 365 }, { id: "2kg", label: "2 kg", unitPrice: 700 }] }
+                    ]
+                },
+                {
+                    id: "masala-coriander-seeds",
+                    name: "Coriander Seeds for Masala",
+                    brands: [
+                        { id: "everest", name: "Everest", imageSrc: "images/Khadi Dhaniya.jpg", imageAlt: "Everest Coriander Seeds for Masala", weights: [{ id: "50g", label: "50 g", unitPrice: 20 }, { id: "100g", label: "100 g", unitPrice: 38 }, { id: "200g", label: "200 g", unitPrice: 72 }, { id: "250g", label: "250 g", unitPrice: 88 }, { id: "500g", label: "500 g", unitPrice: 168 }, { id: "1kg", label: "1 kg", unitPrice: 325 }] },
+                        { id: "mdh", name: "MDH", imageSrc: "images/Khadi Dhaniya.jpg", imageAlt: "MDH Coriander Seeds for Masala", weights: [{ id: "50g", label: "50 g", unitPrice: 21 }, { id: "100g", label: "100 g", unitPrice: 40 }, { id: "200g", label: "200 g", unitPrice: 76 }, { id: "250g", label: "250 g", unitPrice: 92 }, { id: "500g", label: "500 g", unitPrice: 178 }, { id: "1kg", label: "1 kg", unitPrice: 345 }] },
+                        { id: "patanjali", name: "Patanjali", imageSrc: "images/Khadi Dhaniya.jpg", imageAlt: "Patanjali Coriander Seeds for Masala", weights: [{ id: "50g", label: "50 g", unitPrice: 18 }, { id: "100g", label: "100 g", unitPrice: 34 }, { id: "200g", label: "200 g", unitPrice: 64 }, { id: "250g", label: "250 g", unitPrice: 78 }, { id: "500g", label: "500 g", unitPrice: 148 }, { id: "1kg", label: "1 kg", unitPrice: 285 }, { id: "2kg", label: "2 kg", unitPrice: 545 }] }
+                    ]
+                }
+            ]
+        },
         maida: {
             productName: "Maida (Refined Wheat Flour)",
             imageSrc: "images/Maida.jpg",

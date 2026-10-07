@@ -14,7 +14,7 @@ function parsePort(value: string | undefined): number {
 export const env = {
   port: parsePort(process.env.PORT),
   nodeEnv: process.env.NODE_ENV ?? "development",
-  databaseUrl: process.env.DATABASE_URL,
+  mongoUri: process.env.MONGODB_URI,
   corsOrigins: (process.env.CORS_ORIGIN ?? "http://localhost:5500,http://127.0.0.1:5500")
     .split(",")
     .map((origin) => origin.trim())

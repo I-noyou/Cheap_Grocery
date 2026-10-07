@@ -1,13 +1,31 @@
 import { app } from "./app.js";
 import { env } from "./config/env.js";
 import { closeMongoClient } from "./db/mongo.js";
+import { ensureAuthIndexes } from "./db/auth-indexes.js";
 
-const server = app.listen(env.port, () => {
-  console.log(`Cheap Grocery API listening on port ${env.port}`);
-});
+async function startServer(): Promise<void> {
+  if (env.mongoUri) {
+    try {
+      await ensureAuthIndexes();
+    } catch {
+      console.error("Database initialization failed; the health endpoint will report the database as unavailable.");
+    }
+  }
+
+  server = app.listen(env.port, () => {
+    console.log(`Cheap Grocery API listening on port ${env.port}`);
+  });
+}
+
+let server: ReturnType<typeof app.listen>;
 
 async function shutdown(signal: string): Promise<void> {
   console.log(`${signal} received; shutting down.`);
+  if (!server) {
+    await closeMongoClient();
+    process.exit(0);
+  }
+
   server.close(async () => {
     await closeMongoClient();
     process.exit(0);
@@ -16,3 +34,5 @@ async function shutdown(signal: string): Promise<void> {
 
 process.on("SIGINT", () => void shutdown("SIGINT"));
 process.on("SIGTERM", () => void shutdown("SIGTERM"));
+
+void startServer();

@@ -15,17 +15,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const welcomeText = document.getElementById("welcome-text");
     const logoutBtn = document.getElementById("logout-btn");
 
-    const USER_DATA_KEY = "cheap_grocery_user_data";
-    const SESSION_KEY = "cheap_grocery_is_logged_in";
+    const API_BASE_URL = window.CHEAP_GROCERY_API_URL || "http://localhost:3000/api/v1";
 
     let authMode = "signup";
 
-    function getStoredUser() {
+    async function authRequest(path, options = {}) {
         try {
-            const raw = localStorage.getItem(USER_DATA_KEY);
-            return raw ? JSON.parse(raw) : null;
+            const response = await fetch(`${API_BASE_URL}${path}`, {
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                ...options
+            });
+            const data = await response.json().catch(() => ({}));
+            if (!response.ok) {
+                throw new Error(data.error || "Unable to complete the request.");
+            }
+            return data;
         } catch (error) {
-            return null;
+            throw error instanceof Error ? error : new Error("Unable to reach the authentication service.");
         }
     }
 
@@ -48,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (authScreen) authScreen.classList.add("is-hidden");
         if (appShell) appShell.classList.remove("is-hidden");
         if (welcomeText) {
-            const safeName = user && user.userName ? user.userName : "User";
+            const safeName = user && (user.name || user.userName) ? (user.name || user.userName) : "User";
             welcomeText.innerText = `Welcome, ${safeName}!`;
         }
     }
@@ -92,74 +99,47 @@ document.addEventListener("DOMContentLoaded", () => {
         setAuthMessage("");
     }
 
-    function isValidEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
-
-    function handleAuthSubmit(event) {
+    async function handleAuthSubmit(event) {
         event.preventDefault();
 
         const userName = authName ? authName.value.trim() : "";
         const email = authEmail ? authEmail.value.trim().toLowerCase() : "";
-        const password = authPassword ? authPassword.value.trim() : "";
+        const password = authPassword ? authPassword.value : "";
 
         if (!email || !password || (authMode === "signup" && !userName)) {
             setAuthMessage("Please fill in all required fields.");
             return;
         }
 
-        if (!isValidEmail(email)) {
-            setAuthMessage("Please enter a valid email address.");
-            return;
+        try {
+            const endpoint = authMode === "signup" ? "/auth/register" : "/auth/login";
+            const body = authMode === "signup"
+                ? { name: userName, email, password }
+                : { email, password };
+            const data = await authRequest(endpoint, {
+                method: "POST",
+                body: JSON.stringify(body)
+            });
+
+            if (authPassword) authPassword.value = "";
+            setAuthMessage(authMode === "signup" ? "Account created successfully!" : "Login successful!", false);
+            showApp(data.user);
+        } catch (error) {
+            setAuthMessage(error instanceof Error ? error.message : "Unable to complete the request.");
         }
-
-        const savedUser = getStoredUser();
-
-        if (authMode === "signup") {
-            if (savedUser && savedUser.email === email) {
-                setAuthMessage("This email is already registered. Please login.");
-                applyAuthMode("login");
-                if (authEmail) authEmail.value = email;
-                return;
-            }
-
-            const newUser = { userName, email, password };
-            localStorage.setItem(USER_DATA_KEY, JSON.stringify(newUser));
-            localStorage.setItem(SESSION_KEY, "true");
-            setAuthMessage("Account created successfully!", false);
-            showApp(newUser);
-            return;
-        }
-
-        if (!savedUser) {
-            setAuthMessage("No account found. Please sign up first.");
-            applyAuthMode("signup");
-            return;
-        }
-
-        if (savedUser.email !== email || savedUser.password !== password) {
-            setAuthMessage("Invalid email or password.");
-            return;
-        }
-
-        localStorage.setItem(SESSION_KEY, "true");
-        setAuthMessage("Login successful!", false);
-        showApp(savedUser);
     }
 
-    function initializeAuth() {
-        const storedUser = getStoredUser();
-        const isLoggedIn = localStorage.getItem(SESSION_KEY) === "true";
+    async function initializeAuth() {
+        // Prototype credentials and flags must never be treated as authentication.
+        localStorage.removeItem("cheap_grocery_user_data");
+        localStorage.removeItem("cheap_grocery_is_logged_in");
 
-        if (storedUser && isLoggedIn) {
-            showApp(storedUser);
-            return;
-        }
-
-        showAuth();
-        applyAuthMode(storedUser ? "login" : "signup");
-        if (storedUser && authEmail) {
-            authEmail.value = storedUser.email;
+        try {
+            const data = await authRequest("/auth/me", { method: "GET" });
+            showApp(data.user);
+        } catch {
+            showAuth();
+            applyAuthMode("signup");
         }
     }
 
@@ -173,15 +153,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     if (authForm) authForm.addEventListener("submit", handleAuthSubmit);
     if (logoutBtn) {
-        logoutBtn.addEventListener("click", () => {
-            localStorage.setItem(SESSION_KEY, "false");
-            if (authForm) authForm.reset();
-            setPasswordVisibility(false);
-            showAuth();
-            applyAuthMode("login");
-            const storedUser = getStoredUser();
-            if (storedUser && authEmail) authEmail.value = storedUser.email;
-            setAuthMessage("Logged out successfully.", false);
+        logoutBtn.addEventListener("click", async () => {
+            try {
+                await authRequest("/auth/logout", { method: "POST" });
+                if (authForm) authForm.reset();
+                setPasswordVisibility(false);
+                showAuth();
+                applyAuthMode("login");
+                setAuthMessage("Logged out successfully.", false);
+            } catch (error) {
+                setAuthMessage(error instanceof Error ? error.message : "Unable to log out.");
+            }
         });
     }
 

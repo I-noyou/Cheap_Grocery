@@ -1,0 +1,9 @@
+# Environment files may contain credentials.
+.env
+.env.*
+!.env.example
+
+# Backend build output and installed packages.
+backend/node_modules/
+backend/dist/
+backend/.env

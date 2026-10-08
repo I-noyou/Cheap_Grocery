@@ -6,6 +6,7 @@ import { env } from "./config/env.js";
 import { errorHandler } from "./middleware/error-handler.js";
 import { healthRouter } from "./routes/health.routes.js";
 import { authRouter } from "./routes/auth.routes.js";
+import { locationRouter } from "./routes/location.routes.js";
 
 export const app = express();
 
@@ -16,5 +17,6 @@ app.use(express.json());
 
 app.use("/api/v1", healthRouter);
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1", locationRouter);
 
 app.use(errorHandler);

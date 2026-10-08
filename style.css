@@ -164,6 +164,51 @@ body {
     background: #ecf9f0;
 }
 
+.location-panel {
+    width: min(92vw, 520px);
+    margin: 12px auto 0;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.16);
+    text-align: center;
+}
+
+.location-panel p {
+    margin: 0;
+}
+
+.location-actions {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.location-btn,
+.location-not-now-btn {
+    border-radius: 7px;
+    padding: 7px 12px;
+    cursor: pointer;
+}
+
+.location-btn {
+    border: 1px solid #ffffff;
+    background: #ffffff;
+    color: #1f6d3f;
+}
+
+.location-not-now-btn {
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    background: transparent;
+    color: #ffffff;
+}
+
+.location-btn:disabled,
+.location-not-now-btn:disabled {
+    cursor: wait;
+    opacity: 0.7;
+}
+
 @keyframes fadeUp {
     from {
         opacity: 0;

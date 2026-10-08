@@ -1,10 +1,18 @@
 import type { ObjectId } from "mongodb";
 
+export interface UserLocation {
+  latitude: number;
+  longitude: number;
+  accuracy?: number;
+  updatedAt: Date;
+}
+
 export interface UserDocument {
   _id: ObjectId;
   name: string;
   email: string;
   passwordHash: string;
+  location?: UserLocation;
   createdAt: Date;
   updatedAt: Date;
 }

@@ -14,10 +14,43 @@ document.addEventListener("DOMContentLoaded", () => {
     const togglePasswordBtn = document.getElementById("toggle-password");
     const welcomeText = document.getElementById("welcome-text");
     const logoutBtn = document.getElementById("logout-btn");
+    const locationStatus = document.getElementById("location-status");
+    const locationActions = document.getElementById("location-actions");
+    const allowLocationBtn = document.getElementById("allow-location-btn");
+    const locationNotNowBtn = document.getElementById("location-not-now-btn");
 
     const API_BASE_URL = window.CHEAP_GROCERY_API_URL || "http://localhost:3000/api/v1";
 
     let authMode = "signup";
+    let currentUserId = null;
+
+    function locationDismissalKey() {
+        return currentUserId ? `cheap_grocery_location_dismissed_${currentUserId}` : null;
+    }
+
+    function setLocationUi(message, showActions = true, requesting = false) {
+        if (locationStatus) locationStatus.innerText = message;
+        if (locationActions) locationActions.classList.toggle("is-hidden", !showActions);
+        if (allowLocationBtn) {
+            allowLocationBtn.disabled = requesting;
+            allowLocationBtn.innerText = requesting ? "Requesting Location..." : "Allow Location";
+        }
+        if (locationNotNowBtn) locationNotNowBtn.disabled = requesting;
+    }
+
+    function isValidLocation(latitude, longitude, accuracy) {
+        return Number.isFinite(latitude) && latitude >= -90 && latitude <= 90
+            && Number.isFinite(longitude) && longitude >= -180 && longitude <= 180
+            && (accuracy === undefined || (Number.isFinite(accuracy) && accuracy >= 0));
+    }
+
+    function browserLocationErrorMessage(error) {
+        if (!error) return "Unable to determine your location.";
+        if (error.code === 1 || error.code === error.PERMISSION_DENIED) return "Location permission was denied.";
+        if (error.code === 2 || error.code === error.POSITION_UNAVAILABLE) return "Unable to determine your location.";
+        if (error.code === 3 || error.code === error.TIMEOUT) return "Location request timed out.";
+        return "Unable to determine your location.";
+    }
 
     async function authRequest(path, options = {}) {
         try {
@@ -58,11 +91,14 @@ document.addEventListener("DOMContentLoaded", () => {
             const safeName = user && (user.name || user.userName) ? (user.name || user.userName) : "User";
             welcomeText.innerText = `Welcome, ${safeName}!`;
         }
+        currentUserId = user && user.id ? user.id : null;
+        void initializeLocation();
     }
 
     function showAuth() {
         if (authScreen) authScreen.classList.remove("is-hidden");
         if (appShell) appShell.classList.add("is-hidden");
+        currentUserId = null;
     }
 
     function applyAuthMode(mode) {
@@ -143,6 +179,81 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    async function initializeLocation() {
+        if (!currentUserId) return;
+
+        try {
+            const data = await authRequest("/location", { method: "GET" });
+            if (data.location) {
+                setLocationUi("Location enabled", true);
+                if (allowLocationBtn) allowLocationBtn.innerText = "Update Location";
+                return;
+            }
+        } catch (error) {
+            const message = error instanceof Error ? error.message : "";
+            if (message && message !== "No saved location was found.") {
+                setLocationUi("Unable to load your saved location. You can try again.");
+                return;
+            }
+        }
+
+        const dismissalKey = locationDismissalKey();
+        if (dismissalKey && sessionStorage.getItem(dismissalKey) === "true") {
+            setLocationUi("Location access has not been enabled.", false);
+            return;
+        }
+
+        setLocationUi("Allow location access to find nearby grocery stores.");
+        if (navigator.permissions && navigator.permissions.query) {
+            try {
+                const permission = await navigator.permissions.query({ name: "geolocation" });
+                if (permission.state === "denied") {
+                    setLocationUi("Location permission was denied.");
+                } else if (permission.state === "granted") {
+                    setLocationUi("Location permission is enabled. Save your current location to continue.");
+                }
+            } catch {
+                // Permission queries are optional; the explicit browser request remains available.
+            }
+        }
+    }
+
+    async function saveCurrentLocation() {
+        if (!navigator.geolocation) {
+            setLocationUi("Unable to determine your location.");
+            return;
+        }
+
+        setLocationUi("Requesting your location...", true, true);
+        navigator.geolocation.getCurrentPosition(async (position) => {
+            const { latitude, longitude, accuracy } = position.coords;
+            if (!isValidLocation(latitude, longitude, accuracy)) {
+                setLocationUi("Unable to determine your location.");
+                return;
+            }
+
+            try {
+                await authRequest("/location", {
+                    method: "PUT",
+                    body: JSON.stringify({ latitude, longitude, accuracy })
+                });
+                setLocationUi("Location enabled", true);
+                if (allowLocationBtn) allowLocationBtn.innerText = "Update Location";
+            } catch (error) {
+                const message = error instanceof Error ? error.message : "";
+                setLocationUi(message === "Authentication required."
+                    ? "Please log in again to save your location."
+                    : "Unable to save your location. Please try again.");
+            }
+        }, (error) => {
+            setLocationUi(browserLocationErrorMessage(error));
+        }, {
+            enableHighAccuracy: false,
+            timeout: 10000,
+            maximumAge: 300000
+        });
+    }
+
     if (signupToggle) signupToggle.addEventListener("click", () => applyAuthMode("signup"));
     if (loginToggle) loginToggle.addEventListener("click", () => applyAuthMode("login"));
     if (togglePasswordBtn) {
@@ -152,6 +263,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
     if (authForm) authForm.addEventListener("submit", handleAuthSubmit);
+    if (allowLocationBtn) allowLocationBtn.addEventListener("click", () => void saveCurrentLocation());
+    if (locationNotNowBtn) {
+        locationNotNowBtn.addEventListener("click", () => {
+            const dismissalKey = locationDismissalKey();
+            if (dismissalKey) sessionStorage.setItem(dismissalKey, "true");
+            setLocationUi("Location access has not been enabled.", false);
+        });
+    }
     if (logoutBtn) {
         logoutBtn.addEventListener("click", async () => {
             try {

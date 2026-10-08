@@ -18,6 +18,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const locationActions = document.getElementById("location-actions");
     const allowLocationBtn = document.getElementById("allow-location-btn");
     const locationNotNowBtn = document.getElementById("location-not-now-btn");
+    const nearbyStores = document.getElementById("nearby-stores");
+    const nearbyStoresStatus = document.getElementById("nearby-stores-status");
+    const nearbyStoresList = document.getElementById("nearby-stores-list");
 
     const API_BASE_URL = window.CHEAP_GROCERY_API_URL || "http://localhost:3000/api/v1";
 
@@ -34,6 +37,36 @@ document.addEventListener("DOMContentLoaded", () => {
         if (allowLocationBtn) {
             allowLocationBtn.disabled = requesting;
             allowLocationBtn.innerText = requesting ? "Requesting Location..." : "Allow Location";
+        }
+
+        function setNearbyStoresStatus(message) {
+            if (nearbyStoresStatus) nearbyStoresStatus.innerText = message;
+        }
+
+        function renderNearbyStores(stores) {
+            if (!nearbyStoresList) return;
+            nearbyStoresList.innerHTML = "";
+            stores.forEach((store) => {
+                const item = document.createElement("li");
+                const distance = typeof store.distanceKm === "number" ? `${store.distanceKm.toFixed(2)} km away` : "";
+                item.innerText = distance ? `${store.name} - ${distance}` : store.name;
+                nearbyStoresList.appendChild(item);
+            });
+        }
+
+        async function loadNearbyStores() {
+            if (!nearbyStores || !nearbyStoresList) return;
+            nearbyStores.classList.remove("is-hidden");
+            setNearbyStoresStatus("Loading nearby stores...");
+            try {
+                const data = await authRequest("/stores/nearby?radiusKm=5&limit=20", { method: "GET" });
+                renderNearbyStores(data.stores || []);
+                setNearbyStoresStatus(data.count ? "" : "No grocery stores found nearby.");
+            } catch (error) {
+                setNearbyStoresStatus(error instanceof Error && error.message === "LOCATION_REQUIRED"
+                    ? "Allow location access to find nearby grocery stores."
+                    : "Unable to load nearby stores. Please try again.");
+            }
         }
         if (locationNotNowBtn) locationNotNowBtn.disabled = requesting;
     }
@@ -187,6 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (data.location) {
                 setLocationUi("Location enabled", true);
                 if (allowLocationBtn) allowLocationBtn.innerText = "Update Location";
+                void loadNearbyStores();
                 return;
             }
         } catch (error) {
@@ -239,6 +273,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
                 setLocationUi("Location enabled", true);
                 if (allowLocationBtn) allowLocationBtn.innerText = "Update Location";
+                void loadNearbyStores();
             } catch (error) {
                 const message = error instanceof Error ? error.message : "";
                 setLocationUi(message === "Authentication required."

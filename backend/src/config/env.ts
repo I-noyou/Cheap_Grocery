@@ -26,6 +26,7 @@ export const env = {
   port: parsePort(process.env.PORT),
   nodeEnv: process.env.NODE_ENV ?? "development",
   mongoUri: process.env.MONGODB_URI,
+  storeWriteToken: process.env.STORE_WRITE_TOKEN,
   sessionTtlDays: parseBoundedInteger(process.env.SESSION_TTL_DAYS, 7, "SESSION_TTL_DAYS", 1, 30),
   authRateLimitMax: parseBoundedInteger(process.env.AUTH_RATE_LIMIT_MAX, 10, "AUTH_RATE_LIMIT_MAX", 1, 100),
   corsOrigins: (process.env.CORS_ORIGIN ?? "http://localhost:5500,http://127.0.0.1:5500")

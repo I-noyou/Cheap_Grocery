@@ -177,6 +177,20 @@ body {
     margin: 0;
 }
 
+.nearby-stores {
+    margin-top: 1rem;
+    text-align: left;
+}
+
+.nearby-stores h2 {
+    margin-bottom: 0.5rem;
+}
+
+.nearby-stores ul {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
 .location-actions {
     display: flex;
     justify-content: center;

@@ -2,12 +2,13 @@ import { app } from "./app.js";
 import { env } from "./config/env.js";
 import { closeMongoClient } from "./db/mongo.js";
 import { ensureAuthIndexes } from "./db/auth-indexes.js";
+import { ensureProductIndexes } from "./db/product-indexes.js";
 import { ensureStoreIndexes } from "./db/store-indexes.js";
 
 async function startServer(): Promise<void> {
   if (env.mongoUri) {
     try {
-      await Promise.all([ensureAuthIndexes(), ensureStoreIndexes()]);
+      await Promise.all([ensureAuthIndexes(), ensureStoreIndexes(), ensureProductIndexes()]);
     } catch {
       console.error("Database initialization failed; the health endpoint will report the database as unavailable.");
     }

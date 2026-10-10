@@ -8,6 +8,7 @@ import { healthRouter } from "./routes/health.routes.js";
 import { authRouter } from "./routes/auth.routes.js";
 import { locationRouter } from "./routes/location.routes.js";
 import { storeRouter } from "./routes/store.routes.js";
+import { productRouter } from "./routes/product.routes.js";
 
 export const app = express();
 
@@ -20,5 +21,6 @@ app.use("/api/v1", healthRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1", locationRouter);
 app.use("/api/v1", storeRouter);
+app.use("/api/v1", productRouter);
 
 app.use(errorHandler);

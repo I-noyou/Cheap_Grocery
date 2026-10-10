@@ -7,7 +7,9 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc -p tsconfig.json",
     "start": "node dist/server.js",
-    "typecheck": "tsc --noEmit -p tsconfig.json"
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "seed:products": "tsx src/scripts/seed-products.ts",
+    "seed:products:dry-run": "tsx src/scripts/seed-products.ts --dry-run"
   },
   "dependencies": {
     "cors": "^2.8.6",

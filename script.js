@@ -3141,6 +3141,45 @@ document.addEventListener("DOMContentLoaded", () => {
         };
     }
 
+    function normalizeVariantText(value) {
+        return String(value || "").trim().replace(/\s+/g, " ").toLowerCase();
+    }
+
+    function normalizeVariantPackage(label) {
+        const normalizedLabel = String(label || "").trim().replace(/\s+/g, " ");
+        const match = normalizedLabel.match(/^(?:(\d+)\s*[x×]\s*)?(\d+(?:\.\d+)?)\s*(kg|kilograms?|g|grams?|l|lit(?:re|er)s?|ml|millilit(?:re|er)s?|packs?|pieces?|piece|count)$/i);
+        if (!match) return null;
+
+        const quantity = Number(match[2]) * Number(match[1] || 1);
+        const unit = match[3].toLowerCase();
+        if (!Number.isFinite(quantity) || quantity <= 0) return null;
+        if (unit === "kg" || unit === "kilogram" || unit === "kilograms") {
+            return { quantity: Number((quantity * 1000).toFixed(6)), unit: "g" };
+        }
+        if (unit === "l" || unit === "litre" || unit === "litres" || unit === "liter" || unit === "liters") {
+            return { quantity: Number((quantity * 1000).toFixed(6)), unit: "ml" };
+        }
+        if (unit === "g" || unit === "gram" || unit === "grams") return { quantity, unit: "g" };
+        if (unit === "ml" || unit === "millilitre" || unit === "millilitres" || unit === "milliliter" || unit === "milliliters") return { quantity, unit: "ml" };
+        return { quantity, unit: "count" };
+    }
+
+    function slugifyCatalogKey(value) {
+        return String(value || "").toLowerCase().trim().replace(/['’]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").replace(/-+/g, "-") || "product";
+    }
+
+    function createStableVariantId(catalogKey, variety, brand, weight) {
+        const packageValue = normalizeVariantPackage(weight && weight.label);
+        if (!packageValue) return null;
+        return `variant-${[
+            `prod-${slugifyCatalogKey(catalogKey)}`,
+            normalizeVariantText(variety && variety.name) || "none",
+            normalizeVariantText(brand && brand.name) || "none",
+            packageValue.quantity,
+            packageValue.unit
+        ].map((part) => encodeURIComponent(String(part))).join("~")}`;
+    }
+
     function formatCatalogProductName(selection) {
         if (!selection) return "Product";
         if (selection.catalog.modalProductName) return selection.catalog.modalProductName;
@@ -3440,7 +3479,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const productType = product.type || product.variety || "";
         const packageSize = product.size || product.weight || "";
         const existing = selectedProducts.find((item) => (
-            item.product === product.product &&
+            (product.variantId ? item.variantId === product.variantId : item.product === product.product) &&
             (item.type || item.variety || "") === productType &&
             item.brand === product.brand &&
             (item.size || item.weight || "") === packageSize &&
@@ -3453,6 +3492,7 @@ document.addEventListener("DOMContentLoaded", () => {
             selectedProducts.push({
                 imageSrc: product.imageSrc,
                 imageAlt: product.imageAlt,
+                variantId: product.variantId,
                 name: product.product,
                 product: product.product,
                 variety: product.variety,
@@ -3531,6 +3571,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     imageSrc: image.src,
                     imageAlt: image.alt,
                     product: selection.catalog.productName,
+                    variantId: createStableVariantId(selection.catalogKey, selection.variety, selection.brand, selection.weight),
                     variety: selection.variety ? selection.variety.name : "",
                     type: selection.variety ? selection.variety.name : "",
                     brand: selection.brand ? selection.brand.name : "",

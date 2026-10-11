@@ -5,13 +5,19 @@ import vm from "node:vm";
 
 import { closeMongoClient, getDatabase } from "../db/mongo.js";
 import { ensureProductIndexes } from "../db/product-indexes.js";
+import { ensureProductVariantIndexes } from "../db/product-variant-indexes.js";
 import { normalizeProductSeed } from "../services/product.service.js";
+import { normalizeVariantSeed, upsertProductVariant } from "../services/product-variant.service.js";
 
 interface SeedSummary {
   inserted: number;
   updated: number;
   skipped: number;
   failed: number;
+  variantsInserted: number;
+  variantsUpdated: number;
+  variantsSkipped: number;
+  variantsFailed: number;
 }
 
 function findMatchingBrace(source: string, startIndex: number): number {
@@ -110,7 +116,10 @@ async function parseLegacyCatalog(): Promise<Record<string, Record<string, unkno
 
 async function runSeed(dryRun: boolean): Promise<SeedSummary> {
   const catalog = await parseLegacyCatalog();
-  const summary: SeedSummary = { inserted: 0, updated: 0, skipped: 0, failed: 0 };
+  const summary: SeedSummary = {
+    inserted: 0, updated: 0, skipped: 0, failed: 0,
+    variantsInserted: 0, variantsUpdated: 0, variantsSkipped: 0, variantsFailed: 0
+  };
 
   if (dryRun) {
     for (const [legacyKey, value] of Object.entries(catalog)) {
@@ -126,6 +135,26 @@ async function runSeed(dryRun: boolean): Promise<SeedSummary> {
       }
 
       summary.inserted += 1;
+      const varieties: unknown[] = Array.isArray(value.varieties) ? value.varieties : [];
+      for (const variety of varieties) {
+        if (!variety || typeof variety !== "object") continue;
+        const varietyRecord = variety as Record<string, unknown>;
+        const brands: unknown[] = Array.isArray(varietyRecord.brands) ? varietyRecord.brands : [];
+        for (const brand of brands) {
+          if (!brand || typeof brand !== "object") continue;
+          const brandRecord = brand as Record<string, unknown>;
+          const weights: unknown[] = Array.isArray(brandRecord.weights) ? brandRecord.weights : [];
+          for (const weight of weights) {
+            const weightRecord = weight && typeof weight === "object" ? weight as Record<string, unknown> : {};
+            const packageLabel = typeof weightRecord.label === "string" ? weightRecord.label : "";
+            if (normalizeVariantSeed(normalized.productId, varietyRecord.name, brandRecord.name, packageLabel)) {
+              summary.variantsInserted += 1;
+            } else {
+              summary.variantsFailed += 1;
+            }
+          }
+        }
+      }
     }
     return summary;
   }
@@ -181,6 +210,37 @@ async function runSeed(dryRun: boolean): Promise<SeedSummary> {
       } else {
         summary.inserted += 1;
       }
+
+      const varieties: unknown[] = Array.isArray(value.varieties) ? value.varieties : [];
+      for (const variety of varieties) {
+        if (!variety || typeof variety !== "object") continue;
+        const varietyRecord = variety as Record<string, unknown>;
+        const brands: unknown[] = Array.isArray(varietyRecord.brands) ? varietyRecord.brands : [];
+        for (const brand of brands) {
+          if (!brand || typeof brand !== "object") continue;
+          const brandRecord = brand as Record<string, unknown>;
+          const weights: unknown[] = Array.isArray(brandRecord.weights) ? brandRecord.weights : [];
+          for (const weight of weights) {
+            const weightRecord = weight && typeof weight === "object" ? weight as Record<string, unknown> : {};
+            const packageLabel = typeof weightRecord.label === "string" ? weightRecord.label : "";
+            const variant = normalizeVariantSeed(normalized.productId, varietyRecord.name, brandRecord.name, packageLabel);
+            if (!variant) {
+              summary.variantsFailed += 1;
+              console.error(`Failed to normalize variant ${legacyKey}/${String(varietyRecord.name)}/${String(brandRecord.name)}/${packageLabel}`);
+              continue;
+            }
+            try {
+              const result = await upsertProductVariant(variant);
+              if (result === "inserted") summary.variantsInserted += 1;
+              else if (result === "updated") summary.variantsUpdated += 1;
+              else summary.variantsSkipped += 1;
+            } catch (error) {
+              summary.variantsFailed += 1;
+              console.error(`Failed to seed variant ${variant.variantId}:`, error instanceof Error ? error.message : error);
+            }
+          }
+        }
+      }
     } catch (error) {
       summary.failed += 1;
       console.error(`Failed to seed ${legacyKey}:`, error instanceof Error ? error.message : error);
@@ -195,7 +255,7 @@ async function main(): Promise<void> {
 
   try {
     if (!dryRun) {
-      await ensureProductIndexes();
+      await Promise.all([ensureProductIndexes(), ensureProductVariantIndexes()]);
     }
     const summary = await runSeed(dryRun);
     console.log(JSON.stringify({ dryRun, summary }, null, 2));

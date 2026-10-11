@@ -4,7 +4,7 @@ Cheap Grocery is a grocery discovery and shopping helper with a vanilla HTML/CSS
 
 ## Current backend status
 
-This repository is in Phase 4: Product Catalog Architecture.
+This repository includes Phase 4: Product Catalog Architecture and Phase 5: Exact Product Variant System.
 
 ### Product catalog model
 
@@ -21,6 +21,9 @@ Base URL: `/api/v1`
 - `GET /api/v1/products?page=1&limit=20`
 - `GET /api/v1/products/:productId`
 - `GET /api/v1/products/search?q=rice&limit=10`
+- `GET /api/v1/products/:productId/variants?limit=20`
+- `GET /api/v1/variants/:variantId`
+- `GET /api/v1/variants/search?productId=prod-rice&brand=India%20Gate&variety=Basmati%20Rice&quantity=5000&unit=g`
 
 ### Product import
 
@@ -30,12 +33,21 @@ Use the explicit developer script:
 - `npm run seed:products`
 - `npm run seed:products:dry-run`
 
-The import reads the existing catalog from the frontend `script.js` file, normalizes it, and upserts into MongoDB without deleting existing records.
+The import reads the existing catalog from the frontend `script.js` file, normalizes it, and upserts products and variants into MongoDB without deleting existing records. It is not run automatically on server startup. The dry run validates and counts both product and variant records without connecting to MongoDB.
+
+### Variant identity and normalization
+
+- Variants are stored in the `productVariants` collection and never contain store prices or availability.
+- `variantId` is deterministic from `productId`, normalized variety, normalized brand, canonical package quantity, and canonical package unit. It is not random or array-index based.
+- Text identity matching trims and collapses whitespace and compares case-insensitively while preserving display labels.
+- Mass is stored as grams and volume as millilitres; `1 kg` equals `1000 g`, but mass and volume never match. Package display labels remain unchanged.
+- MongoDB enforces unique `variantId` and unique normalized product/variety/brand/package identity.
+- The frontend keeps its existing catalog fallback and adds `variantId` as an optional field to newly selected catalog items. Existing saved list records remain valid.
 
 ### Notes
 
 - The frontend still uses the hardcoded catalog in `script.js` as a compatibility fallback while the backend API is introduced.
-- The backend API is read-only in Phase 4 and does not create, delete, or mutate user cart or list data.
+- The backend catalog and variant APIs are read-only and do not create, delete, or mutate user cart or list data.
 - The product catalog uses the frontend catalog keys as compatibility categories because the original catalog did not contain a separate category taxonomy.
 
 ## Project layout

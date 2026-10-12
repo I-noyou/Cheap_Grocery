@@ -23,7 +23,7 @@ export interface PublicStore {
   distanceKm?: number;
 }
 
-function serializeStore(store: StoreDocument, distanceKm?: number): PublicStore {
+export function serializePublicStore(store: StoreDocument, distanceKm?: number): PublicStore {
   const [longitude, latitude] = store.location.coordinates;
   return {
     id: store._id.toHexString(),
@@ -32,6 +32,15 @@ function serializeStore(store: StoreDocument, distanceKm?: number): PublicStore 
     location: { latitude, longitude },
     ...(distanceKm === undefined ? {} : { distanceKm })
   };
+}
+
+export async function getActiveStoreById(storeId: string): Promise<PublicStore | null> {
+  const database = await getDatabase();
+  const store = await database.collection<StoreDocument>("stores").findOne(
+    { _id: new ObjectId(storeId), isActive: true },
+    { projection: { name: 1, address: 1, location: 1 } }
+  );
+  return store ? serializePublicStore(store) : null;
 }
 
 export async function createStore(input: StoreInput): Promise<PublicStore> {
@@ -50,7 +59,7 @@ export async function createStore(input: StoreInput): Promise<PublicStore> {
   };
 
   await database.collection<StoreDocument>("stores").insertOne(store);
-  return serializeStore(store);
+  return serializePublicStore(store);
 }
 
 export async function listActiveStores(): Promise<PublicStore[]> {
@@ -59,7 +68,7 @@ export async function listActiveStores(): Promise<PublicStore[]> {
     .find({ isActive: true }, { projection: { name: 1, address: 1, location: 1 } })
     .sort({ name: 1 })
     .toArray();
-  return stores.map((store) => serializeStore(store));
+  return stores.map((store) => serializePublicStore(store));
 }
 
 export async function findNearbyStores(
@@ -84,5 +93,5 @@ export async function findNearbyStores(
     { $project: { name: 1, address: 1, location: 1, distanceMeters: 1 } }
   ]).toArray();
 
-  return stores.map((store) => serializeStore(store, Number((store.distanceMeters / 1000).toFixed(2))));
+  return stores.map((store) => serializePublicStore(store, Number((store.distanceMeters / 1000).toFixed(2))));
 }

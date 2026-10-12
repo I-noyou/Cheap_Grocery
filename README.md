@@ -4,7 +4,7 @@ Cheap Grocery is a grocery discovery and shopping helper with a vanilla HTML/CSS
 
 ## Current backend status
 
-This repository includes Phase 4: Product Catalog Architecture and Phase 5: Exact Product Variant System.
+This repository includes Phase 4: Product Catalog Architecture, Phase 5: Exact Product Variant System, and Phase 6: Store Inventory & Availability.
 
 ### Product catalog model
 
@@ -24,6 +24,8 @@ Base URL: `/api/v1`
 - `GET /api/v1/products/:productId/variants?limit=20`
 - `GET /api/v1/variants/:variantId`
 - `GET /api/v1/variants/search?productId=prod-rice&brand=India%20Gate&variety=Basmati%20Rice&quantity=5000&unit=g`
+- `GET /api/v1/stores/:storeId/inventory`
+- `GET /api/v1/variants/:variantId/availability`
 
 ### Product import
 
@@ -48,7 +50,24 @@ The import reads the existing catalog from the frontend `script.js` file, normal
 
 - The frontend still uses the hardcoded catalog in `script.js` as a compatibility fallback while the backend API is introduced.
 - The backend catalog and variant APIs are read-only and do not create, delete, or mutate user cart or list data.
-- The product catalog uses the frontend catalog keys as compatibility categories because the original catalog did not contain a separate category taxonomy.
+
+## Store inventory
+
+Inventory is stored in MongoDB's `inventory` collection and links a stable store ObjectId string to a stable `variantId`. Each store/variant pair has one current record with `available`, `unavailable`, or `unknown` availability. Missing records are not treated as unavailable. Records with no verification timestamp, or older than 24 hours, are marked `isStale` in read responses without being changed automatically.
+
+There is no public inventory-write endpoint. Trusted development imports use a JSON file and the explicit command:
+
+```text
+cd backend
+npm run seed:inventory -- path/to/inventory.json --dry-run
+npm run seed:inventory -- path/to/inventory.json
+```
+
+The import validates store and active variant references, availability, optional non-negative stock quantity, stock unit, source, and timestamps. It upserts on `storeId + variantId` and never deletes other records.
+
+Inventory has no frontend write or status-display integration yet. The existing product selection and grocery-list flow remains unchanged; this avoids displaying inventory state without a user-selected store context. Inventory responses contain no prices.
+
+The product catalog uses the frontend catalog keys as compatibility categories because the original catalog did not contain a separate category taxonomy.
 
 ## Project layout
 

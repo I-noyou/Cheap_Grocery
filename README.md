@@ -69,6 +69,22 @@ Inventory has no frontend write or status-display integration yet. The existing 
 
 The product catalog uses the frontend catalog keys as compatibility categories because the original catalog did not contain a separate category taxonomy.
 
+## Store prices (Phase 7)
+
+Current prices are stored separately from inventory in the `prices` collection and are unique per `storeId` and exact `variantId`. Missing prices are omitted from responses; they are never represented as zero. Price observations are append-only in `priceHistory` and include their source and observation time.
+
+Read endpoints:
+
+- `GET /api/v1/stores/:storeId/prices?page=1&limit=20`
+- `GET /api/v1/variants/:variantId/prices?limit=20`
+- `GET /api/v1/stores/:storeId/variants/:variantId/price-history?page=1&limit=50`
+
+There is no admin/operator role system yet. The write endpoint is therefore development-only and requires the `PRICE_WRITE_TOKEN` environment variable and matching `x-development-price-token` header:
+
+- `PUT /api/v1/stores/:storeId/prices/:variantId`
+
+The server validates both references, amount, ISO currency, source, date, and the exact variant package. Do not enable this development path in production. Current-price and history writes are sequential because the existing MongoDB connection lifecycle does not establish a replica-set transaction; callers should treat a history-write failure as an operational error requiring reconciliation.
+
 ## Project layout
 
 - `script.js` - existing frontend selection logic and catalog data

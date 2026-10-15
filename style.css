@@ -637,6 +637,26 @@ body.modal-open {
     min-height: 1em;
 }
 
+.price-comparison-panel {
+    margin: 18px 0;
+    padding: 14px;
+    border: 1px solid #d7f1de;
+    border-radius: 10px;
+    background: #f8fdf9;
+}
+
+.price-comparison-panel h4 { margin: 0 0 10px; color: #333; }
+.compare-prices-btn, .comparison-retry-btn { width: 100%; background: #1f8b4c; }
+.compare-prices-btn:disabled { cursor: not-allowed; opacity: 0.65; }
+.price-comparison-results { margin-top: 12px; }
+.comparison-status, .comparison-note { margin: 8px 0 0; color: #555; font-size: 14px; }
+.comparison-error { color: #b33a19; }
+.comparison-summary { margin: 0 0 10px; font-weight: bold; color: #333; }
+.comparison-store { margin-top: 10px; padding: 12px; border: 1px solid #d7d7d7; border-radius: 8px; background: #fff; }
+.comparison-store.is-lowest { border: 2px solid #1f8b4c; }
+.comparison-store h5 { margin: 0 0 8px; color: #1f6d3f; font-size: 15px; }
+.comparison-store p { margin: 4px 0; font-size: 13px; color: #444; }
+
 #modal-quantity {
     width: 100%;
     box-sizing: border-box;

@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let authMode = "signup";
     let currentUserId = null;
+    let currentLocation = null;
 
     function locationDismissalKey() {
         return currentUserId ? `cheap_grocery_location_dismissed_${currentUserId}` : null;
@@ -132,6 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (authScreen) authScreen.classList.remove("is-hidden");
         if (appShell) appShell.classList.add("is-hidden");
         currentUserId = null;
+        currentLocation = null;
     }
 
     function applyAuthMode(mode) {
@@ -218,6 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const data = await authRequest("/location", { method: "GET" });
             if (data.location) {
+                currentLocation = data.location;
                 setLocationUi("Location enabled", true);
                 if (allowLocationBtn) allowLocationBtn.innerText = "Update Location";
                 void loadNearbyStores();
@@ -267,10 +270,11 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             try {
-                await authRequest("/location", {
+                const saved = await authRequest("/location", {
                     method: "PUT",
                     body: JSON.stringify({ latitude, longitude, accuracy })
                 });
+                currentLocation = saved.location || null;
                 setLocationUi("Location enabled", true);
                 if (allowLocationBtn) allowLocationBtn.innerText = "Update Location";
                 void loadNearbyStores();
@@ -341,6 +345,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const modalSelectedBrand = document.getElementById("modal-selected-brand");
     const modalSelectedWeight = document.getElementById("modal-selected-weight");
     const modalQuantity = document.getElementById("modal-quantity");
+    const comparePricesButton = document.getElementById("compare-prices-btn");
+    const comparisonResults = document.getElementById("price-comparison-results");
 
     const selectedProductsList = document.getElementById("selected-products-list");
     const emptyCartMessage = document.getElementById("empty-cart-msg");
@@ -351,6 +357,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentProduct = null;
     let currentCatalogSelection = null;
     let selectedProducts = [];
+    let comparisonController = null;
+    let comparisonRequestId = 0;
+    let catalogProductsPromise = null;
 
     const MILK_PACKAGE_SIZES = [
         { id: "500ml", label: "500 ml", unitPrice: 32 },
@@ -3164,6 +3173,229 @@ document.addEventListener("DOMContentLoaded", () => {
         return { quantity, unit: "count" };
     }
 
+    function clearComparisonResults(message = "Select an exact catalog variant, then compare its store prices.") {
+        comparisonRequestId += 1;
+        if (comparisonController) {
+            comparisonController.abort();
+            comparisonController = null;
+        }
+        if (!comparisonResults) return;
+        comparisonResults.replaceChildren();
+        const status = document.createElement("p");
+        status.className = "comparison-status";
+        status.textContent = message;
+        comparisonResults.appendChild(status);
+    }
+
+    function setComparisonButton(loading = false) {
+        if (!comparePricesButton) return;
+        const supported = Boolean(currentCatalogSelection && currentCatalogSelection.variety && currentCatalogSelection.brand && currentCatalogSelection.weight);
+        comparePricesButton.disabled = loading || !supported;
+        comparePricesButton.textContent = loading ? "Comparing Store Prices..." : "Compare Store Prices";
+    }
+
+    function comparisonText(value) {
+        return typeof value === "string" ? value : "";
+    }
+
+    async function getCatalogProducts() {
+        if (!catalogProductsPromise) {
+            catalogProductsPromise = fetch(`${API_BASE_URL}/products?page=1&limit=50`, { credentials: "include" })
+                .then(async (response) => {
+                    const data = await response.json().catch(() => null);
+                    if (!response.ok || !data || !Array.isArray(data.products)) throw new Error("CATALOG_UNAVAILABLE");
+                    return data.products;
+                })
+                .catch((error) => {
+                    catalogProductsPromise = null;
+                    throw error;
+                });
+        }
+        return catalogProductsPromise;
+    }
+
+    async function resolveCanonicalVariant(selection) {
+        if (selection.canonicalVariantId) return selection.canonicalVariantId;
+        const packageValue = normalizeVariantPackage(selection.weight && selection.weight.label);
+        if (!packageValue) return null;
+
+        const products = await getCatalogProducts();
+        const product = products.find((item) => item && item.legacyCatalogKey === selection.catalogKey && typeof item.productId === "string");
+        if (!product) return null;
+
+        const query = new URLSearchParams({
+            productId: product.productId,
+            variety: selection.variety.name,
+            brand: selection.brand.name,
+            quantity: String(packageValue.quantity),
+            unit: packageValue.unit,
+            limit: "20"
+        });
+        const response = await fetch(`${API_BASE_URL}/variants/search?${query.toString()}`, { credentials: "include" });
+        const data = await response.json().catch(() => null);
+        if (!response.ok || !data || !Array.isArray(data.variants)) {
+            throw new Error("VARIANT_LOOKUP_FAILED");
+        }
+        const variant = data.variants.find((item) => item
+            && typeof item.variantId === "string"
+            && item.productId === product.productId
+            && item.normalizedVariety === normalizeVariantText(selection.variety.name)
+            && item.normalizedBrand === normalizeVariantText(selection.brand.name)
+            && item.package && item.package.quantity === packageValue.quantity && item.package.unit === packageValue.unit);
+        if (!variant) return null;
+        selection.canonicalVariantId = variant.variantId;
+        return variant.variantId;
+    }
+
+    function formatCurrency(amount, currency) {
+        if (typeof amount !== "number" || !Number.isFinite(amount) || typeof currency !== "string") return "Price unavailable";
+        try {
+            return new Intl.NumberFormat(undefined, { style: "currency", currency }).format(amount);
+        } catch {
+            return `${currency} ${amount.toFixed(2)}`;
+        }
+    }
+
+    function formatAddress(address) {
+        if (!address || typeof address !== "object") return "Address unavailable";
+        const parts = [address.line1, address.line2, address.city, address.state, address.postalCode, address.country]
+            .filter((part) => typeof part === "string" && part.trim());
+        return parts.length ? parts.join(", ") : "Address unavailable";
+    }
+
+    function appendComparisonLine(parent, label, value) {
+        const line = document.createElement("p");
+        const strong = document.createElement("strong");
+        strong.textContent = `${label}: `;
+        line.append(strong, document.createTextNode(value));
+        parent.appendChild(line);
+    }
+
+    function renderComparison(data, nearbyApplied) {
+        if (!comparisonResults) return;
+        comparisonResults.replaceChildren();
+        const variant = data && data.variant;
+        const prices = data && Array.isArray(data.prices) ? data.prices : [];
+        if (!data || !variant || !Array.isArray(data.prices)) {
+            renderComparisonError("The price comparison response was invalid. Please try again.");
+            return;
+        }
+        const heading = document.createElement("p");
+        heading.className = "comparison-summary";
+        heading.textContent = `${comparisonText(data.product && data.product.name) || "Product"} — ${comparisonText(variant.variety)} ${comparisonText(variant.brand)} ${comparisonText(variant.package && variant.package.displayName)}`.trim();
+        comparisonResults.appendChild(heading);
+        if (!prices.length) {
+            const empty = document.createElement("p");
+            empty.className = "comparison-status";
+            empty.textContent = comparisonText(data.message) || "No eligible prices are available for this variant.";
+            comparisonResults.appendChild(empty);
+        } else {
+            prices.forEach((price, index) => {
+                const card = document.createElement("article");
+                card.className = "comparison-store";
+                if (index === 0) card.classList.add("is-lowest");
+                const title = document.createElement("h5");
+                title.textContent = `${index === 0 ? (nearbyApplied ? "Lowest eligible price nearby — " : "Lowest recorded eligible price — ") : ""}${comparisonText(price.store && price.store.name) || "Store"}`;
+                card.appendChild(title);
+                appendComparisonLine(card, "Price", formatCurrency(price.amount, price.currency));
+                appendComparisonLine(card, "Package", comparisonText(price.priceUnit && price.priceUnit.displayName) || "Package unavailable");
+                appendComparisonLine(card, "Address", formatAddress(price.store && price.store.address));
+                appendComparisonLine(card, "Availability", price.inventory && price.inventory.availability === "available" ? "Available" : price.inventory && price.inventory.availability === "unavailable" ? "Unavailable" : "Availability unknown");
+                appendComparisonLine(card, "Price source", comparisonText(price.source) || "Unknown");
+                appendComparisonLine(card, "Observed", price.observedAt ? new Date(price.observedAt).toLocaleString() : "Unknown");
+                appendComparisonLine(card, "Freshness", price.freshness === "fresh" && typeof price.ageDays === "number" ? `Fresh (${price.ageDays} days old)` : "Stale or unknown");
+                if (price.inventory && price.inventory.isStale) appendComparisonLine(card, "Inventory verification", "Stale");
+                if (typeof price.distanceKm === "number") appendComparisonLine(card, "Distance", `${price.distanceKm.toFixed(2)} km`);
+                if (typeof price.savingsVersusHighestPrice === "number" && price.savingsVersusHighestPrice > 0) appendComparisonLine(card, "Difference from highest eligible price", formatCurrency(price.savingsVersusHighestPrice, price.currency));
+                comparisonResults.appendChild(card);
+            });
+        }
+        if (data.excluded && Array.isArray(data.excluded.currencies) && data.excluded.currencies.length) {
+            const excluded = document.createElement("p");
+            excluded.className = "comparison-note";
+            excluded.textContent = `Prices in other currencies were excluded: ${data.excluded.currencies.join(", ")}.`;
+            comparisonResults.appendChild(excluded);
+        }
+        if (!nearbyApplied) {
+            const locationNote = document.createElement("p");
+            locationNote.className = "comparison-note";
+            locationNote.textContent = "Showing store-wide results because no saved location is available.";
+            comparisonResults.appendChild(locationNote);
+        }
+    }
+
+    function renderComparisonError(message, retry = true) {
+        if (!comparisonResults) return;
+        comparisonResults.replaceChildren();
+        const status = document.createElement("p");
+        status.className = "comparison-status comparison-error";
+        status.textContent = message;
+        comparisonResults.appendChild(status);
+        if (retry) {
+            const retryButton = document.createElement("button");
+            retryButton.type = "button";
+            retryButton.className = "comparison-retry-btn";
+            retryButton.textContent = "Retry comparison";
+            retryButton.addEventListener("click", () => void requestPriceComparison());
+            comparisonResults.appendChild(retryButton);
+        }
+    }
+
+    async function requestPriceComparison() {
+        const selection = currentCatalogSelection;
+        if (!selection || !selection.variety || !selection.brand || !selection.weight || comparisonController) return;
+        clearComparisonResults("Finding the exact catalog variant...");
+        const requestId = ++comparisonRequestId;
+        const controller = new AbortController();
+        let timedOut = false;
+        const timeoutId = window.setTimeout(() => {
+            timedOut = true;
+            controller.abort();
+        }, 15000);
+        comparisonController = controller;
+        setComparisonButton(true);
+        try {
+            const variantId = await resolveCanonicalVariant(selection);
+            if (requestId !== comparisonRequestId || controller.signal.aborted) return;
+            if (!variantId) {
+                renderComparisonError("This product variant is not yet linked to the comparison catalog.", false);
+                return;
+            }
+            const params = new URLSearchParams({ page: "1", limit: "20" });
+            const nearbyApplied = currentLocation && isValidLocation(currentLocation.latitude, currentLocation.longitude);
+            if (nearbyApplied) {
+                params.set("latitude", String(currentLocation.latitude));
+                params.set("longitude", String(currentLocation.longitude));
+            }
+            if (comparisonResults) comparisonResults.querySelector(".comparison-status").textContent = "Comparing store prices...";
+            const response = await fetch(`${API_BASE_URL}/variants/${encodeURIComponent(variantId)}/price-comparison?${params.toString()}`, { credentials: "include", signal: controller.signal });
+            const data = await response.json().catch(() => null);
+            if (requestId !== comparisonRequestId || controller.signal.aborted) return;
+            if (!response.ok) {
+                renderComparisonError(response.status >= 500 ? "Price comparison is temporarily unavailable. Please try again." : "Unable to compare this product variant. Please try again.");
+                return;
+            }
+            renderComparison(data, Boolean(nearbyApplied));
+        } catch (error) {
+            if (requestId === comparisonRequestId && (!controller.signal.aborted || timedOut)) {
+                const message = error instanceof Error && error.message === "CATALOG_UNAVAILABLE"
+                    ? "The comparison catalog could not be reached. Please try again."
+                    : error instanceof Error && error.message === "VARIANT_LOOKUP_FAILED"
+                        ? "The exact product variant could not be verified. Please try again."
+                        : timedOut
+                            ? "The price comparison request timed out. Please try again."
+                        : "The price comparison service could not be reached. Please check your connection and retry.";
+                renderComparisonError(message);
+            }
+        } finally {
+            window.clearTimeout(timeoutId);
+            if (requestId === comparisonRequestId) {
+                comparisonController = null;
+                setComparisonButton(false);
+            }
+        }
+    }
+
     function slugifyCatalogKey(value) {
         return String(value || "").toLowerCase().trim().replace(/['’]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").replace(/-+/g, "-") || "product";
     }
@@ -3269,6 +3501,9 @@ document.addEventListener("DOMContentLoaded", () => {
             currentCatalogSelection.variety = variety;
             currentCatalogSelection.brand = variety.brands[0] || null;
             currentCatalogSelection.weight = currentCatalogSelection.brand && currentCatalogSelection.brand.weights ? currentCatalogSelection.brand.weights[0] : null;
+            currentCatalogSelection.canonicalVariantId = null;
+            clearComparisonResults();
+            setComparisonButton();
             renderCatalogVariantSteps();
             syncCatalogModalDisplay();
         });
@@ -3278,6 +3513,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const selectedWeightId = currentCatalogSelection.weight ? currentCatalogSelection.weight.id : null;
             currentCatalogSelection.brand = brand;
             currentCatalogSelection.weight = brand.weights.find((weight) => weight.id === selectedWeightId) || brand.weights[0] || null;
+            currentCatalogSelection.canonicalVariantId = null;
+            clearComparisonResults();
+            setComparisonButton();
             renderCatalogVariantSteps();
             syncCatalogModalDisplay();
         });
@@ -3285,6 +3523,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const weights = selection.brand ? selection.brand.weights : [];
         renderVariantOptions(modalWeightList, weights, selection.weight ? selection.weight.id : null, (weight) => {
             currentCatalogSelection.weight = weight;
+            currentCatalogSelection.canonicalVariantId = null;
+            clearComparisonResults();
+            setComparisonButton();
             renderCatalogVariantSteps();
             syncCatalogModalDisplay();
         });
@@ -3304,6 +3545,8 @@ document.addEventListener("DOMContentLoaded", () => {
             catalogVariantSteps.classList.remove("is-hidden");
         }
 
+        clearComparisonResults();
+        setComparisonButton();
         renderCatalogVariantSteps();
         syncCatalogModalDisplay();
     }
@@ -3349,6 +3592,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (modalQuantity) {
             modalQuantity.value = "1";
         }
+        clearComparisonResults("This product is not yet linked to the comparison catalog.");
+        setComparisonButton();
     }
 
     function saveToStorage() {
@@ -3571,7 +3816,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     imageSrc: image.src,
                     imageAlt: image.alt,
                     product: selection.catalog.productName,
-                    variantId: createStableVariantId(selection.catalogKey, selection.variety, selection.brand, selection.weight),
+                    variantId: selection.canonicalVariantId,
                     variety: selection.variety ? selection.variety.name : "",
                     type: selection.variety ? selection.variety.name : "",
                     brand: selection.brand ? selection.brand.name : "",
@@ -3601,6 +3846,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (closeModalButton) {
         closeModalButton.addEventListener("click", closeModal);
+    }
+
+    if (comparePricesButton) {
+        comparePricesButton.addEventListener("click", () => void requestPriceComparison());
     }
 
     if (modal) {

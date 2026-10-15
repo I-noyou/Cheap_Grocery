@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { isPriceSource, isValidVariantId } from "../src/services/price.service.js";
+import { isPriceSource, isValidVariantId, selectComparisonCurrency } from "../src/services/price.service.js";
 
 test("accepts only supported price sources", () => {
   assert.equal(isPriceSource("manual"), true);
@@ -16,4 +16,10 @@ test("rejects malformed variant identifiers", () => {
   assert.equal(isValidVariantId(""), false);
   assert.equal(isValidVariantId("variant/a"), false);
   assert.equal(isValidVariantId("x".repeat(501)), false);
+});
+
+test("selects one currency deterministically without numeric cross-currency comparison", () => {
+  assert.equal(selectComparisonCurrency([{ currency: "USD" }, { currency: "INR" }, { currency: "INR" }]), "INR");
+  assert.equal(selectComparisonCurrency([{ currency: "USD" }, { currency: "INR" }]), "INR");
+  assert.equal(selectComparisonCurrency([]), null);
 });

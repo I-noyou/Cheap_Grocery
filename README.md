@@ -78,6 +78,11 @@ Read endpoints:
 - `GET /api/v1/stores/:storeId/prices?page=1&limit=20`
 - `GET /api/v1/variants/:variantId/prices?limit=20`
 - `GET /api/v1/stores/:storeId/variants/:variantId/price-history?page=1&limit=50`
+- `GET /api/v1/variants/:variantId/price-comparison?page=1&limit=20&maxAgeDays=7`
+
+The comparison endpoint reads only current prices for the requested exact variant. It excludes non-positive, invalid-currency, mismatched-package, and stale observations (the default maximum age is seven days; `maxAgeDays` accepts 1–365). Results are sorted by amount and then store name and ID. Savings are the difference from the highest eligible price in the selected comparison currency and are not guaranteed savings. If multiple currencies are present, the currency with the most eligible records is selected (ties use currency code order); other currencies are excluded and listed in the response.
+
+Inventory is queried separately and is returned as `available`, `unavailable`, or `unknown`; a missing inventory record remains unknown and a price never implies stock. Supplying `latitude` and `longitude` together enables the existing GeoJSON/2dsphere nearby-store filter. `radiusKm` is optional and defaults to 5 km when coordinates are supplied, with a 0.5–50 km bound. Without coordinates, no distance is calculated or inferred.
 
 There is no admin/operator role system yet. The write endpoint is therefore development-only and requires the `PRICE_WRITE_TOKEN` environment variable and matching `x-development-price-token` header:
 

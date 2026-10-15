@@ -3,6 +3,8 @@ import type { Request, Response } from "express";
 import { env } from "../config/env.js";
 import {
   PRICE_MAX_LIMIT,
+  COMPARISON_MAX_AGE_DAYS,
+  comparePricesForVariant,
   isPriceSource,
   isValidVariantId,
   listPriceHistory,
@@ -75,6 +77,7 @@ export async function getVariantPrices(request: Request, response: Response): Pr
     response.status(400).json({ error: "A valid variantId and limit are required." });
     return;
   }
+
   try {
     if (!(await getVariantById(variantId))) {
       response.status(404).json({ error: "Variant not found." });
@@ -84,6 +87,68 @@ export async function getVariantPrices(request: Request, response: Response): Pr
     response.status(200).json({ variantId, prices, count: prices.length, limit });
   } catch {
     response.status(503).json({ error: "Price service is unavailable." });
+  }
+}
+
+export async function getVariantPriceComparison(request: Request, response: Response): Promise<void> {
+  const variantId = readSingle(request.params.variantId);
+  if (!variantId || !isValidVariantId(variantId)) {
+    response.status(400).json({ error: "A valid variantId is required." });
+    return;
+  }
+
+  const radiusValue = readSingle(request.query.radiusKm);
+  const latitudeValue = readSingle(request.query.latitude);
+  const longitudeValue = readSingle(request.query.longitude);
+  const maxAgeValue = readSingle(request.query.maxAgeDays);
+  const page = readPositiveInteger(request.query.page, 1);
+  const limit = readPositiveInteger(request.query.limit, 20);
+  const radiusKm = radiusValue === undefined ? undefined : Number(radiusValue);
+  const latitude = latitudeValue === undefined ? undefined : Number(latitudeValue);
+  const longitude = longitudeValue === undefined ? undefined : Number(longitudeValue);
+  const maxAgeDays = maxAgeValue === undefined ? 7 : Number(maxAgeValue);
+
+  if (page === null || limit === null) {
+    response.status(400).json({ error: "page and limit must be positive bounded integers." });
+    return;
+  }
+  if (maxAgeValue !== undefined && (!Number.isInteger(maxAgeDays) || maxAgeDays < 1 || maxAgeDays > COMPARISON_MAX_AGE_DAYS)) {
+    response.status(400).json({ error: `maxAgeDays must be an integer between 1 and ${COMPARISON_MAX_AGE_DAYS}.` });
+    return;
+  }
+  const hasLatitude = latitudeValue !== undefined;
+  const hasLongitude = longitudeValue !== undefined;
+  if (hasLatitude !== hasLongitude) {
+    response.status(400).json({ error: "latitude and longitude must be supplied together." });
+    return;
+  }
+  if (hasLatitude && (!Number.isFinite(latitude) || latitude! < -90 || latitude! > 90
+    || !Number.isFinite(longitude) || longitude! < -180 || longitude! > 180)) {
+    response.status(400).json({ error: "latitude or longitude is outside its valid range." });
+    return;
+  }
+  if (radiusValue !== undefined && (!hasLatitude || !Number.isFinite(radiusKm) || radiusKm! < 0.5 || radiusKm! > 50)) {
+    response.status(400).json({ error: "radiusKm requires coordinates and must be between 0.5 and 50." });
+    return;
+  }
+
+  try {
+    const comparison = await comparePricesForVariant(variantId, {
+      ...(radiusKm === undefined ? {} : { radiusKm }),
+      ...(latitude !== undefined && radiusKm === undefined ? { radiusKm: 5 } : {}),
+      ...(latitude === undefined ? {} : { latitude }),
+      ...(longitude === undefined ? {} : { longitude }),
+      maxAgeDays,
+      page,
+      limit
+    });
+    if (!comparison) {
+      response.status(404).json({ error: "Variant not found." });
+      return;
+    }
+    response.status(200).json(comparison);
+  } catch {
+    response.status(503).json({ error: "Price comparison service is unavailable." });
   }
 }
 

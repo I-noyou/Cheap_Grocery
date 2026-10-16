@@ -3451,11 +3451,57 @@ document.addEventListener("DOMContentLoaded", () => {
             && price.inventory.availability === "available" && price.inventory.isStale === false);
     }
 
-    function renderBasketComparison(entries, excluded) {
+    const BASKET_COMPARISON_PAGE_SIZE = 100;
+    const BASKET_COMPARISON_MAX_PAGES = 10;
+
+    async function fetchBasketComparisonPages(entry, baseParams, signal) {
+        const fetchPage = async (page) => {
+            const params = new URLSearchParams(baseParams);
+            params.set("page", String(page));
+            params.set("limit", String(BASKET_COMPARISON_PAGE_SIZE));
+            const response = await fetch(`${API_BASE_URL}/variants/${encodeURIComponent(entry.variantId)}/price-comparison?${params.toString()}`, { credentials: "include", signal });
+            const data = await response.json().catch(() => null);
+            if (!response.ok || !data || data.variantId !== entry.variantId || !Array.isArray(data.prices)
+                || !Number.isInteger(data.count) || data.count < 0) {
+                throw new Error(response.status >= 500 ? "COMPARISON_UNAVAILABLE" : "INVALID_COMPARISON_RESPONSE");
+            }
+            return data;
+        };
+        const firstPage = await fetchPage(1);
+        const requiredPages = Math.ceil(firstPage.count / BASKET_COMPARISON_PAGE_SIZE);
+        const pagesToFetch = Math.min(requiredPages, BASKET_COMPARISON_MAX_PAGES);
+        const seenPages = new Set([1]);
+        const seenStores = new Set();
+        const prices = [];
+        const addPrices = (pagePrices) => {
+            pagePrices.forEach((price) => {
+                const storeId = price && price.store && price.store.id;
+                if (typeof storeId !== "string" || seenStores.has(storeId)) return;
+                seenStores.add(storeId);
+                prices.push(price);
+            });
+        };
+        addPrices(firstPage.prices);
+        for (let page = 2; page <= pagesToFetch; page += 1) {
+            if (seenPages.has(page)) throw new Error("INVALID_COMPARISON_RESPONSE");
+            seenPages.add(page);
+            const data = await fetchPage(page);
+            addPrices(data.prices);
+        }
+        const expectedResults = Math.min(firstPage.count, BASKET_COMPARISON_MAX_PAGES * BASKET_COMPARISON_PAGE_SIZE);
+        return {
+            data: firstPage,
+            prices,
+            paginationIncomplete: requiredPages > BASKET_COMPARISON_MAX_PAGES || prices.length < expectedResults
+        };
+    }
+
+    function renderBasketComparison(entries, excluded, requiredItemCount, paginationIncomplete = false) {
         if (!basketComparisonResults) return;
         basketComparisonResults.replaceChildren();
         const completeStores = new Map();
         entries.forEach((entry) => {
+            if (!entry.data) return;
             entry.prices.forEach((price) => {
                 if (!isEligibleBasketPrice(entry.data, price)) return;
                 const storeId = price.store.id;
@@ -3465,21 +3511,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 completeStores.set(storeId, candidate);
             });
         });
-        const complete = [...completeStores.values()].filter((store) => store.items.size === entries.length)
+        const complete = [...completeStores.values()].filter((store) => store.items.size === requiredItemCount && excluded.length === 0)
             .map((store) => ({ ...store, total: [...store.items.entries()].reduce((sum, [variantId, price]) => sum + price.amount * entries.find((entry) => entry.variantId === variantId).quantity, 0) }))
             .sort((a, b) => a.total - b.total || String(a.store.name || "").localeCompare(String(b.store.name || "")));
 
         if (complete.length) {
             const summary = document.createElement("p");
             summary.className = "comparison-summary";
-            summary.textContent = "Complete basket totals (only verified available items):";
+            summary.textContent = paginationIncomplete
+                ? "Complete basket totals for the evaluated stores (store coverage limited):"
+                : "Complete basket totals (only verified available items):";
             basketComparisonResults.appendChild(summary);
             complete.forEach((store, index) => {
                 const card = document.createElement("article");
                 card.className = "comparison-store";
-                if (index === 0) card.classList.add("is-lowest");
+                if (index === 0 && !paginationIncomplete) card.classList.add("is-lowest");
                 const title = document.createElement("h5");
                 title.textContent = `${index === 0 ? "Lowest complete basket — " : ""}${store.store.name}`;
+                if (index === 0 && paginationIncomplete) title.textContent = String(store.store.name || "Store");
                 card.appendChild(title);
                 entries.forEach((entry) => {
                     const price = store.items.get(entry.variantId);
@@ -3490,12 +3539,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 basketComparisonResults.appendChild(card);
             });
         } else {
-            appendBasketStatus("No complete basket total is available. A store needs a fresh exact price and a current available inventory record for every linked item.");
+            appendBasketStatus("No complete basket total is available. Every required item needs a fresh exact price and a current available inventory record at the same store and currency.");
             const partialHeading = document.createElement("p");
             partialHeading.className = "comparison-summary";
             partialHeading.textContent = "Eligible store-item prices (partial; not a basket total):";
             basketComparisonResults.appendChild(partialHeading);
             entries.forEach((entry) => {
+                if (!entry.data) return;
                 entry.prices.filter((price) => isEligibleBasketPrice(entry.data, price)).forEach((price) => {
                     const line = document.createElement("p");
                     line.className = "comparison-note";
@@ -3517,6 +3567,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 list.appendChild(row);
             });
             basketComparisonResults.appendChild(list);
+        }
+        if (paginationIncomplete) {
+            const pageNote = document.createElement("p");
+            pageNote.className = "comparison-note";
+            pageNote.textContent = `Only the first ${BASKET_COMPARISON_MAX_PAGES * BASKET_COMPARISON_PAGE_SIZE} eligible stores per item were evaluated. Totals shown are not a lowest-basket claim.`;
+            basketComparisonResults.appendChild(pageNote);
         }
         const note = document.createElement("p");
         note.className = "comparison-note";
@@ -3569,34 +3625,36 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!entries.length) {
                 if (basketComparisonResults) basketComparisonResults.replaceChildren();
                 appendBasketStatus(excluded.length ? "No list items have verified canonical variants yet." : "Add items to your list before comparing basket prices.");
-                if (excluded.length) renderBasketComparison([], excluded);
+                if (excluded.length) renderBasketComparison([], excluded, excluded.length);
                 return;
             }
-            const params = new URLSearchParams({ page: "1", limit: "100" });
+            const requiredItemCount = entries.length + excluded.length;
+            const params = new URLSearchParams();
             if (currentLocation && isValidLocation(currentLocation.latitude, currentLocation.longitude)) {
                 params.set("latitude", String(currentLocation.latitude));
                 params.set("longitude", String(currentLocation.longitude));
             }
             const responses = await Promise.all(entries.map(async (entry) => {
-                const response = await fetch(`${API_BASE_URL}/variants/${encodeURIComponent(entry.variantId)}/price-comparison?${params.toString()}`, { credentials: "include", signal: controller.signal });
-                const data = await response.json().catch(() => null);
-                return { entry, response, data };
+                try {
+                    return { entry, ...(await fetchBasketComparisonPages(entry, params, controller.signal)) };
+                } catch (error) {
+                    return { entry, error };
+                }
             }));
             if (requestId !== basketComparisonRequestId || controller.signal.aborted) return;
-            const validEntries = [];
-            responses.forEach(({ entry, response, data }) => {
-                if (!response.ok || !data || data.variantId !== entry.variantId || !Array.isArray(data.prices)) {
-                    excluded.push({ label: entry.label, reason: response.status >= 500 ? "price comparison is temporarily unavailable" : "no valid price-comparison response" });
-                    return;
+            const comparisonEntries = responses.map(({ entry, data, prices, paginationIncomplete, error }) => {
+                if (error || !data || !Array.isArray(prices)) {
+                    excluded.push({ label: entry.label, reason: error instanceof Error && error.message === "COMPARISON_UNAVAILABLE" ? "price comparison is temporarily unavailable" : "no valid price-comparison response" });
+                    return { ...entry, data: null, prices: [], paginationIncomplete: false };
                 }
-                validEntries.push({ ...entry, data, prices: data.prices });
+                return { ...entry, data, prices, paginationIncomplete: Boolean(paginationIncomplete) };
             });
-            validEntries.forEach((entry) => {
-                if (!entry.prices.some((price) => isEligibleBasketPrice(entry.data, price))) {
+            comparisonEntries.forEach((entry) => {
+                if (entry.data && !entry.prices.some((price) => isEligibleBasketPrice(entry.data, price))) {
                     excluded.push({ label: entry.label, reason: "no fresh exact price with a current available inventory record" });
                 }
             });
-            renderBasketComparison(validEntries, excluded);
+            renderBasketComparison(comparisonEntries, excluded, requiredItemCount, comparisonEntries.some((entry) => entry.paginationIncomplete));
         } catch (error) {
             if (requestId === basketComparisonRequestId && (!controller.signal.aborted || timedOut)) {
                 if (basketComparisonResults) basketComparisonResults.replaceChildren();

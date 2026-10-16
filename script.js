@@ -353,6 +353,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const cartPanel = document.querySelector(".cart-panel");
     const makeListBtn = document.getElementById("make-list-btn");
     const clearSelectionBtn = document.getElementById("clear-selection-btn");
+    const compareBasketButton = document.getElementById("compare-basket-btn");
+    const basketComparisonResults = document.getElementById("basket-comparison-results");
 
     let currentProduct = null;
     let currentCatalogSelection = null;
@@ -360,6 +362,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let comparisonController = null;
     let comparisonRequestId = 0;
     let catalogProductsPromise = null;
+    let basketComparisonController = null;
+    let basketComparisonRequestId = 0;
+    const legacyVariantResolutionCache = new Map();
 
     const MILK_PACKAGE_SIZES = [
         { id: "500ml", label: "500 ml", unitPrice: 32 },
@@ -3216,17 +3221,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function resolveCanonicalVariant(selection) {
         if (selection.canonicalVariantId) return selection.canonicalVariantId;
-        const packageValue = normalizeVariantPackage(selection.weight && selection.weight.label);
-        if (!packageValue) return null;
+        const variantId = await resolveExactCatalogVariant({
+            catalogKey: selection.catalogKey,
+            variety: selection.variety && selection.variety.name,
+            brand: selection.brand && selection.brand.name,
+            weight: selection.weight && selection.weight.label
+        });
+        if (variantId) selection.canonicalVariantId = variantId;
+        return variantId;
+    }
 
+    async function resolveExactCatalogVariant(item) {
+        const catalogKey = item && item.catalogKey;
+        const variety = item && item.variety;
+        const brand = item && item.brand;
+        const packageValue = normalizeVariantPackage(item && item.weight);
+        if (!catalogKey || !variety || !brand || !packageValue) return null;
+        const cacheKey = [catalogKey, normalizeVariantText(variety), normalizeVariantText(brand), packageValue.quantity, packageValue.unit].join("|");
+        if (legacyVariantResolutionCache.has(cacheKey)) return legacyVariantResolutionCache.get(cacheKey);
         const products = await getCatalogProducts();
-        const product = products.find((item) => item && item.legacyCatalogKey === selection.catalogKey && typeof item.productId === "string");
+        const product = products.find((entry) => entry && entry.legacyCatalogKey === catalogKey && typeof entry.productId === "string");
         if (!product) return null;
 
         const query = new URLSearchParams({
             productId: product.productId,
-            variety: selection.variety.name,
-            brand: selection.brand.name,
+            variety,
+            brand,
             quantity: String(packageValue.quantity),
             unit: packageValue.unit,
             limit: "20"
@@ -3239,12 +3259,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const variant = data.variants.find((item) => item
             && typeof item.variantId === "string"
             && item.productId === product.productId
-            && item.normalizedVariety === normalizeVariantText(selection.variety.name)
-            && item.normalizedBrand === normalizeVariantText(selection.brand.name)
+            && item.normalizedVariety === normalizeVariantText(variety)
+            && item.normalizedBrand === normalizeVariantText(brand)
             && item.package && item.package.quantity === packageValue.quantity && item.package.unit === packageValue.unit);
-        if (!variant) return null;
-        selection.canonicalVariantId = variant.variantId;
-        return variant.variantId;
+        const variantId = variant ? variant.variantId : null;
+        legacyVariantResolutionCache.set(cacheKey, variantId);
+        return variantId;
     }
 
     function formatCurrency(amount, currency) {
@@ -3396,20 +3416,204 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function slugifyCatalogKey(value) {
-        return String(value || "").toLowerCase().trim().replace(/['’]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").replace(/-+/g, "-") || "product";
+    function invalidateBasketComparison(message = "List changed. Compare basket prices again.") {
+        basketComparisonRequestId += 1;
+        if (basketComparisonController) {
+            basketComparisonController.abort();
+            basketComparisonController = null;
+        }
+        if (!basketComparisonResults) return;
+        basketComparisonResults.replaceChildren();
+        if (selectedProducts.length) appendBasketStatus(message);
     }
 
-    function createStableVariantId(catalogKey, variety, brand, weight) {
-        const packageValue = normalizeVariantPackage(weight && weight.label);
-        if (!packageValue) return null;
-        return `variant-${[
-            `prod-${slugifyCatalogKey(catalogKey)}`,
-            normalizeVariantText(variety && variety.name) || "none",
-            normalizeVariantText(brand && brand.name) || "none",
-            packageValue.quantity,
-            packageValue.unit
-        ].map((part) => encodeURIComponent(String(part))).join("~")}`;
+    function appendBasketStatus(message, isError = false) {
+        if (!basketComparisonResults) return;
+        const status = document.createElement("p");
+        status.className = `comparison-status${isError ? " comparison-error" : ""}`;
+        status.textContent = message;
+        basketComparisonResults.appendChild(status);
+    }
+
+    function validListQuantity(value) {
+        return Number.isInteger(value) && value > 0 && value <= 100000;
+    }
+
+    function isEligibleBasketPrice(result, price) {
+        const expectedPackage = result && result.variant && result.variant.package;
+        return Boolean(price && price.store && typeof price.store.id === "string" && price.store.id
+            && typeof price.amount === "number" && Number.isFinite(price.amount) && price.amount > 0
+            && typeof price.currency === "string" && price.currency
+            && price.freshness === "fresh"
+            && expectedPackage && price.priceUnit
+            && price.priceUnit.quantity === expectedPackage.quantity && price.priceUnit.unit === expectedPackage.unit
+            && price.inventory && price.inventory.recordPresent === true
+            && price.inventory.availability === "available" && price.inventory.isStale === false);
+    }
+
+    function renderBasketComparison(entries, excluded) {
+        if (!basketComparisonResults) return;
+        basketComparisonResults.replaceChildren();
+        const completeStores = new Map();
+        entries.forEach((entry) => {
+            entry.prices.forEach((price) => {
+                if (!isEligibleBasketPrice(entry.data, price)) return;
+                const storeId = price.store.id;
+                const candidate = completeStores.get(storeId) || { store: price.store, currency: price.currency, items: new Map() };
+                if (candidate.currency !== price.currency) return;
+                candidate.items.set(entry.variantId, price);
+                completeStores.set(storeId, candidate);
+            });
+        });
+        const complete = [...completeStores.values()].filter((store) => store.items.size === entries.length)
+            .map((store) => ({ ...store, total: [...store.items.entries()].reduce((sum, [variantId, price]) => sum + price.amount * entries.find((entry) => entry.variantId === variantId).quantity, 0) }))
+            .sort((a, b) => a.total - b.total || String(a.store.name || "").localeCompare(String(b.store.name || "")));
+
+        if (complete.length) {
+            const summary = document.createElement("p");
+            summary.className = "comparison-summary";
+            summary.textContent = "Complete basket totals (only verified available items):";
+            basketComparisonResults.appendChild(summary);
+            complete.forEach((store, index) => {
+                const card = document.createElement("article");
+                card.className = "comparison-store";
+                if (index === 0) card.classList.add("is-lowest");
+                const title = document.createElement("h5");
+                title.textContent = `${index === 0 ? "Lowest complete basket — " : ""}${store.store.name}`;
+                card.appendChild(title);
+                entries.forEach((entry) => {
+                    const price = store.items.get(entry.variantId);
+                    appendComparisonLine(card, `${entry.label} × ${entry.quantity}`, `${formatCurrency(price.amount, price.currency)} each; ${formatCurrency(price.amount * entry.quantity, price.currency)}`);
+                    appendComparisonLine(card, "Observed", price.observedAt ? new Date(price.observedAt).toLocaleString() : "Unknown");
+                });
+                appendComparisonLine(card, "Complete basket total", formatCurrency(store.total, store.currency));
+                basketComparisonResults.appendChild(card);
+            });
+        } else {
+            appendBasketStatus("No complete basket total is available. A store needs a fresh exact price and a current available inventory record for every linked item.");
+            const partialHeading = document.createElement("p");
+            partialHeading.className = "comparison-summary";
+            partialHeading.textContent = "Eligible store-item prices (partial; not a basket total):";
+            basketComparisonResults.appendChild(partialHeading);
+            entries.forEach((entry) => {
+                entry.prices.filter((price) => isEligibleBasketPrice(entry.data, price)).forEach((price) => {
+                    const line = document.createElement("p");
+                    line.className = "comparison-note";
+                    line.textContent = `${entry.label} × ${entry.quantity} at ${String(price.store.name || "Store")}: ${formatCurrency(price.amount, price.currency)} each, observed ${price.observedAt ? new Date(price.observedAt).toLocaleString() : "Unknown"}.`;
+                    basketComparisonResults.appendChild(line);
+                });
+            });
+        }
+
+        if (excluded.length) {
+            const heading = document.createElement("p");
+            heading.className = "comparison-note";
+            heading.textContent = "Excluded items:";
+            basketComparisonResults.appendChild(heading);
+            const list = document.createElement("ul");
+            excluded.forEach((item) => {
+                const row = document.createElement("li");
+                row.textContent = `${item.label}: ${item.reason}`;
+                list.appendChild(row);
+            });
+            basketComparisonResults.appendChild(list);
+        }
+        const note = document.createElement("p");
+        note.className = "comparison-note";
+        note.textContent = "Local list estimates are not used for these totals. Prices are not combined across stores or currencies.";
+        basketComparisonResults.appendChild(note);
+    }
+
+    async function requestBasketComparison() {
+        if (!compareBasketButton || basketComparisonController) return;
+        const requestId = ++basketComparisonRequestId;
+        const controller = new AbortController();
+        let timedOut = false;
+        const timeoutId = window.setTimeout(() => {
+            timedOut = true;
+            controller.abort();
+        }, 15000);
+        basketComparisonController = controller;
+        compareBasketButton.disabled = true;
+        compareBasketButton.textContent = "Comparing Basket...";
+        if (basketComparisonResults) basketComparisonResults.replaceChildren();
+        appendBasketStatus("Verifying linked variants and retrieving store prices...");
+        try {
+            const grouped = new Map();
+            const excluded = [];
+            for (const item of selectedProducts) {
+                const quantity = Number(item.quantity);
+                const label = item.product || item.name || "Product";
+                if (!validListQuantity(quantity)) {
+                    excluded.push({ label, reason: "quantity is invalid" });
+                    continue;
+                }
+                let variantId = typeof item.variantId === "string" && item.variantId ? item.variantId : null;
+                if (!variantId && item.catalogKey) {
+                    variantId = await resolveExactCatalogVariant({ catalogKey: item.catalogKey, variety: item.variety || item.type, brand: item.brand, weight: item.weight || item.size });
+                    if (variantId) {
+                        item.variantId = variantId;
+                        saveToStorage();
+                    }
+                }
+                if (!variantId) {
+                    excluded.push({ label, reason: "not linked to an unambiguous canonical variant" });
+                    continue;
+                }
+                const current = grouped.get(variantId) || { variantId, label, quantity: 0 };
+                current.quantity += quantity;
+                grouped.set(variantId, current);
+            }
+            if (requestId !== basketComparisonRequestId || controller.signal.aborted) return;
+            const entries = [...grouped.values()];
+            if (!entries.length) {
+                if (basketComparisonResults) basketComparisonResults.replaceChildren();
+                appendBasketStatus(excluded.length ? "No list items have verified canonical variants yet." : "Add items to your list before comparing basket prices.");
+                if (excluded.length) renderBasketComparison([], excluded);
+                return;
+            }
+            const params = new URLSearchParams({ page: "1", limit: "100" });
+            if (currentLocation && isValidLocation(currentLocation.latitude, currentLocation.longitude)) {
+                params.set("latitude", String(currentLocation.latitude));
+                params.set("longitude", String(currentLocation.longitude));
+            }
+            const responses = await Promise.all(entries.map(async (entry) => {
+                const response = await fetch(`${API_BASE_URL}/variants/${encodeURIComponent(entry.variantId)}/price-comparison?${params.toString()}`, { credentials: "include", signal: controller.signal });
+                const data = await response.json().catch(() => null);
+                return { entry, response, data };
+            }));
+            if (requestId !== basketComparisonRequestId || controller.signal.aborted) return;
+            const validEntries = [];
+            responses.forEach(({ entry, response, data }) => {
+                if (!response.ok || !data || data.variantId !== entry.variantId || !Array.isArray(data.prices)) {
+                    excluded.push({ label: entry.label, reason: response.status >= 500 ? "price comparison is temporarily unavailable" : "no valid price-comparison response" });
+                    return;
+                }
+                validEntries.push({ ...entry, data, prices: data.prices });
+            });
+            validEntries.forEach((entry) => {
+                if (!entry.prices.some((price) => isEligibleBasketPrice(entry.data, price))) {
+                    excluded.push({ label: entry.label, reason: "no fresh exact price with a current available inventory record" });
+                }
+            });
+            renderBasketComparison(validEntries, excluded);
+        } catch (error) {
+            if (requestId === basketComparisonRequestId && (!controller.signal.aborted || timedOut)) {
+                if (basketComparisonResults) basketComparisonResults.replaceChildren();
+                appendBasketStatus(timedOut ? "Basket comparison timed out. Please retry." : "Basket comparison could not be completed. Check your connection and retry.", true);
+            }
+        } finally {
+            window.clearTimeout(timeoutId);
+            if (requestId === basketComparisonRequestId) {
+                basketComparisonController = null;
+                compareBasketButton.disabled = false;
+                compareBasketButton.textContent = "Compare Basket Prices";
+            }
+        }
+    }
+
+    function slugifyCatalogKey(value) {
+        return String(value || "").toLowerCase().trim().replace(/['’]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").replace(/-+/g, "-") || "product";
     }
 
     function formatCatalogProductName(selection) {
@@ -3637,7 +3841,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Load persisted list from storage and render
     loadFromStorage();
-    function renderSelectedProducts() {
+    function renderSelectedProductsLegacy() {
         if (!selectedProductsList) return;
         selectedProductsList.innerHTML = '';
         if (selectedProducts.length === 0) {
@@ -3669,6 +3873,48 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         updateTotalAmount();
+    }
+
+    function renderSelectedProducts() {
+        if (!selectedProductsList) return;
+        selectedProductsList.replaceChildren();
+        const hasItems = selectedProducts.length > 0;
+        if (emptyCartMessage) emptyCartMessage.style.display = hasItems ? 'none' : 'block';
+        if (cartPanel) cartPanel.classList.toggle('is-hidden', !hasItems);
+        selectedProducts.forEach((p, idx) => {
+            const li = document.createElement('li');
+            li.className = 'selected-item';
+            const image = document.createElement('img');
+            image.src = typeof p.imageSrc === 'string' ? p.imageSrc : '';
+            image.alt = typeof p.imageAlt === 'string' ? p.imageAlt : 'Product';
+            const details = document.createElement('p');
+            details.className = 'selected-item-text';
+            const appendDetail = (text, role, value) => {
+                const detail = document.createElement(role === 'unit-price' ? 'small' : 'span');
+                if (role) detail.dataset.role = role;
+                if (role === 'quantity') detail.dataset.quantity = String(value);
+                if (role === 'unit-price') detail.dataset.price = String(value);
+                detail.textContent = text;
+                details.append(detail, document.createElement('br'));
+            };
+            const quantity = Number(p.quantity);
+            const unitPrice = Number(p.unitPrice);
+            appendDetail(String(p.product || p.name || 'Product'), null);
+            if (p.type || p.variety) appendDetail(String(p.type || p.variety), null);
+            if (p.brand) appendDetail(String(p.brand), null);
+            if (p.size || p.weight) appendDetail(String(p.size || p.weight), null);
+            appendDetail(`Qty: ${Number.isFinite(quantity) ? quantity : 1}`, 'quantity', Number.isFinite(quantity) ? quantity : 1);
+            appendDetail(`â‚¹${Number.isFinite(unitPrice) ? unitPrice.toFixed(2) : '0.00'}`, 'unit-price', Number.isFinite(unitPrice) ? unitPrice : 0);
+            const removeButton = document.createElement('button');
+            removeButton.className = 'remove-item-btn';
+            removeButton.dataset.index = String(idx);
+            removeButton.setAttribute('aria-label', 'Remove item');
+            removeButton.textContent = 'X';
+            li.append(image, details, removeButton);
+            selectedProductsList.appendChild(li);
+        });
+        updateTotalAmount();
+        invalidateBasketComparison();
     }
 
     renderSelectedProducts();
@@ -3738,6 +3984,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 imageSrc: product.imageSrc,
                 imageAlt: product.imageAlt,
                 variantId: product.variantId,
+                catalogKey: product.catalogKey,
                 name: product.product,
                 product: product.product,
                 variety: product.variety,
@@ -3802,7 +4049,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     if (addToListButton) {
-        addToListButton.addEventListener("click", () => {
+        addToListButton.addEventListener("click", async () => {
             if (!modalQuantity) {
                 return;
             }
@@ -3812,10 +4059,16 @@ document.addEventListener("DOMContentLoaded", () => {
             if (currentCatalogSelection && currentCatalogSelection.weight) {
                 const selection = currentCatalogSelection;
                 const image = getCatalogProductImage(selection);
+                try {
+                    await resolveCanonicalVariant(selection);
+                } catch {
+                    // A local list item remains valid, but stays unlinked until a later verified lookup succeeds.
+                }
                 addProductToSelection({
                     imageSrc: image.src,
                     imageAlt: image.alt,
                     product: selection.catalog.productName,
+                    catalogKey: selection.catalogKey,
                     variantId: selection.canonicalVariantId,
                     variety: selection.variety ? selection.variety.name : "",
                     type: selection.variety ? selection.variety.name : "",
@@ -3850,6 +4103,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (comparePricesButton) {
         comparePricesButton.addEventListener("click", () => void requestPriceComparison());
+    }
+
+    if (compareBasketButton) {
+        compareBasketButton.addEventListener("click", () => void requestBasketComparison());
     }
 
     if (modal) {

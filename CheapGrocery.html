@@ -62,6 +62,42 @@
             </section>
         </header>
 
+        <section id="admin-store-panel" class="admin-store-panel is-hidden" aria-labelledby="admin-store-title">
+            <div class="admin-store-head">
+                <div>
+                    <p class="admin-eyebrow">Administrator tools</p>
+                    <h2 id="admin-store-title">Store management</h2>
+                </div>
+                <button id="admin-store-retry" type="button" class="small-btn">Retry</button>
+            </div>
+            <p id="admin-store-state" class="admin-store-state" aria-live="polite"></p>
+            <form id="admin-store-form" class="admin-store-form" novalidate>
+                <input type="hidden" id="admin-store-id">
+                <label for="admin-store-name">Store name</label>
+                <input id="admin-store-name" name="name" maxlength="200" required>
+                <label for="admin-store-city">City</label>
+                <input id="admin-store-city" name="city" maxlength="200">
+                <label for="admin-store-latitude">Latitude</label>
+                <input id="admin-store-latitude" name="latitude" type="number" min="-90" max="90" step="any" required>
+                <label for="admin-store-longitude">Longitude</label>
+                <input id="admin-store-longitude" name="longitude" type="number" min="-180" max="180" step="any" required>
+                <label for="admin-store-phone">Phone</label>
+                <input id="admin-store-phone" name="phone" maxlength="300">
+                <label for="admin-store-website">Website</label>
+                <input id="admin-store-website" name="website" maxlength="300" type="url">
+                <div class="admin-store-form-actions">
+                    <button id="admin-store-submit" type="submit">Create Store</button>
+                    <button id="admin-store-cancel" type="button" class="small-btn is-hidden">Cancel edit</button>
+                </div>
+            </form>
+            <div class="admin-store-list-head">
+                <h3>Stores</h3>
+                <label for="admin-store-search" class="sr-only">Search stores</label>
+                <input id="admin-store-search" type="search" placeholder="Search stores" maxlength="100">
+            </div>
+            <ul id="admin-store-list" class="admin-store-list"></ul>
+        </section>
+
         <nav>
             <a href="#">Home</a>
             <a href="#">Products</a>

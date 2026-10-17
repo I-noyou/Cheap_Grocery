@@ -21,12 +21,168 @@ document.addEventListener("DOMContentLoaded", () => {
     const nearbyStores = document.getElementById("nearby-stores");
     const nearbyStoresStatus = document.getElementById("nearby-stores-status");
     const nearbyStoresList = document.getElementById("nearby-stores-list");
+    const adminStorePanel = document.getElementById("admin-store-panel");
+    const adminStoreState = document.getElementById("admin-store-state");
+    const adminStoreForm = document.getElementById("admin-store-form");
+    const adminStoreId = document.getElementById("admin-store-id");
+    const adminStoreName = document.getElementById("admin-store-name");
+    const adminStoreCity = document.getElementById("admin-store-city");
+    const adminStoreLatitude = document.getElementById("admin-store-latitude");
+    const adminStoreLongitude = document.getElementById("admin-store-longitude");
+    const adminStorePhone = document.getElementById("admin-store-phone");
+    const adminStoreWebsite = document.getElementById("admin-store-website");
+    const adminStoreSubmit = document.getElementById("admin-store-submit");
+    const adminStoreCancel = document.getElementById("admin-store-cancel");
+    const adminStoreRetry = document.getElementById("admin-store-retry");
+    const adminStoreSearch = document.getElementById("admin-store-search");
+    const adminStoreList = document.getElementById("admin-store-list");
 
     const API_BASE_URL = window.CHEAP_GROCERY_API_URL || "http://localhost:3000/api/v1";
 
     let authMode = "signup";
     let currentUserId = null;
     let currentLocation = null;
+    let adminStoreBusy = false;
+
+    function setAdminStoreState(message) {
+        if (adminStoreState) adminStoreState.innerText = message;
+    }
+
+    function resetAdminStoreForm() {
+        if (adminStoreForm) adminStoreForm.reset();
+        if (adminStoreId) adminStoreId.value = "";
+        if (adminStoreSubmit) adminStoreSubmit.innerText = "Create Store";
+        if (adminStoreCancel) adminStoreCancel.classList.add("is-hidden");
+    }
+
+    function setAdminStoreBusy(busy) {
+        adminStoreBusy = busy;
+        if (adminStoreSubmit) adminStoreSubmit.disabled = busy;
+        if (adminStoreCancel) adminStoreCancel.disabled = busy;
+        if (adminStoreRetry) adminStoreRetry.disabled = busy;
+    }
+
+    function renderAdminStores(stores) {
+        if (!adminStoreList) return;
+        adminStoreList.innerHTML = "";
+        if (!stores.length) {
+            const empty = document.createElement("li");
+            empty.innerText = "No stores found.";
+            adminStoreList.appendChild(empty);
+            return;
+        }
+        stores.forEach((store) => {
+            const item = document.createElement("li");
+            item.className = `admin-store-item${store.isActive ? "" : " inactive"}`;
+            const details = document.createElement("div");
+            const name = document.createElement("strong");
+            name.innerText = store.name;
+            const city = document.createElement("p");
+            city.innerText = store.address && store.address.city ? store.address.city : "No city provided";
+            const status = document.createElement("p");
+            status.innerText = store.isActive ? "Active" : "Inactive";
+            details.append(name, city, status);
+            const actions = document.createElement("div");
+            actions.className = "admin-store-item-actions";
+            const edit = document.createElement("button");
+            edit.type = "button";
+            edit.className = "small-btn";
+            edit.innerText = "Edit";
+            edit.addEventListener("click", () => beginStoreEdit(store));
+            const toggle = document.createElement("button");
+            toggle.type = "button";
+            toggle.className = "small-btn";
+            toggle.innerText = store.isActive ? "Deactivate" : "Activate";
+            toggle.addEventListener("click", () => void toggleStoreStatus(store));
+            actions.append(edit, toggle);
+            item.append(details, actions);
+            adminStoreList.appendChild(item);
+        });
+    }
+
+    async function loadAdminStores() {
+        if (!adminStorePanel || !adminStoreList) return;
+        setAdminStoreState("Loading stores...");
+        try {
+            const search = adminStoreSearch ? adminStoreSearch.value.trim() : "";
+            const query = search ? `?search=${encodeURIComponent(search)}` : "";
+            const data = await authRequest(`/admin/stores${query}`, { method: "GET" });
+            renderAdminStores(data.stores || []);
+            setAdminStoreState(data.total ? `${data.total} store${data.total === 1 ? "" : "s"}` : "No stores found.");
+        } catch (error) {
+            setAdminStoreState(error instanceof Error && error.message === "Authentication required."
+                ? "Please log in as an administrator to manage stores."
+                : "Unable to load stores. Use Retry to try again.");
+        }
+    }
+
+    function beginStoreEdit(store) {
+        if (adminStoreId) adminStoreId.value = store.id;
+        if (adminStoreName) adminStoreName.value = store.name || "";
+        if (adminStoreCity) adminStoreCity.value = store.address && store.address.city ? store.address.city : "";
+        if (adminStoreLatitude) adminStoreLatitude.value = store.location ? store.location.latitude : "";
+        if (adminStoreLongitude) adminStoreLongitude.value = store.location ? store.location.longitude : "";
+        if (adminStorePhone) adminStorePhone.value = store.phone || "";
+        if (adminStoreWebsite) adminStoreWebsite.value = store.website || "";
+        if (adminStoreSubmit) adminStoreSubmit.innerText = "Save Changes";
+        if (adminStoreCancel) adminStoreCancel.classList.remove("is-hidden");
+        if (adminStoreName) adminStoreName.focus();
+    }
+
+    async function submitAdminStore(event) {
+        event.preventDefault();
+        if (adminStoreBusy || !adminStoreForm) return;
+        const name = adminStoreName ? adminStoreName.value.trim() : "";
+        const latitude = adminStoreLatitude ? Number(adminStoreLatitude.value) : NaN;
+        const longitude = adminStoreLongitude ? Number(adminStoreLongitude.value) : NaN;
+        if (!name || !Number.isFinite(latitude) || latitude < -90 || latitude > 90
+            || !Number.isFinite(longitude) || longitude < -180 || longitude > 180) {
+            setAdminStoreState("Enter a store name and valid coordinates.");
+            return;
+        }
+        const body = {
+            name,
+            address: { city: adminStoreCity ? adminStoreCity.value.trim() : "" },
+            latitude,
+            longitude,
+            phone: adminStorePhone ? adminStorePhone.value.trim() : "",
+            website: adminStoreWebsite ? adminStoreWebsite.value.trim() : ""
+        };
+        const id = adminStoreId ? adminStoreId.value : "";
+        setAdminStoreBusy(true);
+        setAdminStoreState(id ? "Saving store..." : "Creating store...");
+        try {
+            await authRequest(id ? `/admin/stores/${encodeURIComponent(id)}` : "/admin/stores", {
+                method: id ? "PATCH" : "POST",
+                body: JSON.stringify(body)
+            });
+            resetAdminStoreForm();
+            await loadAdminStores();
+            setAdminStoreState("Store saved successfully.");
+        } catch (error) {
+            setAdminStoreState(error instanceof Error ? error.message : "Unable to save store.");
+        } finally {
+            setAdminStoreBusy(false);
+        }
+    }
+
+    async function toggleStoreStatus(store) {
+        if (adminStoreBusy || !window.confirm(`${store.isActive ? "Deactivate" : "Activate"} ${store.name}?`)) return;
+        setAdminStoreBusy(true);
+        setAdminStoreState(`${store.isActive ? "Deactivating" : "Activating"} store...`);
+        try {
+            await authRequest(`/admin/stores/${encodeURIComponent(store.id)}/status`, {
+                method: "PATCH",
+                body: JSON.stringify({ isActive: !store.isActive })
+            });
+            await loadAdminStores();
+            setAdminStoreState("Store status updated.");
+        } catch (error) {
+            setAdminStoreState(error instanceof Error ? error.message : "Unable to update store status.");
+        } finally {
+            setAdminStoreBusy(false);
+        }
+    }
 
     function locationDismissalKey() {
         return currentUserId ? `cheap_grocery_location_dismissed_${currentUserId}` : null;
@@ -126,6 +282,10 @@ document.addEventListener("DOMContentLoaded", () => {
             welcomeText.innerText = `Welcome, ${safeName}!`;
         }
         currentUserId = user && user.id ? user.id : null;
+        if (adminStorePanel) {
+            adminStorePanel.classList.toggle("is-hidden", !user || user.role !== "admin");
+            if (user && user.role === "admin") void loadAdminStores();
+        }
         void initializeLocation();
     }
 
@@ -134,6 +294,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (appShell) appShell.classList.add("is-hidden");
         currentUserId = null;
         currentLocation = null;
+        if (adminStorePanel) adminStorePanel.classList.add("is-hidden");
     }
 
     function applyAuthMode(mode) {
@@ -302,6 +463,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
     if (authForm) authForm.addEventListener("submit", handleAuthSubmit);
+    if (adminStoreForm) adminStoreForm.addEventListener("submit", (event) => void submitAdminStore(event));
+    if (adminStoreCancel) adminStoreCancel.addEventListener("click", resetAdminStoreForm);
+    if (adminStoreRetry) adminStoreRetry.addEventListener("click", () => void loadAdminStores());
+    if (adminStoreSearch) adminStoreSearch.addEventListener("search", () => void loadAdminStores());
     if (allowLocationBtn) allowLocationBtn.addEventListener("click", () => void saveCurrentLocation());
     if (locationNotNowBtn) {
         locationNotNowBtn.addEventListener("click", () => {

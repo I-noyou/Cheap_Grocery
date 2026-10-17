@@ -2,7 +2,16 @@ import type { Request, Response } from "express";
 
 import { env } from "../config/env.js";
 import { getUserLocation } from "../services/location.service.js";
-import { createStore, findNearbyStores, listActiveStores, type StoreInput } from "../services/store.service.js";
+import {
+  createStore,
+  findNearbyStores,
+  listActiveStores,
+  listStoresForAdmin,
+  updateStore,
+  updateStoreStatus,
+  type StoreInput,
+  type StoreUpdate
+} from "../services/store.service.js";
 
 const DEFAULT_RADIUS_KM = 5;
 const MIN_RADIUS_KM = 0.5;
@@ -10,6 +19,7 @@ const MAX_RADIUS_KM = 50;
 const DEFAULT_LIMIT = 20;
 const MAX_LIMIT = 50;
 const ADDRESS_FIELDS = ["line1", "line2", "city", "state", "postalCode", "country"] as const;
+const ADMIN_PAGE_LIMIT = 50;
 
 function isCoordinate(value: unknown, min: number, max: number): value is number {
   return typeof value === "number" && Number.isFinite(value) && value >= min && value <= max;
@@ -30,6 +40,7 @@ function readStoreInput(body: unknown): StoreInput | null {
         if (typeof value !== "string" || value.length > 200) return null;
         address[field] = value.trim();
       }
+
     }
   }
 
@@ -49,6 +60,48 @@ function readStoreInput(body: unknown): StoreInput | null {
     ...(phone === undefined ? {} : { phone }),
     ...(website === undefined ? {} : { website })
   };
+}
+
+function readStoreUpdate(body: unknown): StoreUpdate | null {
+  if (!body || typeof body !== "object" || Array.isArray(body)) return null;
+  const input = body as Record<string, unknown>;
+  const update: StoreUpdate = {};
+  if (input.name !== undefined) {
+    if (typeof input.name !== "string" || !input.name.trim() || input.name.trim().length > 200) return null;
+    update.name = input.name.trim();
+  }
+  if (input.address !== undefined) {
+    if (!input.address || typeof input.address !== "object" || Array.isArray(input.address)) return null;
+    const address: Record<string, string> = {};
+    for (const field of ADDRESS_FIELDS) {
+      const value = (input.address as Record<string, unknown>)[field];
+      if (value !== undefined) {
+        if (typeof value !== "string" || value.length > 200) return null;
+        address[field] = value.trim();
+      }
+    }
+    update.address = address;
+  }
+  for (const [field, min, max] of [["latitude", -90, 90], ["longitude", -180, 180]] as const) {
+    if (input[field] !== undefined) {
+      if (!isCoordinate(input[field], min, max)) return null;
+      update[field] = input[field];
+    }
+  }
+  const optionalText = (value: unknown): string | undefined | null => {
+    if (value === undefined) return undefined;
+    return typeof value === "string" && value.length <= 300 ? value.trim() : null;
+  };
+  const phone = optionalText(input.phone);
+  const website = optionalText(input.website);
+  if (phone === null || website === null) return null;
+  if (phone !== undefined) update.phone = phone;
+  if (website !== undefined) update.website = website;
+  return Object.keys(update).length ? update : null;
+}
+
+function validStoreId(value: unknown): value is string {
+  return typeof value === "string" && /^[a-f\d]{24}$/i.test(value);
 }
 
 function readBoundedNumber(value: unknown, fallback: number, min: number, max: number): number | null {
@@ -89,6 +142,83 @@ export async function getStores(_request: Request, response: Response): Promise<
     response.status(200).json({ stores, count: stores.length });
   } catch {
     response.status(503).json({ error: "Store service is unavailable." });
+  }
+
+}
+
+export async function getAdminStores(request: Request, response: Response): Promise<void> {
+    const page = readBoundedInteger(request.query.page, 1, Number.MAX_SAFE_INTEGER);
+    const limit = readBoundedInteger(request.query.limit, 20, ADMIN_PAGE_LIMIT);
+    const search = typeof request.query.search === "string" ? request.query.search.trim() : "";
+    const status = request.query.status === undefined ? "all" : request.query.status;
+    if (page === null || limit === null || search.length > 100
+      || (status !== "all" && status !== "active" && status !== "inactive")) {
+      response.status(400).json({ error: "Provide valid page, limit, search, and status values." });
+      return;
+    }
+    try {
+      const result = await listStoresForAdmin((page - 1) * limit, limit, search || undefined, status);
+      response.status(200).json({ ...result, page, limit });
+    } catch {
+      response.status(503).json({ error: "Store service is unavailable." });
+    }
+}
+
+export async function createAdminStore(request: Request, response: Response): Promise<void> {
+    const input = readStoreInput(request.body);
+    if (!input) {
+      response.status(400).json({ error: "Provide a valid name, address, latitude, longitude, phone, and website." });
+      return;
+    }
+    try {
+      const store = await createStore(input);
+      response.status(201).json({ store });
+    } catch {
+      response.status(503).json({ error: "Store service is unavailable." });
+    }
+}
+
+export async function patchAdminStore(request: Request, response: Response): Promise<void> {
+    if (!validStoreId(request.params.storeId)) {
+      response.status(400).json({ error: "A valid storeId is required." });
+      return;
+    }
+    const update = readStoreUpdate(request.body);
+    if (!update) {
+      response.status(400).json({ error: "Provide at least one valid editable store field." });
+      return;
+    }
+    try {
+      const store = await updateStore(request.params.storeId, update);
+      if (!store) {
+        response.status(404).json({ error: "Store not found." });
+        return;
+      }
+      response.status(200).json({ store });
+    } catch {
+      response.status(503).json({ error: "Store service is unavailable." });
+    }
+}
+
+export async function patchAdminStoreStatus(request: Request, response: Response): Promise<void> {
+    if (!validStoreId(request.params.storeId)) {
+      response.status(400).json({ error: "A valid storeId is required." });
+      return;
+    }
+    if (!request.body || typeof request.body !== "object" || Array.isArray(request.body)
+      || typeof request.body.isActive !== "boolean") {
+      response.status(400).json({ error: "isActive must be a boolean." });
+      return;
+    }
+    try {
+      const store = await updateStoreStatus(request.params.storeId, request.body.isActive);
+      if (!store) {
+        response.status(404).json({ error: "Store not found." });
+        return;
+      }
+      response.status(200).json({ store });
+    } catch {
+      response.status(503).json({ error: "Store service is unavailable." });
   }
 }
 

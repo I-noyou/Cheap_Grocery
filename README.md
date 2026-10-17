@@ -92,6 +92,15 @@ There is not yet a production management API. The price write endpoint remains d
 
 The server validates both references, amount, ISO currency, source, date, and the exact variant package. Do not enable this development path in production; the development token is not a substitute for administrator authorization. Current-price and history writes are sequential because the existing MongoDB connection lifecycle does not establish a replica-set transaction; callers should treat a history-write failure as an operational error requiring reconciliation.
 
+Administrator store management is available through the protected endpoints below. Each route requires the existing session cookie and a persisted `admin` role:
+
+- `GET /api/v1/admin/stores?page=1&limit=20&search=...&status=active|inactive|all`
+- `POST /api/v1/admin/stores`
+- `PATCH /api/v1/admin/stores/:storeId`
+- `PATCH /api/v1/admin/stores/:storeId/status` with `{ "isActive": true|false }`
+
+Store deactivation updates `isActive` and retains the store document and all related historical data. Store updates accept only explicit editable fields; MongoDB operators, IDs, timestamps, and roles are not accepted from clients.
+
 ## Project layout
 
 - `script.js` - existing frontend selection logic and catalog data

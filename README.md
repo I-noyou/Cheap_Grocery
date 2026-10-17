@@ -84,11 +84,13 @@ The comparison endpoint reads only current prices for the requested exact varian
 
 Inventory is queried separately and is returned as `available`, `unavailable`, or `unknown`; a missing inventory record remains unknown and a price never implies stock. Supplying `latitude` and `longitude` together enables the existing GeoJSON/2dsphere nearby-store filter. `radiusKm` is optional and defaults to 5 km when coordinates are supplied, with a 0.5–50 km bound. Without coordinates, no distance is calculated or inferred.
 
-There is no admin/operator role system yet. The write endpoint is therefore development-only and requires the `PRICE_WRITE_TOKEN` environment variable and matching `x-development-price-token` header:
+Users now have a server-side `role` field (`user` or `admin`). Public registration always creates a `user`; administrator records must be provisioned through a controlled server-side/database process and are never created from request data. The reusable admin middleware reloads the user through the existing session and MongoDB lookup, returning `401` for unauthenticated requests and `403` for authenticated non-admin users. Missing roles are treated as `user`, while invalid roles fail closed.
+
+There is not yet a production management API. The price write endpoint remains development-only and requires the `PRICE_WRITE_TOKEN` environment variable and matching `x-development-price-token` header:
 
 - `PUT /api/v1/stores/:storeId/prices/:variantId`
 
-The server validates both references, amount, ISO currency, source, date, and the exact variant package. Do not enable this development path in production. Current-price and history writes are sequential because the existing MongoDB connection lifecycle does not establish a replica-set transaction; callers should treat a history-write failure as an operational error requiring reconciliation.
+The server validates both references, amount, ISO currency, source, date, and the exact variant package. Do not enable this development path in production; the development token is not a substitute for administrator authorization. Current-price and history writes are sequential because the existing MongoDB connection lifecycle does not establish a replica-set transaction; callers should treat a history-write failure as an operational error requiring reconciliation.
 
 ## Project layout
 

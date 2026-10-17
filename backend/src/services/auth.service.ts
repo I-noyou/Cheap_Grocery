@@ -5,8 +5,7 @@ import { ObjectId, type ObjectId as MongoObjectId } from "mongodb";
 
 import { env } from "../config/env.js";
 import { getDatabase } from "../db/mongo.js";
-import type { SafeUser, SessionDocument, UserDocument } from "../models/user.js";
-import { toSafeUser } from "../models/user.js";
+import { getPersistedUserRole, type SafeUser, type SessionDocument, type UserDocument, toSafeUser } from "../models/user.js";
 
 const PASSWORD_SALT_ROUNDS = 12;
 
@@ -22,7 +21,15 @@ export async function createUser(name: string, email: string, password: string):
   const database = await getDatabase();
   const now = new Date();
   const passwordHash = await bcrypt.hash(password, PASSWORD_SALT_ROUNDS);
-  const user: UserDocument = { _id: new ObjectId(), name, email, passwordHash, createdAt: now, updatedAt: now };
+  const user: UserDocument = {
+    _id: new ObjectId(),
+    name,
+    email,
+    passwordHash,
+    role: "user",
+    createdAt: now,
+    updatedAt: now
+  };
 
   await database.collection<UserDocument>("users").insertOne(user);
   return user;
@@ -62,7 +69,8 @@ export async function getUserForSession(token: string): Promise<SafeUser | null>
   if (!session) return null;
 
   const user = await database.collection<UserDocument>("users").findOne({ _id: session.userId });
-  return user ? toSafeUser(user) : null;
+  if (!user || !getPersistedUserRole(user.role)) return null;
+  return toSafeUser(user);
 }
 
 export async function deleteSession(token: string): Promise<void> {

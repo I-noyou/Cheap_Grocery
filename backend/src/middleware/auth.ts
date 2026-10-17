@@ -24,3 +24,26 @@ export const requireAuth: RequestHandler = async (request, response, next) => {
     response.status(503).json({ error: "Authentication service is unavailable." });
   }
 };
+
+function authorizeAdmin(request: Parameters<RequestHandler>[0], response: Parameters<RequestHandler>[1], next: Parameters<RequestHandler>[2]): void {
+  if (!request.authenticatedUser) {
+    response.status(401).json({ error: "Authentication required." });
+    return;
+  }
+
+  if (request.authenticatedUser.role !== "admin") {
+    response.status(403).json({ error: "Administrator access required." });
+    return;
+  }
+
+  next();
+}
+
+export const requireAdmin: RequestHandler = (request, response, next) => {
+  if (request.authenticatedUser) {
+    authorizeAdmin(request, response, next);
+    return;
+  }
+
+  void requireAuth(request, response, () => authorizeAdmin(request, response, next));
+};

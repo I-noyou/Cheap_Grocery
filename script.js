@@ -36,6 +36,31 @@ document.addEventListener("DOMContentLoaded", () => {
     const adminStoreRetry = document.getElementById("admin-store-retry");
     const adminStoreSearch = document.getElementById("admin-store-search");
     const adminStoreList = document.getElementById("admin-store-list");
+    const adminProductPanel = document.getElementById("admin-product-panel");
+    const adminProductState = document.getElementById("admin-product-state");
+    const adminProductForm = document.getElementById("admin-product-form");
+    const adminProductEditId = document.getElementById("admin-product-edit-id");
+    const adminProductId = document.getElementById("admin-product-id");
+    const adminProductName = document.getElementById("admin-product-name");
+    const adminProductSlug = document.getElementById("admin-product-slug");
+    const adminProductCategory = document.getElementById("admin-product-category");
+    const adminProductAliases = document.getElementById("admin-product-aliases");
+    const adminProductImage = document.getElementById("admin-product-image");
+    const adminProductDescription = document.getElementById("admin-product-description");
+    const adminProductSubmit = document.getElementById("admin-product-submit");
+    const adminProductCancel = document.getElementById("admin-product-cancel");
+    const adminProductRetry = document.getElementById("admin-product-retry");
+    const adminProductSearch = document.getElementById("admin-product-search");
+    const adminProductList = document.getElementById("admin-product-list");
+    const adminVariantPanel = document.getElementById("admin-variant-panel");
+    const adminVariantState = document.getElementById("admin-variant-state");
+    const adminVariantForm = document.getElementById("admin-variant-form");
+    const adminVariantId = document.getElementById("admin-variant-id");
+    const adminVariantVariety = document.getElementById("admin-variant-variety");
+    const adminVariantBrand = document.getElementById("admin-variant-brand");
+    const adminVariantPackage = document.getElementById("admin-variant-package");
+    const adminVariantSubmit = document.getElementById("admin-variant-submit");
+    const adminVariantList = document.getElementById("admin-variant-list");
 
     const API_BASE_URL = window.CHEAP_GROCERY_API_URL || "http://localhost:3000/api/v1";
 
@@ -43,6 +68,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentUserId = null;
     let currentLocation = null;
     let adminStoreBusy = false;
+    let adminProductBusy = false;
+    let selectedAdminProductId = null;
 
     function setAdminStoreState(message) {
         if (adminStoreState) adminStoreState.innerText = message;
@@ -182,6 +209,217 @@ document.addEventListener("DOMContentLoaded", () => {
         } finally {
             setAdminStoreBusy(false);
         }
+
+        function setAdminProductState(message) {
+            if (adminProductState) adminProductState.textContent = message;
+        }
+
+        function resetAdminProductForm() {
+            if (adminProductForm) adminProductForm.reset();
+            if (adminProductEditId) adminProductEditId.value = "";
+            if (adminProductId) adminProductId.disabled = false;
+            if (adminProductSubmit) adminProductSubmit.textContent = "Create Product";
+            if (adminProductCancel) adminProductCancel.classList.add("is-hidden");
+        }
+
+        function setAdminProductBusy(busy) {
+            adminProductBusy = busy;
+            [adminProductSubmit, adminProductCancel, adminProductRetry, adminVariantSubmit].forEach((button) => {
+                if (button) button.disabled = busy;
+            });
+        }
+
+        function beginProductEdit(product) {
+            if (adminProductEditId) adminProductEditId.value = product.productId;
+            if (adminProductId) {
+                adminProductId.value = product.productId || "";
+                adminProductId.disabled = true;
+            }
+            if (adminProductName) adminProductName.value = product.name || "";
+            if (adminProductSlug) adminProductSlug.value = product.slug || "";
+            if (adminProductCategory) adminProductCategory.value = product.category || "";
+            if (adminProductAliases) adminProductAliases.value = Array.isArray(product.aliases) ? product.aliases.join(", ") : "";
+            if (adminProductImage) adminProductImage.value = product.imageUrl || "";
+            if (adminProductDescription) adminProductDescription.value = product.description || "";
+            if (adminProductSubmit) adminProductSubmit.textContent = "Save Changes";
+            if (adminProductCancel) adminProductCancel.classList.remove("is-hidden");
+            if (adminProductName) adminProductName.focus();
+        }
+
+        async function toggleAdminProductStatus(product) {
+            if (adminProductBusy || !window.confirm(`${product.isActive ? "Deactivate" : "Activate"} ${product.name}?`)) return;
+            setAdminProductBusy(true);
+            try {
+                await authRequest(`/admin/products/${encodeURIComponent(product.productId)}/status`, {
+                    method: "PATCH",
+                    body: JSON.stringify({ isActive: !product.isActive })
+                });
+                await loadAdminProducts();
+                if (selectedAdminProductId === product.productId) await loadAdminVariants(product.productId);
+            } catch (error) {
+                setAdminProductState(error instanceof Error ? error.message : "Unable to update product status.");
+            } finally {
+                setAdminProductBusy(false);
+            }
+        }
+
+        function renderAdminProducts(products) {
+            if (!adminProductList) return;
+            adminProductList.innerHTML = "";
+            if (!products.length) {
+                const empty = document.createElement("li");
+                empty.textContent = "No products found.";
+                adminProductList.appendChild(empty);
+                return;
+            }
+            products.forEach((product) => {
+                const item = document.createElement("li");
+                item.className = `admin-store-item${product.isActive ? "" : " inactive"}`;
+                const details = document.createElement("div");
+                const name = document.createElement("strong");
+                name.textContent = `${product.name} (${product.productId})`;
+                const status = document.createElement("p");
+                status.textContent = product.isActive ? "Active" : "Inactive";
+                details.append(name, status);
+                const actions = document.createElement("div");
+                actions.className = "admin-store-item-actions";
+                const edit = document.createElement("button");
+                edit.type = "button";
+                edit.className = "small-btn";
+                edit.textContent = "Edit";
+                edit.addEventListener("click", () => beginProductEdit(product));
+                const variants = document.createElement("button");
+                variants.type = "button";
+                variants.className = "small-btn";
+                variants.textContent = "Variants";
+                variants.addEventListener("click", () => void loadAdminVariants(product.productId));
+                const toggle = document.createElement("button");
+                toggle.type = "button";
+                toggle.className = "small-btn";
+                toggle.textContent = product.isActive ? "Deactivate" : "Activate";
+                toggle.addEventListener("click", () => void toggleAdminProductStatus(product));
+                actions.append(edit, variants, toggle);
+                item.append(details, actions);
+                adminProductList.appendChild(item);
+            });
+        }
+
+        async function loadAdminProducts() {
+            if (!adminProductPanel || !adminProductList) return;
+            setAdminProductState("Loading products...");
+            try {
+                const search = adminProductSearch ? adminProductSearch.value.trim() : "";
+                const query = search ? `?search=${encodeURIComponent(search)}` : "";
+                const data = await authRequest(`/admin/products${query}`, { method: "GET" });
+                renderAdminProducts(data.products || []);
+                setAdminProductState(data.total ? `${data.total} product${data.total === 1 ? "" : "s"}` : "No products found.");
+            } catch (error) {
+                setAdminProductState(error instanceof Error ? error.message : "Unable to load products. Use Retry to try again.");
+            }
+        }
+
+        async function loadAdminVariants(productId) {
+            if (!adminVariantPanel || !adminVariantList) return;
+            selectedAdminProductId = productId;
+            adminVariantPanel.classList.remove("is-hidden");
+            if (adminVariantState) adminVariantState.textContent = "Loading variants...";
+            try {
+                const data = await authRequest(`/admin/products/${encodeURIComponent(productId)}/variants`, { method: "GET" });
+                adminVariantList.innerHTML = "";
+                (data.variants || []).forEach((variant) => {
+                    const item = document.createElement("li");
+                    item.className = `admin-store-item${variant.isActive ? "" : " inactive"}`;
+                    const details = document.createElement("div");
+                    const name = document.createElement("strong");
+                    name.textContent = `${variant.brand || "Unbranded"} ${variant.variety || ""}`.trim();
+                    const packageName = document.createElement("p");
+                    packageName.textContent = `${variant.package.displayName} (${variant.variantId})`;
+                    details.append(name, packageName);
+                    const toggle = document.createElement("button");
+                    toggle.type = "button";
+                    toggle.className = "small-btn";
+                    toggle.textContent = variant.isActive ? "Deactivate" : "Activate";
+                    toggle.addEventListener("click", async () => {
+                        if (adminProductBusy) return;
+                        setAdminProductBusy(true);
+                        try {
+                            await authRequest(`/admin/variants/${encodeURIComponent(variant.variantId)}/status`, {
+                                method: "PATCH",
+                                body: JSON.stringify({ isActive: !variant.isActive })
+                            });
+                            await loadAdminVariants(productId);
+                        } catch (error) {
+                            if (adminVariantState) adminVariantState.textContent = error instanceof Error ? error.message : "Unable to update variant.";
+                        } finally {
+                            setAdminProductBusy(false);
+                        }
+                    });
+                    item.append(details, toggle);
+                    adminVariantList.appendChild(item);
+                });
+                if (adminVariantState) adminVariantState.textContent = data.count ? `${data.count} variant${data.count === 1 ? "" : "s"}` : "No variants found.";
+            } catch (error) {
+                if (adminVariantState) adminVariantState.textContent = error instanceof Error ? error.message : "Unable to load variants.";
+            }
+        }
+
+        async function submitAdminProduct(event) {
+            event.preventDefault();
+            if (adminProductBusy) return;
+            const productId = adminProductId ? adminProductId.value.trim() : "";
+            const name = adminProductName ? adminProductName.value.trim() : "";
+            const slug = adminProductSlug ? adminProductSlug.value.trim() : "";
+            const category = adminProductCategory ? adminProductCategory.value.trim() : "";
+            const aliases = adminProductAliases ? adminProductAliases.value.split(",").map((value) => value.trim()).filter(Boolean) : [];
+            if (!productId || !name || !slug || !category || aliases.length > 25) {
+                setAdminProductState("Enter a canonical product ID, name, slug, category, and at most 25 aliases.");
+                return;
+            }
+            setAdminProductBusy(true);
+            try {
+                const imageUrl = adminProductImage ? adminProductImage.value.trim() : "";
+                const description = adminProductDescription ? adminProductDescription.value.trim() : "";
+                const body = { productId, name, slug, category, aliases, ...(imageUrl ? { imageUrl } : {}), ...(description ? { description } : {}) };
+                const editId = adminProductEditId ? adminProductEditId.value : "";
+                await authRequest(editId ? `/admin/products/${encodeURIComponent(editId)}` : "/admin/products", {
+                    method: editId ? "PATCH" : "POST",
+                    body: JSON.stringify(editId ? { name, slug, category, aliases, ...(imageUrl ? { imageUrl } : {}), ...(description ? { description } : {}) } : body)
+                });
+                resetAdminProductForm();
+                await loadAdminProducts();
+                setAdminProductState("Product saved successfully.");
+            } catch (error) {
+                setAdminProductState(error instanceof Error ? error.message : "Unable to save product.");
+            } finally {
+                setAdminProductBusy(false);
+            }
+        }
+
+        async function submitAdminVariant(event) {
+            event.preventDefault();
+            if (adminProductBusy || !selectedAdminProductId) return;
+            const variantId = adminVariantId ? adminVariantId.value.trim() : "";
+            const variety = adminVariantVariety ? adminVariantVariety.value.trim() : "";
+            const brand = adminVariantBrand ? adminVariantBrand.value.trim() : "";
+            const packageValue = adminVariantPackage ? adminVariantPackage.value.trim() : "";
+            if (!variantId || !packageValue) {
+                if (adminVariantState) adminVariantState.textContent = "Enter an explicit variant ID and valid package.";
+                return;
+            }
+            setAdminProductBusy(true);
+            try {
+                await authRequest(`/admin/products/${encodeURIComponent(selectedAdminProductId)}/variants`, {
+                    method: "POST",
+                    body: JSON.stringify({ variantId, variety, brand, package: packageValue })
+                });
+                if (adminVariantForm) adminVariantForm.reset();
+                await loadAdminVariants(selectedAdminProductId);
+            } catch (error) {
+                if (adminVariantState) adminVariantState.textContent = error instanceof Error ? error.message : "Unable to save variant.";
+            } finally {
+                setAdminProductBusy(false);
+            }
+        }
     }
 
     function locationDismissalKey() {
@@ -286,6 +524,10 @@ document.addEventListener("DOMContentLoaded", () => {
             adminStorePanel.classList.toggle("is-hidden", !user || user.role !== "admin");
             if (user && user.role === "admin") void loadAdminStores();
         }
+        if (adminProductPanel) {
+            adminProductPanel.classList.toggle("is-hidden", !user || user.role !== "admin");
+            if (user && user.role === "admin") void loadAdminProducts();
+        }
         void initializeLocation();
     }
 
@@ -295,6 +537,7 @@ document.addEventListener("DOMContentLoaded", () => {
         currentUserId = null;
         currentLocation = null;
         if (adminStorePanel) adminStorePanel.classList.add("is-hidden");
+        if (adminProductPanel) adminProductPanel.classList.add("is-hidden");
     }
 
     function applyAuthMode(mode) {
@@ -467,6 +710,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (adminStoreCancel) adminStoreCancel.addEventListener("click", resetAdminStoreForm);
     if (adminStoreRetry) adminStoreRetry.addEventListener("click", () => void loadAdminStores());
     if (adminStoreSearch) adminStoreSearch.addEventListener("search", () => void loadAdminStores());
+    if (adminProductForm) adminProductForm.addEventListener("submit", (event) => void submitAdminProduct(event));
+    if (adminProductCancel) adminProductCancel.addEventListener("click", resetAdminProductForm);
+    if (adminProductRetry) adminProductRetry.addEventListener("click", () => void loadAdminProducts());
+    if (adminProductSearch) adminProductSearch.addEventListener("search", () => void loadAdminProducts());
+    if (adminVariantForm) adminVariantForm.addEventListener("submit", (event) => void submitAdminVariant(event));
     if (allowLocationBtn) allowLocationBtn.addEventListener("click", () => void saveCurrentLocation());
     if (locationNotNowBtn) {
         locationNotNowBtn.addEventListener("click", () => {

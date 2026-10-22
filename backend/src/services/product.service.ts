@@ -4,6 +4,31 @@ import { createHash } from "node:crypto";
 import { getDatabase } from "../db/mongo.js";
 import type { ProductDocument, ProductListItem, ProductSeedInput } from "../models/product.js";
 
+export interface AdminProduct extends ProductListItem {
+  description?: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface ProductAdminInput {
+  productId: string;
+  name: string;
+  slug: string;
+  category: string;
+  description?: string;
+  aliases: string[];
+  imageUrl?: string;
+}
+
+export interface ProductAdminUpdate {
+  name?: string;
+  slug?: string;
+  category?: string;
+  description?: string;
+  aliases?: string[];
+  imageUrl?: string;
+}
+
 const DEFAULT_LIMIT = 20;
 const MAX_LIMIT = 50;
 
@@ -90,6 +115,76 @@ function serializeProduct(product: ProductDocument): ProductListItem {
     isActive: product.isActive,
     legacyCatalogKey: product.legacyCatalogKey
   };
+}
+
+function serializeAdminProduct(product: ProductDocument): AdminProduct {
+  return {
+    ...serializeProduct(product),
+    ...(product.description === undefined ? {} : { description: product.description }),
+    createdAt: product.createdAt,
+    updatedAt: product.updatedAt
+  };
+}
+
+function escapeRegex(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+export async function getProductForAdmin(productId: string): Promise<AdminProduct | null> {
+  const product = await (await getDatabase()).collection<ProductDocument>("products").findOne({ productId });
+  return product ? serializeAdminProduct(product) : null;
+}
+
+export async function listProductsForAdmin(
+  skip: number,
+  limit: number,
+  search = "",
+  status: "active" | "inactive" | "all" = "all"
+): Promise<{ products: AdminProduct[]; total: number }> {
+  const filter: Record<string, unknown> = {};
+  if (status !== "all") filter.isActive = status === "active";
+  if (search) {
+    const pattern = { $regex: escapeRegex(search), $options: "i" };
+    filter.$or = [{ name: pattern }, { slug: pattern }, { productId: pattern }, { aliases: pattern }];
+  }
+  const collection = (await getDatabase()).collection<ProductDocument>("products");
+  const [products, total] = await Promise.all([
+    collection.find(filter).sort({ name: 1, productId: 1 }).skip(skip).limit(limit).toArray(),
+    collection.countDocuments(filter)
+  ]);
+  return { products: products.map(serializeAdminProduct), total };
+}
+
+export async function createAdminProduct(input: ProductAdminInput): Promise<AdminProduct> {
+  const now = new Date();
+  const product: ProductDocument = {
+    _id: new ObjectId(),
+    ...input,
+    aliases: [...new Set(input.aliases)],
+    isActive: true,
+    createdAt: now,
+    updatedAt: now
+  };
+  await (await getDatabase()).collection<ProductDocument>("products").insertOne(product);
+  return serializeAdminProduct(product);
+}
+
+export async function updateAdminProduct(productId: string, update: ProductAdminUpdate): Promise<AdminProduct | null> {
+  const result = await (await getDatabase()).collection<ProductDocument>("products").findOneAndUpdate(
+    { productId },
+    { $set: { ...update, updatedAt: new Date() } },
+    { returnDocument: "after" }
+  );
+  return result ? serializeAdminProduct(result) : null;
+}
+
+export async function updateAdminProductStatus(productId: string, isActive: boolean): Promise<AdminProduct | null> {
+  const result = await (await getDatabase()).collection<ProductDocument>("products").findOneAndUpdate(
+    { productId },
+    { $set: { isActive, updatedAt: new Date() } },
+    { returnDocument: "after" }
+  );
+  return result ? serializeAdminProduct(result) : null;
 }
 
 export async function listActiveProducts(page = 1, limit = DEFAULT_LIMIT): Promise<{ products: ProductListItem[]; total: number; page: number; limit: number }> {

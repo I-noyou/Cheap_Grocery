@@ -79,6 +79,58 @@ function serializeVariant(variant: ProductVariantDocument): ProductVariantListIt
   };
 }
 
+export interface AdminVariant extends ProductVariantListItem {
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface VariantAdminUpdate {
+  displayName: string;
+}
+
+function serializeAdminVariant(variant: ProductVariantDocument): AdminVariant {
+  return { ...serializeVariant(variant), createdAt: variant.createdAt, updatedAt: variant.updatedAt };
+}
+
+export async function getVariantForAdmin(variantId: string): Promise<AdminVariant | null> {
+  const variant = await (await getDatabase()).collection<ProductVariantDocument>("productVariants").findOne({ variantId });
+  return variant ? serializeAdminVariant(variant) : null;
+}
+
+export async function listProductVariantsForAdmin(productId: string, limit = MAX_LIMIT): Promise<AdminVariant[]> {
+  const variants = await (await getDatabase()).collection<ProductVariantDocument>("productVariants")
+    .find({ productId }, { projection: { _id: 0 } })
+    .sort({ normalizedVariety: 1, normalizedBrand: 1, "package.quantity": 1, "package.unit": 1 })
+    .limit(limit)
+    .toArray();
+  return variants.map(serializeAdminVariant);
+}
+
+export async function createAdminProductVariant(seed: ProductVariantSeedInput): Promise<AdminVariant> {
+  const now = new Date();
+  const variant: ProductVariantDocument = { _id: new ObjectId(), ...seed, createdAt: now, updatedAt: now };
+  await (await getDatabase()).collection<ProductVariantDocument>("productVariants").insertOne(variant);
+  return serializeAdminVariant(variant);
+}
+
+export async function updateAdminVariant(variantId: string, update: VariantAdminUpdate): Promise<AdminVariant | null> {
+  const result = await (await getDatabase()).collection<ProductVariantDocument>("productVariants").findOneAndUpdate(
+    { variantId },
+    { $set: { "package.displayName": update.displayName, updatedAt: new Date() } },
+    { returnDocument: "after" }
+  );
+  return result ? serializeAdminVariant(result) : null;
+}
+
+export async function updateAdminVariantStatus(variantId: string, isActive: boolean): Promise<AdminVariant | null> {
+  const result = await (await getDatabase()).collection<ProductVariantDocument>("productVariants").findOneAndUpdate(
+    { variantId },
+    { $set: { isActive, updatedAt: new Date() } },
+    { returnDocument: "after" }
+  );
+  return result ? serializeAdminVariant(result) : null;
+}
+
 export async function listProductVariants(productId: string, limit = DEFAULT_LIMIT): Promise<ProductVariantListItem[]> {
   const safeLimit = Number.isInteger(limit) && limit > 0 && limit <= MAX_LIMIT ? limit : DEFAULT_LIMIT;
   const variants = await (await getDatabase()).collection<ProductVariantDocument>("productVariants")

@@ -98,6 +98,60 @@
             <ul id="admin-store-list" class="admin-store-list"></ul>
         </section>
 
+        <section id="admin-product-panel" class="admin-store-panel is-hidden" aria-labelledby="admin-product-title">
+            <div class="admin-store-head">
+                <div>
+                    <p class="admin-eyebrow">Administrator tools</p>
+                    <h2 id="admin-product-title">Product and variant management</h2>
+                </div>
+                <button id="admin-product-retry" type="button" class="small-btn">Retry</button>
+            </div>
+            <p id="admin-product-state" class="admin-store-state" aria-live="polite"></p>
+            <form id="admin-product-form" class="admin-store-form" novalidate>
+                <input type="hidden" id="admin-product-edit-id">
+                <label for="admin-product-id">Canonical product ID (new products only)</label>
+                <input id="admin-product-id" maxlength="100" placeholder="prod-example" required>
+                <label for="admin-product-name">Name</label>
+                <input id="admin-product-name" maxlength="200" required>
+                <label for="admin-product-slug">Slug</label>
+                <input id="admin-product-slug" maxlength="100" required>
+                <label for="admin-product-category">Category</label>
+                <input id="admin-product-category" maxlength="100" required>
+                <label for="admin-product-aliases">Aliases (comma separated)</label>
+                <input id="admin-product-aliases" maxlength="1000">
+                <label for="admin-product-image">Image URL (optional)</label>
+                <input id="admin-product-image" maxlength="500">
+                <label for="admin-product-description">Description (optional)</label>
+                <textarea id="admin-product-description" maxlength="1000"></textarea>
+                <div class="admin-store-form-actions">
+                    <button id="admin-product-submit" type="submit">Create Product</button>
+                    <button id="admin-product-cancel" type="button" class="small-btn is-hidden">Cancel edit</button>
+                </div>
+            </form>
+            <div class="admin-store-list-head">
+                <h3>Products</h3>
+                <label for="admin-product-search" class="sr-only">Search products</label>
+                <input id="admin-product-search" type="search" placeholder="Search products" maxlength="100">
+            </div>
+            <ul id="admin-product-list" class="admin-store-list"></ul>
+            <section id="admin-variant-panel" class="is-hidden" aria-labelledby="admin-variant-title">
+                <h3 id="admin-variant-title">Variants</h3>
+                <p id="admin-variant-state" class="admin-store-state" aria-live="polite"></p>
+                <form id="admin-variant-form" class="admin-store-form" novalidate>
+                    <label for="admin-variant-id">Canonical variant ID</label>
+                    <input id="admin-variant-id" maxlength="500" placeholder="variant-..." required>
+                    <label for="admin-variant-variety">Variety</label>
+                    <input id="admin-variant-variety" maxlength="100" required>
+                    <label for="admin-variant-brand">Brand</label>
+                    <input id="admin-variant-brand" maxlength="100" required>
+                    <label for="admin-variant-package">Package (for example 500 g)</label>
+                    <input id="admin-variant-package" maxlength="100" required>
+                    <button id="admin-variant-submit" type="submit">Create Variant</button>
+                </form>
+                <ul id="admin-variant-list" class="admin-store-list"></ul>
+            </section>
+        </section>
+
         <nav>
             <a href="#">Home</a>
             <a href="#">Products</a>

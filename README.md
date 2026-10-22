@@ -86,7 +86,7 @@ Inventory is queried separately and is returned as `available`, `unavailable`, o
 
 Users now have a server-side `role` field (`user` or `admin`). Public registration always creates a `user`; administrator records must be provisioned through a controlled server-side/database process and are never created from request data. The reusable admin middleware reloads the user through the existing session and MongoDB lookup, returning `401` for unauthenticated requests and `403` for authenticated non-admin users. Missing roles are treated as `user`, while invalid roles fail closed.
 
-There is not yet a production management API. The price write endpoint remains development-only and requires the `PRICE_WRITE_TOKEN` environment variable and matching `x-development-price-token` header:
+The price write endpoint remains development-only and requires the `PRICE_WRITE_TOKEN` environment variable and matching `x-development-price-token` header:
 
 - `PUT /api/v1/stores/:storeId/prices/:variantId`
 
@@ -100,6 +100,19 @@ Administrator store management is available through the protected endpoints belo
 - `PATCH /api/v1/admin/stores/:storeId/status` with `{ "isActive": true|false }`
 
 Store deactivation updates `isActive` and retains the store document and all related historical data. Store updates accept only explicit editable fields; MongoDB operators, IDs, timestamps, and roles are not accepted from clients.
+
+Administrator product and variant management is available through the same protected session-cookie and persisted `admin` role:
+
+- `GET /api/v1/admin/products?page=1&limit=20&search=...&status=active|inactive|all`
+- `POST /api/v1/admin/products`
+- `PATCH /api/v1/admin/products/:productId`
+- `PATCH /api/v1/admin/products/:productId/status`
+- `GET /api/v1/admin/products/:productId/variants`
+- `POST /api/v1/admin/products/:productId/variants`
+- `PATCH /api/v1/admin/variants/:variantId`
+- `PATCH /api/v1/admin/variants/:variantId/status`
+
+New product and variant records require explicit canonical IDs; IDs are never derived from display labels. Variant identity fields are immutable after creation, and deactivation is a soft status change that preserves inventory, prices, price history, and list references.
 
 ## Project layout
 

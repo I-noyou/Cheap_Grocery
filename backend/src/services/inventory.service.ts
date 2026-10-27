@@ -82,6 +82,30 @@ export async function listInventoryForStore(storeId: string, skip: number, limit
   return records.map(serializeInventory);
 }
 
+export async function listInventoryForAdmin(
+  filters: { storeId?: string; variantId?: string; availability?: Availability },
+  skip: number,
+  limit: number
+): Promise<PublicInventory[]> {
+  const query: Partial<Pick<InventoryDocument, "storeId" | "variantId" | "availability">> = {};
+  if (filters.storeId) query.storeId = filters.storeId;
+  if (filters.variantId) query.variantId = filters.variantId;
+  if (filters.availability) query.availability = filters.availability;
+  const records = await (await getDatabase()).collection<InventoryDocument>("inventory")
+    .find(query, { projection: { _id: 0 } })
+    .sort({ storeId: 1, variantId: 1 })
+    .skip(skip)
+    .limit(limit)
+    .toArray();
+  return records.map(serializeInventory);
+}
+
+export async function getInventory(storeId: string, variantId: string): Promise<PublicInventory | null> {
+  const record = await (await getDatabase()).collection<InventoryDocument>("inventory")
+    .findOne({ storeId, variantId }, { projection: { _id: 0 } });
+  return record ? serializeInventory(record) : null;
+}
+
 export async function listAvailabilityForVariant(variantId: string, limit: number): Promise<Array<PublicInventory & { store: { id: string; name: string; address: PublicStore["address"] } }>> {
   const database = await getDatabase();
   const records = await database.collection<InventoryDocument>("inventory")
@@ -103,7 +127,7 @@ export async function listAvailabilityForVariant(variantId: string, limit: numbe
   });
 }
 
-export async function upsertInventory(input: InventoryInput): Promise<"inserted" | "updated" | "skipped"> {
+export async function upsertInventory(input: InventoryInput, retried = false): Promise<"inserted" | "updated" | "skipped"> {
   const references = await validateInventoryReferences(input.storeId, input.variantId);
   if (!references) throw new Error("Inventory references are invalid.");
 
@@ -119,20 +143,29 @@ export async function upsertInventory(input: InventoryInput): Promise<"inserted"
   }
 
   const now = new Date();
-  const result = await collection.updateOne(
-    { storeId: input.storeId, variantId: input.variantId },
-    {
-      $setOnInsert: { _id: new ObjectId(), createdAt: now },
-      $set: {
-        availability: input.availability,
-        stockQuantity: input.stockQuantity,
-        stockUnit: input.stockUnit,
-        lastVerifiedAt: input.lastVerifiedAt,
-        source: input.source,
-        updatedAt: now
-      }
-    },
-    { upsert: true }
-  );
-  return result.upsertedCount > 0 ? "inserted" : "updated";
+  try {
+    const result = await collection.updateOne(
+      { storeId: input.storeId, variantId: input.variantId },
+      {
+        $setOnInsert: { _id: new ObjectId(), createdAt: now },
+        $set: {
+          availability: input.availability,
+          stockQuantity: input.stockQuantity,
+          stockUnit: input.stockUnit,
+          lastVerifiedAt: input.lastVerifiedAt,
+          source: input.source,
+          updatedAt: now
+        }
+      },
+      { upsert: true }
+    );
+    return result.upsertedCount > 0 ? "inserted" : "updated";
+  } catch (error) {
+    // Two upserts may race on the unique store/variant index. Re-read once and
+    // turn the loser into a normal update without creating another identity.
+    if (!retried && typeof error === "object" && error !== null && (error as { code?: unknown }).code === 11000) {
+      return upsertInventory(input, true);
+    }
+    throw error;
+  }
 }

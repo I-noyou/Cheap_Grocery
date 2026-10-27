@@ -61,6 +61,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const adminVariantPackage = document.getElementById("admin-variant-package");
     const adminVariantSubmit = document.getElementById("admin-variant-submit");
     const adminVariantList = document.getElementById("admin-variant-list");
+    const adminInventoryPanel = document.getElementById("admin-inventory-panel");
+    const adminInventoryState = document.getElementById("admin-inventory-state");
+    const adminInventoryForm = document.getElementById("admin-inventory-form");
+    const adminInventoryStore = document.getElementById("admin-inventory-store");
+    const adminInventoryProduct = document.getElementById("admin-inventory-product");
+    const adminInventoryVariant = document.getElementById("admin-inventory-variant");
+    const adminInventoryAvailability = document.getElementById("admin-inventory-availability");
+    const adminInventoryQuantity = document.getElementById("admin-inventory-quantity");
+    const adminInventoryUnit = document.getElementById("admin-inventory-unit");
+    const adminInventoryPrice = document.getElementById("admin-inventory-price");
+    const adminInventoryHistory = document.getElementById("admin-inventory-history");
+    const adminInventoryRetry = document.getElementById("admin-inventory-retry");
+    const adminInventoryList = document.getElementById("admin-inventory-list");
 
     const API_BASE_URL = window.CHEAP_GROCERY_API_URL || "http://localhost:3000/api/v1";
 
@@ -480,6 +493,118 @@ document.addEventListener("DOMContentLoaded", () => {
         return "Unable to determine your location.";
     }
 
+    function setAdminInventoryState(message) {
+        if (adminInventoryState) adminInventoryState.textContent = message;
+    }
+
+    function addOption(select, value, label) {
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent = label;
+        select.appendChild(option);
+    }
+
+    async function loadAdminInventoryStores() {
+        if (!adminInventoryStore) return;
+        const data = await authRequest("/admin/stores?limit=50", { method: "GET" });
+        adminInventoryStore.replaceChildren();
+        addOption(adminInventoryStore, "", "Select a store");
+        (data.stores || []).filter((store) => store.isActive).forEach((store) => addOption(adminInventoryStore, store.id, store.name));
+    }
+
+    async function loadAdminInventoryVariants() {
+        if (!adminInventoryVariant || !adminInventoryProduct) return;
+        const productId = adminInventoryProduct.value.trim();
+        if (!productId) return;
+        setAdminInventoryState("Loading canonical variants...");
+        const data = await authRequest(`/admin/products/${encodeURIComponent(productId)}/variants`, { method: "GET" });
+        adminInventoryVariant.replaceChildren();
+        addOption(adminInventoryVariant, "", "Select a variant");
+        (data.variants || []).filter((variant) => variant.isActive).forEach((variant) => {
+            addOption(adminInventoryVariant, variant.variantId, `${variant.brand || "Unbranded"} ${variant.variety || ""} — ${variant.package.displayName}`.trim());
+        });
+        setAdminInventoryState(data.count ? "Select a variant to manage its inventory and price." : "No active variants found.");
+    }
+
+    function renderAdminInventory(records) {
+        if (!adminInventoryList) return;
+        adminInventoryList.replaceChildren();
+        records.forEach((entry) => {
+            const item = document.createElement("li");
+            item.className = "admin-store-item";
+            const text = document.createElement("p");
+            text.textContent = `${entry.variantId}: ${entry.availability}${entry.stockQuantity === null ? "" : ` (${entry.stockQuantity} ${entry.stockUnit})`}`;
+            item.appendChild(text);
+            adminInventoryList.appendChild(item);
+        });
+    }
+
+    async function refreshAdminInventory() {
+        if (!adminInventoryStore || !adminInventoryVariant) return;
+        const storeId = adminInventoryStore.value;
+        const variantId = adminInventoryVariant.value;
+        if (!storeId || !variantId) return;
+        setAdminInventoryState("Loading inventory and current price...");
+        const [inventory, prices] = await Promise.all([
+            authRequest(`/admin/inventory?storeId=${encodeURIComponent(storeId)}&variantId=${encodeURIComponent(variantId)}`, { method: "GET" }),
+            authRequest(`/admin/prices?storeId=${encodeURIComponent(storeId)}&variantId=${encodeURIComponent(variantId)}`, { method: "GET" })
+        ]);
+        renderAdminInventory(inventory.inventory || []);
+        const current = (inventory.inventory || [])[0];
+        const price = (prices.prices || [])[0];
+        if (current) {
+            if (adminInventoryAvailability) adminInventoryAvailability.value = current.availability;
+            if (adminInventoryQuantity) adminInventoryQuantity.value = current.stockQuantity === null ? "" : String(current.stockQuantity);
+            if (adminInventoryUnit) adminInventoryUnit.value = current.stockUnit || "";
+        }
+        if (price && adminInventoryPrice) adminInventoryPrice.value = String(price.amount);
+        setAdminInventoryState("Current inventory and price loaded.");
+    }
+
+    async function submitAdminInventory(event) {
+        event.preventDefault();
+        const storeId = adminInventoryStore && adminInventoryStore.value;
+        const variantId = adminInventoryVariant && adminInventoryVariant.value;
+        const amount = adminInventoryPrice ? Number(adminInventoryPrice.value) : NaN;
+        const rawQuantity = adminInventoryQuantity ? adminInventoryQuantity.value.trim() : "";
+        const stockQuantity = rawQuantity === "" ? null : Number(rawQuantity);
+        const stockUnit = rawQuantity === "" ? null : (adminInventoryUnit ? adminInventoryUnit.value.trim().toLowerCase() : "");
+        if (!storeId || !variantId || !Number.isFinite(amount) || amount <= 0 || !Number.isFinite(stockQuantity) && stockQuantity !== null || stockQuantity !== null && (!stockUnit || stockQuantity < 0)) {
+            setAdminInventoryState("Select a store and variant; enter a positive price and a valid optional stock quantity/unit.");
+            return;
+        }
+        setAdminInventoryState("Saving inventory and price...");
+        try {
+            await Promise.all([
+                authRequest(`/admin/stores/${encodeURIComponent(storeId)}/inventory/${encodeURIComponent(variantId)}`, { method: "PUT", body: JSON.stringify({ availability: adminInventoryAvailability.value, stockQuantity, stockUnit, lastVerifiedAt: new Date().toISOString(), source: "manual" }) }),
+                authRequest(`/admin/stores/${encodeURIComponent(storeId)}/prices/${encodeURIComponent(variantId)}`, { method: "PUT", body: JSON.stringify({ amount, currency: "INR", source: "manual" }) })
+            ]);
+            await refreshAdminInventory();
+            setAdminInventoryState("Inventory and price saved successfully.");
+        } catch (error) { setAdminInventoryState(error instanceof Error ? error.message : "Unable to save inventory and price."); }
+    }
+
+    async function showAdminPriceHistory() {
+        const storeId = adminInventoryStore && adminInventoryStore.value;
+        const variantId = adminInventoryVariant && adminInventoryVariant.value;
+        if (!storeId || !variantId || !adminInventoryList) return;
+        try {
+            const data = await authRequest(`/admin/stores/${encodeURIComponent(storeId)}/prices/${encodeURIComponent(variantId)}/history`, { method: "GET" });
+            adminInventoryList.replaceChildren();
+            (data.history || []).forEach((entry) => {
+                const item = document.createElement("li"); item.className = "admin-store-item";
+                item.textContent = `${entry.currency} ${entry.amount} observed ${new Date(entry.observedAt).toLocaleString()}`;
+                adminInventoryList.appendChild(item);
+            });
+            setAdminInventoryState(data.count ? "Price history loaded." : "No price history yet.");
+        } catch (error) { setAdminInventoryState(error instanceof Error ? error.message : "Unable to load price history."); }
+    }
+
+    async function initializeAdminInventory() {
+        try { await loadAdminInventoryStores(); setAdminInventoryState("Select a store and canonical product."); }
+        catch (error) { setAdminInventoryState(error instanceof Error ? error.message : "Unable to load stores."); }
+    }
+
     async function authRequest(path, options = {}) {
         try {
             const response = await fetch(`${API_BASE_URL}${path}`, {
@@ -528,6 +653,10 @@ document.addEventListener("DOMContentLoaded", () => {
             adminProductPanel.classList.toggle("is-hidden", !user || user.role !== "admin");
             if (user && user.role === "admin") void loadAdminProducts();
         }
+        if (adminInventoryPanel) {
+            adminInventoryPanel.classList.toggle("is-hidden", !user || user.role !== "admin");
+            if (user && user.role === "admin") void initializeAdminInventory();
+        }
         void initializeLocation();
     }
 
@@ -538,6 +667,7 @@ document.addEventListener("DOMContentLoaded", () => {
         currentLocation = null;
         if (adminStorePanel) adminStorePanel.classList.add("is-hidden");
         if (adminProductPanel) adminProductPanel.classList.add("is-hidden");
+        if (adminInventoryPanel) adminInventoryPanel.classList.add("is-hidden");
     }
 
     function applyAuthMode(mode) {
@@ -715,6 +845,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (adminProductRetry) adminProductRetry.addEventListener("click", () => void loadAdminProducts());
     if (adminProductSearch) adminProductSearch.addEventListener("search", () => void loadAdminProducts());
     if (adminVariantForm) adminVariantForm.addEventListener("submit", (event) => void submitAdminVariant(event));
+    if (adminInventoryForm) adminInventoryForm.addEventListener("submit", (event) => void submitAdminInventory(event));
+    if (adminInventoryProduct) adminInventoryProduct.addEventListener("change", () => void loadAdminInventoryVariants());
+    if (adminInventoryVariant) adminInventoryVariant.addEventListener("change", () => void refreshAdminInventory());
+    if (adminInventoryStore) adminInventoryStore.addEventListener("change", () => void refreshAdminInventory());
+    if (adminInventoryHistory) adminInventoryHistory.addEventListener("click", () => void showAdminPriceHistory());
+    if (adminInventoryRetry) adminInventoryRetry.addEventListener("click", () => void initializeAdminInventory());
     if (allowLocationBtn) allowLocationBtn.addEventListener("click", () => void saveCurrentLocation());
     if (locationNotNowBtn) {
         locationNotNowBtn.addEventListener("click", () => {

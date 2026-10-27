@@ -280,6 +280,23 @@ export async function listPricesForVariant(variantId: string, limit: number): Pr
   return records.map(serializePrice);
 }
 
+export async function listPricesForAdmin(
+  filters: { storeId?: string; variantId?: string },
+  skip: number,
+  limit: number
+): Promise<PublicPrice[]> {
+  const query: Partial<Pick<PriceDocument, "storeId" | "variantId">> = {};
+  if (filters.storeId) query.storeId = filters.storeId;
+  if (filters.variantId) query.variantId = filters.variantId;
+  const records = await (await getDatabase()).collection<PriceDocument>("prices")
+    .find(query, { projection: { _id: 1, storeId: 1, variantId: 1, amount: 1, currency: 1, priceUnit: 1, source: 1, observedAt: 1, updatedAt: 1 } })
+    .sort({ storeId: 1, variantId: 1 })
+    .skip(skip)
+    .limit(limit)
+    .toArray();
+  return records.map(serializePrice);
+}
+
 export async function listPriceHistory(
   storeId: string,
   variantId: string,
@@ -295,7 +312,7 @@ export async function listPriceHistory(
   return records.map(serializeHistory);
 }
 
-export async function upsertPrice(input: PriceInput): Promise<{ price: PublicPrice; changed: boolean }> {
+export async function upsertPrice(input: PriceInput, retried = false): Promise<{ price: PublicPrice; changed: boolean }> {
   const references = await validatePriceReferences(input.storeId, input.variantId);
   if (!references) throw new Error("Price references are invalid.");
 
@@ -325,21 +342,30 @@ export async function upsertPrice(input: PriceInput): Promise<{ price: PublicPri
   if (unchanged) return { price: serializePrice({ ...existing, storeId: input.storeId, variantId: input.variantId, priceUnit } as PriceDocument), changed: false };
 
   const now = new Date();
-  const result = await collection.updateOne(
-    { storeId: input.storeId, variantId: input.variantId },
-    {
-      $setOnInsert: { _id: new ObjectId(), createdAt: now },
-      $set: {
-        amount: input.amount,
-        currency: input.currency,
-        priceUnit,
-        source: input.source,
-        observedAt: input.observedAt,
-        updatedAt: now
-      }
-    },
-    { upsert: true }
-  );
+  let result;
+  try {
+    result = await collection.updateOne(
+      { storeId: input.storeId, variantId: input.variantId },
+      {
+        $setOnInsert: { _id: new ObjectId(), createdAt: now },
+        $set: {
+          amount: input.amount,
+          currency: input.currency,
+          priceUnit,
+          source: input.source,
+          observedAt: input.observedAt,
+          updatedAt: now
+        }
+      },
+      { upsert: true }
+    );
+  } catch (error) {
+    // Preserve the unique current-price identity when simultaneous first writes race.
+    if (!retried && typeof error === "object" && error !== null && (error as { code?: unknown }).code === 11000) {
+      return upsertPrice(input, true);
+    }
+    throw error;
+  }
 
   const current = await collection.findOne({ storeId: input.storeId, variantId: input.variantId });
   if (!current) throw new Error("Price was not available after update.");

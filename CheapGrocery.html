@@ -152,6 +152,22 @@
             </section>
         </section>
 
+        <section id="admin-inventory-panel" class="admin-store-panel is-hidden" aria-labelledby="admin-inventory-title">
+            <div class="admin-store-head"><div><p class="admin-eyebrow">Administrator tools</p><h2 id="admin-inventory-title">Inventory and price management</h2></div><button id="admin-inventory-retry" type="button" class="small-btn">Refresh</button></div>
+            <p id="admin-inventory-state" class="admin-store-state" aria-live="polite"></p>
+            <form id="admin-inventory-form" class="admin-store-form" novalidate>
+                <label for="admin-inventory-store">Store</label><select id="admin-inventory-store" required></select>
+                <label for="admin-inventory-product">Canonical product ID</label><input id="admin-inventory-product" maxlength="100" placeholder="prod-example">
+                <label for="admin-inventory-variant">Canonical variant</label><select id="admin-inventory-variant" required><option value="">Select a product first</option></select>
+                <label for="admin-inventory-availability">Availability</label><select id="admin-inventory-availability"><option value="available">Available</option><option value="unavailable">Unavailable</option><option value="unknown">Unknown</option></select>
+                <label for="admin-inventory-quantity">Stock quantity (optional)</label><input id="admin-inventory-quantity" type="number" min="0" step="any">
+                <label for="admin-inventory-unit">Stock unit (required with quantity)</label><input id="admin-inventory-unit" maxlength="20" placeholder="count, kg, pack…">
+                <label for="admin-inventory-price">Current price (INR)</label><input id="admin-inventory-price" type="number" min="0.01" step="0.01" required>
+                <div class="admin-store-form-actions"><button type="submit">Save inventory and price</button><button id="admin-inventory-history" type="button" class="small-btn">Show price history</button></div>
+            </form>
+            <ul id="admin-inventory-list" class="admin-store-list"></ul>
+        </section>
+
         <nav>
             <a href="#">Home</a>
             <a href="#">Products</a>

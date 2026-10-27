@@ -270,6 +270,7 @@ body {
 }
 
 .admin-store-form input,
+.admin-store-form select,
 .admin-store-list-head input {
     min-width: 0;
     padding: 9px;

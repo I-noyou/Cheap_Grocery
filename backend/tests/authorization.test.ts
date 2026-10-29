@@ -4,8 +4,9 @@ import test from "node:test";
 import type { Request, Response } from "express";
 import { ObjectId } from "mongodb";
 
-import { requireAdmin } from "../src/middleware/auth.js";
+import { requireAdmin, requireAuth } from "../src/middleware/auth.js";
 import { getPersistedUserRole, toSafeUser } from "../src/models/user.js";
+import { storeRouter } from "../src/routes/store.routes.js";
 
 function responseRecorder(): { response: Response; statusCode: () => number | undefined; body: () => unknown } {
   let code: number | undefined;
@@ -89,4 +90,31 @@ test("admin middleware allows an administrator", () => {
 
   assert.equal(called, true);
   assert.equal(recorded.statusCode(), undefined);
+});
+
+test("admin inventory and price routes apply session authentication before administrator authorization", () => {
+  type RouteLayer = {
+    route?: {
+      path: string;
+      methods: Record<string, boolean>;
+      stack: Array<{ handle: unknown }>;
+    };
+  };
+  const routes = ((storeRouter as unknown as { stack: RouteLayer[] }).stack)
+    .flatMap((layer) => layer.route ? [layer.route] : []);
+  const protectedRoutes = [
+    ["get", "/admin/inventory"],
+    ["put", "/admin/stores/:storeId/inventory/:variantId"],
+    ["patch", "/admin/stores/:storeId/inventory/:variantId"],
+    ["get", "/admin/prices"],
+    ["put", "/admin/stores/:storeId/prices/:variantId"],
+    ["get", "/admin/stores/:storeId/prices/:variantId/history"]
+  ] as const;
+
+  for (const [method, path] of protectedRoutes) {
+    const route = routes.find((candidate) => candidate.path === path && candidate.methods[method]);
+    assert.ok(route, `Expected ${method.toUpperCase()} ${path} to be registered.`);
+    assert.equal(route.stack[0]?.handle, requireAuth);
+    assert.equal(route.stack[1]?.handle, requireAdmin);
+  }
 });

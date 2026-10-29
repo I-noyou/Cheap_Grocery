@@ -9,6 +9,7 @@ const variantId = "variant-prod-rice~none~none~100~g";
 
 test("admin inventory parser rejects unknown fields, operators, and invalid quantities", () => {
   assert.equal(parseInventoryInput({ availability: "available", stockQuantity: -1, stockUnit: "count", source: "manual", lastVerifiedAt: null }, false), null);
+  assert.equal(parseInventoryInput({ availability: "pending", stockQuantity: null, stockUnit: null, source: "manual", lastVerifiedAt: null }, false), null);
   assert.equal(parseInventoryInput({ availability: "available", stockQuantity: 2, stockUnit: "count", source: "manual", lastVerifiedAt: null, $set: {} }, false), null);
   assert.equal(parseInventoryInput({ availability: "available", stockQuantity: 2, stockUnit: null, source: "manual", lastVerifiedAt: null }, false), null);
 });
@@ -18,6 +19,13 @@ test("admin inventory parser accepts explicit allowed fields only", () => {
   assert.ok(input);
   assert.equal(input.stockUnit, "packs");
   assert.equal(input.stockQuantity, 2);
+});
+
+test("admin inventory parser accepts an explicit no-stock record", () => {
+  const input = parseInventoryInput({ availability: "unknown", stockQuantity: null, stockUnit: null, source: "manual", lastVerifiedAt: null }, false);
+  assert.ok(input);
+  assert.equal(input.stockQuantity, null);
+  assert.equal(input.stockUnit, null);
 });
 
 test("admin price parser rejects non-finite, non-positive, and unknown fields", () => {

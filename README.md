@@ -101,6 +101,17 @@ Administrator store management is available through the protected endpoints belo
 
 Store deactivation updates `isActive` and retains the store document and all related historical data. Store updates accept only explicit editable fields; MongoDB operators, IDs, timestamps, and roles are not accepted from clients.
 
+Administrator inventory and price management uses the same protected session-cookie and persisted `admin` role:
+
+- `GET /api/v1/admin/inventory?storeId=...&variantId=...&availability=available|unavailable|unknown&page=1&limit=20`
+- `PUT /api/v1/admin/stores/:storeId/inventory/:variantId`
+- `PATCH /api/v1/admin/stores/:storeId/inventory/:variantId`
+- `GET /api/v1/admin/prices?storeId=...&variantId=...&page=1&limit=20`
+- `PUT /api/v1/admin/stores/:storeId/prices/:variantId`
+- `GET /api/v1/admin/stores/:storeId/prices/:variantId/history?page=1&limit=50`
+
+Inventory writes accept only availability, an optional non-negative quantity with its supported unit, verification time, and source. Price writes accept only a finite positive amount, ISO currency, source, and observation time. Both write paths validate active store and canonical-variant references, preserve their unique store/variant identities, and do not expose or use the development-only header tokens.
+
 Administrator product and variant management is available through the same protected session-cookie and persisted `admin` role:
 
 - `GET /api/v1/admin/products?page=1&limit=20&search=...&status=active|inactive|all`

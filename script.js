@@ -21,6 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const nearbyStores = document.getElementById("nearby-stores");
     const nearbyStoresStatus = document.getElementById("nearby-stores-status");
     const nearbyStoresList = document.getElementById("nearby-stores-list");
+    const adminDashboardPanel = document.getElementById("admin-dashboard-panel");
+    const adminDashboardState = document.getElementById("admin-dashboard-state");
+    const adminDashboardContent = document.getElementById("admin-dashboard-content");
+    const adminDashboardRetry = document.getElementById("admin-dashboard-retry");
     const adminStorePanel = document.getElementById("admin-store-panel");
     const adminStoreState = document.getElementById("admin-store-state");
     const adminStoreForm = document.getElementById("admin-store-form");
@@ -83,6 +87,67 @@ document.addEventListener("DOMContentLoaded", () => {
     let adminStoreBusy = false;
     let adminProductBusy = false;
     let selectedAdminProductId = null;
+
+    function setAdminDashboardState(message) {
+        if (adminDashboardState) adminDashboardState.textContent = message;
+    }
+
+    function dashboardText(value, fallback = "Not available") {
+        return typeof value === "string" && value.trim() ? value : fallback;
+    }
+
+    function dashboardCount(value) {
+        return typeof value === "number" && Number.isFinite(value) ? String(value) : "0";
+    }
+
+    function appendDashboardCard(parent, title, value, detail) {
+        const card = document.createElement("article");
+        card.className = "admin-dashboard-card";
+        const heading = document.createElement("h3"); heading.textContent = title;
+        const total = document.createElement("p"); total.className = "admin-dashboard-value"; total.textContent = dashboardCount(value);
+        const note = document.createElement("p"); note.className = "admin-dashboard-note"; note.textContent = detail;
+        card.append(heading, total, note); parent.appendChild(card);
+    }
+
+    function appendDashboardList(parent, title, records, describe) {
+        const section = document.createElement("section"); section.className = "admin-dashboard-section";
+        const heading = document.createElement("h3"); heading.textContent = title;
+        const list = document.createElement("ul"); list.className = "admin-store-list";
+        if (!Array.isArray(records) || !records.length) {
+            const empty = document.createElement("li"); empty.textContent = "Nothing to show."; list.appendChild(empty);
+        } else records.forEach((record) => { const item = document.createElement("li"); item.className = "admin-store-item"; item.textContent = describe(record || {}); list.appendChild(item); });
+        section.append(heading, list); parent.appendChild(section);
+    }
+
+    function renderAdminDashboard(data) {
+        if (!adminDashboardContent) return;
+        adminDashboardContent.replaceChildren();
+        const cards = document.createElement("div"); cards.className = "admin-dashboard-cards";
+        const stores = data && data.stores || {}; const products = data && data.products || {}; const variants = data && data.variants || {};
+        const inventory = data && data.inventory || {}; const prices = data && data.prices || {};
+        appendDashboardCard(cards, "Stores", stores.total, `${dashboardCount(stores.active)} active · ${dashboardCount(stores.inactive)} inactive`);
+        appendDashboardCard(cards, "Products", products.total, `${dashboardCount(products.active)} active · ${dashboardCount(products.inactive)} inactive`);
+        appendDashboardCard(cards, "Variants", variants.total, `${dashboardCount(variants.active)} active · ${dashboardCount(variants.inactive)} inactive`);
+        appendDashboardCard(cards, "Inventory", inventory.total, `${dashboardCount(inventory.available)} available · ${dashboardCount(inventory.unavailable)} unavailable · ${dashboardCount(inventory.unknown)} unknown · ${dashboardCount(inventory.stale)} stale`);
+        appendDashboardCard(cards, "Price coverage", prices.priced, `${dashboardCount(prices.missing)} missing of ${dashboardCount(prices.expected)} active store/variant pairs`);
+        adminDashboardContent.appendChild(cards);
+        appendDashboardList(adminDashboardContent, "Recently updated prices", data && data.recentPrices, (price) => `${dashboardText(price.store && price.store.name, "Unknown store")} — ${dashboardText(price.variantId)}: ${dashboardText(price.currency, "")} ${dashboardCount(price.amount)} (${price.updatedAt ? new Date(price.updatedAt).toLocaleString() : "date unavailable"})`);
+        appendDashboardList(adminDashboardContent, "Inventory needing attention", data && data.attentionInventory, (record) => `${dashboardText(record.variantId)} at ${dashboardText(record.storeId)} — ${dashboardText(record.availability)}${record.lastVerifiedAt ? `; verified ${new Date(record.lastVerifiedAt).toLocaleString()}` : "; never verified"}`);
+        const inactive = data && data.inactive || {};
+        appendDashboardList(adminDashboardContent, "Inactive records", [...(inactive.stores || []), ...(inactive.products || []), ...(inactive.variants || [])], (record) => dashboardText(record.name || record.productId || record.variantId));
+        const quick = document.createElement("nav"); quick.className = "admin-dashboard-links"; quick.setAttribute("aria-label", "Admin management panels");
+        [["Store management", "admin-store-panel"], ["Product & variants", "admin-product-panel"], ["Inventory & prices", "admin-inventory-panel"]].forEach(([label, target]) => { const link = document.createElement("a"); link.href = `#${target}`; link.textContent = label; quick.appendChild(link); });
+        adminDashboardContent.appendChild(quick);
+    }
+
+    async function loadAdminDashboard() {
+        if (!adminDashboardPanel) return;
+        setAdminDashboardState("Loading dashboard…");
+        if (adminDashboardRetry) adminDashboardRetry.disabled = true;
+        try { const data = await authRequest("/admin/dashboard", { method: "GET" }); renderAdminDashboard(data); setAdminDashboardState("Dashboard updated."); }
+        catch (error) { if (adminDashboardContent) adminDashboardContent.replaceChildren(); setAdminDashboardState(error instanceof Error ? `Unable to load dashboard: ${error.message}` : "Unable to load dashboard. Use Refresh to retry."); }
+        finally { if (adminDashboardRetry) adminDashboardRetry.disabled = false; }
+    }
 
     function setAdminStoreState(message) {
         if (adminStoreState) adminStoreState.innerText = message;
@@ -645,6 +710,10 @@ document.addEventListener("DOMContentLoaded", () => {
             welcomeText.innerText = `Welcome, ${safeName}!`;
         }
         currentUserId = user && user.id ? user.id : null;
+        if (adminDashboardPanel) {
+            adminDashboardPanel.classList.toggle("is-hidden", !user || user.role !== "admin");
+            if (user && user.role === "admin") void loadAdminDashboard();
+        }
         if (adminStorePanel) {
             adminStorePanel.classList.toggle("is-hidden", !user || user.role !== "admin");
             if (user && user.role === "admin") void loadAdminStores();
@@ -666,6 +735,7 @@ document.addEventListener("DOMContentLoaded", () => {
         currentUserId = null;
         currentLocation = null;
         if (adminStorePanel) adminStorePanel.classList.add("is-hidden");
+        if (adminDashboardPanel) adminDashboardPanel.classList.add("is-hidden");
         if (adminProductPanel) adminProductPanel.classList.add("is-hidden");
         if (adminInventoryPanel) adminInventoryPanel.classList.add("is-hidden");
     }
@@ -837,6 +907,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     if (authForm) authForm.addEventListener("submit", handleAuthSubmit);
     if (adminStoreForm) adminStoreForm.addEventListener("submit", (event) => void submitAdminStore(event));
+    if (adminDashboardRetry) adminDashboardRetry.addEventListener("click", () => void loadAdminDashboard());
     if (adminStoreCancel) adminStoreCancel.addEventListener("click", resetAdminStoreForm);
     if (adminStoreRetry) adminStoreRetry.addEventListener("click", () => void loadAdminStores());
     if (adminStoreSearch) adminStoreSearch.addEventListener("search", () => void loadAdminStores());

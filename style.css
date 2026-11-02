@@ -316,6 +316,16 @@ body {
     opacity: 0.68;
 }
 
+.admin-dashboard-content { display: grid; gap: 18px; }
+.admin-dashboard-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+.admin-dashboard-card, .admin-dashboard-section { border: 1px solid #e3eee5; border-radius: 8px; padding: 14px; background: #fbfefb; }
+.admin-dashboard-card h3, .admin-dashboard-section h3 { margin: 0; font-size: 1rem; color: #315b3d; }
+.admin-dashboard-value { margin: 8px 0 4px; font-size: 1.65rem; font-weight: 700; color: #1f8b4c; }
+.admin-dashboard-note { margin: 0; color: #59735f; font-size: .9rem; line-height: 1.35; }
+.admin-dashboard-section .admin-store-list { margin-bottom: 0; }
+.admin-dashboard-links { display: flex; flex-wrap: wrap; gap: 10px; background: transparent; padding: 0; text-align: left; }
+.admin-dashboard-links a { color: #1f6d3f; background: #ecf9f0; border: 1px solid #ccedd5; padding: 8px 10px; border-radius: 7px; }
+
 .sr-only {
     position: absolute;
     width: 1px;

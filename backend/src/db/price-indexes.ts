@@ -11,6 +11,10 @@ export async function ensurePriceIndexes(): Promise<void> {
       { variantId: 1, storeId: 1 },
       { name: "prices_variant_store_index" }
     ),
+    database.collection("prices").createIndex(
+      { updatedAt: -1 },
+      { name: "prices_updated_at_index" }
+    ),
     database.collection("priceHistory").createIndex(
       { storeId: 1, variantId: 1, observedAt: 1, recordedAt: 1 },
       { name: "price_history_store_variant_observed_index" }

@@ -9,6 +9,7 @@ export async function ensureProductVariantIndexes(): Promise<void> {
       unique: true,
       name: "product_variants_identity_unique"
     }),
-    collection.createIndex({ isActive: 1, productId: 1 }, { name: "product_variants_active_product_index" })
+    collection.createIndex({ isActive: 1, productId: 1 }, { name: "product_variants_active_product_index" }),
+    collection.createIndex({ isActive: 1, updatedAt: -1 }, { name: "product_variants_status_updated_index" })
   ]);
 }

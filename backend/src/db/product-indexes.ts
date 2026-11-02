@@ -8,6 +8,7 @@ export async function ensureProductIndexes(): Promise<void> {
     database.collection("products").createIndex({ slug: 1 }, { unique: true, name: "products_slug_unique" }),
     database.collection("products").createIndex({ isActive: 1, name: 1 }, { name: "products_active_name_index" }),
     database.collection("products").createIndex({ aliases: 1 }, { name: "products_aliases_index" }),
-    database.collection("products").createIndex({ category: 1 }, { name: "products_category_index" })
+    database.collection("products").createIndex({ category: 1 }, { name: "products_category_index" }),
+    database.collection("products").createIndex({ isActive: 1, updatedAt: -1 }, { name: "products_status_updated_index" })
   ]);
 }

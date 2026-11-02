@@ -14,9 +14,11 @@ import { getStorePrices, getVariantPriceHistory, putPrice } from "../controllers
 import { getAdminInventory, patchAdminInventory, putAdminInventory } from "../controllers/admin-inventory.controller.js";
 import { getAdminPriceHistory, getAdminPrices, putAdminPrice } from "../controllers/admin-price.controller.js";
 import { requireAdmin, requireAuth } from "../middleware/auth.js";
+import { getAdminDashboard } from "../controllers/dashboard.controller.js";
 
 export const storeRouter = Router();
 
+storeRouter.get("/admin/dashboard", requireAuth, requireAdmin, getAdminDashboard);
 storeRouter.get("/admin/stores", requireAuth, requireAdmin, getAdminStores);
 storeRouter.post("/admin/stores", requireAuth, requireAdmin, createAdminStore);
 storeRouter.patch("/admin/stores/:storeId", requireAuth, requireAdmin, patchAdminStore);

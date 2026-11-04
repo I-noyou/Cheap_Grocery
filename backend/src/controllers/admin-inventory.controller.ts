@@ -11,6 +11,7 @@ import {
   normalizeStockUnit,
   upsertInventory
 } from "../services/inventory.service.js";
+import { recordAdminAudit } from "../services/admin-audit.service.js";
 
 const WRITABLE_FIELDS = new Set(["availability", "stockQuantity", "stockUnit", "lastVerifiedAt", "source"]);
 
@@ -76,7 +77,7 @@ async function writeAdminInventory(request: Request, response: Response, partial
     return;
   }
   try {
-    const existing = partial ? await getInventory(storeId, variantId) : undefined;
+    const existing = await getInventory(storeId, variantId);
     if (partial && !existing) {
       response.status(404).json({ error: "Inventory record not found; use PUT to create it." });
       return;
@@ -90,6 +91,10 @@ async function writeAdminInventory(request: Request, response: Response, partial
     input.variantId = variantId;
     const outcome = await upsertInventory(input);
     const inventory = await getInventory(storeId, variantId);
+    if (outcome !== "skipped" && inventory) {
+      const fields = ["availability", "stockQuantity", "stockUnit", "lastVerifiedAt", "source"] as const;
+      await recordAdminAudit({ administratorId: request.authenticatedUser!.id, action: existing ? "update" : "create", entityType: "inventory", entityId: `${storeId}:${variantId}`, storeId, variantId, changes: { ...(existing ? { before: Object.fromEntries(fields.map((field) => [field, existing[field]])) } : {}), after: Object.fromEntries(fields.map((field) => [field, inventory[field]])) } });
+    }
     response.status(200).json({ inventory, outcome });
   } catch (error) {
     if (error instanceof Error && error.message === "Inventory references are invalid.") {

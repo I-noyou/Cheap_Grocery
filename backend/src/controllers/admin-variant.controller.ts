@@ -12,6 +12,7 @@ import {
   updateAdminVariantStatus
 } from "../services/product-variant.service.js";
 import { validProductId } from "./admin-product.controller.js";
+import { recordAdminAudit } from "../services/admin-audit.service.js";
 
 const VARIANT_ID_PATTERN = /^variant-[A-Za-z0-9%._~:-]{1,490}$/;
 
@@ -78,7 +79,9 @@ export async function createAdminVariant(request: Request, response: Response): 
       response.status(400).json({ error: "variantId must match the canonical product, brand, variety, and package identity." });
       return;
     }
-    response.status(201).json({ variant: await createAdminProductVariant(seed) });
+    const variant = await createAdminProductVariant(seed);
+    await recordAdminAudit({ administratorId: request.authenticatedUser!.id, action: "create", entityType: "variant", entityId: variant.variantId, productId: variant.productId, variantId: variant.variantId, changes: { after: { variety: variant.variety, brand: variant.brand, package: variant.package.displayName, isActive: variant.isActive } } });
+    response.status(201).json({ variant });
   } catch (error) {
     response.status(isDuplicateKey(error) ? 409 : 503).json({ error: isDuplicateKey(error) ? "Variant ID or identity already exists." : "Product variant service is unavailable." });
   }
@@ -101,11 +104,13 @@ export async function patchAdminVariant(request: Request, response: Response): P
       response.status(409).json({ error: "Changing package quantity or unit requires a new canonical variant." });
       return;
     }
+    if (existing.package.displayName === normalized!.displayName) { response.status(200).json({ variant: existing, outcome: "skipped" }); return; }
     const variant = await updateAdminVariant(request.params.variantId, { displayName: normalized!.displayName });
     if (!variant) {
       response.status(404).json({ error: "Variant not found." });
       return;
     }
+    await recordAdminAudit({ administratorId: request.authenticatedUser!.id, action: "update", entityType: "variant", entityId: variant.variantId, productId: variant.productId, variantId: variant.variantId, changes: { before: { package: existing.package.displayName }, after: { package: variant.package.displayName } } });
     response.status(200).json({ variant });
   } catch {
     response.status(503).json({ error: "Product variant service is unavailable." });
@@ -118,11 +123,15 @@ export async function patchAdminVariantStatus(request: Request, response: Respon
     return;
   }
   try {
+    const before = await getVariantForAdmin(request.params.variantId);
+    if (!before) { response.status(404).json({ error: "Variant not found." }); return; }
+    if (before.isActive === request.body.isActive) { response.status(200).json({ variant: before, outcome: "skipped" }); return; }
     const variant = await updateAdminVariantStatus(request.params.variantId, request.body.isActive);
     if (!variant) {
       response.status(404).json({ error: "Variant not found." });
       return;
     }
+    await recordAdminAudit({ administratorId: request.authenticatedUser!.id, action: variant.isActive ? "activate" : "deactivate", entityType: "variant", entityId: variant.variantId, productId: variant.productId, variantId: variant.variantId, changes: { before: { isActive: before.isActive }, after: { isActive: variant.isActive } } });
     response.status(200).json({ variant });
   } catch {
     response.status(503).json({ error: "Product variant service is unavailable." });

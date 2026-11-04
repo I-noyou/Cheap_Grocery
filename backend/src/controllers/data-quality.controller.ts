@@ -1,0 +1,5 @@
+import type { Request, Response } from "express";
+import { getDataQualityFindings } from "../services/data-quality.service.js";
+function number(value: unknown, fallback: number, max: number): number | null { if (value === undefined) return fallback; const parsed = typeof value === "string" ? Number(value) : NaN; return Number.isInteger(parsed) && parsed >= 1 && parsed <= max ? parsed : null; }
+export async function respondWithDataQuality(request: Request, response: Response, load = getDataQualityFindings): Promise<void> { const page = number(request.query.page, 1, 1_000_000); const limit = number(request.query.limit, 25, 100); if (page === null || limit === null) { response.status(400).json({ error: "Provide valid quality pagination." }); return; } try { response.status(200).json({ ...(await load((page - 1) * limit, limit)), page, limit }); } catch { response.status(503).json({ error: "Data-quality service is unavailable." }); } }
+export async function getDataQuality(request: Request, response: Response): Promise<void> { await respondWithDataQuality(request, response); }

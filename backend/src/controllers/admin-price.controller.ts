@@ -3,6 +3,7 @@ import type { Request, Response } from "express";
 import { getVariantById } from "../services/product-variant.service.js";
 import { getActiveStoreById } from "../services/store.service.js";
 import { PRICE_MAX_LIMIT, isPriceSource, isValidVariantId, listPriceHistory, listPricesForAdmin, upsertPrice } from "../services/price.service.js";
+import { recordAdminAudit } from "../services/admin-audit.service.js";
 
 const WRITABLE_FIELDS = new Set(["amount", "currency", "source", "observedAt"]);
 const ISO_CURRENCIES = new Set(Intl.supportedValuesOf("currency"));
@@ -45,6 +46,7 @@ export async function putAdminPrice(request: Request, response: Response): Promi
   if (!input) { response.status(400).json({ error: "Provide only a finite positive amount, ISO currency, source, and observedAt date." }); return; }
   try {
     const result = await upsertPrice(input);
+    if (result.changed) await recordAdminAudit({ administratorId: request.authenticatedUser!.id, action: "price_change", entityType: "price", entityId: `${storeId}:${variantId}`, storeId, variantId, changes: { after: { amount: result.price.amount, currency: result.price.currency, source: result.price.source, observedAt: result.price.observedAt } } });
     response.status(200).json(result);
   } catch (error) {
     if (error instanceof Error && error.message === "Price references are invalid.") { response.status(404).json({ error: "Store or variant not found." }); return; }

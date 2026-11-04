@@ -76,6 +76,11 @@ export async function getActiveStoreById(storeId: string): Promise<PublicStore |
   return store ? serializePublicStore(store) : null;
 }
 
+export async function getStoreForAdmin(storeId: string): Promise<AdminStore | null> {
+  const store = await (await getDatabase()).collection<StoreDocument>("stores").findOne({ _id: new ObjectId(storeId) });
+  return store ? serializeAdminStore(store) : null;
+}
+
 export async function createStore(input: StoreInput): Promise<PublicStore> {
   const database = await getDatabase();
   const now = new Date();

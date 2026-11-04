@@ -10,6 +10,7 @@ import {
   type ProductAdminInput,
   type ProductAdminUpdate
 } from "../services/product.service.js";
+import { recordAdminAudit } from "../services/admin-audit.service.js";
 
 const MAX_PAGE_SIZE = 50;
 const PRODUCT_ID_PATTERN = /^prod-[a-z0-9][a-z0-9-]{1,99}$/;
@@ -126,7 +127,9 @@ export async function createAdminProductRoute(request: Request, response: Respon
     return;
   }
   try {
-    response.status(201).json({ product: await createAdminProduct(input) });
+    const product = await createAdminProduct(input);
+    await recordAdminAudit({ administratorId: request.authenticatedUser!.id, action: "create", entityType: "product", entityId: product.productId, productId: product.productId, changes: { after: { name: product.name, slug: product.slug, category: product.category, isActive: product.isActive } } });
+    response.status(201).json({ product });
   } catch (error) {
     response.status(isDuplicateKey(error) ? 409 : 503).json({ error: isDuplicateKey(error) ? "Product ID or slug already exists." : "Product service is unavailable." });
   }
@@ -143,11 +146,15 @@ export async function patchAdminProduct(request: Request, response: Response): P
     return;
   }
   try {
+    const before = await getProductForAdmin(request.params.productId);
+    if (!before) { response.status(404).json({ error: "Product not found." }); return; }
+    if (Object.entries(update).every(([key, value]) => JSON.stringify(before[key as keyof typeof before]) === JSON.stringify(value))) { response.status(200).json({ product: before, outcome: "skipped" }); return; }
     const product = await updateAdminProduct(request.params.productId, update);
     if (!product) {
       response.status(404).json({ error: "Product not found." });
       return;
     }
+    await recordAdminAudit({ administratorId: request.authenticatedUser!.id, action: "update", entityType: "product", entityId: product.productId, productId: product.productId, changes: { before: Object.fromEntries(Object.keys(update).map((key) => [key, before[key as keyof typeof before]])), after: Object.fromEntries(Object.keys(update).map((key) => [key, product[key as keyof typeof product]])) } });
     response.status(200).json({ product });
   } catch (error) {
     response.status(isDuplicateKey(error) ? 409 : 503).json({ error: isDuplicateKey(error) ? "Product slug already exists." : "Product service is unavailable." });
@@ -160,11 +167,15 @@ export async function patchAdminProductStatus(request: Request, response: Respon
     return;
   }
   try {
+    const before = await getProductForAdmin(request.params.productId);
+    if (!before) { response.status(404).json({ error: "Product not found." }); return; }
+    if (before.isActive === request.body.isActive) { response.status(200).json({ product: before, outcome: "skipped" }); return; }
     const product = await updateAdminProductStatus(request.params.productId, request.body.isActive);
     if (!product) {
       response.status(404).json({ error: "Product not found." });
       return;
     }
+    await recordAdminAudit({ administratorId: request.authenticatedUser!.id, action: product.isActive ? "activate" : "deactivate", entityType: "product", entityId: product.productId, productId: product.productId, changes: { before: { isActive: before.isActive }, after: { isActive: product.isActive } } });
     response.status(200).json({ product });
   } catch {
     response.status(503).json({ error: "Product service is unavailable." });

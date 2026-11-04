@@ -5,6 +5,7 @@ import { getUserLocation } from "../services/location.service.js";
 import {
   createStore,
   findNearbyStores,
+  getStoreForAdmin,
   listActiveStores,
   listStoresForAdmin,
   updateStore,
@@ -12,6 +13,7 @@ import {
   type StoreInput,
   type StoreUpdate
 } from "../services/store.service.js";
+import { recordAdminAudit } from "../services/admin-audit.service.js";
 
 const DEFAULT_RADIUS_KM = 5;
 const MIN_RADIUS_KM = 0.5;
@@ -172,6 +174,7 @@ export async function createAdminStore(request: Request, response: Response): Pr
     }
     try {
       const store = await createStore(input);
+      await recordAdminAudit({ administratorId: request.authenticatedUser!.id, action: "create", entityType: "store", entityId: store.id, storeId: store.id, changes: { after: { name: store.name, address: store.address, latitude: store.location.latitude, longitude: store.location.longitude } } });
       response.status(201).json({ store });
     } catch {
       response.status(503).json({ error: "Store service is unavailable." });
@@ -189,11 +192,16 @@ export async function patchAdminStore(request: Request, response: Response): Pro
       return;
     }
     try {
+      const before = await getStoreForAdmin(request.params.storeId);
+      if (!before) { response.status(404).json({ error: "Store not found." }); return; }
+      const normalizedBefore: Record<string, unknown> = { name: before.name, address: before.address, latitude: before.location.latitude, longitude: before.location.longitude, phone: before.phone, website: before.website };
+      if (Object.entries(update).every(([key, value]) => JSON.stringify(normalizedBefore[key]) === JSON.stringify(value))) { response.status(200).json({ store: before, outcome: "skipped" }); return; }
       const store = await updateStore(request.params.storeId, update);
       if (!store) {
         response.status(404).json({ error: "Store not found." });
         return;
       }
+      await recordAdminAudit({ administratorId: request.authenticatedUser!.id, action: "update", entityType: "store", entityId: store.id, storeId: store.id, changes: { before: Object.fromEntries(Object.keys(update).map((key) => [key, normalizedBefore[key]])), after: Object.fromEntries(Object.keys(update).map((key) => [key, key === "latitude" ? store.location.latitude : key === "longitude" ? store.location.longitude : store[key as keyof typeof store]])) } });
       response.status(200).json({ store });
     } catch {
       response.status(503).json({ error: "Store service is unavailable." });
@@ -211,11 +219,15 @@ export async function patchAdminStoreStatus(request: Request, response: Response
       return;
     }
     try {
+      const before = await getStoreForAdmin(request.params.storeId);
+      if (!before) { response.status(404).json({ error: "Store not found." }); return; }
+      if (before.isActive === request.body.isActive) { response.status(200).json({ store: before, outcome: "skipped" }); return; }
       const store = await updateStoreStatus(request.params.storeId, request.body.isActive);
       if (!store) {
         response.status(404).json({ error: "Store not found." });
         return;
       }
+      await recordAdminAudit({ administratorId: request.authenticatedUser!.id, action: store.isActive ? "activate" : "deactivate", entityType: "store", entityId: store.id, storeId: store.id, changes: { before: { isActive: before.isActive }, after: { isActive: store.isActive } } });
       response.status(200).json({ store });
     } catch {
       response.status(503).json({ error: "Store service is unavailable." });

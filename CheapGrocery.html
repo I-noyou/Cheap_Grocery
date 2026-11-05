@@ -70,6 +70,24 @@
             <p id="admin-dashboard-state" class="admin-store-state" aria-live="polite">Loading dashboard…</p>
             <div id="admin-dashboard-content" class="admin-dashboard-content" aria-live="polite"></div>
         </section>
+        <section id="admin-audit-panel" class="admin-store-panel is-hidden" aria-labelledby="admin-audit-title">
+            <div class="admin-store-head"><div><p class="admin-eyebrow">Administrator oversight</p><h2 id="admin-audit-title">Audit trail</h2></div><button id="admin-audit-retry" type="button" class="small-btn">Retry</button></div>
+            <p id="admin-audit-state" class="admin-store-state" aria-live="polite">Loading audit trail…</p>
+            <form id="admin-audit-filters" class="admin-store-form admin-audit-filters" novalidate>
+                <label for="admin-audit-action">Action</label><select id="admin-audit-action"><option value="">All actions</option><option value="create">Create</option><option value="update">Update</option><option value="activate">Activate</option><option value="deactivate">Deactivate</option><option value="price_change">Price change</option></select>
+                <label for="admin-audit-entity">Entity type</label><select id="admin-audit-entity"><option value="">All entity types</option><option value="store">Store</option><option value="product">Product</option><option value="variant">Variant</option><option value="inventory">Inventory</option><option value="price">Price</option></select>
+                <label for="admin-audit-entity-id">Entity ID</label><input id="admin-audit-entity-id" maxlength="500">
+                <label for="admin-audit-from">From</label><input id="admin-audit-from" type="date"><label for="admin-audit-to">To</label><input id="admin-audit-to" type="date">
+                <div class="admin-store-form-actions"><button type="submit">Apply filters</button><button id="admin-audit-next" type="button" class="small-btn">Next page</button></div>
+            </form>
+            <ul id="admin-audit-list" class="admin-store-list"></ul>
+        </section>
+
+        <section id="admin-quality-panel" class="admin-store-panel is-hidden" aria-labelledby="admin-quality-title">
+            <div class="admin-store-head"><div><p class="admin-eyebrow">Read-only data checks</p><h2 id="admin-quality-title">Data quality</h2></div><button id="admin-quality-retry" type="button" class="small-btn">Retry</button></div>
+            <p id="admin-quality-state" class="admin-store-state" aria-live="polite">Loading data-quality checks…</p>
+            <ul id="admin-quality-list" class="admin-store-list"></ul>
+        </section>
 
         <section id="admin-store-panel" class="admin-store-panel is-hidden" aria-labelledby="admin-store-title">
             <div class="admin-store-head">

@@ -25,6 +25,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const adminDashboardState = document.getElementById("admin-dashboard-state");
     const adminDashboardContent = document.getElementById("admin-dashboard-content");
     const adminDashboardRetry = document.getElementById("admin-dashboard-retry");
+    const adminAuditPanel = document.getElementById("admin-audit-panel");
+    const adminAuditState = document.getElementById("admin-audit-state");
+    const adminAuditList = document.getElementById("admin-audit-list");
+    const adminAuditFilters = document.getElementById("admin-audit-filters");
+    const adminAuditAction = document.getElementById("admin-audit-action");
+    const adminAuditEntity = document.getElementById("admin-audit-entity");
+    const adminAuditEntityId = document.getElementById("admin-audit-entity-id");
+    const adminAuditFrom = document.getElementById("admin-audit-from");
+    const adminAuditTo = document.getElementById("admin-audit-to");
+    const adminAuditRetry = document.getElementById("admin-audit-retry");
+    const adminAuditNext = document.getElementById("admin-audit-next");
+    const adminQualityPanel = document.getElementById("admin-quality-panel");
+    const adminQualityState = document.getElementById("admin-quality-state");
+    const adminQualityList = document.getElementById("admin-quality-list");
+    const adminQualityRetry = document.getElementById("admin-quality-retry");
     const adminStorePanel = document.getElementById("admin-store-panel");
     const adminStoreState = document.getElementById("admin-store-state");
     const adminStoreForm = document.getElementById("admin-store-form");
@@ -87,6 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let adminStoreBusy = false;
     let adminProductBusy = false;
     let selectedAdminProductId = null;
+    let adminAuditPage = 1;
 
     function setAdminDashboardState(message) {
         if (adminDashboardState) adminDashboardState.textContent = message;
@@ -136,9 +152,25 @@ document.addEventListener("DOMContentLoaded", () => {
         const inactive = data && data.inactive || {};
         appendDashboardList(adminDashboardContent, "Inactive records", [...(inactive.stores || []), ...(inactive.products || []), ...(inactive.variants || [])], (record) => dashboardText(record.name || record.productId || record.variantId));
         const quick = document.createElement("nav"); quick.className = "admin-dashboard-links"; quick.setAttribute("aria-label", "Admin management panels");
-        [["Store management", "admin-store-panel"], ["Product & variants", "admin-product-panel"], ["Inventory & prices", "admin-inventory-panel"]].forEach(([label, target]) => { const link = document.createElement("a"); link.href = `#${target}`; link.textContent = label; quick.appendChild(link); });
+        [["Store management", "admin-store-panel"], ["Product & variants", "admin-product-panel"], ["Inventory & prices", "admin-inventory-panel"], ["Audit trail", "admin-audit-panel"], ["Data quality", "admin-quality-panel"]].forEach(([label, target]) => { const link = document.createElement("a"); link.href = `#${target}`; link.textContent = label; quick.appendChild(link); });
         adminDashboardContent.appendChild(quick);
     }
+
+    function renderAdminAudit(data) {
+        if (!adminAuditList) return; adminAuditList.replaceChildren();
+        const records = data && Array.isArray(data.records) ? data.records : [];
+        if (!records.length) { const item = document.createElement("li"); item.textContent = "No audit records match these filters."; adminAuditList.appendChild(item); return; }
+        records.forEach((record) => { const item = document.createElement("li"); item.className = "admin-store-item"; const heading = document.createElement("strong"); heading.textContent = `${dashboardText(record.action)} ${dashboardText(record.entityType)} · ${dashboardText(record.entityId)}`; const details = document.createElement("p"); details.textContent = `Administrator: ${dashboardText(record.administratorId)} · ${record.createdAt ? new Date(record.createdAt).toLocaleString() : "date unavailable"}`; item.append(heading, details); adminAuditList.appendChild(item); });
+        if (adminAuditNext) adminAuditNext.disabled = records.length < (data.limit || 25);
+    }
+    async function loadAdminAudit(reset) {
+        if (!adminAuditPanel) return; if (reset) adminAuditPage = 1; if (adminAuditState) adminAuditState.textContent = "Loading audit trail…";
+        const query = new URLSearchParams({ page: String(adminAuditPage), limit: "25" });
+        [["action", adminAuditAction && adminAuditAction.value], ["entityType", adminAuditEntity && adminAuditEntity.value], ["entityId", adminAuditEntityId && adminAuditEntityId.value.trim()], ["from", adminAuditFrom && adminAuditFrom.value], ["to", adminAuditTo && adminAuditTo.value]].forEach(([key, value]) => { if (value) query.set(key, value); });
+        try { const data = await authRequest(`/admin/audit?${query.toString()}`, { method: "GET" }); renderAdminAudit(data); if (adminAuditState) adminAuditState.textContent = `Showing page ${adminAuditPage}.`; } catch (error) { if (adminAuditList) adminAuditList.replaceChildren(); if (adminAuditState) adminAuditState.textContent = error instanceof Error ? `Unable to load audit trail: ${error.message}` : "Unable to load audit trail. Retry."; }
+    }
+    function renderDataQuality(data) { if (!adminQualityList) return; adminQualityList.replaceChildren(); const findings = data && Array.isArray(data.findings) ? data.findings : []; if (!findings.length) { const item = document.createElement("li"); item.textContent = "No data-quality findings."; adminQualityList.appendChild(item); return; } findings.forEach((finding) => { const item = document.createElement("li"); item.className = `admin-store-item ${finding.severity === "error" ? "inactive" : ""}`; item.textContent = `${dashboardText(finding.severity).toUpperCase()}: ${dashboardText(finding.message)}${finding.storeId ? ` Store ${finding.storeId}.` : ""}${finding.variantId ? ` Variant ${finding.variantId}.` : ""}`; adminQualityList.appendChild(item); }); }
+    async function loadDataQuality() { if (!adminQualityPanel) return; if (adminQualityState) adminQualityState.textContent = "Loading data-quality checks…"; try { const data = await authRequest("/admin/data-quality?limit=25", { method: "GET" }); renderDataQuality(data); if (adminQualityState) adminQualityState.textContent = `${data.total || 0} findings; warnings need review, errors indicate invalid data.`; } catch (error) { if (adminQualityList) adminQualityList.replaceChildren(); if (adminQualityState) adminQualityState.textContent = error instanceof Error ? `Unable to load data quality: ${error.message}` : "Unable to load data quality. Retry."; } }
 
     async function loadAdminDashboard() {
         if (!adminDashboardPanel) return;
@@ -726,6 +758,8 @@ document.addEventListener("DOMContentLoaded", () => {
             adminInventoryPanel.classList.toggle("is-hidden", !user || user.role !== "admin");
             if (user && user.role === "admin") void initializeAdminInventory();
         }
+        if (adminAuditPanel) { adminAuditPanel.classList.toggle("is-hidden", !user || user.role !== "admin"); if (user && user.role === "admin") void loadAdminAudit(true); }
+        if (adminQualityPanel) { adminQualityPanel.classList.toggle("is-hidden", !user || user.role !== "admin"); if (user && user.role === "admin") void loadDataQuality(); }
         void initializeLocation();
     }
 
@@ -738,6 +772,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (adminDashboardPanel) adminDashboardPanel.classList.add("is-hidden");
         if (adminProductPanel) adminProductPanel.classList.add("is-hidden");
         if (adminInventoryPanel) adminInventoryPanel.classList.add("is-hidden");
+        if (adminAuditPanel) adminAuditPanel.classList.add("is-hidden");
+        if (adminQualityPanel) adminQualityPanel.classList.add("is-hidden");
     }
 
     function applyAuthMode(mode) {
@@ -908,6 +944,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (authForm) authForm.addEventListener("submit", handleAuthSubmit);
     if (adminStoreForm) adminStoreForm.addEventListener("submit", (event) => void submitAdminStore(event));
     if (adminDashboardRetry) adminDashboardRetry.addEventListener("click", () => void loadAdminDashboard());
+    if (adminAuditRetry) adminAuditRetry.addEventListener("click", () => void loadAdminAudit(false));
+    if (adminAuditFilters) adminAuditFilters.addEventListener("submit", (event) => { event.preventDefault(); void loadAdminAudit(true); });
+    if (adminAuditNext) adminAuditNext.addEventListener("click", () => { adminAuditPage += 1; void loadAdminAudit(false); });
+    if (adminQualityRetry) adminQualityRetry.addEventListener("click", () => void loadDataQuality());
     if (adminStoreCancel) adminStoreCancel.addEventListener("click", resetAdminStoreForm);
     if (adminStoreRetry) adminStoreRetry.addEventListener("click", () => void loadAdminStores());
     if (adminStoreSearch) adminStoreSearch.addEventListener("search", () => void loadAdminStores());

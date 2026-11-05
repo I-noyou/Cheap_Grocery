@@ -104,6 +104,8 @@ test("admin inventory and price routes apply session authentication before admin
     .flatMap((layer) => layer.route ? [layer.route] : []);
   const protectedRoutes = [
     ["get", "/admin/dashboard"],
+    ["get", "/admin/audit"],
+    ["get", "/admin/data-quality"],
     ["get", "/admin/inventory"],
     ["put", "/admin/stores/:storeId/inventory/:variantId"],
     ["patch", "/admin/stores/:storeId/inventory/:variantId"],

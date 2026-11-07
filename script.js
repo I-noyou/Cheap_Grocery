@@ -543,37 +543,37 @@ document.addEventListener("DOMContentLoaded", () => {
             allowLocationBtn.disabled = requesting;
             allowLocationBtn.innerText = requesting ? "Requesting Location..." : "Allow Location";
         }
-
-        function setNearbyStoresStatus(message) {
-            if (nearbyStoresStatus) nearbyStoresStatus.innerText = message;
-        }
-
-        function renderNearbyStores(stores) {
-            if (!nearbyStoresList) return;
-            nearbyStoresList.innerHTML = "";
-            stores.forEach((store) => {
-                const item = document.createElement("li");
-                const distance = typeof store.distanceKm === "number" ? `${store.distanceKm.toFixed(2)} km away` : "";
-                item.innerText = distance ? `${store.name} - ${distance}` : store.name;
-                nearbyStoresList.appendChild(item);
-            });
-        }
-
-        async function loadNearbyStores() {
-            if (!nearbyStores || !nearbyStoresList) return;
-            nearbyStores.classList.remove("is-hidden");
-            setNearbyStoresStatus("Loading nearby stores...");
-            try {
-                const data = await authRequest("/stores/nearby?radiusKm=5&limit=20", { method: "GET" });
-                renderNearbyStores(data.stores || []);
-                setNearbyStoresStatus(data.count ? "" : "No grocery stores found nearby.");
-            } catch (error) {
-                setNearbyStoresStatus(error instanceof Error && error.message === "LOCATION_REQUIRED"
-                    ? "Allow location access to find nearby grocery stores."
-                    : "Unable to load nearby stores. Please try again.");
-            }
-        }
         if (locationNotNowBtn) locationNotNowBtn.disabled = requesting;
+    }
+
+    function setNearbyStoresStatus(message) {
+        if (nearbyStoresStatus) nearbyStoresStatus.innerText = message;
+    }
+
+    function renderNearbyStores(stores) {
+        if (!nearbyStoresList) return;
+        nearbyStoresList.replaceChildren();
+        stores.forEach((store) => {
+            const item = document.createElement("li");
+            const distance = typeof store.distanceKm === "number" ? `${store.distanceKm.toFixed(2)} km away` : "";
+            item.innerText = distance ? `${store.name} - ${distance}` : store.name;
+            nearbyStoresList.appendChild(item);
+        });
+    }
+
+    async function loadNearbyStores() {
+        if (!nearbyStores || !nearbyStoresList) return;
+        nearbyStores.classList.remove("is-hidden");
+        setNearbyStoresStatus("Loading nearby stores...");
+        try {
+            const data = await authRequest("/stores/nearby?radiusKm=5&limit=20", { method: "GET" });
+            renderNearbyStores(Array.isArray(data.stores) ? data.stores : []);
+            setNearbyStoresStatus(data.count ? "" : "No grocery stores found nearby.");
+        } catch (error) {
+            setNearbyStoresStatus(error instanceof Error && error.message === "LOCATION_REQUIRED"
+                ? "Allow location access to find nearby grocery stores."
+                : "Unable to load nearby stores. Please try again.");
+        }
     }
 
     function isValidLocation(latitude, longitude, accuracy) {
@@ -988,7 +988,6 @@ document.addEventListener("DOMContentLoaded", () => {
     setPasswordVisibility(false);
     initializeAuth();
 
-    const buttons = document.querySelectorAll(".add-cart");
     const modal = document.getElementById("cart-modal");
     const modalContent = modal ? modal.querySelector(".cart-modal-content") : null;
     const closeModalButton = document.getElementById("close-modal");
@@ -4529,7 +4528,12 @@ document.addEventListener("DOMContentLoaded", () => {
     function loadFromStorage() {
         try {
             const raw = localStorage.getItem('cheap_grocery_selected_products');
-            selectedProducts = raw ? JSON.parse(raw) : [];
+            const parsed = raw ? JSON.parse(raw) : [];
+            // Storage is user-controlled and may contain data from an older version.
+            // A valid JSON value that is not an array used to stop all later setup.
+            selectedProducts = Array.isArray(parsed)
+                ? parsed.filter((item) => item && typeof item === 'object')
+                : [];
         } catch (e) {
             selectedProducts = [];
         }
@@ -4747,9 +4751,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     addBulkSelectionCheckboxes();
 
-    buttons.forEach((btn) => {
-        btn.addEventListener("click", () => {
-            const productCard = btn.closest(".product");
+    document.addEventListener("click", (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) return;
+        const button = target.closest(".add-cart");
+        if (!button) return;
+
+        event.preventDefault();
+        const productCard = button.closest(".product");
             if (!productCard) {
                 return;
             }
@@ -4763,7 +4772,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             openModal();
-        });
     });
 
     if (addToListButton) {

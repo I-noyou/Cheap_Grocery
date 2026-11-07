@@ -319,8 +319,9 @@ document.addEventListener("DOMContentLoaded", () => {
         } finally {
             setAdminStoreBusy(false);
         }
+    }
 
-        function setAdminProductState(message) {
+    function setAdminProductState(message) {
             if (adminProductState) adminProductState.textContent = message;
         }
 
@@ -505,7 +506,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        async function submitAdminVariant(event) {
+    async function submitAdminVariant(event) {
             event.preventDefault();
             if (adminProductBusy || !selectedAdminProductId) return;
             const variantId = adminVariantId ? adminVariantId.value.trim() : "";
@@ -529,7 +530,6 @@ document.addEventListener("DOMContentLoaded", () => {
             } finally {
                 setAdminProductBusy(false);
             }
-        }
     }
 
     function locationDismissalKey() {
@@ -836,7 +836,10 @@ document.addEventListener("DOMContentLoaded", () => {
             setAuthMessage(authMode === "signup" ? "Account created successfully!" : "Login successful!", false);
             showApp(data.user);
         } catch (error) {
-            setAuthMessage(error instanceof Error ? error.message : "Unable to complete the request.");
+            const message = error instanceof Error ? error.message : "Unable to complete the request.";
+            setAuthMessage(authMode === "signup" && message === "An account with that email already exists."
+                ? "An account with that email already exists. Please log in instead."
+                : message);
         }
     }
 
@@ -896,6 +899,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     async function saveCurrentLocation() {
+        if (!currentUserId) {
+            setLocationUi("Please log in to save your location.", false);
+            return;
+        }
         if (!navigator.geolocation) {
             setLocationUi("Unable to determine your location.");
             return;

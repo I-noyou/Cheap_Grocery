@@ -1021,6 +1021,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const clearSelectionBtn = document.getElementById("clear-selection-btn");
     const compareBasketButton = document.getElementById("compare-basket-btn");
     const basketComparisonResults = document.getElementById("basket-comparison-results");
+    const savedListSelect = document.getElementById("saved-list-select");
+    const loadSavedListButton = document.getElementById("load-saved-list-btn");
 
     let currentProduct = null;
     let currentCatalogSelection = null;
@@ -1030,6 +1032,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let catalogProductsPromise = null;
     let basketComparisonController = null;
     let basketComparisonRequestId = 0;
+    let lastModalTrigger = null;
     const legacyVariantResolutionCache = new Map();
 
     const MILK_PACKAGE_SIZES = [
@@ -4546,6 +4549,41 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    function getSavedLists() {
+        try {
+            const raw = localStorage.getItem('cheap_grocery_saved_lists');
+            const parsed = raw ? JSON.parse(raw) : null;
+            if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return Object.create(null);
+            return Object.fromEntries(Object.entries(parsed)
+                .filter(([name, items]) => typeof name === 'string' && name && Array.isArray(items)));
+        } catch {
+            return Object.create(null);
+        }
+    }
+
+    function renderSavedLists() {
+        const savedLists = getSavedLists();
+        const names = Object.keys(savedLists).sort((first, second) => first.localeCompare(second));
+        if (cartPanel) cartPanel.classList.toggle('is-hidden', selectedProducts.length === 0 && names.length === 0);
+        if (!savedListSelect) return;
+
+        const previousValue = savedListSelect.value;
+        savedListSelect.replaceChildren();
+        const placeholder = document.createElement('option');
+        placeholder.value = '';
+        placeholder.textContent = names.length ? 'Select a saved list' : 'No saved lists';
+        savedListSelect.appendChild(placeholder);
+        names.forEach((name) => {
+            const option = document.createElement('option');
+            option.value = name;
+            option.textContent = name;
+            savedListSelect.appendChild(option);
+        });
+        savedListSelect.value = names.includes(previousValue) ? previousValue : '';
+        savedListSelect.disabled = names.length === 0;
+        if (loadSavedListButton) loadSavedListButton.disabled = !savedListSelect.value;
+    }
+
     function updateTotalAmount() {
         const items = document.querySelectorAll(".selected-item");
         let total = 0;
@@ -4644,27 +4682,27 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         updateTotalAmount();
         invalidateBasketComparison();
+        renderSavedLists();
     }
 
     renderSelectedProducts();
     
     // Search bar filtering
     const searchInput = document.getElementById("search");
-    if (searchInput) {
-        searchInput.addEventListener("input", (e) => {
-            const query = e.target.value.trim().toLowerCase();
-            const products = document.querySelectorAll(".product");
-            products.forEach((p) => {
-                const titleEl = p.querySelector("h3");
-                const title = titleEl ? titleEl.innerText.toLowerCase() : "";
-                if (title.indexOf(query) !== -1) {
-                    p.style.display = "inline-block";
-                } else {
-                    p.style.display = "none";
-                }
-            });
+    const searchButton = document.getElementById("search-btn");
+    function filterProducts() {
+        const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+        const products = document.querySelectorAll(".product");
+        products.forEach((product) => {
+            const titleEl = product.querySelector("h3");
+            const title = titleEl ? titleEl.innerText.toLowerCase() : "";
+            product.style.display = title.includes(query) ? "" : "none";
         });
     }
+    if (searchInput) {
+        searchInput.addEventListener("input", filterProducts);
+    }
+    if (searchButton) searchButton.addEventListener("click", filterProducts);
 
     function openModal() {
         if (!modal) {
@@ -4687,6 +4725,10 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.setAttribute("aria-hidden", "true");
         document.documentElement.classList.remove("modal-open");
         document.body.classList.remove("modal-open");
+        if (lastModalTrigger instanceof HTMLElement && document.contains(lastModalTrigger)) {
+            lastModalTrigger.focus({ preventScroll: true });
+        }
+        lastModalTrigger = null;
     }
 
     function extractUnitPrice(priceText) {
@@ -4765,6 +4807,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!button) return;
 
         event.preventDefault();
+        lastModalTrigger = button;
         const productCard = button.closest(".product");
             if (!productCard) {
                 return;
@@ -4848,6 +4891,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 closeModal();
             }
         });
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && modal.classList.contains("open")) {
+                closeModal();
+            }
+        });
     }
 
     if (selectedProductsList) {
@@ -4916,17 +4964,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (saveListBtn) {
         saveListBtn.addEventListener('click', () => {
-            const name = prompt('Enter a name for this list (optional):', 'My grocery list');
+            const enteredName = prompt('Enter a name for this list (optional):', 'My grocery list');
+            if (enteredName === null) return;
             try {
-                const savedRaw = localStorage.getItem('cheap_grocery_saved_lists');
-                const saved = savedRaw ? JSON.parse(savedRaw) : {};
-                const key = name ? name : ('List ' + new Date().toISOString());
-                saved[key] = selectedProducts;
+                const saved = getSavedLists();
+                const key = enteredName.trim().slice(0, 100) || `List ${new Date().toISOString()}`;
+                saved[key] = selectedProducts.map((item) => ({ ...item }));
                 localStorage.setItem('cheap_grocery_saved_lists', JSON.stringify(saved));
+                renderSavedLists();
+                if (savedListSelect) savedListSelect.value = key;
+                if (loadSavedListButton) loadSavedListButton.disabled = false;
                 alert('List saved locally under "' + key + '"');
             } catch (e) {
                 alert('Could not save list: ' + e.message);
             }
+        });
+    }
+
+    if (savedListSelect) {
+        savedListSelect.addEventListener('change', () => {
+            if (loadSavedListButton) loadSavedListButton.disabled = !savedListSelect.value;
+        });
+    }
+
+    if (loadSavedListButton) {
+        loadSavedListButton.addEventListener('click', () => {
+            const name = savedListSelect ? savedListSelect.value : '';
+            const saved = getSavedLists();
+            const list = name ? saved[name] : null;
+            if (!Array.isArray(list)) return;
+            selectedProducts = list.filter((item) => item && typeof item === 'object').map((item) => ({ ...item }));
+            saveToStorage();
+            renderSelectedProducts();
         });
     }
 

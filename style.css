@@ -623,6 +623,27 @@ footer {
     flex-wrap: wrap;
 }
 
+.saved-list-controls {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    margin-top: 12px;
+    align-items: center;
+}
+
+.saved-list-controls label {
+    grid-column: 1 / -1;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.saved-list-controls select {
+    min-width: 0;
+    padding: 7px 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
 .basket-comparison-panel {
     margin-top: 14px;
     padding-top: 12px;

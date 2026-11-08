@@ -534,6 +534,15 @@ button:hover {
     background: #27ae60;
 }
 
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+#search:focus-visible {
+    outline: 3px solid rgba(31, 139, 76, 0.45);
+    outline-offset: 2px;
+}
+
 footer {
     background: #2ecc71;
     color: white;

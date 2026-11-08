@@ -4922,17 +4922,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function downloadCSV() {
         if (selectedProducts.length === 0) return;
+        const escapeCsvCell = (value) => {
+            const text = String(value ?? '');
+            return /[",\r\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+        };
         const header = ['Product', 'Type', 'Brand', 'Size', 'Quantity', 'Unit Price', 'Total'];
-        const rows = selectedProducts.map(p => [
-            p.product || p.name || '',
-            p.type || p.variety || '',
-            p.brand || '',
-            p.size || p.weight || '',
-            p.quantity,
-            p.unitPrice.toFixed(2),
-            (p.unitPrice * p.quantity).toFixed(2)
-        ]);
-        const csvContent = [header].concat(rows).map(r => r.join(',')).join('\n');
+        const rows = selectedProducts.map((product) => {
+            const quantity = Number.isFinite(Number(product.quantity)) ? Number(product.quantity) : 1;
+            const unitPrice = Number.isFinite(Number(product.unitPrice)) ? Number(product.unitPrice) : 0;
+            return [
+                product.product || product.name || '',
+                product.type || product.variety || '',
+                product.brand || '',
+                product.size || product.weight || '',
+                quantity,
+                unitPrice.toFixed(2),
+                (unitPrice * quantity).toFixed(2)
+            ];
+        });
+        const csvContent = [header].concat(rows).map((row) => row.map(escapeCsvCell).join(',')).join('\n');
         const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
